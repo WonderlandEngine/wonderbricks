@@ -1,0 +1,21 @@
+{
+    "name": "wonderbricks",
+    "version": "1.0.0",
+    "description": "A project about putting elements together to build dioramas",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build": "esbuild js/bundle.js --minify --sourcemap --bundle --outfile=\"deploy/wonderbrick-bundle.js\""
+    },
+    "author": "Novelab",
+    "license": "ISC",
+    "devDependencies": {
+        "esbuild": "^0.17.6",
+        "typescript": "^4.9.5"
+    },
+    "dependencies": {
+        "@wonderlandengine/api": "^0.9.4",
+        "@wonderlandengine/components": "^0.9.1",
+        "gl-matrix": "^3.4.3"
+    }
+}
