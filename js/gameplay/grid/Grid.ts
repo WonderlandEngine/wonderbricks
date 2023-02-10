@@ -1,10 +1,9 @@
+import { vec3 } from "gl-matrix";
+import GridLayer from "./GridLayer";
+
 /**
  * Represent a logical grid
  */
-import {Object} from "@wonderlandengine/api";
-import GridLayer from "./GridLayer";
-
-
 export default class Grid
 {
     private _gridData: Array<GridLayer>;
@@ -27,5 +26,21 @@ export default class Grid
         }
 
         console.log(this._gridData);
+    }
+
+    /**
+     * Return position on the grid for the given indices
+     * @param x
+     * @param y
+     * @param z
+     */
+    public getCellPosition(x: number, y: number, z: number): vec3
+    {
+        let position = vec3.create();
+        position[1] = y; // y coordinate
+        position[0] = x - (this._gridSize / 2.0); // x coordinate
+        position[2] = z - (this._gridSize / 2.0); // z coordinate
+
+        return position;
     }
 }

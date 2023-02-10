@@ -32,8 +32,7 @@ export default class GridDebugComponent extends Component
                     });
 
                     tmp.resetTranslation();
-                    tmp.translate([x - offset, y, z - offset]);
-                    // tmp.scale([0.05, 0.05, 0.05]);
+                    tmp.translate(this._grid.getCellPosition(x, y, z));
                 }
     }
 }
