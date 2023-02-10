@@ -1,5 +1,6 @@
 import { vec3 } from "gl-matrix";
 import GridLayer from "./GridLayer";
+import {math} from "@wonderlandengine/api";
 
 /**
  * Represent a logical grid
@@ -42,5 +43,21 @@ export default class Grid
         position[2] = z - (this._gridSize / 2.0); // z coordinate
 
         return position;
+    }
+
+    /**
+     * Return cell indices from a world position
+     * @param x
+     * @param y
+     * @param z
+     */
+    public getCellIndices(x: number, y: number, z:number): vec3
+    {
+        let indices = vec3.create();
+        indices[0] = Math.floor(x);
+        indices[1] = Math.floor(y);
+        indices[2] = Math.floor(z);
+
+        return indices;
     }
 }
