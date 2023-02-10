@@ -1,6 +1,6 @@
 // <reference path="./../../deploy/wonderland.min.js"/>
 
-import {Component, Scene} from "@wonderlandengine/api";
+import {Component, Scene, XrSessionStartCallback} from "@wonderlandengine/api";
 
 export function registerComponent(component: Component): void
 {
@@ -12,4 +12,10 @@ export function getCurrentScene(): Scene
 {
     // @ts-ignore
     return WL.scene;
+}
+
+export function getXrSessionStart(): Array<XrSessionStartCallback>
+{
+    // @ts-ignore
+    return WL.onXRSessionStart;
 }

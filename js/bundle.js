@@ -18,7 +18,8 @@ require('@wonderlandengine/components/howler-audio-source');
 require('./button');
 const secondTestComponent = require('./TestComponent').SecondTestComponent;
 const gridDebugComponent = require('./gameplay/grid/GridDebugComponent').default;
+const interactionPointer = require('./gameplay/interactions/InteractionPointer').default;
 
 WL.registerComponent(secondTestComponent);
 WL.registerComponent(gridDebugComponent);
-
+WL.registerComponent(interactionPointer);

@@ -43,8 +43,6 @@ export class SecondTestComponent extends Component
             this.colorA
         ]
 
-        console.log(this.color);
-
         // Change material properties (key access)
         mat['diffuseColor'] = this.color;
         mat['ambientColor'] = [0,0,0,1];

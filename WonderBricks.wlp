@@ -935,6 +935,13 @@
                 {
                     "type": "vr-mode-active-switch",
                     "active": true
+                },
+                {
+                    "type": "interaction-pointer",
+                    "interaction-pointer": {
+                        "inputIndicator": "27",
+                        "inputObject": "130"
+                    }
                 }
             ],
             "translation": [
@@ -1902,7 +1909,8 @@
                     "type": "grid-debug-component",
                     "grid-debug-component": {
                         "debugVisualObject": "238"
-                    }
+                    },
+                    "active": false
                 }
             ]
         },
@@ -1933,7 +1941,8 @@
                         "material": "25"
                     }
                 }
-            ]
+            ],
+            "name": "Ref_GridDebuggerVisual"
         }
     },
     "meshes": {
@@ -2239,9 +2248,9 @@
                     1.0
                 ],
                 "specularColor": [
-                    9.999999974752427e-7,
-                    9.999899930335232e-7,
-                    9.999899930335232e-7,
+                    0.7838442,
+                    0.8509804,
+                    0.2169165,
                     1.0
                 ],
                 "ambientColor": [
