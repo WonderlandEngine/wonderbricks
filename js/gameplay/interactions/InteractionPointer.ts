@@ -1,5 +1,8 @@
-import {Component, InputComponent, InputType, Object, onXRSessionStart, Type} from "@wonderlandengine/api";
+import {Component, InputComponent, Object, Type} from "@wonderlandengine/api";
 import {getXrSessionStart} from "../../lib/WlApi";
+import XrGamepad from "../input/XrGamepad";
+import {XrInputButton} from "../input/XrInputButton";
+import XrButton from "../input/XrButton";
 
 export default class InteractionPointer extends Component
 {
@@ -17,7 +20,9 @@ export default class InteractionPointer extends Component
 
     private _inputComponent: InputComponent;
     private _gamepad : Gamepad;
-    private _handness: string;
+    private _hand: 'left' | 'right';
+
+    private _xrGamepad: XrGamepad;
 
     public override start()
     {
@@ -25,19 +30,16 @@ export default class InteractionPointer extends Component
             throw new Error("Input Object must be defined");
 
         this._inputComponent = this.inputObject.getComponent('input');
-        this._handness = this._inputComponent.handedness;
+        this._hand = this._inputComponent.handedness;
 
         getXrSessionStart().push(this.onXrSessionStart.bind(this));
     }
 
     public override update(delta: number)
     {
-        if(this._gamepad == null) return;
+        if(this._xrGamepad == null) return;
 
-        if(this._gamepad.buttons[4].pressed)
-        {
-            console.log("X button pressed")!
-        }
+        this._xrGamepad.update();
     }
 
     private onXrSessionStart(session: XRSession): void
@@ -50,10 +52,10 @@ export default class InteractionPointer extends Component
         {
             let current = session.inputSources[i];
             console.log(current);
-            if(current.handedness === this._handness)
+            if(current.handedness === this._hand)
             {
-                this._gamepad = current.gamepad;
-                console.log(this._gamepad);
+                this._xrGamepad = new XrGamepad(current.gamepad, this._hand);
+                console.log(this._xrGamepad);
             }
         }
 
@@ -62,11 +64,23 @@ export default class InteractionPointer extends Component
             for (let i = 0; i < event.added.length; ++i)
             {
                 let current = event.added[i];
-                console.log(current.handedness + " " + this._handness);
-                if(current.handedness === this._handness)
+                console.log(current.handedness + " " + this._hand);
+                if(current.handedness === this._hand)
                 {
-                    this._gamepad = current.gamepad;
-                    console.log(this._gamepad.mapping);
+                    this._xrGamepad = new XrGamepad(current.gamepad, this._hand);
+                    console.log(this._xrGamepad);
+
+                    this._xrGamepad.getButton(XrInputButton.BUTTON_A_X).addPressedListener((btn: XrButton) => {
+                        console.log("OUUUUUUUIIIIIIIIIIIIIIII");
+                    });
+
+                    this._xrGamepad.getButton(XrInputButton.BUTTON_A_X).addReleasedListener((btn: XrButton) => {
+                        console.log("NOOOOOOOOOOOONNNNNNNNNNN");
+                    });
+
+                    this._xrGamepad.getButton(XrInputButton.BUTTON_B_Y).addPressedListener((btn: XrButton) => {
+                        console.log("Y PRESSED");
+                    });
                 }
             }
         });
