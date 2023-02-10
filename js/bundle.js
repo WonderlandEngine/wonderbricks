@@ -16,6 +16,9 @@ require('@wonderlandengine/components/howler-audio-source');
 
 // Custom components
 require('./button');
-const comp = require('./TestComponent');
+const secondTestComponent = require('./TestComponent').SecondTestComponent;
+const gridDebugComponent = require('./gameplay/grid/GridDebugComponent').default;
 
-WL.registerComponent(comp.SecondTestComponent);
+WL.registerComponent(secondTestComponent);
+WL.registerComponent(gridDebugComponent);
+
