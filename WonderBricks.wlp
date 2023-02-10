@@ -75,8 +75,8 @@
             ],
             "translation": [
                 2.9802322387695313e-8,
-                0.4999999,
-                5.960464477539065e-8
+                -5.0,
+                0.0
             ],
             "rotation": [
                 0.0,
@@ -85,9 +85,9 @@
                 1.0
             ],
             "scale": [
-                0.5,
-                0.5,
-                0.5
+                0.2,
+                0.2,
+                0.2
             ]
         },
         "17": {
@@ -231,7 +231,9 @@
                 {
                     "type": "second",
                     "second": {
-                        "test": 5
+                        "test": 5,
+                        "colorR": 0.0,
+                        "colorB": 0.0
                     }
                 }
             ],
@@ -1892,6 +1894,46 @@
                 0.0099999,
                 0.0099999
             ]
+        },
+        "236": {
+            "name": "GridDebugger",
+            "components": [
+                {
+                    "type": "grid-debug-component",
+                    "grid-debug-component": {
+                        "debugVisualObject": "238"
+                    }
+                }
+            ]
+        },
+        "238": {
+            "link": {
+                "name": "Plane",
+                "file": "models\\frame.glb"
+            },
+            "translation": [
+                0.0,
+                -1.895075,
+                0.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "components": [
+                {
+                    "mesh": {
+                        "material": "25"
+                    }
+                }
+            ]
         }
     },
     "meshes": {
@@ -2028,6 +2070,12 @@
             "link": {
                 "name": "TeleportIndicator",
                 "file": "models\\teleport-indicator.glb"
+            }
+        },
+        "237": {
+            "link": {
+                "name": "Plane",
+                "file": "models\\frame.glb"
             }
         }
     },
@@ -2454,6 +2502,12 @@
                 "name": "TileFeedback.frag",
                 "file": "default"
             }
+        },
+        "233": {
+            "link": {
+                "name": "CustomShader.frag",
+                "file": "default"
+            }
         }
     },
     "settings": {
@@ -2646,6 +2700,18 @@
                 "name": "Phong Lightmapped",
                 "file": "default"
             }
+        },
+        "234": {
+            "link": {
+                "name": "CustomShader",
+                "file": "default"
+            }
+        },
+        "235": {
+            "link": {
+                "name": "CustomShader Textured",
+                "file": "default"
+            }
         }
     },
     "files": [
@@ -2654,7 +2720,8 @@
         "models/hand-left.glb",
         "models/hand-right.glb",
         "models/button.glb",
-        "models/teleport-indicator.glb"
+        "models/teleport-indicator.glb",
+        "models/frame.glb"
     ],
     "fonts": {
         "230": {
