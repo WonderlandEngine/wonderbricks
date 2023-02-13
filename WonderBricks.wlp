@@ -877,6 +877,21 @@
                 {
                     "type": "vr-mode-active-switch",
                     "active": true
+                },
+                {
+                    "type": "XR-Controller",
+                    "XR-Controller": {
+                        "inputObject": "129",
+                        "inputIndicator": "27"
+                    }
+                },
+                {
+                    "type": "pointer-ray",
+                    "pointer-ray": {
+                        "rayObject": "212",
+                        "pointerObject": "16",
+                        "rayVisualObject": "214"
+                    }
                 }
             ],
             "translation": [
@@ -1779,13 +1794,15 @@
                         "collisionGroup": 0,
                         "cursorRayObject": "213",
                         "cursorRayScalingAxis": "y"
-                    }
+                    },
+                    "active": false
                 },
                 {
                     "type": "input",
                     "input": {
                         "type": "ray right"
-                    }
+                    },
+                    "active": true
                 },
                 {
                     "type": "teleport",
@@ -1797,7 +1814,8 @@
                         "indicatorYOffset": 0.0099999,
                         "eyeLeft": "18",
                         "eyeRight": "19"
-                    }
+                    },
+                    "active": false
                 }
             ],
             "translation": [
