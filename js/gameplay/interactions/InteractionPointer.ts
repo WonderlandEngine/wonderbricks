@@ -1,8 +1,10 @@
 import {Component, InputComponent, Object, Type} from "@wonderlandengine/api";
 import {getXrSessionStart} from "../../lib/WlApi";
+
 import XrGamepad from "../input/XrGamepad";
 import {XrInputButton} from "../input/XrInputButton";
 import XrButton from "../input/XrButton";
+import {PointerMode} from "./PointerMode";
 
 export default class InteractionPointer extends Component
 {
@@ -16,16 +18,17 @@ export default class InteractionPointer extends Component
     // Properties definition
     private pointerMode: number;
     private inputObject: Object;
-    private inputIndicator: Object;
 
     private _inputComponent: InputComponent;
-    private _gamepad : Gamepad;
-    private _hand: 'left' | 'right';
+    private _hand: XRHandedness;
 
     private _xrGamepad: XrGamepad;
 
     public override start()
     {
+        // Set pointer mode to grid by default
+        this.pointerMode = PointerMode.Grid;
+
         if(this.inputObject === null)
             throw new Error("Input Object must be defined");
 
@@ -39,62 +42,65 @@ export default class InteractionPointer extends Component
     {
         if(this._xrGamepad == null) return;
 
-        this._xrGamepad.update();
+        this._xrGamepad.update(); // Update inputs
     }
 
+    /**
+     * Callback for XR Session start.
+     * Initialization of the input and listeners of session's events
+     * @param session
+     * @private
+     */
     private onXrSessionStart(session: XRSession): void
     {
-        session.addEventListener('selectstart', this.selectStartCallback.bind(this))
-        session.addEventListener('selectend', this.selectEndCallback.bind(this))
+        this.inputSourcesSetup(session);
+    }
 
+    /**
+     * Handle session start input sources and subscribe to Input Sources change
+     * event to handle controllers changes while session is running.
+     * @param session
+     * @private
+     */
+    private inputSourcesSetup(session: XRSession): void
+    {
         // Initial gamepad fetching
         for (let i = 0; i < session.inputSources.length; ++i)
         {
             let current = session.inputSources[i];
-            console.log(current);
+
             if(current.handedness === this._hand)
-            {
-                this._xrGamepad = new XrGamepad(current.gamepad, this._hand);
-                console.log(this._xrGamepad);
-            }
+                this.setupXrGamepad(current.gamepad);
         }
 
         // Change XR Input Source Event
-        session.addEventListener('inputsourceschange', (event: XRInputSourceChangeEvent) => {
-            for (let i = 0; i < event.added.length; ++i)
-            {
-                let current = event.added[i];
-                console.log(current.handedness + " " + this._hand);
-                if(current.handedness === this._hand)
-                {
-                    this._xrGamepad = new XrGamepad(current.gamepad, this._hand);
-                    console.log(this._xrGamepad);
-
-                    this._xrGamepad.getButton(XrInputButton.BUTTON_A_X).addPressedListener((btn: XrButton) => {
-                        console.log("OUUUUUUUIIIIIIIIIIIIIIII");
-                    });
-
-                    this._xrGamepad.getButton(XrInputButton.BUTTON_A_X).addReleasedListener((btn: XrButton) => {
-                        console.log("NOOOOOOOOOOOONNNNNNNNNNN");
-                    });
-
-                    this._xrGamepad.getButton(XrInputButton.BUTTON_B_Y).addPressedListener((btn: XrButton) => {
-                        console.log("Y PRESSED");
-                    });
-                }
-            }
-        });
+        session.addEventListener('inputsourceschange', this.onXrInputSourceChangeHandler.bind(this));
     }
 
-    private selectStartCallback(event: XRInputSourceEvent): void
+    /**
+     * Setup given gamepad and subscribe to all necessary events
+     * in order to map actions on controls (Xr Buttons)
+     * @param gamepad
+     * @private
+     */
+    private setupXrGamepad(gamepad: Gamepad): void
     {
-        console.log(event);
-        this.inputIndicator.active = false;
+        this._xrGamepad = new XrGamepad(gamepad, this._hand);
     }
 
-    private selectEndCallback(event: XRInputSourceEvent): void
+    /**
+     * Handler for 'inputsourceschange' event
+     * @param event
+     * @private
+     */
+    private onXrInputSourceChangeHandler(event: XRInputSourceChangeEvent): void
     {
-        console.log(event);
-        this.inputIndicator.active = true;
+        for (let i = 0; i < event.added.length; ++i)
+        {
+            let current = event.added[i];
+
+            if(current.handedness === this._hand)
+                this.setupXrGamepad(current.gamepad);
+        }
     }
 }

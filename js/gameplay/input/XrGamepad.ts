@@ -1,24 +1,44 @@
 import XrButton from "./XrButton";
 import {XrInputButton} from "./XrInputButton";
 
+/**
+ * This class represent a Xr-standard controller
+ * It handle the gamepad and update XrButton instances.
+ *
+ * Use example :
+ * ```
+     this._xrGamepad = new XrGamepad(current.gamepad, this._hand);
+     console.log(this._xrGamepad);
 
+     this._xrGamepad.getButton(XrInputButton.BUTTON_A_X).addPressedListener((btn: XrButton) => {
+        console.log("PRESSED X Button");
+    });
+
+     this._xrGamepad.getButton(XrInputButton.BUTTON_A_X).addReleasedListener((btn: XrButton) => {
+        console.log("Release X Button");
+    });
+
+     this._xrGamepad.getButton(XrInputButton.BUTTON_B_Y).addPressedListener((btn: XrButton) => {
+        console.log("Y PRESSED");
+    });
+ * ```
+ */
 export default class XrGamepad
 {
-    private _hand: 'left' | 'right';
+    private _hand: XRHandedness;
     private _gamepad: Gamepad;
-
 
     // @ts-ignore
     private _buttons: Map<XrInputButton, XrButton>;
 
-    public get hand(): 'left' | 'right' { return this._hand; }
+    public get hand(): XRHandedness { return this._hand; }
 
-    public constructor(gamepad: Gamepad, hand: 'left' | 'right')
+    public constructor(gamepad: Gamepad, hand: XRHandedness)
     {
         this.setup(gamepad, hand);
     }
 
-    public setup(gamepad: Gamepad, hand: 'left' | 'right'): void
+    public setup(gamepad: Gamepad, hand: XRHandedness): void
     {
         this._gamepad = gamepad;
         this._hand = hand;
@@ -66,7 +86,5 @@ export default class XrGamepad
 
             this._buttons.set(index, button);
         }
-
-        console.log(this._buttons);
     }
 }
