@@ -2,13 +2,11 @@ import {Component, InputComponent, Object, Type} from "@wonderlandengine/api";
 import {getXrSessionStart} from "../../lib/WlApi";
 
 import XrGamepad from "../input/XrGamepad";
-import {XrInputButton} from "../input/XrInputButton";
-import XrButton from "../input/XrButton";
 import {PointerMode} from "./PointerMode";
 
-export default class InteractionPointer extends Component
+export default class XrController extends Component
 {
-    static TypeName = 'interaction-pointer';
+    static TypeName = 'XR-Controller';
     static Properties = {
         pointerMode: {type: Type.Int, default: 0},
         inputObject: {type: Type.Object, default: null},

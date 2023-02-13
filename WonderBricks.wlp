@@ -37,11 +37,11 @@
                         "aabb": {
                             "extents": [
                                 4.0,
-                                0.05,
+                                0.0024999,
                                 4.0
                             ]
                         },
-                        "groups": 4
+                        "groups": 5
                     }
                 }
             ],
@@ -935,13 +935,6 @@
                 {
                     "type": "vr-mode-active-switch",
                     "active": true
-                },
-                {
-                    "type": "interaction-pointer",
-                    "interaction-pointer": {
-                        "inputIndicator": "27",
-                        "inputObject": "130"
-                    }
                 }
             ],
             "translation": [
@@ -1910,7 +1903,7 @@
                     "grid-debug-component": {
                         "debugVisualObject": "238"
                     },
-                    "active": false
+                    "active": true
                 }
             ]
         },
