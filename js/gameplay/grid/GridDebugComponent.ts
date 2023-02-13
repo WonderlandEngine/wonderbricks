@@ -15,7 +15,7 @@ export default class GridDebugComponent extends Component
 
     public override start()
     {
-        this._grid = new Grid(25, 5);
+        this._grid = new Grid(2, 10, 0.5);
         let mesh = this.debugVisualObject.getComponent('mesh');
         let scene = getCurrentScene();
 
@@ -33,6 +33,8 @@ export default class GridDebugComponent extends Component
 
                     tmp.resetTranslation();
                     tmp.translate(this._grid.getCellPosition(x, y, z));
+                    let cellSize = this._grid.cellSize;
+                    tmp.scale([cellSize, cellSize, cellSize]);
                 }
     }
 }
