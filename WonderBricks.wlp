@@ -89,9 +89,9 @@
                 }
             ],
             "translation": [
-                2.9802322387695313e-8,
-                0.25,
-                0.0
+                -0.0000141,
+                0.2500362,
+                -0.0000128
             ],
             "rotation": [
                 0.0,
@@ -1939,7 +1939,7 @@
                     "grid-debug-component": {
                         "debugVisualObject": "238"
                     },
-                    "active": true
+                    "active": false
                 }
             ]
         },
@@ -1950,8 +1950,8 @@
             },
             "translation": [
                 0.0,
-                -1.895075,
-                0.0
+                -1.8950749,
+                -1.4901161193847656e-8
             ],
             "rotation": [
                 0.0,
@@ -1979,6 +1979,42 @@
                 0.0,
                 -5.0,
                 0.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        "256": {
+            "name": "PrefabTest",
+            "components": [
+                {
+                    "type": "block-prefab",
+                    "block-prefab": {
+                        "finalMesh": "257",
+                        "previsMesh": "258",
+                        "finalMat": "22",
+                        "previsMat": "22"
+                    }
+                }
+            ]
+        },
+        "262": {
+            "name": "Collision",
+            "components": [
+                {
+                    "type": "collision",
+                    "collision": {
+                        "collider": "aabb"
+                    }
+                }
             ]
         }
     },
@@ -2122,6 +2158,24 @@
             "link": {
                 "name": "Plane",
                 "file": "models\\frame.glb"
+            }
+        },
+        "257": {
+            "link": {
+                "name": "Cube",
+                "file": "models\\Bricks\\Cube.glb"
+            }
+        },
+        "258": {
+            "link": {
+                "name": "WireframeCube",
+                "file": "models\\Bricks\\Wireframe_Cube.glb"
+            }
+        },
+        "259": {
+            "link": {
+                "name": "Chiottes",
+                "file": "models\\Bricks\\Chiottes.glb"
             }
         }
     },
@@ -2585,7 +2639,20 @@
             }
         }
     },
-    "animations": {},
+    "animations": {
+        "243": {
+            "link": {
+                "name": "WireframeCube",
+                "file": "models\\Bricks\\Wireframe_Cube.glb"
+            }
+        },
+        "248": {
+            "link": {
+                "name": "Cube",
+                "file": "models\\Bricks\\Cube.glb"
+            }
+        }
+    },
     "skins": {
         "133": {
             "link": {
@@ -2679,7 +2746,8 @@
             "link": {
                 "name": "MeshVisualizer",
                 "file": "default"
-            }
+            },
+            "depthTest": false
         },
         "37": {
             "link": {
@@ -2767,7 +2835,10 @@
         "models/hand-right.glb",
         "models/button.glb",
         "models/teleport-indicator.glb",
-        "models/frame.glb"
+        "models/frame.glb",
+        "models/Bricks/Wireframe_Cube.glb",
+        "models/Bricks/Cube.glb",
+        "models/Bricks/Chiottes.glb"
     ],
     "fonts": {
         "230": {

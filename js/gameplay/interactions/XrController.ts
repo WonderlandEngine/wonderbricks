@@ -1,4 +1,13 @@
-import {CollisionComponent, Component, InputComponent, MeshComponent, Object, Scene, Type} from "@wonderlandengine/api";
+import {
+    CollisionComponent,
+    Component,
+    InputComponent,
+    MeshComponent,
+    Object,
+    Scene,
+    SceneAppendResult,
+    Type
+} from "@wonderlandengine/api";
 import {getCurrentScene, getXrSessionStart} from "../../lib/WlApi";
 
 import XrGamepad from "../input/XrGamepad";
@@ -136,18 +145,19 @@ export default class XrController extends Component
 
         console.log(newObject);
 
-        // Set components
+        // Add Mesh and material
         newObject.addComponent('mesh', {
             mesh: this._otpMesh.mesh,
             material: this._otpMesh.material
         });
 
+        // Add collider
         let coll = newObject.addComponent('collision', {
             extents: this._otpCollision.extents,
             group: this._otpCollision.group
         }) as CollisionComponent;
+
         coll.active = true;
-        console.log(coll);
 
         // Set world position based on grid
         newObject.scale(this.objectToPlace.children[0].scalingWorld);
