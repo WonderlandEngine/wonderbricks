@@ -12,6 +12,8 @@ export default class Grid
     private _layerCount: number;
     private _cellSize: number;
 
+    private _gridOffset: number;
+
     public get gridSize() { return this._gridSize; }
     public get layerCount() { return this._layerCount; }
     public get cellSize() { return this._cellSize; }
@@ -21,6 +23,7 @@ export default class Grid
         this._gridSize = size;
         this._layerCount = layerCount;
         this._cellSize = cellSize;
+        this._gridOffset = (this._gridSize * this._cellSize) / 2.0;
 
         this._gridData = new Array<GridLayer>(this._layerCount);
 
@@ -42,8 +45,8 @@ export default class Grid
     {
         let position = vec3.create();
         position[1] = (y * this._cellSize); // y coordinate
-        position[0] = (x * this._cellSize) - ((this._gridSize * this._cellSize) / 2.0); // x coordinate
-        position[2] = (z * this._cellSize) - ((this._gridSize * this._cellSize) / 2.0); // z coordinate
+        position[0] = (x * this._cellSize) - this._gridOffset; // x coordinate
+        position[2] = (z * this._cellSize) - this._gridOffset; // z coordinate
 
         return position;
     }
@@ -57,9 +60,9 @@ export default class Grid
     public getCellIndices(x: number, y: number, z:number): vec3
     {
         let indices = vec3.create();
-        indices[0] = Math.round(x / this._cellSize);
+        indices[0] = Math.round((x + this._gridOffset) / this._cellSize);
         indices[1] = Math.round(y / this._cellSize);
-        indices[2] = Math.round(z / this._cellSize);
+        indices[2] = Math.round((z + this._gridOffset) / this._cellSize);
 
         return indices;
     }

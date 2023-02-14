@@ -1,6 +1,7 @@
 import {Component, MeshComponent, Object, Scene, Type} from "@wonderlandengine/api";
 import {quat, vec3, vec4} from "gl-matrix";
 import {getCurrentScene} from "../../lib/WlApi";
+import GridManager from "../grid/GridManager";
 
 
 export default class PointerRay extends Component
@@ -43,7 +44,10 @@ export default class PointerRay extends Component
         let hit = this._scene.rayCast(this._origin, this._direction, 1);
         if(hit.hitCount > 0)
         {
-            this.pointerObject.setTranslationWorld(hit.locations[0]);
+            let newLocation = GridManager.grid.getCellIndices(hit.locations[0][0], hit.locations[0][1], hit.locations[0][2]);
+            let newBr = GridManager.grid.getCellPosition(newLocation[0], newLocation[1], newLocation[2]);
+
+            this.pointerObject.setTranslationWorld(newBr);
         }
         else
         {
