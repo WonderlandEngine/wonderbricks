@@ -1,8 +1,10 @@
-import {Component, InputComponent, Object, Type} from "@wonderlandengine/api";
-import {getXrSessionStart} from "../../lib/WlApi";
+import {CollisionComponent, Component, InputComponent, MeshComponent, Object, Scene, Type} from "@wonderlandengine/api";
+import {getCurrentScene, getXrSessionStart} from "../../lib/WlApi";
 
 import XrGamepad from "../input/XrGamepad";
 import {PointerMode} from "./PointerMode";
+import PointerRay from "./PointerRay";
+import {XrInputButton} from "../input/XrInputButton";
 
 export default class XrController extends Component
 {
@@ -10,25 +12,44 @@ export default class XrController extends Component
     static Properties = {
         pointerMode: {type: Type.Int, default: 0},
         inputObject: {type: Type.Object, default: null},
-        inputIndicator: {type: Type.Object, default: null}
+        pointerRay: {type: Type.Object, default: null},
+        objectToPlace: {type: Type.Object, default: null}
     }
 
     // Properties definition
     private pointerMode: number;
     private inputObject: Object;
+    private pointerRay: Object;
+    private objectToPlace: Object;
+
+    // Object to place components
+    private _otpMesh: MeshComponent;
+    private _otpCollision: CollisionComponent;
 
     private _inputComponent: InputComponent;
     private _hand: XRHandedness;
 
+    private _scene: Scene;
     private _xrGamepad: XrGamepad;
+    private _pointerRayComponent: PointerRay;
 
     public override start()
     {
+        // Get the current scene
+        this._scene = getCurrentScene();
+
         // Set pointer mode to grid by default
         this.pointerMode = PointerMode.Grid;
-
         if(this.inputObject === null)
             throw new Error("Input Object must be defined");
+
+        this._pointerRayComponent = this.pointerRay.getComponent(PointerRay);
+        if(this.pointerRay === null)
+            throw new Error("Pointer Ray Object must be defined");
+
+        // Object to place components fetching
+        this._otpMesh = this.objectToPlace.children[0].getComponent('mesh');
+        this._otpCollision = this.objectToPlace.children[0].getComponent('collision');
 
         this._inputComponent = this.inputObject.getComponent('input');
         this._hand = this._inputComponent.handedness;
@@ -84,6 +105,9 @@ export default class XrController extends Component
     private setupXrGamepad(gamepad: Gamepad): void
     {
         this._xrGamepad = new XrGamepad(gamepad, this._hand);
+
+        // Setup events listeners
+        this._xrGamepad.getButton(XrInputButton.BUTTON_TRIGGER).addPressedListener(this.onPlacementTriggerPressed.bind(this));
     }
 
     /**
@@ -100,5 +124,33 @@ export default class XrController extends Component
             if(current.handedness === this._hand)
                 this.setupXrGamepad(current.gamepad);
         }
+    }
+
+    private onPlacementTriggerPressed(): void
+    {
+        let position = this._pointerRayComponent.currentCellWorldPos;
+        position[1] += 0.5;
+
+        // Create new object in the scene
+        let newObject = this._scene.addObject(null);
+
+        console.log(newObject);
+
+        // Set components
+        newObject.addComponent('mesh', {
+            mesh: this._otpMesh.mesh,
+            material: this._otpMesh.material
+        });
+
+        let coll = newObject.addComponent('collision', {
+            extents: this._otpCollision.extents,
+            group: this._otpCollision.group
+        }) as CollisionComponent;
+        coll.active = true;
+        console.log(coll);
+
+        // Set world position based on grid
+        newObject.scale(this.objectToPlace.children[0].scalingWorld);
+        newObject.setTranslationWorld(position);
     }
 }

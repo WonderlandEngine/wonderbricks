@@ -71,6 +71,21 @@
                         "mesh": "8",
                         "material": "22"
                     }
+                },
+                {
+                    "type": "collision",
+                    "collision": {
+                        "collider": "aabb",
+                        "aabb": {
+                            "extents": [
+                                0.25,
+                                0.25,
+                                0.25
+                            ]
+                        },
+                        "groups": 255
+                    },
+                    "active": false
                 }
             ],
             "translation": [
@@ -883,7 +898,9 @@
                     "type": "XR-Controller",
                     "XR-Controller": {
                         "inputObject": "129",
-                        "inputIndicator": "27"
+                        "inputIndicator": "27",
+                        "pointerRay": "129",
+                        "objectToPlace": "239"
                     }
                 },
                 {

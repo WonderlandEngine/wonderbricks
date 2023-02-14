@@ -37,6 +37,15 @@ export default class Grid
 
     /**
      * Return position on the grid for the given indices
+     * @param worldPos
+     */
+    public getCellPositionVec3(worldPos: vec3): vec3
+    {
+        return this.getCellPosition(worldPos[0], worldPos[1], worldPos[2]);
+    }
+
+    /**
+     * Return position on the grid for the given indices
      * @param x
      * @param y
      * @param z

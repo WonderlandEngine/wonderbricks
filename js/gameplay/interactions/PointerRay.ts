@@ -13,15 +13,26 @@ export default class PointerRay extends Component
         pointerObject: {type: Type.Object}
     }
 
+    // Properties class declaration
     private rayObject: Object;
     private rayVisualObject: Object;
     private pointerObject: Object;
 
+    // Scene elements
     private _scene: Scene;
     private _rayMesh: MeshComponent;
 
+    // Physic Raycast fields
     private _origin: Array<number>;
     private _direction: Array<number>;
+
+    // Current cell information
+    private _currentCellIndices: vec3;
+    private _currentCellWorldPos: vec3;
+
+    // Getters
+    public get currentCellIndices() { return this._currentCellIndices; }
+    public get currentCellWorldPos() { return this._currentCellWorldPos; }
 
     public override start()
     {
@@ -44,10 +55,10 @@ export default class PointerRay extends Component
         let hit = this._scene.rayCast(this._origin, this._direction, 1);
         if(hit.hitCount > 0)
         {
-            let newLocation = GridManager.grid.getCellIndices(hit.locations[0][0], hit.locations[0][1], hit.locations[0][2]);
-            let newBr = GridManager.grid.getCellPosition(newLocation[0], newLocation[1], newLocation[2]);
+            this._currentCellIndices = GridManager.grid.getCellIndices(hit.locations[0][0], hit.locations[0][1], hit.locations[0][2]);
+            this._currentCellWorldPos = GridManager.grid.getCellPositionVec3(this._currentCellIndices);
 
-            this.pointerObject.setTranslationWorld(newBr);
+            this.pointerObject.setTranslationWorld(this._currentCellWorldPos);
         }
         else
         {
