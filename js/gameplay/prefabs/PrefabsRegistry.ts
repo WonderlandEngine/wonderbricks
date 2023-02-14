@@ -28,9 +28,12 @@ class PrefabsRegistry
         return null;
     }
 
-    public removePrefab<T extends PrefabBase>(typeOrClass: T): void
+    public removePrefab<T extends PrefabBase>(typeOrClass: PrefabBaseConstructor<T>): void
     {
+        if(!this._prefabs.has(typeOrClass.TypeName))
+            return;
 
+        this._prefabs.delete(typeOrClass.TypeName);
     }
 }
 

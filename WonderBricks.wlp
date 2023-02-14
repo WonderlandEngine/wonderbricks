@@ -2005,17 +2005,6 @@
                     }
                 }
             ]
-        },
-        "262": {
-            "name": "Collision",
-            "components": [
-                {
-                    "type": "collision",
-                    "collision": {
-                        "collider": "aabb"
-                    }
-                }
-            ]
         }
     },
     "meshes": {
