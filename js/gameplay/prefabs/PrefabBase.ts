@@ -43,12 +43,12 @@ export default abstract class PrefabBase extends Component
     protected createPrevisObject(): void
     {
         // Create previs object
-        this._previsObject = this._scene.addObject(this.object);
+        this._previsObject = this._scene.addObject(null);
         this._previsObject.translateWorld([0, 0, 0]);
 
         // Create previs visual object
         let previsVisual = this._scene.addObject(this._previsObject);
-        previsVisual.translateObject([0, this._cellSize / 2.0, 0])
+        previsVisual.translateObject([0, this._cellSize / 2.0, 0]);
         previsVisual.addComponent('mesh', {
             mesh: this.previsMesh,
             material: this.previsMat
@@ -80,5 +80,13 @@ export default abstract class PrefabBase extends Component
         });
 
         return newBlock;
+    }
+
+    public updatePrevisPosition(position: vec3): void
+    {
+        this._previsObject.setTranslationWorld(position);
+        let pos: vec3 = vec3.create();
+        this._previsObject.getTranslationWorld(pos);
+        console.log(pos);
     }
 }

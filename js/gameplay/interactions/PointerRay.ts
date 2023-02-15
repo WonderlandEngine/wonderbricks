@@ -2,6 +2,9 @@ import {Component, MeshComponent, Object, Scene, Type} from "@wonderlandengine/a
 import {quat, vec3, vec4} from "gl-matrix";
 import {getCurrentScene} from "../../lib/WlApi";
 import GridManager from "../grid/GridManager";
+import PrefabBase from "../prefabs/PrefabBase";
+import PrefabsRegistry from "../prefabs/PrefabsRegistry";
+import BlockPrefab from "../prefabs/BlockPrefab";
 
 
 export default class PointerRay extends Component
@@ -9,14 +12,13 @@ export default class PointerRay extends Component
     static TypeName = 'pointer-ray';
     static Properties = {
         rayObject: {type: Type.Object},
-        rayVisualObject: {type: Type.Object},
-        pointerObject: {type: Type.Object}
+        rayVisualObject: {type: Type.Object}
     }
 
     // Properties class declaration
     private rayObject: Object;
     private rayVisualObject: Object;
-    private pointerObject: Object;
+    private pointerObject: PrefabBase;
 
     // Scene elements
     private _scene: Scene;
@@ -37,6 +39,7 @@ export default class PointerRay extends Component
     public override start()
     {
         this._scene = getCurrentScene();
+        setTimeout(() => { this.pointerObject = PrefabsRegistry.getPrefab(BlockPrefab); }, 1000);
 
         this._rayMesh = this.rayVisualObject.getComponent('mesh');
         this._rayMesh.material["diffuseColor"] = vec4.create();
@@ -58,11 +61,11 @@ export default class PointerRay extends Component
             this._currentCellIndices = GridManager.grid.getCellIndices(hit.locations[0][0], hit.locations[0][1], hit.locations[0][2]);
             this._currentCellWorldPos = GridManager.grid.getCellPositionVec3(this._currentCellIndices);
 
-            this.pointerObject.setTranslationWorld(this._currentCellWorldPos);
+            this.pointerObject.updatePrevisPosition(this._currentCellWorldPos);
         }
         else
         {
-            this.pointerObject.setTranslationWorld([0,-5,0]);
+            this.pointerObject.updatePrevisPosition([0,-5,0]);
         }
     }
 }

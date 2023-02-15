@@ -2,6 +2,7 @@
     "compilerOptions": {
         "module": "ES2015",
         "moduleResolution": "node",
+        "target": "ES2015",
         "lib": [
             "ES2017",
             "dom"

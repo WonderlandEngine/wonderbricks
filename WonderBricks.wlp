@@ -1993,7 +1993,7 @@
             ]
         },
         "256": {
-            "name": "PrefabTest",
+            "name": "PrefabBlock",
             "components": [
                 {
                     "type": "block-prefab",
@@ -2004,7 +2004,27 @@
                         "previsMat": "22"
                     }
                 }
+            ],
+            "parent": "260",
+            "translation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
             ]
+        },
+        "260": {
+            "name": "Prefabs"
         }
     },
     "meshes": {
