@@ -35,6 +35,7 @@ export default class PointerRay extends Component
     // Getters
     public get currentCellIndices() { return this._currentCellIndices; }
     public get currentCellWorldPos() { return this._currentCellWorldPos; }
+    public get currentPrefab() { return this.pointerObject; }
 
     public override start()
     {

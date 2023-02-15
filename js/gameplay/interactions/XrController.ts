@@ -21,8 +21,7 @@ export default class XrController extends Component
     static Properties = {
         pointerMode: {type: Type.Int, default: 0},
         inputObject: {type: Type.Object, default: null},
-        pointerRay: {type: Type.Object, default: null},
-        objectToPlace: {type: Type.Object, default: null}
+        pointerRay: {type: Type.Object, default: null}
     }
 
     // Properties definition
@@ -30,10 +29,6 @@ export default class XrController extends Component
     private inputObject: Object;
     private pointerRay: Object;
     private objectToPlace: Object;
-
-    // Object to place components
-    private _otpMesh: MeshComponent;
-    private _otpCollision: CollisionComponent;
 
     private _inputComponent: InputComponent;
     private _hand: XRHandedness;
@@ -55,10 +50,6 @@ export default class XrController extends Component
         this._pointerRayComponent = this.pointerRay.getComponent(PointerRay);
         if(this.pointerRay === null)
             throw new Error("Pointer Ray Object must be defined");
-
-        // Object to place components fetching
-        this._otpMesh = this.objectToPlace.children[0].getComponent('mesh');
-        this._otpCollision = this.objectToPlace.children[0].getComponent('collision');
 
         this._inputComponent = this.inputObject.getComponent('input');
         this._hand = this._inputComponent.handedness;
@@ -137,30 +128,10 @@ export default class XrController extends Component
 
     private onPlacementTriggerPressed(): void
     {
-        let position = this._pointerRayComponent.currentCellWorldPos;
-        position[1] += 0.5;
+        let currentPrefab = this._pointerRayComponent.currentPrefab;
+        if(currentPrefab == null) return;
 
-        // Create new object in the scene
-        let newObject = this._scene.addObject(null);
-
-        console.log(newObject);
-
-        // Add Mesh and material
-        newObject.addComponent('mesh', {
-            mesh: this._otpMesh.mesh,
-            material: this._otpMesh.material
-        });
-
-        // Add collider
-        let coll = newObject.addComponent('collision', {
-            extents: this._otpCollision.extents,
-            group: this._otpCollision.group
-        }) as CollisionComponent;
-
-        coll.active = true;
-
-        // Set world position based on grid
-        newObject.scale(this.objectToPlace.children[0].scalingWorld);
-        newObject.setTranslationWorld(position);
+        // Create current prefab instance
+        currentPrefab.createBlock(this._pointerRayComponent.currentCellWorldPos);
     }
 }

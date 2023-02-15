@@ -73,10 +73,11 @@ export default abstract class PrefabBase extends Component
             material: this.finalMat
         });
 
-        let extents = this._cellSize / 2.0;
+        let extents = (this._cellSize / 2.0) + 0.01;
         finalVisual.addComponent('collision', {
             collider: Collider.AxisAlignedBox,
-            extents: [extents, extents, extents]
+            extents: [extents, extents, extents],
+            group: 1,
         });
 
         return newBlock;
@@ -87,6 +88,5 @@ export default abstract class PrefabBase extends Component
         this._previsObject.setTranslationWorld(position);
         let pos: vec3 = vec3.create();
         this._previsObject.getTranslationWorld(pos);
-        console.log(pos);
     }
 }
