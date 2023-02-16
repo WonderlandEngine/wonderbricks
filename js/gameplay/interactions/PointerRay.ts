@@ -23,7 +23,6 @@ export default class PointerRay extends Component
     private rayObject: Object;
     private rayVisualObject: Object;
     private cursorHitVisualObject: Object;
-    private pointerObject: PrefabBase;
 
     // Scene elements
     private _scene: Scene;
@@ -33,19 +32,19 @@ export default class PointerRay extends Component
     private _origin: Array<number>;
     private _direction: Array<number>;
 
-    // Current cell information
-    private _currentCellIndices: vec3;
-    private _currentCellWorldPos: vec3;
+    // current information
+    private _isPointing: boolean;
+    private _currentHitPosition: vec3;
+    private _currentHitObject: Object;
 
     // Getters
-    public get currentCellIndices() { return this._currentCellIndices; }
-    public get currentCellWorldPos() { return this._currentCellWorldPos; }
-    public get currentPrefab() { return this.pointerObject; }
+    public get isPointing() { return this._isPointing; }
+    public get currentHitPosition() { return this._currentHitPosition; }
+    public get currentHitObject() { return this._currentHitObject; }
 
     public override start()
     {
         this._scene = getCurrentScene();
-        setTimeout(() => { this.pointerObject = PrefabsRegistry.getPrefab(BlockPrefab); }, 1000);
 
         this._rayMesh = this.rayVisualObject.getComponent('mesh');
         this._rayMesh.material["diffuseColor"] = vec4.create();
@@ -64,36 +63,31 @@ export default class PointerRay extends Component
         let hit = this._scene.rayCast(this._origin, this._direction, 1);
         if(hit.hitCount > 0)
         {
-            let hitLocation = hit.locations[0];
-            console.log("Tag of hit object: " + TagUtils.getTag(hit.objects[0]))
+            this._isPointing = true;
+            this._currentHitPosition = vec3.clone(hit.locations[0]);
+            this._currentHitObject = hit.objects[0];
 
-            this.processRayStretch(hitLocation);
-            this.cursorHitVisualObject.setTranslationWorld(hitLocation);
-
-            this._currentCellIndices = GridManager.grid.getCellIndices(hitLocation[0], hitLocation[1], hitLocation[2]);
-            this._currentCellWorldPos = GridManager.grid.getCellPositionVec3(this._currentCellIndices);
-
-            this.pointerObject.updatePrevisPosition(this._currentCellWorldPos);
+            this.processRayStretch();
+            this.cursorHitVisualObject.setTranslationWorld(this._currentHitPosition);
         }
         else
         {
+            this._isPointing = false;
             this.rayObject.resetScaling();
-
-            this.pointerObject.updatePrevisPosition([0,-5,0]);
             this.cursorHitVisualObject.setTranslationWorld([0,-5,0]);
         }
     }
 
-    private processRayStretch(hitPosition: vec3): void
+    private processRayStretch(): void
     {
         let rayPos: vec3 = vec3.create();
         rayPos[0] = this._origin[0];
         rayPos[1] = this._origin[1];
         rayPos[2] = this._origin[2];
 
-        let distance = vec3.distance(rayPos, hitPosition);
+        let distance = vec3.distance(rayPos, this._currentHitPosition);
 
         this.rayObject.resetScaling();
-        this.rayObject.scale([1, distance - 0.2, 1]);
+        this.rayObject.scale([1, distance - 0.05, 1]);
     }
 }

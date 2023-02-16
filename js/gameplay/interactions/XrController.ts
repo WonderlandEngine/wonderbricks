@@ -1,19 +1,20 @@
 import {
-    CollisionComponent,
     Component,
     InputComponent,
-    MeshComponent,
     Object,
     Scene,
-    SceneAppendResult,
     Type
 } from "@wonderlandengine/api";
+
 import {getCurrentScene, getXrSessionStart} from "../../lib/WlApi";
 
 import XrGamepad from "../input/XrGamepad";
 import {PointerMode} from "./PointerMode";
 import PointerRay from "./PointerRay";
 import {XrInputButton} from "../input/XrInputButton";
+
+import BuildController from "../buildSystem/BuildController";
+import GridManager from "../grid/GridManager";
 
 export default class XrController extends Component
 {
@@ -67,6 +68,19 @@ export default class XrController extends Component
         if(this._xrGamepad == null) return;
 
         this._xrGamepad.update(); // Update inputs
+
+        if(!this._pointerRayComponent.isPointing)
+        {
+            BuildController.setCurrentPrevizPosition([0, -5, 0]);
+            return;
+        }
+
+        // Update previz
+        let ptrPos = this._pointerRayComponent.currentHitPosition;
+        let indices = GridManager.grid.getCellIndices(ptrPos[0], ptrPos[1], ptrPos[2]);
+        let position = GridManager.grid.getCellPositionVec3(indices);
+
+        BuildController.setCurrentPrevizPosition(position);
     }
 
     /**
@@ -94,7 +108,10 @@ export default class XrController extends Component
             let current = session.inputSources[i];
 
             if(current.handedness === this._hand)
+            {
+                console.log("Setup hand : " + current.handedness + " For XR Controller " + this._hand);
                 this.setupXrGamepad(current.gamepad);
+            }
         }
 
         // Change XR Input Source Event
@@ -127,7 +144,10 @@ export default class XrController extends Component
             let current = event.added[i];
 
             if(current.handedness === this._hand)
+            {
+                console.log("Setup hand : " + current.handedness + " For XR Controller " + this._hand);
                 this.setupXrGamepad(current.gamepad);
+            }
         }
     }
 
@@ -137,10 +157,10 @@ export default class XrController extends Component
      */
     private onPlacementTriggerPressed(): void
     {
-        let currentPrefab = this._pointerRayComponent.currentPrefab;
-        if(currentPrefab == null) return;
+        let ptrPos = this._pointerRayComponent.currentHitPosition;
+        let indices = GridManager.grid.getCellIndices(ptrPos[0], ptrPos[1], ptrPos[2]);
+        let position = GridManager.grid.getCellPositionVec3(indices);
 
-        // Create current prefab instance
-        currentPrefab.createBlock(this._pointerRayComponent.currentCellWorldPos);
+        BuildController.instanciatePrefabAt(position);
     }
 }

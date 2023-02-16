@@ -728,7 +728,8 @@
                         "cursorObject": "127",
                         "collisionGroup": 0,
                         "cursorRayObject": "209",
-                        "cursorRayScalingAxis": "y"
+                        "cursorRayScalingAxis": "y",
+                        "handedness": "left"
                     }
                 },
                 {
@@ -1593,7 +1594,8 @@
                         "cursorObject": "215",
                         "collisionGroup": 0,
                         "cursorRayObject": "213",
-                        "cursorRayScalingAxis": "y"
+                        "cursorRayScalingAxis": "y",
+                        "handedness": "right"
                     },
                     "active": false
                 },
