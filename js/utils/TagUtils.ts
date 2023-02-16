@@ -21,8 +21,8 @@ export default class TagUtils
         return !(!object[this.tagKey] && object[this.tagKey] !== tag);
     }
 
-    public static getTag(object: Object): Tag
+    public static getTag(object: Object): Tag | undefined
     {
-        return object[this.tagKey] ? object[this.tagKey] : null;
+        return object[this.tagKey];
     }
 }

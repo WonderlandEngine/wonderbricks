@@ -5,6 +5,7 @@ import GridManager from "../grid/GridManager";
 import PrefabBase from "../prefabs/PrefabBase";
 import PrefabsRegistry from "../prefabs/PrefabsRegistry";
 import BlockPrefab from "../prefabs/BlockPrefab";
+import TagUtils from "../../utils/TagUtils";
 
 
 export default class PointerRay extends Component
@@ -64,6 +65,7 @@ export default class PointerRay extends Component
         if(hit.hitCount > 0)
         {
             let hitLocation = hit.locations[0];
+            console.log("Tag of hit object: " + TagUtils.getTag(hit.objects[0]))
 
             this.processRayStretch(hitLocation);
             this.cursorHitVisualObject.setTranslationWorld(hitLocation);

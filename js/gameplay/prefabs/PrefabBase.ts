@@ -3,6 +3,8 @@ import {Constructor, CustomParameter} from "@wonderlandengine/api/wonderland";
 import {vec3} from "gl-matrix";
 import {getCurrentScene} from "../../lib/WlApi";
 import GridManager from "../grid/GridManager";
+import TagComponent from "../../utils/TagComponent";
+import {Tag} from "../../utils/Tag";
 
 export type PrefabBaseConstructor<T extends PrefabBase> = Constructor<T> & {
     TypeName: string;
@@ -71,6 +73,10 @@ export default abstract class PrefabBase extends Component
         finalVisual.addComponent('mesh', {
             mesh: this.finalMesh,
             material: this.finalMat
+        });
+
+        finalVisual.addComponent(TagComponent, {
+            tag: Tag.ENVIRONMENT
         });
 
         let extents = (this._cellSize / 2.0) + 0.001;
