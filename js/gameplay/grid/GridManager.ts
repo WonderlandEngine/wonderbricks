@@ -13,4 +13,4 @@ class GridManager
     }
 }
 
-export default new GridManager(30, 10, 0.5);
+export default new GridManager(30, 10, 0.25);

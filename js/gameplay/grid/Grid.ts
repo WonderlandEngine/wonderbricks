@@ -70,7 +70,7 @@ export default class Grid
     {
         let indices = vec3.create();
         indices[0] = Math.round((x + this._gridOffset) / this._cellSize);
-        indices[1] = Math.round(y / this._cellSize);
+        indices[1] = Math.floor(y / this._cellSize);
         indices[2] = Math.round((z + this._gridOffset) / this._cellSize);
 
         return indices;

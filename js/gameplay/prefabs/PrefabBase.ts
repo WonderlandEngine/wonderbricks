@@ -73,7 +73,7 @@ export default abstract class PrefabBase extends Component
             material: this.finalMat
         });
 
-        let extents = (this._cellSize / 2.0) + 0.01;
+        let extents = (this._cellSize / 2.0) + 0.001;
         finalVisual.addComponent('collision', {
             collider: Collider.AxisAlignedBox,
             extents: [extents, extents, extents],
@@ -83,6 +83,10 @@ export default abstract class PrefabBase extends Component
         return newBlock;
     }
 
+    /**
+     * Update the world position of the previs visual
+     * @param position
+     */
     public updatePrevisPosition(position: vec3): void
     {
         this._previsObject.setTranslationWorld(position);

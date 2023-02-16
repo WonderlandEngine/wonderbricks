@@ -11,13 +11,17 @@ export default class PointerRay extends Component
 {
     static TypeName = 'pointer-ray';
     static Properties = {
+        rayOrigin: {type: Type.Object},
         rayObject: {type: Type.Object},
-        rayVisualObject: {type: Type.Object}
+        rayVisualObject: {type: Type.Object},
+        cursorHitVisualObject: {type: Type.Object},
     }
 
     // Properties class declaration
+    private rayOrigin: Object;
     private rayObject: Object;
     private rayVisualObject: Object;
+    private cursorHitVisualObject: Object;
     private pointerObject: PrefabBase;
 
     // Scene elements
@@ -53,20 +57,41 @@ export default class PointerRay extends Component
 
     public override update(delta: number)
     {
-        this.rayObject.getTranslationWorld(this._origin);
-        this.rayObject.getForward(this._direction);
+        this.rayOrigin.getTranslationWorld(this._origin);
+        this.rayOrigin.getForward(this._direction);
 
         let hit = this._scene.rayCast(this._origin, this._direction, 1);
         if(hit.hitCount > 0)
         {
-            this._currentCellIndices = GridManager.grid.getCellIndices(hit.locations[0][0], hit.locations[0][1], hit.locations[0][2]);
+            let hitLocation = hit.locations[0];
+
+            this.processRayStretch(hitLocation);
+            this.cursorHitVisualObject.setTranslationWorld(hitLocation);
+
+            this._currentCellIndices = GridManager.grid.getCellIndices(hitLocation[0], hitLocation[1], hitLocation[2]);
             this._currentCellWorldPos = GridManager.grid.getCellPositionVec3(this._currentCellIndices);
 
             this.pointerObject.updatePrevisPosition(this._currentCellWorldPos);
         }
         else
         {
+            this.rayObject.resetScaling();
+
             this.pointerObject.updatePrevisPosition([0,-5,0]);
+            this.cursorHitVisualObject.setTranslationWorld([0,-5,0]);
         }
+    }
+
+    private processRayStretch(hitPosition: vec3): void
+    {
+        let rayPos: vec3 = vec3.create();
+        rayPos[0] = this._origin[0];
+        rayPos[1] = this._origin[1];
+        rayPos[2] = this._origin[2];
+
+        let distance = vec3.distance(rayPos, hitPosition);
+
+        this.rayObject.resetScaling();
+        this.rayObject.scale([1, distance - 0.2, 1]);
     }
 }

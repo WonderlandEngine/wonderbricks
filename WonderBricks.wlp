@@ -234,70 +234,6 @@
                 1.0
             ]
         },
-        "24": {
-            "name": "Cone",
-            "components": [
-                {
-                    "type": "mesh",
-                    "mesh": {
-                        "mesh": "10",
-                        "material": "25"
-                    }
-                },
-                {
-                    "type": "second",
-                    "second": {
-                        "test": 5,
-                        "colorR": 0.0,
-                        "colorB": 0.0
-                    }
-                }
-            ],
-            "translation": [
-                1.5,
-                1.0,
-                -1.4901161193847656e-8
-            ],
-            "rotation": [
-                0.0,
-                0.0,
-                0.0,
-                1.0
-            ],
-            "scale": [
-                1.0,
-                1.0,
-                1.0
-            ]
-        },
-        "27": {
-            "name": "Sphere",
-            "components": [
-                {
-                    "type": "mesh",
-                    "mesh": {
-                        "mesh": "9",
-                        "material": "26"
-                    }
-                }
-            ],
-            "translation": [
-                0.4999999,
-                0.75,
-                -1.25
-            ],
-            "rotation": [
-                0.0,
-                0.0,
-                0.0,
-                1.0
-            ],
-            "scale": [
-                0.75,
-                0.75,
-                0.75
-            ]
-        },
         "53": {
             "link": {
                 "name": "root",
@@ -908,7 +844,9 @@
                     "pointer-ray": {
                         "rayObject": "212",
                         "pointerObject": "239",
-                        "rayVisualObject": "214"
+                        "rayVisualObject": "266",
+                        "rayOrigin": "212",
+                        "cursorHitVisualObject": "215"
                     }
                 }
             ],
@@ -1543,168 +1481,6 @@
             "parent": "167",
             "skin": "166"
         },
-        "194": {
-            "name": "Panel",
-            "components": [
-                {
-                    "type": "mesh",
-                    "mesh": {
-                        "mesh": "195",
-                        "material": "202"
-                    }
-                }
-            ],
-            "translation": [
-                -2.5,
-                1.2,
-                0.0
-            ],
-            "rotation": [
-                0.5002117,
-                0.0,
-                0.0,
-                0.8659031
-            ],
-            "scale": [
-                0.25,
-                0.1249998,
-                0.2499998
-            ]
-        },
-        "196": {
-            "link": {
-                "name": "Cube",
-                "file": "models\\button.glb"
-            },
-            "parent": "197",
-            "components": [
-                {
-                    "mesh": {
-                        "material": "26"
-                    }
-                }
-            ],
-            "name": "ButtonMesh",
-            "translation": [
-                -0.0000094,
-                0.3244419,
-                -0.0000676
-            ],
-            "rotation": [
-                6.000006465001206e-7,
-                0.0,
-                0.0,
-                1.0
-            ],
-            "scale": [
-                1.0,
-                0.9999989,
-                0.9999989
-            ]
-        },
-        "197": {
-            "name": "Button",
-            "parent": "194",
-            "components": [
-                {
-                    "type": "collision",
-                    "collision": {
-                        "collider": "box",
-                        "box": {
-                            "extents": [
-                                0.0974999,
-                                0.025,
-                                0.045
-                            ]
-                        },
-                        "groups": 251
-                    }
-                },
-                {
-                    "type": "cursor-target"
-                },
-                {
-                    "type": "button",
-                    "button": {
-                        "buttonMeshObject": "196",
-                        "hoverMaterial": "203"
-                    }
-                }
-            ],
-            "translation": [
-                0.0,
-                0.057682,
-                0.175434
-            ],
-            "rotation": [
-                -0.0,
-                0.0,
-                0.0,
-                1.0
-            ],
-            "scale": [
-                0.4,
-                0.4999999,
-                0.3
-            ]
-        },
-        "198": {
-            "name": "ButtonLabel",
-            "parent": "196",
-            "components": [
-                {
-                    "type": "text",
-                    "text": {
-                        "text": "Thanks!"
-                    }
-                }
-            ],
-            "translation": [
-                -0.0001563,
-                0.1084579,
-                0.0000046
-            ],
-            "rotation": [
-                -0.7068095,
-                0.0,
-                0.0,
-                0.7074038
-            ],
-            "scale": [
-                2.5,
-                3.7999999,
-                4.8000063
-            ]
-        },
-        "200": {
-            "name": "Title",
-            "parent": "194",
-            "components": [
-                {
-                    "type": "text",
-                    "text": {
-                        "text": "Welcome to\nWonderland",
-                        "material": "201"
-                    }
-                }
-            ],
-            "translation": [
-                -0.0000023,
-                0.1554993,
-                -0.303415
-            ],
-            "rotation": [
-                -0.7068591,
-                0.0,
-                0.0,
-                0.7073543
-            ],
-            "scale": [
-                1.5,
-                3.0000002,
-                1.5000001
-            ]
-        },
         "205": {
             "name": "TrackedSpace",
             "parent": "14",
@@ -1785,20 +1561,20 @@
                 }
             ],
             "translation": [
-                2.3841928964429826e-7,
+                2.384185791015625e-7,
                 0.0002447,
                 0.0
             ],
             "rotation": [
-                0.707,
+                0.7070001,
                 0.0,
                 0.0,
-                0.7072135
+                0.7072134
             ],
             "scale": [
                 0.0049998,
-                0.3500002,
-                0.0049999
+                0.3500001,
+                0.0049998
             ]
         },
         "212": {
@@ -1871,35 +1647,6 @@
                 1.0,
                 1.0,
                 1.0
-            ]
-        },
-        "214": {
-            "name": "CuresorRayMeshRight",
-            "parent": "213",
-            "components": [
-                {
-                    "type": "mesh",
-                    "mesh": {
-                        "mesh": "10",
-                        "material": "128"
-                    }
-                }
-            ],
-            "translation": [
-                2.384185791015625e-7,
-                0.0002447,
-                0.0
-            ],
-            "rotation": [
-                0.7072796,
-                0.0,
-                0.0,
-                0.7069339
-            ],
-            "scale": [
-                0.0049998,
-                0.3499999,
-                0.0049999
             ]
         },
         "215": {
@@ -1998,7 +1745,7 @@
                 {
                     "type": "block-prefab",
                     "block-prefab": {
-                        "finalMesh": "257",
+                        "finalMesh": "261",
                         "previsMesh": "258",
                         "finalMat": "22",
                         "previsMat": "22"
@@ -2025,6 +1772,36 @@
         },
         "260": {
             "name": "Prefabs"
+        },
+        "266": {
+            "link": {
+                "name": "Cone",
+                "file": "models\\LaserCone.glb"
+            },
+            "parent": "213",
+            "components": [
+                {
+                    "mesh": {
+                        "material": "128"
+                    }
+                }
+            ],
+            "rotation": [
+                -0.7071068,
+                0.0,
+                0.0,
+                0.7071067
+            ],
+            "scale": [
+                0.0099999,
+                0.6999593,
+                0.0099993
+            ],
+            "translation": [
+                0.0,
+                -0.0000151,
+                0.5
+            ]
         }
     },
     "meshes": {
@@ -2185,6 +1962,18 @@
             "link": {
                 "name": "Chiottes",
                 "file": "models\\Bricks\\Chiottes.glb"
+            }
+        },
+        "261": {
+            "link": {
+                "name": "Cube.001",
+                "file": "models\\Bricks\\Cube.glb"
+            }
+        },
+        "265": {
+            "link": {
+                "name": "Cone",
+                "file": "models\\LaserCone.glb"
             }
         }
     },
@@ -2847,7 +2636,8 @@
         "models/frame.glb",
         "models/Bricks/Wireframe_Cube.glb",
         "models/Bricks/Cube.glb",
-        "models/Bricks/Chiottes.glb"
+        "models/Bricks/Chiottes.glb",
+        "models/LaserCone.glb"
     ],
     "fonts": {
         "230": {
