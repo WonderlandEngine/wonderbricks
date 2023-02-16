@@ -44,16 +44,21 @@ export default class XrController extends Component
 
         // Set pointer mode to grid by default
         this.pointerMode = PointerMode.Grid;
+
+        // Input component fetching
         if(this.inputObject === null)
             throw new Error("Input Object must be defined");
-
-        this._pointerRayComponent = this.pointerRay.getComponent(PointerRay);
-        if(this.pointerRay === null)
-            throw new Error("Pointer Ray Object must be defined");
 
         this._inputComponent = this.inputObject.getComponent('input');
         this._hand = this._inputComponent.handedness;
 
+        // Pointer Ray component fetching
+        if(this.pointerRay === null)
+            throw new Error("Pointer Ray Object must be defined");
+
+        this._pointerRayComponent = this.pointerRay.getComponent(PointerRay);
+
+        // Subscribe to XR session start event to setup inputs and other listeners
         getXrSessionStart().push(this.onXrSessionStart.bind(this));
     }
 
@@ -126,6 +131,10 @@ export default class XrController extends Component
         }
     }
 
+    /**
+     * Handler trigger input
+     * @private
+     */
     private onPlacementTriggerPressed(): void
     {
         let currentPrefab = this._pointerRayComponent.currentPrefab;

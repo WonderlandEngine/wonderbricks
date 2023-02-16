@@ -1,5 +1,5 @@
 import PrefabBase, {PrefabBaseConstructor} from "./PrefabBase";
-
+import {Object} from "@wonderlandengine/api";
 
 class PrefabsRegistry
 {
