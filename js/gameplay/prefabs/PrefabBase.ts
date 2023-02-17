@@ -61,18 +61,22 @@ export default abstract class PrefabBase extends Component
      * Create the block in the scene at the specified world
      * position
      * @param position
+     * @param color
      */
-    public createBlock(position: vec3): Object
+    public createBlock(position: vec3, color: Float32Array): Object
     {
         let newBlock = this._scene.addObject(null);
         newBlock.translateWorld(position);
 
         // Create visual object
         let finalVisual = this._scene.addObject(newBlock);
-        finalVisual.translateObject([0, this._cellSize / 2.0, 0])
+        finalVisual.translateObject([0, this._cellSize / 2.0, 0]);
+
+        let mat = this.finalMat.clone();
+        mat['diffuseColor'] = color;
         finalVisual.addComponent('mesh', {
             mesh: this.finalMesh,
-            material: this.finalMat
+            material: mat
         });
 
         finalVisual.addComponent(TagComponent, {

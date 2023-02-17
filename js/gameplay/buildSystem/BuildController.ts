@@ -2,6 +2,7 @@ import PrefabBase from "../prefabs/PrefabBase";
 import {vec3} from "gl-matrix";
 import PrefabsRegistry from "../prefabs/PrefabsRegistry";
 import BlockPrefab from "../prefabs/BlockPrefab";
+import BlockSlopePrefab from "../prefabs/BlockSlopePrefab";
 
 
 class BuildController
@@ -21,7 +22,7 @@ class BuildController
     private async test(): Promise<void>
     {
         await new Promise(f => setTimeout(f, 1000));
-        this._currentPrefab = PrefabsRegistry.getPrefab(BlockPrefab);
+        this._currentPrefab = PrefabsRegistry.getPrefab(BlockSlopePrefab);
     }
 
     public setCurrentPrevizPosition(position: vec3): void
@@ -31,7 +32,7 @@ class BuildController
 
     public instanciatePrefabAt(position: vec3): void
     {
-        this._currentPrefab.createBlock(position);
+        this._currentPrefab.createBlock(position, this._currentColor);
     }
 
     public setPrefab(prefab: PrefabBase): void

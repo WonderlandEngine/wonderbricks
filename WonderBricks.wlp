@@ -1810,6 +1810,74 @@
                 -0.0000151,
                 0.5
             ]
+        },
+        "270": {
+            "link": {
+                "name": "StairWireframe",
+                "file": "models\\Bricks\\StairWireframe.glb"
+            }
+        },
+        "276": {
+            "name": "PrefabBlockSlope",
+            "parent": "260",
+            "translation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "components": [
+                {
+                    "type": "block-slope-prefab",
+                    "block-slope-prefab": {
+                        "finalMesh": "272",
+                        "previsMesh": "274",
+                        "finalMat": "22",
+                        "previsMat": "22"
+                    }
+                }
+            ]
+        },
+        "277": {
+            "name": "PrefabBlockStair",
+            "parent": "260",
+            "translation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "components": [
+                {
+                    "type": "block-stair-prefab",
+                    "block-stair-prefab": {
+                        "finalMesh": "267",
+                        "previsMesh": "269",
+                        "finalMat": "22",
+                        "previsMat": "22"
+                    }
+                }
+            ]
         }
     },
     "meshes": {
@@ -1982,6 +2050,30 @@
             "link": {
                 "name": "Cone",
                 "file": "models\\LaserCone.glb"
+            }
+        },
+        "267": {
+            "link": {
+                "name": "Stair",
+                "file": "models\\Bricks\\Stair.glb"
+            }
+        },
+        "269": {
+            "link": {
+                "name": "StairWireframe",
+                "file": "models\\Bricks\\StairWireframe.glb"
+            }
+        },
+        "272": {
+            "link": {
+                "name": "Slope",
+                "file": "models\\Bricks\\Slope.glb"
+            }
+        },
+        "274": {
+            "link": {
+                "name": "SlopeWireframe",
+                "file": "models\\Bricks\\SlopeWireframe.glb"
             }
         }
     },
@@ -2657,7 +2749,11 @@
         "models/Bricks/Wireframe_Cube.glb",
         "models/Bricks/Cube.glb",
         "models/Bricks/Chiottes.glb",
-        "models/LaserCone.glb"
+        "models/LaserCone.glb",
+        "models/Bricks/Stair.glb",
+        "models/Bricks/StairWireframe.glb",
+        "models/Bricks/Slope.glb",
+        "models/Bricks/SlopeWireframe.glb"
     ],
     "fonts": {
         "230": {
