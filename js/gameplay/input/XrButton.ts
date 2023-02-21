@@ -55,12 +55,12 @@ export default class XrButton
 
     public addPressedListener(listener: XrButtonListener): number
     {
-        return this._onPressedEvent.push(listener);
+        return this._onPressedEvent.push(listener) - 1;
     }
 
     public addReleasedListener(listener: XrButtonListener): number
     {
-        return this._onReleasedEvent.push(listener);
+        return this._onReleasedEvent.push(listener) - 1;
     }
 
     public removePressedListener(handler: number): void

@@ -178,7 +178,7 @@ export default class XrController extends Component
 
             case Tag.UI: {
                 const buttonComponent = this._pointerRayComponent.currentHitObject.getComponent(UiButton);
-                if(buttonComponent) { buttonComponent.click(); }
+                if(buttonComponent) { buttonComponent.interact(); }
                 break;
             }
         }

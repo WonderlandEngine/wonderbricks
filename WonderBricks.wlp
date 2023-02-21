@@ -1945,6 +1945,80 @@
                 1.0,
                 1.0
             ]
+        },
+        "289": {
+            "link": {
+                "name": "Plane",
+                "file": "models\\UI\\button.glb"
+            },
+            "translation": [
+                -1.8929299,
+                1.5,
+                0.0
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                0.0,
+                0.7071067
+            ],
+            "scale": [
+                1.0,
+                0.9999887,
+                0.9999887
+            ],
+            "name": "Button",
+            "components": [
+                null,
+                {
+                    "type": "collision",
+                    "collision": {
+                        "collider": "box",
+                        "box": {
+                            "extents": [
+                                0.25,
+                                0.0299999,
+                                0.1
+                            ]
+                        }
+                    }
+                },
+                {
+                    "type": "ui-button",
+                    "ui-button": {
+                        "textObject": "286"
+                    }
+                }
+            ],
+            "parent": null
+        },
+        "290": {
+            "name": "Text",
+            "parent": "289",
+            "components": [
+                {
+                    "type": "text",
+                    "text": {
+                        "text": "BUTTON"
+                    }
+                }
+            ],
+            "translation": [
+                0.0,
+                0.0251925,
+                7.152557373046875e-7
+            ],
+            "rotation": [
+                -0.7071068,
+                0.0,
+                0.0,
+                0.7071067
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
         }
     },
     "meshes": {
