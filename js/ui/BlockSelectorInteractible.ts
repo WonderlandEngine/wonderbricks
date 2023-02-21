@@ -2,7 +2,6 @@ import {Component, Object, Type} from "@wonderlandengine/api";
 import PrefabBase from "../gameplay/prefabs/PrefabBase";
 import UiButton from "./UiButton";
 import BuildController from "../gameplay/buildSystem/BuildController";
-import BlockPrefab from "../gameplay/prefabs/BlockPrefab";
 import PrefabsRegistry from "../gameplay/prefabs/PrefabsRegistry";
 
 

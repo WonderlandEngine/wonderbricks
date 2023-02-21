@@ -213,14 +213,19 @@
             ]
         },
         "23": {
-            "name": "Light.000",
+            "name": "MainLight",
             "components": [
                 {
                     "type": "light",
                     "light": {
                         "attenuation": 0.1,
                         "type": "sun",
-                        "shadows": true
+                        "shadows": true,
+                        "color": [
+                            1.0,
+                            0.9955709,
+                            0.8745098
+                        ]
                     }
                 }
             ],
