@@ -1,6 +1,4 @@
 // Engine component
-import {registerComponent} from "@wonderlandengine/api";
-
 require('@wonderlandengine/components/finger-cursor');
 require('@wonderlandengine/components/cursor-target');
 require('@wonderlandengine/components/cursor');
@@ -15,24 +13,31 @@ require('@wonderlandengine/components/howler-audio-listener');
 require('@wonderlandengine/components/howler-audio-source');
 
 // Custom components
-require('./button');
 const tagComponent = require('./utils/TagComponent').default;
 const secondTestComponent = require('./TestComponent').SecondTestComponent;
 const gridDebugComponent = require('./gameplay/grid/GridDebugComponent').default;
 
+WL.registerComponent(tagComponent);
+WL.registerComponent(secondTestComponent);
+WL.registerComponent(gridDebugComponent);
+
+// Inputs components
 const xrController = require('./gameplay/interactions/XrController').default;
 const pointerRay = require('./gameplay/interactions/PointerRay').default;
 
+WL.registerComponent(xrController);
+WL.registerComponent(pointerRay);
+
+// Prefabs components
 const blockPrefab = require('./gameplay/prefabs/BlockPrefab').default;
 const blockStairPrefab = require('./gameplay/prefabs/BlockStairPrefab').default;
 const blockSlopePrefab = require('./gameplay/prefabs/BlockSlopePrefab').default;
 
-WL.registerComponent(tagComponent);
-WL.registerComponent(secondTestComponent);
-WL.registerComponent(gridDebugComponent);
-WL.registerComponent(xrController);
-WL.registerComponent(pointerRay);
-
 WL.registerComponent(blockPrefab);
 WL.registerComponent(blockStairPrefab);
 WL.registerComponent(blockSlopePrefab);
+
+// Ui components
+const uiButton = require('./ui/UiButton').default;
+
+WL.registerComponent(uiButton);

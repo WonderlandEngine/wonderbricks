@@ -46,7 +46,7 @@ export default abstract class PrefabBase extends Component
     {
         // Create previs object
         this._previsObject = this._scene.addObject(null);
-        this._previsObject.translateWorld([0, 0, 0]);
+        this._previsObject.translateWorld([0, -5.0, 0]);
 
         // Create previs visual object
         let previsVisual = this._scene.addObject(this._previsObject);

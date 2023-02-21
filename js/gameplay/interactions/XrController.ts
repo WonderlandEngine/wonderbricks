@@ -1,10 +1,4 @@
-import {
-    Component,
-    InputComponent,
-    Object,
-    Scene,
-    Type
-} from "@wonderlandengine/api";
+import {Component, InputComponent, Object, Scene, Type} from "@wonderlandengine/api";
 
 import {getCurrentScene, getXrSessionStart} from "../../lib/WlApi";
 
@@ -15,6 +9,9 @@ import {XrInputButton} from "../input/XrInputButton";
 
 import BuildController from "../buildSystem/BuildController";
 import GridManager from "../grid/GridManager";
+import TagUtils from "../../utils/TagUtils";
+import {Tag} from "../../utils/Tag";
+import UiButton from "../../ui/UiButton";
 
 export default class XrController extends Component
 {
@@ -75,12 +72,23 @@ export default class XrController extends Component
             return;
         }
 
-        // Update previz
-        let ptrPos = this._pointerRayComponent.currentHitPosition;
-        let indices = GridManager.grid.getCellIndices(ptrPos[0], ptrPos[1], ptrPos[2]);
-        let position = GridManager.grid.getCellPositionVec3(indices);
+        switch (TagUtils.getTag(this._pointerRayComponent.currentHitObject))
+        {
+            case Tag.ENVIRONMENT: {
+                // Update previs position
+                const ptrPos = this._pointerRayComponent.currentHitPosition;
+                const indices = GridManager.grid.getCellIndices(ptrPos[0], ptrPos[1], ptrPos[2]);
+                const position = GridManager.grid.getCellPositionVec3(indices);
 
-        BuildController.setCurrentPrevizPosition(position);
+                BuildController.setCurrentPrevizPosition(position);
+                break;
+            }
+
+            case Tag.UI: {
+                BuildController.setCurrentPrevizPosition([0, -5, 0]);
+                break;
+            }
+        }
     }
 
     /**
@@ -157,10 +165,22 @@ export default class XrController extends Component
      */
     private onPlacementTriggerPressed(): void
     {
-        let ptrPos = this._pointerRayComponent.currentHitPosition;
-        let indices = GridManager.grid.getCellIndices(ptrPos[0], ptrPos[1], ptrPos[2]);
-        let position = GridManager.grid.getCellPositionVec3(indices);
+        switch (TagUtils.getTag(this._pointerRayComponent.currentHitObject))
+        {
+            case Tag.ENVIRONMENT: {
+                let ptrPos = this._pointerRayComponent.currentHitPosition;
+                let indices = GridManager.grid.getCellIndices(ptrPos[0], ptrPos[1], ptrPos[2]);
+                let position = GridManager.grid.getCellPositionVec3(indices);
 
-        BuildController.instanciatePrefabAt(position);
+                BuildController.instanciatePrefabAt(position);
+                break;
+            }
+
+            case Tag.UI: {
+                const buttonComponent = this._pointerRayComponent.currentHitObject.getComponent(UiButton);
+                if(buttonComponent) { buttonComponent.click(); }
+                break;
+            }
+        }
     }
 }

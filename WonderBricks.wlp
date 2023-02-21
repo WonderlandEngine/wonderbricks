@@ -1811,12 +1811,6 @@
                 0.5
             ]
         },
-        "270": {
-            "link": {
-                "name": "StairWireframe",
-                "file": "models\\Bricks\\StairWireframe.glb"
-            }
-        },
         "276": {
             "name": "PrefabBlockSlope",
             "parent": "260",
@@ -1877,6 +1871,79 @@
                         "previsMat": "22"
                     }
                 }
+            ]
+        },
+        "285": {
+            "link": {
+                "name": "Plane",
+                "file": "models\\UI\\button.glb"
+            },
+            "translation": [
+                -2.5,
+                1.5,
+                0.0
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                0.0,
+                0.7071067
+            ],
+            "scale": [
+                1.0,
+                0.9999983,
+                0.9999983
+            ],
+            "name": "Button",
+            "components": [
+                null,
+                {
+                    "type": "collision",
+                    "collision": {
+                        "collider": "box",
+                        "box": {
+                            "extents": [
+                                0.25,
+                                0.0299999,
+                                0.1
+                            ]
+                        }
+                    }
+                },
+                {
+                    "type": "ui-button",
+                    "ui-button": {
+                        "textObject": "286"
+                    }
+                }
+            ]
+        },
+        "286": {
+            "name": "Text",
+            "parent": "285",
+            "components": [
+                {
+                    "type": "text",
+                    "text": {
+                        "text": "BUTTON"
+                    }
+                }
+            ],
+            "translation": [
+                0.0,
+                0.0251925,
+                7.152557373046875e-7
+            ],
+            "rotation": [
+                -0.7071068,
+                0.0,
+                0.0,
+                0.7071067
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
             ]
         }
     },
@@ -2075,6 +2142,12 @@
                 "name": "SlopeWireframe",
                 "file": "models\\Bricks\\SlopeWireframe.glb"
             }
+        },
+        "283": {
+            "link": {
+                "name": "Plane",
+                "file": "models\\UI\\button.glb"
+            }
         }
     },
     "textures": {
@@ -2101,6 +2174,13 @@
                 "name": "texture_1",
                 "file": "models\\oculus-touch-v2-right.glb"
             }
+        },
+        "281": {
+            "link": {
+                "name": "texture_0",
+                "file": "models\\UI\\button.glb"
+            },
+            "name": "ui-atlas"
         }
     },
     "images": {
@@ -2143,6 +2223,12 @@
                 256,
                 256
             ]
+        },
+        "280": {
+            "link": {
+                "name": "ui-atlas",
+                "file": "models\\UI\\button.glb"
+            }
         }
     },
     "materials": {
@@ -2158,7 +2244,7 @@
                     1.0,
                     1.0
                 ],
-                "font": "230"
+                "font": "287"
             }
         },
         "20": {
@@ -2390,6 +2476,25 @@
                     1.0
                 ]
             }
+        },
+        "279": {
+            "name": "ui_material",
+            "pipeline": "35"
+        },
+        "282": {
+            "link": {
+                "name": "UI",
+                "file": "models\\UI\\button.glb"
+            },
+            "pipeline": "35",
+            "Flat": {
+                "color": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            }
         }
     },
     "shaders": {
@@ -2560,6 +2665,12 @@
             "link": {
                 "name": "Cube",
                 "file": "models\\Bricks\\Cube.glb"
+            }
+        },
+        "284": {
+            "link": {
+                "name": "Plane",
+                "file": "models\\UI\\button.glb"
             }
         }
     },
@@ -2753,13 +2864,21 @@
         "models/Bricks/Stair.glb",
         "models/Bricks/StairWireframe.glb",
         "models/Bricks/Slope.glb",
-        "models/Bricks/SlopeWireframe.glb"
+        "models/Bricks/SlopeWireframe.glb",
+        "models/UI/button.glb",
+        "static/LexendDeca-VariableFont_wght.ttf"
     ],
     "fonts": {
         "230": {
             "link": {
                 "name": "DejaVuSans.ttf",
                 "file": "default"
+            }
+        },
+        "287": {
+            "link": {
+                "name": "font_0",
+                "file": "static\\LexendDeca-VariableFont_wght.ttf"
             }
         }
     }

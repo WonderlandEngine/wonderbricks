@@ -28,7 +28,7 @@ export default class PointerRay extends Component
     private _scene: Scene;
     private _rayMesh: MeshComponent;
 
-    // Physic Raycast fields
+    // Physic Ray cast fields
     private _origin: Array<number>;
     private _direction: Array<number>;
 
