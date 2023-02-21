@@ -53,6 +53,6 @@ export default class UiButton extends UiElementBase
         this._meshMaterial['color'] = [0.635, 0.730, 1, 1];
         setTimeout(() => {
             this._meshMaterial['color'] = [1, 1, 1, 1];
-        }, 500);
+        }, 100);
     }
 }

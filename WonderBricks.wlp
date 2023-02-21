@@ -219,7 +219,8 @@
                     "type": "light",
                     "light": {
                         "attenuation": 0.1,
-                        "type": "sun"
+                        "type": "sun",
+                        "shadows": true
                     }
                 }
             ],
@@ -1879,8 +1880,8 @@
                 "file": "models\\UI\\button.glb"
             },
             "translation": [
-                -2.5,
-                1.5,
+                0.0,
+                0.0,
                 0.0
             ],
             "rotation": [
@@ -1891,10 +1892,10 @@
             ],
             "scale": [
                 1.0,
-                0.9999983,
-                0.9999983
+                0.999976,
+                0.999976
             ],
-            "name": "Button",
+            "name": "ButtonCube",
             "components": [
                 null,
                 {
@@ -1915,8 +1916,15 @@
                     "ui-button": {
                         "textObject": "286"
                     }
+                },
+                {
+                    "type": "block-selector-interactible",
+                    "block-selector-interactible": {
+                        "prefab": "256"
+                    }
                 }
-            ]
+            ],
+            "parent": "293"
         },
         "286": {
             "name": "Text",
@@ -1925,7 +1933,7 @@
                 {
                     "type": "text",
                     "text": {
-                        "text": "BUTTON"
+                        "text": "CUBE"
                     }
                 }
             ],
@@ -1952,9 +1960,9 @@
                 "file": "models\\UI\\button.glb"
             },
             "translation": [
-                -1.8929299,
-                1.5,
-                0.0
+                0.0,
+                0.2,
+                -5.960464477539063e-8
             ],
             "rotation": [
                 0.7071068,
@@ -1964,10 +1972,10 @@
             ],
             "scale": [
                 1.0,
-                0.9999887,
-                0.9999887
+                0.9999853,
+                0.9999853
             ],
-            "name": "Button",
+            "name": "ButtonSlope",
             "components": [
                 null,
                 {
@@ -1988,9 +1996,15 @@
                     "ui-button": {
                         "textObject": "286"
                     }
+                },
+                {
+                    "type": "block-selector-interactible",
+                    "block-selector-interactible": {
+                        "prefab": "276"
+                    }
                 }
             ],
-            "parent": null
+            "parent": "293"
         },
         "290": {
             "name": "Text",
@@ -1999,7 +2013,7 @@
                 {
                     "type": "text",
                     "text": {
-                        "text": "BUTTON"
+                        "text": "SLOPE"
                     }
                 }
             ],
@@ -2013,6 +2027,105 @@
                 0.0,
                 0.0,
                 0.7071067
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        "291": {
+            "link": {
+                "name": "Plane",
+                "file": "models\\UI\\button.glb"
+            },
+            "translation": [
+                0.0,
+                -0.2,
+                -2.9802322387695313e-8
+            ],
+            "rotation": [
+                0.7071068,
+                0.0,
+                0.0,
+                0.7071067
+            ],
+            "scale": [
+                1.0,
+                0.9999802,
+                0.9999802
+            ],
+            "name": "ButtonStair",
+            "components": [
+                null,
+                {
+                    "type": "collision",
+                    "collision": {
+                        "collider": "box",
+                        "box": {
+                            "extents": [
+                                0.25,
+                                0.0299999,
+                                0.1
+                            ]
+                        }
+                    }
+                },
+                {
+                    "type": "ui-button",
+                    "ui-button": {
+                        "textObject": "286"
+                    }
+                },
+                {
+                    "type": "block-selector-interactible",
+                    "block-selector-interactible": {
+                        "prefab": "277"
+                    }
+                }
+            ],
+            "parent": "293"
+        },
+        "292": {
+            "name": "Text",
+            "parent": "291",
+            "components": [
+                {
+                    "type": "text",
+                    "text": {
+                        "text": "STAIR"
+                    }
+                }
+            ],
+            "translation": [
+                0.0,
+                0.0251925,
+                7.152557373046875e-7
+            ],
+            "rotation": [
+                -0.7071068,
+                0.0,
+                0.0,
+                0.7071067
+            ],
+            "scale": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        "293": {
+            "name": "UiContainer",
+            "translation": [
+                -2.7,
+                1.2999999,
+                0.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
             ],
             "scale": [
                 1.0,

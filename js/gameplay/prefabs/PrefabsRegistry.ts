@@ -5,6 +5,8 @@ class PrefabsRegistry
 {
     private _prefabs: Map<string, PrefabBase>;
 
+    public readonly PREFAB_UNAME_KEY = 'pun';
+
     public constructor()
     {
         this._prefabs = new Map<string, PrefabBase>();
@@ -18,12 +20,21 @@ class PrefabsRegistry
             throw new Error("Can't register the same prefab twice: " + prefabUniqueName);
 
         this._prefabs.set(prefabUniqueName, prefab);
+        prefab.object[this.PREFAB_UNAME_KEY] = prefabUniqueName;
     }
 
     public getPrefab<T extends PrefabBase>(typeOrClass: PrefabBaseConstructor<T>): T | null
     {
         if(this._prefabs.has(typeOrClass.TypeName))
             return this._prefabs.get(typeOrClass.TypeName) as T;
+
+        return null;
+    }
+
+    public getPrefabByName(uName: string): PrefabBase
+    {
+        if(this._prefabs.has(uName))
+            return this._prefabs.get(uName);
 
         return null;
     }
