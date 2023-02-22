@@ -70,7 +70,9 @@ export default abstract class PrefabBase extends Component
 
         // Create visual object
         let finalVisual = this._scene.addObject(newBlock);
+        finalVisual.resetRotation();
         finalVisual.translateObject([0, this._cellSize / 2.0, 0]);
+        finalVisual.rotate(this._previsObject.rotationWorld);
 
         let mat = this.finalMat.clone();
         mat['diffuseColor'] = color;
@@ -102,5 +104,11 @@ export default abstract class PrefabBase extends Component
         this._previsObject.setTranslationWorld(position);
         let pos: vec3 = vec3.create();
         this._previsObject.getTranslationWorld(pos);
+    }
+
+    public updatePrevisRotation(xRot: number, yRot: number): void
+    {
+        this._previsObject.rotateAxisAngleDeg([1,0,0], xRot);
+        this._previsObject.rotateAxisAngleDeg([0,1,0], yRot);
     }
 }

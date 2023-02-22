@@ -7,11 +7,11 @@ import {PointerMode} from "./PointerMode";
 import PointerRay from "./PointerRay";
 import {XrInputButton} from "../input/XrInputButton";
 
-import BuildController from "../buildSystem/BuildController";
-import GridManager from "../grid/GridManager";
-import TagUtils from "../../utils/TagUtils";
+import BuildController from "./../buildSystem/BuildController";
+import GridManager from "./../grid/GridManager";
+import TagUtils from "./../../utils/TagUtils";
 import {Tag} from "../../utils/Tag";
-import UiButton from "../../ui/UiButton";
+import UiButton from "./../../ui/UiButton";
 
 export default class XrController extends Component
 {
@@ -66,6 +66,8 @@ export default class XrController extends Component
 
         this._xrGamepad.update(); // Update inputs
 
+        console.log(this._hand + " " + this._xrGamepad.joystickXJustMoved);
+
         if(!this._pointerRayComponent.isPointing)
         {
             BuildController.setCurrentPrevizPosition([0, -5, 0]);
@@ -79,6 +81,14 @@ export default class XrController extends Component
                 const ptrPos = this._pointerRayComponent.currentHitPosition;
                 const indices = GridManager.grid.getCellIndices(ptrPos[0], ptrPos[1], ptrPos[2]);
                 const position = GridManager.grid.getCellPositionVec3(indices);
+
+                if(this._xrGamepad.joystickXJustMoved)
+                {
+                    BuildController.addCurrentPrevizRotation(
+                        0,
+                        this._xrGamepad.joystickXValue > 0 ? 90: -90
+                    );
+                }
 
                 BuildController.setCurrentPrevizPosition(position);
                 break;
@@ -165,6 +175,9 @@ export default class XrController extends Component
      */
     private onPlacementTriggerPressed(): void
     {
+        if(!this._pointerRayComponent.currentHitObject)
+            return;
+
         switch (TagUtils.getTag(this._pointerRayComponent.currentHitObject))
         {
             case Tag.ENVIRONMENT: {
@@ -177,7 +190,7 @@ export default class XrController extends Component
             }
 
             case Tag.UI: {
-                const buttonComponent = this._pointerRayComponent.currentHitObject.getComponent(UiButton);
+                const buttonComponent = this._pointerRayComponent.currentHitObject.getComponent(UiButton) as UiButton;
                 if(buttonComponent) { buttonComponent.interact(); }
                 break;
             }

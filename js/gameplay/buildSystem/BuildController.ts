@@ -30,6 +30,11 @@ class BuildController
         this._currentPrefab.updatePrevisPosition(position);
     }
 
+    public addCurrentPrevizRotation(xRot: number, yRot: number): void
+    {
+        this._currentPrefab.updatePrevisRotation(xRot, yRot);
+    }
+
     public instanciatePrefabAt(position: vec3): void
     {
         this._currentPrefab.createBlock(position, this._currentColor);
