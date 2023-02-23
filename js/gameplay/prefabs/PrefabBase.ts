@@ -111,4 +111,9 @@ export default abstract class PrefabBase extends Component
         this._previsObject.rotateAxisAngleDeg([1,0,0], xRot);
         this._previsObject.rotateAxisAngleDeg([0,1,0], yRot);
     }
+
+    public updatePrevisColor(color: Float32Array): void
+    {
+        this.previsMat['diffuseColor'] = color;
+    }
 }

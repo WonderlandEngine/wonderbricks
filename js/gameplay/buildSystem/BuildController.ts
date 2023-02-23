@@ -48,6 +48,7 @@ class BuildController
     public setColor(color: Float32Array): void
     {
         this._currentColor = color;
+        this._currentPrefab.updatePrevisColor(this._currentColor);
     }
 }
 
