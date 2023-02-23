@@ -66,8 +66,6 @@ export default class XrController extends Component
 
         this._xrGamepad.update(); // Update inputs
 
-        console.log(this._hand + " " + this._xrGamepad.joystickXJustMoved);
-
         if(!this._pointerRayComponent.isPointing)
         {
             BuildController.setCurrentPrevizPosition([0, -5, 0]);

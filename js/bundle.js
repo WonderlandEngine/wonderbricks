@@ -40,6 +40,8 @@ WL.registerComponent(blockSlopePrefab);
 // Ui components
 const uiButton = require('./ui/UiButton').default;
 const blockSelector = require('./ui/BlockSelectorInteractible').default;
+const colorSelector = require('./ui/ColorSelectorInteractible').default;
 
 WL.registerComponent(uiButton);
 WL.registerComponent(blockSelector);
+WL.registerComponent(colorSelector);

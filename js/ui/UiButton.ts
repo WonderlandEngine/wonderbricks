@@ -21,8 +21,6 @@ export default class UiButton extends UiElementBase
 
     public start(): void
     {
-        super.start();
-
         // Create a copy of the material instance
         this._meshComponent = this.object.getComponent('mesh');
         this._meshMaterial = this._meshComponent.material.clone();

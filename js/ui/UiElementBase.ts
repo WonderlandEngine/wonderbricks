@@ -12,7 +12,7 @@ export default abstract class UiElementBase extends Component
 
     protected _interactCallbacks: Array<UiInteractCallback>;
 
-    public override start()
+    public override init()
     {
         this._interactCallbacks = new Array<UiInteractCallback>();
     }
