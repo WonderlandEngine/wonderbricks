@@ -82,7 +82,7 @@ export default abstract class PrefabBase extends Component
         });
 
         finalVisual.addComponent(TagComponent, {
-            tag: Tag.ENVIRONMENT
+            tag: Tag.BLOCK
         });
 
         let extents = (this._cellSize / 2.0) + 0.001;

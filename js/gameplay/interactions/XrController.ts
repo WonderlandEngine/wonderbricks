@@ -76,6 +76,7 @@ export default class XrController extends Component
 
         switch (TagUtils.getTag(this._pointerRayComponent.currentHitObject))
         {
+            case Tag.BLOCK:
             case Tag.ENVIRONMENT: {
                 // Update previs position
                 const ptrPos = this._pointerRayComponent.currentHitPosition;
@@ -181,6 +182,7 @@ export default class XrController extends Component
 
         switch (TagUtils.getTag(this._pointerRayComponent.currentHitObject))
         {
+            case Tag.BLOCK:
             case Tag.ENVIRONMENT: {
                 let ptrPos = this._pointerRayComponent.currentHitPosition;
                 let indices = GridManager.grid.getCellIndices(ptrPos[0], ptrPos[1], ptrPos[2]);
@@ -209,7 +211,7 @@ export default class XrController extends Component
 
         switch (TagUtils.getTag(this._pointerRayComponent.currentHitObject))
         {
-            case Tag.ENVIRONMENT: {
+            case Tag.BLOCK: {
                 this._pointerRayComponent.currentHitObject.destroy();
                 break;
             }

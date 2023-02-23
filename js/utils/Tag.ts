@@ -5,5 +5,6 @@
 export enum Tag
 {
     ENVIRONMENT,
+    BLOCK,
     UI
 }
