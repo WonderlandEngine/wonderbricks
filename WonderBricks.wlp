@@ -1967,7 +1967,7 @@
             "translation": [
                 0.0,
                 0.2,
-                -5.960464477539064e-8
+                -5.960464477539065e-8
             ],
             "rotation": [
                 0.7071068,
@@ -2232,7 +2232,9 @@
                 {
                     "type": "color-selector-interactible",
                     "color-selector-interactible": {
-                        "blue": 1.0
+                        "blue": 0.86,
+                        "red": 0.2,
+                        "green": 0.6
                     }
                 }
             ],
@@ -2278,7 +2280,7 @@
                 }
             ],
             "translation": [
-                -1.7881393432617188e-7,
+                -1.788139343261719e-7,
                 0.4104439,
                 -0.0000021
             ],
@@ -2306,8 +2308,8 @@
             ],
             "rotation": [
                 0.7071068,
-                1.0536718164644299e-8,
-                9.483037644031356e-8,
+                1.05367181646443e-8,
+                9.483037644031357e-8,
                 0.7071067
             ],
             "scale": [
@@ -2340,7 +2342,9 @@
                 {
                     "type": "color-selector-interactible",
                     "color-selector-interactible": {
-                        "red": 1.0
+                        "red": 0.75,
+                        "green": 0.2199999,
+                        "blue": 0.17
                     }
                 }
             ],
@@ -2358,13 +2362,13 @@
                 }
             ],
             "translation": [
-                -1.7881393432617188e-7,
+                -1.788139343261719e-7,
                 0.0251924,
                 1.1920928955078125e-7
             ],
             "rotation": [
                 -0.7071068,
-                2.9501759968297847e-7,
+                2.950175996829785e-7,
                 -2.9501768494810676e-7,
                 0.7071067
             ],
@@ -2420,7 +2424,9 @@
                 {
                     "type": "color-selector-interactible",
                     "color-selector-interactible": {
-                        "green": 1.0
+                        "green": 0.68,
+                        "red": 0.15,
+                        "blue": 0.3799999
                     }
                 }
             ],
@@ -2455,7 +2461,7 @@
             ]
         },
         "304": {
-            "name": "MainLight",
+            "name": "SecondLight",
             "components": [
                 {
                     "type": "light",
@@ -2464,9 +2470,9 @@
                         "type": "sun",
                         "shadows": false,
                         "color": [
-                            0.1372549,
-                            0.136647,
-                            0.1200307
+                            0.7372549,
+                            0.7339895,
+                            0.6447366
                         ]
                     }
                 }
@@ -2791,7 +2797,7 @@
             }
         },
         "20": {
-            "name": "White",
+            "name": "GroundGrass",
             "shader": "Phong",
             "Phong": {
                 "specularColor": [
@@ -2866,29 +2872,6 @@
                 "metallicFactor": 0.0,
                 "roughnessFactor": 0.0,
                 "roughnessMetallicTexture": "44"
-            }
-        },
-        "26": {
-            "name": "Green",
-            "Phong": {
-                "diffuseColor": [
-                    0.1529411,
-                    0.7882353,
-                    0.5411764,
-                    1.0
-                ],
-                "specularColor": [
-                    0.7838442,
-                    0.8509804,
-                    0.2169165,
-                    1.0
-                ],
-                "ambientColor": [
-                    0.0,
-                    0.2352941,
-                    0.1437908,
-                    1.0
-                ]
             }
         },
         "46": {
@@ -3194,6 +3177,11 @@
                 "optionalFeatures": {
                     "local-floor": true
                 }
+            }
+        },
+        "rendering": {
+            "bloom": {
+                "enabled": false
             }
         }
     },

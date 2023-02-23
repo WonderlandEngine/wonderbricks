@@ -26,9 +26,8 @@ export default class ColorSelectorInteractible extends Component
     {
         this._color = new Float32Array([this.red, this.green, this.blue, 1]);
 
-        console.log("coucou 1");
-        this._buttonComponent = this.object.getComponent(UiButton); console.log("coucou 2");
-        this._buttonComponent.addInteractCallback(this.onInteractHandler.bind(this));console.log("coucou 3");
+        this._buttonComponent = this.object.getComponent(UiButton);
+        this._buttonComponent.addInteractCallback(this.onInteractHandler.bind(this));
     }
 
     private onInteractHandler(): void

@@ -45,3 +45,5 @@ const colorSelector = require('./ui/ColorSelectorInteractible').default;
 WL.registerComponent(uiButton);
 WL.registerComponent(blockSelector);
 WL.registerComponent(colorSelector);
+
+require('./gameplay/serialization/SerializationUtils');
