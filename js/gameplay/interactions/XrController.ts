@@ -148,6 +148,7 @@ export default class XrController extends Component
 
         // Setup events listeners
         this._xrGamepad.getButton(XrInputButton.BUTTON_TRIGGER).addPressedListener(this.onPlacementTriggerPressed.bind(this));
+        this._xrGamepad.getButton(XrInputButton.BUTTON_B_Y).addPressedListener(this.onDeleteButtonPressed.bind(this));
     }
 
     /**
@@ -192,6 +193,24 @@ export default class XrController extends Component
             case Tag.UI: {
                 const buttonComponent = this._pointerRayComponent.currentHitObject.getComponent(UiButton) as UiButton;
                 if(buttonComponent) { buttonComponent.interact(); }
+                break;
+            }
+        }
+    }
+
+    /**
+     * Handler B button input
+     * @private
+     */
+    private onDeleteButtonPressed(): void
+    {
+        if(!this._pointerRayComponent.currentHitObject)
+            return;
+
+        switch (TagUtils.getTag(this._pointerRayComponent.currentHitObject))
+        {
+            case Tag.ENVIRONMENT: {
+                this._pointerRayComponent.currentHitObject.destroy();
                 break;
             }
         }
