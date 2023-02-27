@@ -1,3 +1,6 @@
+// Init serialization system
+// require('./gameplay/serialization/SerializationUtils');
+
 // Engine component
 require('@wonderlandengine/components/finger-cursor');
 require('@wonderlandengine/components/cursor-target');
@@ -45,5 +48,3 @@ const colorSelector = require('./ui/ColorSelectorInteractible').default;
 WL.registerComponent(uiButton);
 WL.registerComponent(blockSelector);
 WL.registerComponent(colorSelector);
-
-require('./gameplay/serialization/SerializationUtils');

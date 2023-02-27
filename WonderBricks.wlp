@@ -25,7 +25,7 @@
                 {
                     "type": "mesh",
                     "mesh": {
-                        "mesh": "7",
+                        "mesh": "305",
                         "material": "20"
                     },
                     "active": true
@@ -57,10 +57,10 @@
                 1.1920928955078125e-7
             ],
             "rotation": [
-                -0.7072496,
                 0.0,
                 0.0,
-                0.7069638
+                0.0,
+                1.0
             ],
             "scale": [
                 4.0,
@@ -2494,6 +2494,98 @@
                 0.9999999
             ],
             "parent": null
+        },
+        "308": {
+            "link": {
+                "name": "Icosphere",
+                "file": "models\\terrain\\cloud.glb"
+            },
+            "name": "Cloud",
+            "components": [
+                {
+                    "mesh": {
+                        "material": "128"
+                    }
+                }
+            ],
+            "translation": [
+                9.5000076,
+                7.0000057,
+                -13.5000133
+            ],
+            "rotation": [
+                0.0,
+                -0.3626434,
+                0.0,
+                0.9319279
+            ],
+            "scale": [
+                0.9999999,
+                1.0,
+                0.9999999
+            ]
+        },
+        "310": {
+            "link": {
+                "name": "Icosphere",
+                "file": "models\\terrain\\cloud.glb"
+            },
+            "name": "Cloud",
+            "components": [
+                {
+                    "mesh": {
+                        "material": "128"
+                    }
+                }
+            ],
+            "translation": [
+                -0.5371308,
+                7.0000581,
+                -26.5597362
+            ],
+            "rotation": [
+                0.0,
+                0.1558298,
+                0.0,
+                0.9877839
+            ],
+            "scale": [
+                1.0507856,
+                1.0507898,
+                1.0507856
+            ],
+            "parent": null
+        },
+        "311": {
+            "link": {
+                "name": "Icosphere",
+                "file": "models\\terrain\\cloud.glb"
+            },
+            "name": "Cloud",
+            "components": [
+                {
+                    "mesh": {
+                        "material": "128"
+                    }
+                }
+            ],
+            "translation": [
+                -7.5017499,
+                7.0000286,
+                -12.1790714
+            ],
+            "rotation": [
+                0.0,
+                0.2958398,
+                0.0,
+                0.9552375
+            ],
+            "scale": [
+                0.9999964,
+                1.0,
+                0.9999964
+            ],
+            "parent": null
         }
     },
     "meshes": {
@@ -2696,6 +2788,18 @@
             "link": {
                 "name": "Plane",
                 "file": "models\\UI\\button.glb"
+            }
+        },
+        "305": {
+            "link": {
+                "name": "Plane",
+                "file": "models\\terrain\\gound.glb"
+            }
+        },
+        "307": {
+            "link": {
+                "name": "Icosphere",
+                "file": "models\\terrain\\cloud.glb"
             }
         }
     },
@@ -3182,7 +3286,17 @@
         "rendering": {
             "bloom": {
                 "enabled": false
-            }
+            },
+            "sky": {
+                "enabled": true,
+                "material": "25"
+            },
+            "clearColor": [
+                0.3486658,
+                0.8132118,
+                0.8549019,
+                1.0
+            ]
         }
     },
     "animations": {
@@ -3397,7 +3511,9 @@
         "models/Bricks/Slope.glb",
         "models/Bricks/SlopeWireframe.glb",
         "models/UI/button.glb",
-        "static/LexendDeca-VariableFont_wght.ttf"
+        "static/LexendDeca-VariableFont_wght.ttf",
+        "models/terrain/gound.glb",
+        "models/terrain/cloud.glb"
     ],
     "fonts": {
         "230": {

@@ -12,7 +12,7 @@ class BuildController
     public constructor()
     {
         this._currentPrefab = null;
-        this._currentColor = new Float32Array([1,1,1,1]);
+        this._currentColor = new Float32Array([0.2,0.6,0.86,1]);
 
         // Temp
         this.test();
@@ -22,6 +22,7 @@ class BuildController
     {
         await new Promise(f => setTimeout(f, 1000));
         this._currentPrefab = PrefabsRegistry.getPrefab(BlockSlopePrefab);
+        this._currentPrefab.updatePrevisColor(this._currentColor);
     }
 
     public setCurrentPrevizPosition(position: vec3): void
