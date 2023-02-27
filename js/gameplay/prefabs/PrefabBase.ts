@@ -62,10 +62,11 @@ export default abstract class PrefabBase extends Component
      * position
      * @param position
      * @param color
+     * @param container
      */
-    public createBlock(position: vec3, color: Float32Array): Object
+    public createBlock(position: vec3, color: Float32Array, container: Object): Object
     {
-        let newBlock = this._scene.addObject(null);
+        let newBlock = this._scene.addObject(container);
         newBlock.translateWorld(position);
 
         // Create visual object

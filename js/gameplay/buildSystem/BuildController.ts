@@ -2,17 +2,19 @@ import PrefabBase from "../prefabs/PrefabBase";
 import {vec3} from "gl-matrix";
 import PrefabsRegistry from "../prefabs/PrefabsRegistry";
 import BlockSlopePrefab from "../prefabs/BlockSlopePrefab";
+import {Object} from "@wonderlandengine/api";
 
 
 class BuildController
 {
+    private _buildContainer: Object;
     private _currentPrefab: PrefabBase;
     private _currentColor: Float32Array;
 
     public constructor()
     {
         this._currentPrefab = null;
-        this._currentColor = new Float32Array([0.2,0.6,0.86,1]);
+        this._currentColor = new Float32Array([0.2, 0.6, 0.86, 1]);
 
         // Temp
         this.test();
@@ -25,10 +27,9 @@ class BuildController
         this._currentPrefab.updatePrevisColor(this._currentColor);
     }
 
-    public setCurrentPrevizPosition(position: vec3): void
-    {
-        this._currentPrefab.updatePrevisPosition(position);
-    }
+    public setBuildContainer(container: Object): void { this._buildContainer = container; }
+
+    public setCurrentPrevizPosition(position: vec3): void { this._currentPrefab.updatePrevisPosition(position);}
 
     public addCurrentPrevizRotation(xRot: number, yRot: number): void
     {
@@ -37,13 +38,10 @@ class BuildController
 
     public instanciatePrefabAt(position: vec3): void
     {
-        this._currentPrefab.createBlock(position, this._currentColor);
+        this._currentPrefab.createBlock(position, this._currentColor, this._buildContainer);
     }
 
-    public setPrefab(prefab: PrefabBase): void
-    {
-        this._currentPrefab = prefab;
-    }
+    public setPrefab(prefab: PrefabBase): void { this._currentPrefab = prefab; }
 
     public setColor(color: Float32Array): void
     {

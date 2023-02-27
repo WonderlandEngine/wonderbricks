@@ -19,10 +19,12 @@ require('@wonderlandengine/components/howler-audio-source');
 const tagComponent = require('./utils/TagComponent').default;
 const secondTestComponent = require('./TestComponent').SecondTestComponent;
 const gridDebugComponent = require('./gameplay/grid/GridDebugComponent').default;
+const buildContainer = require('./gameplay/buildSystem/BuildContainer').default;
 
 WL.registerComponent(tagComponent);
 WL.registerComponent(secondTestComponent);
 WL.registerComponent(gridDebugComponent);
+WL.registerComponent(buildContainer);
 
 // Inputs components
 const xrController = require('./gameplay/interactions/XrController').default;
