@@ -210,7 +210,7 @@ export default class XrController extends Component
         switch (TagUtils.getTag(this._pointerRayComponent.currentHitObject))
         {
             case Tag.BLOCK: {
-                this._pointerRayComponent.currentHitObject.destroy();
+                this._pointerRayComponent.currentHitObject.parent.destroy();
                 break;
             }
         }

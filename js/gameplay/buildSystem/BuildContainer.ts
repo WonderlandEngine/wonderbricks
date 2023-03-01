@@ -23,9 +23,12 @@ export default class BuildContainer extends Component
     {
         let data = new Array<BlockData>();
 
+        console.log(this.object.children);
+
         for (const child of this.object.children)
         {
             let visual = child.children[0];
+
             let meshComponent = visual.getComponent('mesh');
             let position: vec3 = vec3.create();
             child.getTranslationWorld(position);
@@ -40,8 +43,6 @@ export default class BuildContainer extends Component
                 position: position,
                 rotation: visual.rotationWorld
             });
-
-            console.log(color);
         }
 
         return data;
