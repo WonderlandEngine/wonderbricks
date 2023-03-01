@@ -43,19 +43,17 @@ class SerializationUtils
         return this._saveData.saves;
     }
 
-    public addNewSaveEntry(name: string): SceneBuildData
+    /** Create a new save entry without pushing it in saves array */
+    public createNewSaveEntry(name: string): SceneBuildData
     {
-        let temp: SceneBuildData = {
+        return {
             name: name,
             userPref: {color: [1, 1, 1], block: ''},
             blocks: new Array<BlockData>()
-        }
-
-        this._saveData.saves.push(temp);
-        return temp;
+        };
     }
 
-    public updateSaveEntry(saveData: SceneBuildData): void
+    public createOrUpdateSaveEntry(saveData: SceneBuildData): void
     {
         const saves = this._saveData.saves;
         for (let i = 0; i < saves.length; i++)
@@ -66,6 +64,9 @@ class SerializationUtils
                 return;
             }
         }
+
+        // if save don't exists
+        this._saveData.saves.push(saveData);
     }
 
     public removeSaveEntry(saveData: SceneBuildData): void
@@ -81,6 +82,7 @@ class SerializationUtils
         }
     }
 
+    /** Write changes from local memory to local storage */
     public flushSaves(): void
     {
         this._localStorage.setItem(SAVE_ITEM_KEY, JSON.stringify(this._saveData));

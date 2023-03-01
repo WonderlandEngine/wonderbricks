@@ -69,6 +69,9 @@ export default class SavePanel extends Component
 
         this._saveCount.text = 'Saves: ' + this._saveEntries.length;
         this._saveName.text = this._currentSaveIndex < 0 ? "No save available": this._saveEntries[0].name;
+
+        this.setCurrentSelectedSave(this._currentSaveIndex < 0 ? -1: 0);
+        this.onLoadButtonClicked();
     }
 
     // Buttons callbacks
@@ -84,18 +87,44 @@ export default class SavePanel extends Component
 
     private onNewButtonPressed(): void
     {
-        this._currentBuildData = SerializationUtils.addNewSaveEntry(new Date().toLocaleString());
+        this._currentBuildData = SerializationUtils.createNewSaveEntry(new Date().toLocaleString());
         BuildController.loadBuild([]);
     }
 
     private onNextButtonPressed(): void
     {
+        this._currentSaveIndex++;
+        if(this._currentSaveIndex > this._saveEntries.length - 1)
+            this._currentSaveIndex = 0;
+
+        this.setCurrentSelectedSave(this._currentSaveIndex);
+
+        // Update UI
+        this._saveName.text = this._currentSaveIndex < 0 ? "No save available": this._currentBuildData.name;
     }
 
     private onSaveButtonPressed(): void
     {
         this._currentBuildData.blocks = BuildController.getCurrentBuildData();
-        SerializationUtils.updateSaveEntry(this._currentBuildData);
+        SerializationUtils.createOrUpdateSaveEntry(this._currentBuildData);
         SerializationUtils.flushSaves();
+
+        this._saveEntries = SerializationUtils.getSavesEntries();
+        this._saveCount.text = 'Saves: ' + this._saveEntries.length;
+    }
+
+    // Saves manipulation
+    private setCurrentSelectedSave(index: number): void
+    {
+        switch (index)
+        {
+            case -1: // No save
+                this._currentBuildData = SerializationUtils.createNewSaveEntry(new Date().toLocaleString());
+                break;
+
+            default: // At least one save
+                this._currentBuildData = this._saveEntries[index];
+                break;
+        }
     }
 }

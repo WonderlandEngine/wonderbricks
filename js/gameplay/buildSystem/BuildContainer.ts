@@ -25,19 +25,23 @@ export default class BuildContainer extends Component
 
         for (const child of this.object.children)
         {
-            const visual = child.children[0];
-            const meshComponent = visual.getComponent('mesh');
+            let visual = child.children[0];
+            let meshComponent = visual.getComponent('mesh');
             let position: vec3 = vec3.create();
             child.getTranslationWorld(position);
 
+            // Create a new element to prevent reference passing
+            let color = meshComponent.material['diffuseColor'];
+            let finalColor = vec4.fromValues(color[0], color[1], color[2], color[3]);
+
             data.push({
                 type: child[PrefabsRegistry.PREFAB_UNAME_KEY],
-                color: meshComponent.material['diffuseColor'] as vec4,
+                color: finalColor,
                 position: position,
                 rotation: visual.rotationWorld
             });
 
-            console.log(meshComponent.material['diffuseColor']);
+            console.log(color);
         }
 
         return data;
