@@ -1,10 +1,11 @@
 import {Collider, Component, Material, Mesh, Object, Scene, Type} from "@wonderlandengine/api";
 import {Constructor, CustomParameter} from "@wonderlandengine/api/wonderland";
-import {vec3} from "gl-matrix";
+import {quat, vec3, vec4} from "gl-matrix";
 import {getCurrentScene} from "../../lib/WlApi";
 import GridManager from "../grid/GridManager";
 import TagComponent from "../../utils/TagComponent";
 import {Tag} from "../../utils/Tag";
+import PrefabsRegistry from "./PrefabsRegistry";
 
 export type PrefabBaseConstructor<T extends PrefabBase> = Constructor<T> & {
     TypeName: string;
@@ -64,9 +65,10 @@ export default abstract class PrefabBase extends Component
      * @param color
      * @param container
      */
-    public createBlock(position: vec3, color: Float32Array, container: Object): Object
+    public createBlock(position: vec3, color: vec4, container: Object): Object
     {
         let newBlock = this._scene.addObject(container);
+        newBlock[PrefabsRegistry.PREFAB_UNAME_KEY] = this.getPrefabUniqueName();
         newBlock.translateWorld(position);
 
         // Create visual object
@@ -113,7 +115,13 @@ export default abstract class PrefabBase extends Component
         this._previsObject.rotateAxisAngleDeg([0,1,0], yRot);
     }
 
-    public updatePrevisColor(color: Float32Array): void
+    public setPrevisRotation(rotation: quat): void
+    {
+        this._previsObject.resetRotation();
+        this._previsObject.rotationWorld = rotation;
+    }
+
+    public updatePrevisColor(color: vec4): void
     {
         this.previsMat['diffuseColor'] = color;
     }

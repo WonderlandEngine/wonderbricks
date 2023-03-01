@@ -1,11 +1,11 @@
-import {quat, vec3} from "gl-matrix";
+import {quat, vec3, vec4} from "gl-matrix";
 
 
 export type BlockData = {
     type: string,
     position: vec3,
     rotation: quat,
-    color: vec3
+    color: vec4
 };
 
 export type UserPrefData = {
