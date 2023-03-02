@@ -55,5 +55,11 @@ WL.registerComponent(savesPanel);
 
 // Sound components
 const clickSoundEmitter = require('./sound/soundEmitters/ClickSoundEmitter').default;
+const placeSoundEmitter = require('./sound/soundEmitters/PlaceSoundEmitter').default;
+const rotateSoundEmitter = require('./sound/soundEmitters/RotateSoundEmitter').default;
+const destroySoundEmitter = require('./sound/soundEmitters/DestroySoundEmitter').default;
 //
 WL.registerComponent(clickSoundEmitter);
+WL.registerComponent(placeSoundEmitter);
+WL.registerComponent(rotateSoundEmitter);
+WL.registerComponent(destroySoundEmitter);

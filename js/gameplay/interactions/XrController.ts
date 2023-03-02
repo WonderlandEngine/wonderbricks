@@ -89,6 +89,8 @@ export default class XrController extends Component
                         0,
                         this._xrGamepad.joystickXValue > 0 ? 90: -90
                     );
+
+                    SoundSystem.playAt(SoundEmitterType.BlockRotate, this._pointerRayComponent.currentHitPosition);
                 }
 
                 BuildController.setCurrentPrevizPosition(position);
@@ -189,17 +191,20 @@ export default class XrController extends Component
                 let position = GridManager.grid.getCellPositionVec3(indices);
 
                 BuildController.instanciatePrefabAt(position);
+                SoundSystem.playAt(SoundEmitterType.BlockPlaced, this._pointerRayComponent.currentHitPosition);
                 break;
             }
 
             case Tag.UI: {
                 const buttonComponent = this._pointerRayComponent.currentHitObject.getComponent(UiButton) as UiButton;
-                if(buttonComponent) { buttonComponent.interact(); }
+                if(buttonComponent)
+                {
+                    buttonComponent.interact();
+                    SoundSystem.playAt(SoundEmitterType.Click, this._pointerRayComponent.currentHitPosition);
+                }
                 break;
             }
         }
-
-        SoundSystem.playAt(SoundEmitterType.Click, this._pointerRayComponent.currentHitPosition);
     }
 
     /**
@@ -215,6 +220,7 @@ export default class XrController extends Component
         {
             case Tag.BLOCK: {
                 this._pointerRayComponent.currentHitObject.parent.destroy();
+                SoundSystem.playAt(SoundEmitterType.BlockDestroy, this._pointerRayComponent.currentHitPosition);
                 break;
             }
         }
