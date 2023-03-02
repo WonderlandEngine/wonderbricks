@@ -3140,6 +3140,27 @@
                 0.6,
                 0.6
             ]
+        },
+        "339": {
+            "name": "SoundSystem"
+        },
+        "340": {
+            "name": "SoundEmitter_Click",
+            "parent": "339",
+            "components": [
+                {
+                    "type": "howler-audio-source",
+                    "howler-audio-source": {
+                        "spatial": true,
+                        "src": "/sfx/click.wav",
+                        "loop": false,
+                        "autoplay": false
+                    }
+                },
+                {
+                    "type": "sound-emitter-click"
+                }
+            ]
         }
     },
     "meshes": {

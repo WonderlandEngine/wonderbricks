@@ -52,3 +52,8 @@ WL.registerComponent(uiButton);
 WL.registerComponent(blockSelector);
 WL.registerComponent(colorSelector);
 WL.registerComponent(savesPanel);
+
+// Sound components
+const clickSoundEmitter = require('./sound/soundEmitters/ClickSoundEmitter').default;
+//
+WL.registerComponent(clickSoundEmitter);

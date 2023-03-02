@@ -12,6 +12,8 @@ import GridManager from "./../grid/GridManager";
 import TagUtils from "./../../utils/TagUtils";
 import {Tag} from "../../utils/Tag";
 import UiButton from "./../../ui/UiButton";
+import SoundSystem from "../../sound/SoundSystem";
+import {SoundEmitterType} from "../../sound/SoundEmitterType";
 
 export default class XrController extends Component
 {
@@ -196,6 +198,8 @@ export default class XrController extends Component
                 break;
             }
         }
+
+        SoundSystem.playAt(SoundEmitterType.Click, this._pointerRayComponent.currentHitPosition);
     }
 
     /**
