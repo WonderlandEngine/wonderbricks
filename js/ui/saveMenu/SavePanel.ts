@@ -15,6 +15,7 @@ export default class SavePanel extends Component
         newButtonObj: {type: Type.Object, default: null},
         nextButtonObj: {type: Type.Object, default: null},
         saveButtonObj: {type: Type.Object, default: null},
+        removeButtonObj: {type: Type.Object, default: null},
 
         saveCountObj: {type: Type.Object, default: null},
         saveNameObj: {type: Type.Object, default: null},
@@ -25,6 +26,7 @@ export default class SavePanel extends Component
     private newButtonObj: Object;
     private nextButtonObj: Object;
     private saveButtonObj: Object;
+    private removeButtonObj: Object;
 
     private saveCountObj: Object;
     private saveNameObj: Object;
@@ -34,6 +36,7 @@ export default class SavePanel extends Component
     private _newButton: UiButton;
     private _nextButton: UiButton;
     private _saveButton: UiButton;
+    private _removeButton: UiButton;
 
     // Text components
     private _saveCount: TextComponent;
@@ -53,12 +56,14 @@ export default class SavePanel extends Component
         this._newButton = this.newButtonObj.getComponent(UiButton);
         this._nextButton = this.nextButtonObj.getComponent(UiButton);
         this._saveButton = this.saveButtonObj.getComponent(UiButton);
+        this._removeButton = this.removeButtonObj.getComponent(UiButton);
 
         // Set interact callbacks
         this._loadButton.addInteractCallback(this.onLoadButtonClicked.bind(this));
         this._newButton.addInteractCallback(this.onNewButtonPressed.bind(this));
         this._nextButton.addInteractCallback(this.onNextButtonPressed.bind(this));
         this._saveButton.addInteractCallback(this.onSaveButtonPressed.bind(this));
+        this._removeButton.addInteractCallback(this.onRemoveButtonPressed.bind(this));
 
         // Get texts
         this._saveCount = this.saveCountObj.getComponent('text');
@@ -70,8 +75,7 @@ export default class SavePanel extends Component
         this._saveCount.text = 'Saves: ' + this._saveEntries.length;
         this._saveName.text = this._currentSaveIndex < 0 ? "No save available": this._saveEntries[0].name;
 
-        this.setCurrentSelectedSave(-1); // Empty save on launch
-        this.onLoadButtonClicked();
+        this.loadBlankSave();
     }
 
     // Buttons callbacks
@@ -82,13 +86,14 @@ export default class SavePanel extends Component
             return;
 
         this._currentBuildData = this._saveEntries[this._currentSaveIndex];
+        console.log(this._currentBuildData);
         BuildController.loadBuild(this._currentBuildData.blocks);
     }
 
     private onNewButtonPressed(): void
     {
-        this._currentBuildData = SerializationUtils.createNewSaveEntry(new Date().toLocaleString());
-        BuildController.loadBuild([]);
+        this.setCurrentSelectedSave(-1); // Set empty save as current
+        BuildController.loadBuild(this._currentBuildData.blocks);
     }
 
     private onNextButtonPressed(): void
@@ -110,10 +115,58 @@ export default class SavePanel extends Component
         SerializationUtils.flushSaves();
 
         this._saveEntries = SerializationUtils.getSavesEntries();
+        this._currentSaveIndex = this._currentSaveIndex < 0 ? 0 : this._currentSaveIndex;
+
         this._saveCount.text = 'Saves: ' + this._saveEntries.length;
+        this._saveName.text = this._currentSaveIndex < 0 ?
+            "No save available":
+            this._saveEntries[this._currentSaveIndex].name;
+    }
+
+    private onRemoveButtonPressed(): void
+    {
+        if(this._currentSaveIndex < 0)
+            return;
+
+        let saveToDelete = this._saveEntries[this._currentSaveIndex];
+        if(saveToDelete.name == this._currentBuildData.name)
+        {
+            this.setCurrentSelectedSave(-1); // Set an empty save
+            BuildController.loadBuild(this._currentBuildData.blocks);
+        }
+
+        SerializationUtils.removeSaveEntry(saveToDelete);
+        SerializationUtils.flushSaves();
+
+        // Update saves entries array
+        this._saveEntries = SerializationUtils.getSavesEntries();
+
+        // Update current selected save's index
+        if(this._saveEntries.length < 1)
+        {
+            this._currentSaveIndex = -1;
+        }
+        else
+        {
+            const shouldResetIndex = this._currentSaveIndex > this._saveEntries.length - 1;
+            this._currentSaveIndex = shouldResetIndex ? 0 : this._currentSaveIndex;
+        }
+
+        this._saveCount.text = 'Saves: ' + this._saveEntries.length;
+        this._saveName.text = this._currentSaveIndex < 0 ?
+            "No save available":
+            this._saveEntries[this._currentSaveIndex].name;
     }
 
     // Saves manipulation
+    // =============================
+
+    private loadBlankSave(): void
+    {
+        this.setCurrentSelectedSave(-1);
+        BuildController.loadBuild(this._currentBuildData.blocks);
+    }
+
     private setCurrentSelectedSave(index: number): void
     {
         switch (index)
