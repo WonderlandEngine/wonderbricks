@@ -50,6 +50,8 @@ export default class BuildContainer extends Component
 
     public loadBuildData(data: Array<BlockData>): void
     {
+        this.clearBlocksInScene();
+
         let currentPrefab: PrefabBase;
         for (const block of data)
         {
@@ -61,6 +63,14 @@ export default class BuildContainer extends Component
             BuildController.setColor(color);
 
             BuildController.instanciatePrefabAt(block.position);
+        }
+    }
+
+    public clearBlocksInScene(): void
+    {
+        for (const child of this.object.children)
+        {
+            child.destroy();
         }
     }
 }

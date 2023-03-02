@@ -70,7 +70,7 @@ export default class SavePanel extends Component
         this._saveCount.text = 'Saves: ' + this._saveEntries.length;
         this._saveName.text = this._currentSaveIndex < 0 ? "No save available": this._saveEntries[0].name;
 
-        this.setCurrentSelectedSave(this._currentSaveIndex < 0 ? -1: 0);
+        this.setCurrentSelectedSave(-1); // Empty save on launch
         this.onLoadButtonClicked();
     }
 
