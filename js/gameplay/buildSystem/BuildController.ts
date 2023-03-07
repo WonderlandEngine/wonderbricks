@@ -1,10 +1,10 @@
 import PrefabBase from "../prefabs/PrefabBase";
 import {vec3, vec4} from "gl-matrix";
 import PrefabsRegistry from "../prefabs/PrefabsRegistry";
-import BlockSlopePrefab from "../prefabs/BlockSlopePrefab";
+import { BlockSlopePrefab } from "../prefabs/BlockSlopePrefab";
 import {Object} from "@wonderlandengine/api";
 import {BlockData} from "../serialization/SarielizationData";
-import BuildContainer from "./BuildContainer";
+import {BuildContainer} from "./BuildContainer";
 
 
 class BuildController

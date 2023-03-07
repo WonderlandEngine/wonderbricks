@@ -1,9 +1,9 @@
-import {Component, Mesh, MeshComponent, Object, Type} from "@wonderlandengine/api";
+import {Component, Object, Type} from "@wonderlandengine/api";
 import {getCurrentScene} from "../../lib/WlApi";
 import Grid from "./Grid";
 
 
-export default class GridDebugComponent extends Component
+export class GridDebugComponent extends Component
 {
     static TypeName = 'grid-debug-component';
     static Properties = {

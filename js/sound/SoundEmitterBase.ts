@@ -5,7 +5,7 @@ import {vec3} from "gl-matrix";
 import SoundSystem from "./SoundSystem";
 
 
-export default abstract class SoundEmitterBase extends Component {
+export abstract class SoundEmitterBase extends Component {
     static TypeName = 'sound-emitter-base';
     static Properties = {};
 

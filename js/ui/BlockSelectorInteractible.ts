@@ -1,11 +1,11 @@
 import {Component, Object, Type} from "@wonderlandengine/api";
 import PrefabBase from "../gameplay/prefabs/PrefabBase";
-import UiButton from "./UiButton";
+import {UiButton} from "./UiButton";
 import BuildController from "../gameplay/buildSystem/BuildController";
 import PrefabsRegistry from "../gameplay/prefabs/PrefabsRegistry";
 
 
-export default class BlockSelectorInteractible extends Component
+export class BlockSelectorInteractible extends Component
 {
     static TypeName = 'block-selector-interactible';
     static Properties = {

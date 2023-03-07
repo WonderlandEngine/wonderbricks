@@ -3,9 +3,9 @@
         "14": {
             "name": "Player",
             "translation": [
-                -2.5,
+                -1.5,
                 0.0,
-                1.1575535
+                2.1575536
             ],
             "rotation": [
                 0.0,
@@ -13,7 +13,7 @@
                 0.0,
                 1.0
             ],
-            "scale": [
+            "scaling": [
                 0.9999998,
                 1.0,
                 0.9999998
@@ -26,7 +26,7 @@
                     "type": "mesh",
                     "mesh": {
                         "mesh": "305",
-                        "material": "20"
+                        "material": "358"
                     },
                     "active": true
                 },
@@ -62,12 +62,12 @@
                 0.0,
                 1.0
             ],
-            "scale": [
+            "parent": "314",
+            "scaling": [
                 4.0,
                 4.0,
                 4.0
-            ],
-            "parent": "314"
+            ]
         },
         "16": {
             "name": "IndicatorVisual",
@@ -106,12 +106,12 @@
                 0.0,
                 1.0
             ],
-            "scale": [
+            "parent": "239",
+            "scaling": [
                 0.25,
                 0.25,
                 0.25
-            ],
-            "parent": "239"
+            ]
         },
         "17": {
             "name": "NonVrCamera",
@@ -142,7 +142,7 @@
                 0.0,
                 1.0
             ],
-            "scale": [
+            "scaling": [
                 1.0,
                 1.0,
                 1.0
@@ -176,7 +176,7 @@
                 0.0,
                 1.0
             ],
-            "scale": [
+            "scaling": [
                 1.0,
                 1.0,
                 1.0
@@ -207,7 +207,7 @@
                 0.0,
                 1.0
             ],
-            "scale": [
+            "scaling": [
                 1.0,
                 1.0,
                 1.0
@@ -241,12 +241,12 @@
                 -0.2192735,
                 -0.2175282
             ],
-            "scale": [
+            "parent": "314",
+            "scaling": [
                 1.0000002,
                 1.0,
                 1.0000002
-            ],
-            "parent": "314"
+            ]
         },
         "53": {
             "link": {
@@ -266,9 +266,9 @@
                 0.6816681,
                 3.196286257889369e-8
             ],
-            "scale": [
+            "scaling": [
                 0.9999998,
-                0.9999999,
+                0.9999998,
                 0.9999997
             ]
         },
@@ -505,7 +505,7 @@
                 -0.0125658,
                 -4.174509058429976e-7
             ],
-            "scale": [
+            "scaling": [
                 0.9993978,
                 0.9993963,
                 1.0000015
@@ -770,7 +770,7 @@
                 0.0,
                 1.0
             ],
-            "scale": [
+            "scaling": [
                 1.0,
                 1.0,
                 1.0
@@ -799,7 +799,7 @@
                 0.0,
                 1.0
             ],
-            "scale": [
+            "scaling": [
                 0.0099999,
                 0.0099999,
                 0.0099999
@@ -876,7 +876,7 @@
                 0.0,
                 1.0
             ],
-            "scale": [
+            "scaling": [
                 1.0,
                 1.0,
                 1.0
@@ -934,7 +934,7 @@
                 0.0,
                 1.0
             ],
-            "scale": [
+            "scaling": [
                 1.0,
                 1.0,
                 1.0
@@ -973,7 +973,7 @@
                 0.0,
                 1.0
             ],
-            "scale": [
+            "scaling": [
                 1.0,
                 1.0,
                 1.0
@@ -1262,7 +1262,7 @@
                 0.0,
                 1.0
             ],
-            "scale": [
+            "scaling": [
                 1.0,
                 1.0,
                 1.0
@@ -1515,7 +1515,7 @@
                 0.0,
                 1.0
             ],
-            "scale": [
+            "scaling": [
                 1.0,
                 1.0,
                 1.0
@@ -1537,7 +1537,7 @@
                 0.0,
                 1.0
             ],
-            "scale": [
+            "scaling": [
                 1.0,
                 1.0,
                 1.0
@@ -1557,7 +1557,7 @@
                 0.0,
                 1.0
             ],
-            "scale": [
+            "scaling": [
                 1.0,
                 1.0,
                 1.0
@@ -1586,7 +1586,7 @@
                 0.0,
                 0.7072134
             ],
-            "scale": [
+            "scaling": [
                 0.0049998,
                 0.3500001,
                 0.0049998
@@ -1639,7 +1639,7 @@
                 0.0,
                 1.0
             ],
-            "scale": [
+            "scaling": [
                 1.0,
                 1.0,
                 1.0
@@ -1659,7 +1659,7 @@
                 0.0,
                 1.0
             ],
-            "scale": [
+            "scaling": [
                 1.0,
                 1.0,
                 1.0
@@ -1688,7 +1688,7 @@
                 0.0,
                 1.0
             ],
-            "scale": [
+            "scaling": [
                 0.0099999,
                 0.0099999,
                 0.0099999
@@ -1717,7 +1717,7 @@
                 0.0,
                 1.0
             ],
-            "scale": [
+            "scaling": [
                 1.0,
                 1.0,
                 1.0
@@ -1739,11 +1739,6 @@
                 0.0,
                 1.0
             ],
-            "scale": [
-                1.0,
-                1.0,
-                1.0
-            ],
             "components": [
                 {
                     "mesh": {
@@ -1752,7 +1747,12 @@
                 }
             ],
             "name": "Ref_GridDebuggerVisual",
-            "parent": "314"
+            "parent": "314",
+            "scaling": [
+                1.0,
+                1.0,
+                1.0
+            ]
         },
         "239": {
             "name": "Indicator",
@@ -1767,7 +1767,7 @@
                 0.0,
                 1.0
             ],
-            "scale": [
+            "scaling": [
                 1.0,
                 1.0,
                 1.0
@@ -1798,7 +1798,7 @@
                 0.0,
                 1.0
             ],
-            "scale": [
+            "scaling": [
                 1.0,
                 1.0,
                 1.0
@@ -1826,15 +1826,15 @@
                 0.0,
                 0.7071067
             ],
-            "scale": [
-                0.0099999,
-                0.6999593,
-                0.0099993
-            ],
             "translation": [
                 0.0,
                 -0.0000151,
                 0.5
+            ],
+            "scaling": [
+                0.0099999,
+                0.6999592,
+                0.0099993
             ]
         },
         "276": {
@@ -1851,11 +1851,6 @@
                 0.0,
                 1.0
             ],
-            "scale": [
-                1.0,
-                1.0,
-                1.0
-            ],
             "components": [
                 {
                     "type": "block-slope-prefab",
@@ -1866,6 +1861,11 @@
                         "previsMat": "22"
                     }
                 }
+            ],
+            "scaling": [
+                1.0,
+                1.0,
+                1.0
             ]
         },
         "277": {
@@ -1882,11 +1882,6 @@
                 0.0,
                 1.0
             ],
-            "scale": [
-                1.0,
-                1.0,
-                1.0
-            ],
             "components": [
                 {
                     "type": "block-stair-prefab",
@@ -1897,6 +1892,11 @@
                         "previsMat": "22"
                     }
                 }
+            ],
+            "scaling": [
+                1.0,
+                1.0,
+                1.0
             ]
         },
         "285": {
@@ -1914,11 +1914,6 @@
                 0.0,
                 0.0,
                 0.7071067
-            ],
-            "scale": [
-                1.0,
-                0.999976,
-                0.999976
             ],
             "name": "ButtonCube",
             "components": [
@@ -1949,7 +1944,12 @@
                     }
                 }
             ],
-            "parent": "293"
+            "parent": "293",
+            "scaling": [
+                1.0,
+                0.9999759,
+                0.9999759
+            ]
         },
         "286": {
             "name": "Text",
@@ -1973,7 +1973,7 @@
                 0.0,
                 0.7071067
             ],
-            "scale": [
+            "scaling": [
                 1.0,
                 1.0,
                 1.0
@@ -1994,11 +1994,6 @@
                 0.0,
                 0.0,
                 0.7071067
-            ],
-            "scale": [
-                1.0,
-                0.9999853,
-                0.9999853
             ],
             "name": "ButtonSlope",
             "components": [
@@ -2029,7 +2024,12 @@
                     }
                 }
             ],
-            "parent": "293"
+            "parent": "293",
+            "scaling": [
+                1.0,
+                0.9999852,
+                0.9999852
+            ]
         },
         "290": {
             "name": "Text",
@@ -2053,7 +2053,7 @@
                 0.0,
                 0.7071067
             ],
-            "scale": [
+            "scaling": [
                 1.0,
                 1.0,
                 1.0
@@ -2074,11 +2074,6 @@
                 0.0,
                 0.0,
                 0.7071067
-            ],
-            "scale": [
-                1.0,
-                0.9999802,
-                0.9999802
             ],
             "name": "ButtonStair",
             "components": [
@@ -2109,7 +2104,12 @@
                     }
                 }
             ],
-            "parent": "293"
+            "parent": "293",
+            "scaling": [
+                1.0,
+                0.9999802,
+                0.9999802
+            ]
         },
         "292": {
             "name": "Text",
@@ -2133,7 +2133,7 @@
                 0.0,
                 0.7071067
             ],
-            "scale": [
+            "scaling": [
                 1.0,
                 1.0,
                 1.0
@@ -2152,7 +2152,7 @@
                 0.0,
                 0.9658811
             ],
-            "scale": [
+            "scaling": [
                 0.9999998,
                 1.0,
                 0.9999998
@@ -2180,7 +2180,7 @@
                 0.0,
                 1.0
             ],
-            "scale": [
+            "scaling": [
                 1.0,
                 1.0,
                 1.0
@@ -2199,12 +2199,12 @@
                 0.0,
                 0.7069844
             ],
-            "scale": [
+            "parent": null,
+            "scaling": [
                 0.9999997,
                 1.0,
                 0.9999997
-            ],
-            "parent": null
+            ]
         },
         "297": {
             "link": {
@@ -2221,11 +2221,6 @@
                 -2.1073418565720203e-8,
                 2.107342389479072e-8,
                 0.7071067
-            ],
-            "scale": [
-                1.0000001,
-                0.999976,
-                0.9999759
             ],
             "name": "ButtonBlue",
             "components": [
@@ -2258,7 +2253,12 @@
                     }
                 }
             ],
-            "parent": "296"
+            "parent": "296",
+            "scaling": [
+                1.0000001,
+                0.9999759,
+                0.9999759
+            ]
         },
         "298": {
             "name": "Text",
@@ -2283,7 +2283,7 @@
                 -7.993277506557207e-8,
                 0.7071067
             ],
-            "scale": [
+            "scaling": [
                 0.6999999,
                 0.6999999,
                 0.6999999
@@ -2311,7 +2311,7 @@
                 0.0,
                 1.0
             ],
-            "scale": [
+            "scaling": [
                 1.0000001,
                 1.0,
                 1.0000001
@@ -2332,11 +2332,6 @@
                 1.05367181646443e-8,
                 9.483037644031357e-8,
                 0.7071067
-            ],
-            "scale": [
-                1.0000003,
-                0.9999842,
-                0.999976
             ],
             "name": "ButtonRed",
             "components": [
@@ -2369,7 +2364,12 @@
                     }
                 }
             ],
-            "parent": "296"
+            "parent": "296",
+            "scaling": [
+                1.0000003,
+                0.9999842,
+                0.9999759
+            ]
         },
         "301": {
             "name": "Text",
@@ -2393,7 +2393,7 @@
                 -2.9501768494810676e-7,
                 0.7071067
             ],
-            "scale": [
+            "scaling": [
                 1.0,
                 0.9999997,
                 1.0
@@ -2414,11 +2414,6 @@
                 0.0,
                 8.42936600520261e-8,
                 0.7071067
-            ],
-            "scale": [
-                1.0000003,
-                0.9999877,
-                0.999976
             ],
             "name": "ButtonGreen",
             "components": [
@@ -2451,7 +2446,12 @@
                     }
                 }
             ],
-            "parent": "296"
+            "parent": "296",
+            "scaling": [
+                1.0000003,
+                0.9999877,
+                0.9999759
+            ]
         },
         "303": {
             "name": "Text",
@@ -2475,7 +2475,7 @@
                 0.0,
                 0.7071067
             ],
-            "scale": [
+            "scaling": [
                 1.0,
                 1.0,
                 1.0
@@ -2509,105 +2509,12 @@
                 -0.0501547,
                 0.9498432
             ],
-            "scale": [
+            "parent": "314",
+            "scaling": [
                 0.9999998,
                 0.9999995,
                 0.9999998
-            ],
-            "parent": "314"
-        },
-        "308": {
-            "link": {
-                "name": "Icosphere",
-                "file": "models\\terrain\\cloud.glb"
-            },
-            "name": "Cloud",
-            "components": [
-                {
-                    "mesh": {
-                        "material": "128"
-                    }
-                }
-            ],
-            "translation": [
-                9.5000066,
-                7.0000057,
-                -13.5000114
-            ],
-            "rotation": [
-                0.0,
-                -0.3626434,
-                0.0,
-                0.9319279
-            ],
-            "scale": [
-                0.9999999,
-                1.0,
-                0.9999999
-            ],
-            "parent": "314"
-        },
-        "310": {
-            "link": {
-                "name": "Icosphere",
-                "file": "models\\terrain\\cloud.glb"
-            },
-            "name": "Cloud",
-            "components": [
-                {
-                    "mesh": {
-                        "material": "128"
-                    }
-                }
-            ],
-            "translation": [
-                -0.5371308,
-                7.0000581,
-                -26.5597362
-            ],
-            "rotation": [
-                0.0,
-                0.1558298,
-                0.0,
-                0.9877839
-            ],
-            "scale": [
-                1.0507855,
-                1.0507898,
-                1.0507855
-            ],
-            "parent": "314"
-        },
-        "311": {
-            "link": {
-                "name": "Icosphere",
-                "file": "models\\terrain\\cloud.glb"
-            },
-            "name": "Cloud",
-            "components": [
-                {
-                    "mesh": {
-                        "material": "128"
-                    }
-                }
-            ],
-            "translation": [
-                -7.5017499,
-                7.0000286,
-                -12.1790714
-            ],
-            "rotation": [
-                0.0,
-                0.2958398,
-                0.0,
-                0.9552375
-            ],
-            "scale": [
-                0.9999964,
-                1.0,
-                0.9999964
-            ],
-            "parent": "314"
+            ]
         },
         "314": {
             "name": "Environment"
@@ -2633,12 +2540,12 @@
                 0.0,
                 0.7069844
             ],
-            "scale": [
-                0.9999996,
+            "parent": null,
+            "scaling": [
+                0.9999995,
                 1.0,
-                0.9999996
-            ],
-            "parent": null
+                0.9999995
+            ]
         },
         "317": {
             "link": {
@@ -2655,11 +2562,6 @@
                 -1.4901516465215536e-8,
                 -0.0,
                 1.0
-            ],
-            "scale": [
-                0.9999996,
-                1.0,
-                0.9999931
             ],
             "name": "NewBuildButton",
             "components": [
@@ -2684,7 +2586,12 @@
                     }
                 }
             ],
-            "parent": "328"
+            "parent": "328",
+            "scaling": [
+                0.9999995,
+                1.0,
+                0.999993
+            ]
         },
         "318": {
             "name": "Text",
@@ -2708,7 +2615,7 @@
                 0.0,
                 0.7071067
             ],
-            "scale": [
+            "scaling": [
                 1.0,
                 1.0,
                 1.0
@@ -2729,11 +2636,6 @@
                 -1.4901516465215536e-8,
                 -0.0,
                 1.0
-            ],
-            "scale": [
-                0.9999996,
-                1.0,
-                0.9999823
             ],
             "name": "LoadBuildButton",
             "components": [
@@ -2758,7 +2660,12 @@
                     }
                 }
             ],
-            "parent": "328"
+            "parent": "328",
+            "scaling": [
+                0.9999995,
+                1.0,
+                0.9999822
+            ]
         },
         "321": {
             "name": "Text",
@@ -2783,7 +2690,7 @@
                 -7.993277506557207e-8,
                 0.7071067
             ],
-            "scale": [
+            "scaling": [
                 0.6499999,
                 0.6499999,
                 0.6499999
@@ -2805,11 +2712,6 @@
                 -2.106312635419272e-8,
                 0.7071067
             ],
-            "scale": [
-                1.0000005,
-                0.9999764,
-                0.999976
-            ],
             "name": "Panel",
             "components": [
                 {
@@ -2830,7 +2732,12 @@
                     }
                 }
             ],
-            "parent": "316"
+            "parent": "316",
+            "scaling": [
+                1.0000004,
+                0.9999763,
+                0.9999759
+            ]
         },
         "329": {
             "name": "Title",
@@ -2854,7 +2761,7 @@
                 -0.0000157,
                 0.7071067
             ],
-            "scale": [
+            "scaling": [
                 1.0,
                 1.0,
                 1.0000102
@@ -2875,11 +2782,6 @@
                 0.0000115,
                 -0.0,
                 1.0
-            ],
-            "scale": [
-                0.9999995,
-                1.0000234,
-                1.0000118
             ],
             "name": "NextSaveButton",
             "components": [
@@ -2904,7 +2806,12 @@
                     }
                 }
             ],
-            "parent": "328"
+            "parent": "328",
+            "scaling": [
+                0.9999995,
+                1.0000233,
+                1.0000118
+            ]
         },
         "332": {
             "name": "Text",
@@ -2929,7 +2836,7 @@
                 -7.993277506557207e-8,
                 0.7071067
             ],
-            "scale": [
+            "scaling": [
                 0.6499999,
                 0.6499999,
                 0.6499999
@@ -2957,7 +2864,7 @@
                 -0.0000383,
                 0.7071067
             ],
-            "scale": [
+            "scaling": [
                 1.0000212,
                 1.0,
                 1.0
@@ -2985,7 +2892,7 @@
                 -0.0000392,
                 0.7071067
             ],
-            "scale": [
+            "scaling": [
                 1.000023,
                 1.0,
                 1.0
@@ -3006,11 +2913,6 @@
                 0.0000057,
                 -0.0,
                 1.0
-            ],
-            "scale": [
-                0.9999995,
-                1.0000118,
-                1.0000001
             ],
             "name": "SaveBuildButton",
             "components": [
@@ -3035,7 +2937,12 @@
                     }
                 }
             ],
-            "parent": "328"
+            "parent": "328",
+            "scaling": [
+                0.9999995,
+                1.0000118,
+                1.0000001
+            ]
         },
         "336": {
             "name": "Text",
@@ -3060,7 +2967,7 @@
                 -7.993277506557207e-8,
                 0.7071067
             ],
-            "scale": [
+            "scaling": [
                 0.6499999,
                 0.6499999,
                 0.6499999
@@ -3081,11 +2988,6 @@
                 0.0000062,
                 4.768410803990264e-7,
                 1.0
-            ],
-            "scale": [
-                0.9999996,
-                1.0000118,
-                1.0000008
             ],
             "name": "RemoveSaveButton",
             "components": [
@@ -3110,7 +3012,12 @@
                     }
                 }
             ],
-            "parent": "328"
+            "parent": "328",
+            "scaling": [
+                0.9999995,
+                1.0000118,
+                1.0000008
+            ]
         },
         "338": {
             "name": "Text",
@@ -3135,7 +3042,7 @@
                 -7.993277506557207e-8,
                 0.7071067
             ],
-            "scale": [
+            "scaling": [
                 0.6,
                 0.6,
                 0.6
@@ -3371,12 +3278,6 @@
                 "file": "models\\Bricks\\Wireframe_Cube.glb"
             }
         },
-        "259": {
-            "link": {
-                "name": "Chiottes",
-                "file": "models\\Bricks\\Chiottes.glb"
-            }
-        },
         "261": {
             "link": {
                 "name": "Cube.001",
@@ -3436,9 +3337,21 @@
                 "name": "Plane",
                 "file": "models\\UI\\panel.glb"
             }
+        },
+        "351": {
+            "link": {
+                "name": "Cube",
+                "file": "models\\Bricks\\Cube_1_1.glb"
+            }
         }
     },
     "textures": {
+        "364-specular-tex": {
+            "image": "364-specular"
+        },
+        "364-probe-tex": {
+            "image": "364-probe"
+        },
         "44": {
             "link": {
                 "name": "texture_0",
@@ -3474,6 +3387,192 @@
             "link": {
                 "name": "texture_0",
                 "file": "models\\UI\\panel.glb"
+            }
+        },
+        "350": {
+            "link": {
+                "name": "Rondin_AO.png",
+                "file": "textures\\Log\\Rondin_AO.png"
+            }
+        },
+        "354": {
+            "link": {
+                "name": "Rondin_N.png",
+                "file": "textures\\Log\\Rondin_N.png"
+            }
+        },
+        "360": {
+            "link": {
+                "name": "Herbe_AO.png",
+                "file": "textures\\Grass\\Herbe_AO.png"
+            }
+        },
+        "362": {
+            "link": {
+                "name": "Herbe_N.png",
+                "file": "textures\\Grass\\Herbe_N.png"
+            }
+        },
+        "365": {
+            "link": {
+                "name": "Sky.png",
+                "file": "textures\\Sky.png"
+            }
+        },
+        "371": {
+            "link": {
+                "name": "BoisTresse_AO.png",
+                "file": "textures\\ToSort\\BoisTresse_AO.png"
+            }
+        },
+        "373": {
+            "link": {
+                "name": "BoisTresse_N.png",
+                "file": "textures\\ToSort\\BoisTresse_N.png"
+            }
+        },
+        "375": {
+            "link": {
+                "name": "Bois_AO.png",
+                "file": "textures\\ToSort\\Bois_AO.png"
+            }
+        },
+        "377": {
+            "link": {
+                "name": "Bois_N.png",
+                "file": "textures\\ToSort\\Bois_N.png"
+            }
+        },
+        "379": {
+            "link": {
+                "name": "Brique_AO.png",
+                "file": "textures\\ToSort\\Brique_AO.png"
+            }
+        },
+        "381": {
+            "link": {
+                "name": "Brique_N.png",
+                "file": "textures\\ToSort\\Brique_N.png"
+            }
+        },
+        "383": {
+            "link": {
+                "name": "Chaux_AO.png",
+                "file": "textures\\ToSort\\Chaux_AO.png"
+            }
+        },
+        "385": {
+            "link": {
+                "name": "Chaux_N.png",
+                "file": "textures\\ToSort\\Chaux_N.png"
+            }
+        },
+        "387": {
+            "link": {
+                "name": "Feuilles_AO.png",
+                "file": "textures\\ToSort\\Feuilles_AO.png"
+            }
+        },
+        "389": {
+            "link": {
+                "name": "Feuilles_N.png",
+                "file": "textures\\ToSort\\Feuilles_N.png"
+            }
+        },
+        "391": {
+            "link": {
+                "name": "MetalMartele_AO.png",
+                "file": "textures\\ToSort\\MetalMartele_AO.png"
+            }
+        },
+        "393": {
+            "link": {
+                "name": "MetalMartele_N.png",
+                "file": "textures\\ToSort\\MetalMartele_N.png"
+            }
+        },
+        "395": {
+            "link": {
+                "name": "Metal_AO.png",
+                "file": "textures\\ToSort\\Metal_AO.png"
+            }
+        },
+        "397": {
+            "link": {
+                "name": "Metal_N.png",
+                "file": "textures\\ToSort\\Metal_N.png"
+            }
+        },
+        "399": {
+            "link": {
+                "name": "PierreGrossiere_AO.png",
+                "file": "textures\\ToSort\\PierreGrossiere_AO.png"
+            }
+        },
+        "401": {
+            "link": {
+                "name": "PierreGrossiere_N.png",
+                "file": "textures\\ToSort\\PierreGrossiere_N.png"
+            }
+        },
+        "403": {
+            "link": {
+                "name": "PierreTaillee_AO.png",
+                "file": "textures\\ToSort\\PierreTaillee_AO.png"
+            }
+        },
+        "405": {
+            "link": {
+                "name": "PierreTaillee_N.png",
+                "file": "textures\\ToSort\\PierreTaillee_N.png"
+            }
+        },
+        "407": {
+            "link": {
+                "name": "Planche_AO.png",
+                "file": "textures\\ToSort\\Planche_AO.png"
+            }
+        },
+        "409": {
+            "link": {
+                "name": "Planche_N.png",
+                "file": "textures\\ToSort\\Planche_N.png"
+            }
+        },
+        "411": {
+            "link": {
+                "name": "Rondin_AO.png",
+                "file": "textures\\ToSort\\Rondin_AO.png"
+            }
+        },
+        "413": {
+            "link": {
+                "name": "Rondin_N.png",
+                "file": "textures\\ToSort\\Rondin_N.png"
+            }
+        },
+        "415": {
+            "link": {
+                "name": "Tuiles_AO.png",
+                "file": "textures\\ToSort\\Tuiles_AO.png"
+            }
+        },
+        "417": {
+            "link": {
+                "name": "Tuiles_N.png",
+                "file": "textures\\ToSort\\Tuiles_N.png"
+            }
+        },
+        "430": {
+            "link": {
+                "name": "Vol_58_3_Grass_Base_Color.png",
+                "file": "textures\\Grass\\Vol_58_3_Grass_Base_Color.png"
+            }
+        },
+        "432": {
+            "link": {
+                "name": "Vol_58_3_Grass_Normal.png",
+                "file": "textures\\Grass\\Vol_58_3_Grass_Normal.png"
             }
         }
     },
@@ -3528,6 +3627,253 @@
             "link": {
                 "name": "ui-atlas",
                 "file": "models\\UI\\panel.glb"
+            }
+        },
+        "349": {
+            "link": {
+                "name": "Rondin_AO.png",
+                "file": "textures\\Log\\Rondin_AO.png"
+            }
+        },
+        "353": {
+            "link": {
+                "name": "Rondin_N.png",
+                "file": "textures\\Log\\Rondin_N.png"
+            },
+            "compress": false,
+            "maxSize": [
+                128,
+                128
+            ]
+        },
+        "359": {
+            "link": {
+                "name": "Herbe_AO.png",
+                "file": "textures\\Grass\\Herbe_AO.png"
+            },
+            "compress": true,
+            "maxSize": [
+                128,
+                128
+            ],
+            "stream": false
+        },
+        "361": {
+            "link": {
+                "name": "Herbe_N.png",
+                "file": "textures\\Grass\\Herbe_N.png"
+            },
+            "compress": false,
+            "maxSize": [
+                128,
+                128
+            ],
+            "stream": false
+        },
+        "364": {
+            "link": {
+                "name": "Sky.png",
+                "file": "textures\\Sky.png"
+            },
+            "maxSize": [
+                1024,
+                512
+            ],
+            "compress": false,
+            "stream": false
+        },
+        "364-specular": {
+            "link": {
+                "name": "Sky.png",
+                "file": "textures\\Sky.png"
+            },
+            "maxSize": [
+                1024,
+                512
+            ],
+            "compress": false,
+            "stream": false,
+            "isSpecularProbe": true
+        },
+        "364-probe": {
+            "link": {
+                "name": "Sky.png",
+                "file": "textures\\Sky.png"
+            },
+            "maxSize": [
+                1024,
+                512
+            ],
+            "compress": false,
+            "stream": false,
+            "isProbe": true
+        },
+        "370": {
+            "link": {
+                "name": "BoisTresse_AO.png",
+                "file": "textures\\ToSort\\BoisTresse_AO.png"
+            }
+        },
+        "372": {
+            "link": {
+                "name": "BoisTresse_N.png",
+                "file": "textures\\ToSort\\BoisTresse_N.png"
+            },
+            "compress": false
+        },
+        "374": {
+            "link": {
+                "name": "Bois_AO.png",
+                "file": "textures\\ToSort\\Bois_AO.png"
+            }
+        },
+        "376": {
+            "link": {
+                "name": "Bois_N.png",
+                "file": "textures\\ToSort\\Bois_N.png"
+            },
+            "compress": false
+        },
+        "378": {
+            "link": {
+                "name": "Brique_AO.png",
+                "file": "textures\\ToSort\\Brique_AO.png"
+            }
+        },
+        "380": {
+            "link": {
+                "name": "Brique_N.png",
+                "file": "textures\\ToSort\\Brique_N.png"
+            },
+            "compress": false
+        },
+        "382": {
+            "link": {
+                "name": "Chaux_AO.png",
+                "file": "textures\\ToSort\\Chaux_AO.png"
+            }
+        },
+        "384": {
+            "link": {
+                "name": "Chaux_N.png",
+                "file": "textures\\ToSort\\Chaux_N.png"
+            },
+            "compress": false
+        },
+        "386": {
+            "link": {
+                "name": "Feuilles_AO.png",
+                "file": "textures\\ToSort\\Feuilles_AO.png"
+            }
+        },
+        "388": {
+            "link": {
+                "name": "Feuilles_N.png",
+                "file": "textures\\ToSort\\Feuilles_N.png"
+            },
+            "compress": false
+        },
+        "390": {
+            "link": {
+                "name": "MetalMartele_AO.png",
+                "file": "textures\\ToSort\\MetalMartele_AO.png"
+            }
+        },
+        "392": {
+            "link": {
+                "name": "MetalMartele_N.png",
+                "file": "textures\\ToSort\\MetalMartele_N.png"
+            },
+            "compress": false
+        },
+        "394": {
+            "link": {
+                "name": "Metal_AO.png",
+                "file": "textures\\ToSort\\Metal_AO.png"
+            }
+        },
+        "396": {
+            "link": {
+                "name": "Metal_N.png",
+                "file": "textures\\ToSort\\Metal_N.png"
+            },
+            "compress": false
+        },
+        "398": {
+            "link": {
+                "name": "PierreGrossiere_AO.png",
+                "file": "textures\\ToSort\\PierreGrossiere_AO.png"
+            }
+        },
+        "400": {
+            "link": {
+                "name": "PierreGrossiere_N.png",
+                "file": "textures\\ToSort\\PierreGrossiere_N.png"
+            },
+            "compress": false
+        },
+        "402": {
+            "link": {
+                "name": "PierreTaillee_AO.png",
+                "file": "textures\\ToSort\\PierreTaillee_AO.png"
+            }
+        },
+        "404": {
+            "link": {
+                "name": "PierreTaillee_N.png",
+                "file": "textures\\ToSort\\PierreTaillee_N.png"
+            },
+            "compress": false
+        },
+        "406": {
+            "link": {
+                "name": "Planche_AO.png",
+                "file": "textures\\ToSort\\Planche_AO.png"
+            }
+        },
+        "408": {
+            "link": {
+                "name": "Planche_N.png",
+                "file": "textures\\ToSort\\Planche_N.png"
+            },
+            "compress": false
+        },
+        "410": {
+            "link": {
+                "name": "Rondin_AO.png",
+                "file": "textures\\ToSort\\Rondin_AO.png"
+            }
+        },
+        "412": {
+            "link": {
+                "name": "Rondin_N.png",
+                "file": "textures\\ToSort\\Rondin_N.png"
+            },
+            "compress": false
+        },
+        "414": {
+            "link": {
+                "name": "Tuiles_AO.png",
+                "file": "textures\\ToSort\\Tuiles_AO.png"
+            }
+        },
+        "416": {
+            "link": {
+                "name": "Tuiles_N.png",
+                "file": "textures\\ToSort\\Tuiles_N.png"
+            },
+            "compress": false
+        },
+        "429": {
+            "link": {
+                "name": "Vol_58_3_Grass_Base_Color.png",
+                "file": "textures\\Grass\\Vol_58_3_Grass_Base_Color.png"
+            }
+        },
+        "431": {
+            "link": {
+                "name": "Vol_58_3_Grass_Normal.png",
+                "file": "textures\\Grass\\Vol_58_3_Grass_Normal.png"
             }
         }
     },
@@ -3778,6 +4124,70 @@
                 "name": "UI",
                 "file": "models\\UI\\panel.glb"
             }
+        },
+        "348": {
+            "name": "BlockPBR",
+            "pipeline": "223",
+            "Physical": {
+                "occlusionTexture": "350",
+                "normalTexture": "354",
+                "albedoColor": [
+                    0.8392156,
+                    0.7893854,
+                    0.710865,
+                    1.0
+                ],
+                "metallicFactor": 0.0,
+                "irradianceProbeTexture": "364-probe-tex",
+                "specularProbeTexture": "364-specular-tex",
+                "roughnessFactor": 1.0
+            }
+        },
+        "358": {
+            "name": "Grass",
+            "pipeline": "223",
+            "Physical": {
+                "occlusionTexture": "360",
+                "normalTexture": "362",
+                "albedoColor": [
+                    0.5683023,
+                    0.8705882,
+                    0.38579,
+                    1.0
+                ],
+                "metallicFactor": 0.0,
+                "occlusionFactor": 1.0,
+                "irradianceProbeTexture": "364-probe-tex",
+                "specularProbeTexture": "364-specular-tex"
+            },
+            "Phong": {
+                "diffuseTexture": "360",
+                "normalTexture": "362",
+                "diffuseColor": [
+                    0.2981426,
+                    0.6431372,
+                    0.262299,
+                    1.0
+                ],
+                "shininess": 0
+            },
+            "TestShader": {
+                "diffuseTexture": "430",
+                "normalTexture": "432",
+                "diffuseColor": [
+                    0.3447705,
+                    0.5686274,
+                    0.2096116,
+                    0.0
+                ]
+            }
+        },
+        "363": {
+            "name": "Sky",
+            "pipeline": "229",
+            "Sky": {
+                "texture": "365"
+            }
         }
     },
     "shaders": {
@@ -3906,6 +4316,12 @@
                 "name": "CustomShader.frag",
                 "file": "default"
             }
+        },
+        "344": {
+            "link": {
+                "name": "TestShader.frag",
+                "file": "default"
+            }
         }
     },
     "settings": {
@@ -3923,10 +4339,25 @@
         },
         "scripting": {
             "sourcePaths": [
-                "/js/editor-components-bundle.js",
-                "js/"
+                "js/",
+                "js/gameplay",
+                "js/gameplay/buildSystem",
+                "js/gameplay/grid",
+                "js/gameplay/input",
+                "js/gameplay/interactions",
+                "js/gameplay/prefabs",
+                "js/gameplay/serialization",
+                "js/sound",
+                "js/sound/soundEmitters",
+                "js/ui",
+                "js/ui/saveMenu",
+                "js/utils"
             ],
-            "useInternalBundler": false
+            "libraryPaths": [
+                "/js/lib/"
+            ],
+            "autoManageEntryPoint": true,
+            "bundlingType": "esbuild"
         },
         "runtime": {
             "visualizeColliders": false,
@@ -3942,7 +4373,7 @@
             },
             "sky": {
                 "enabled": true,
-                "material": "25"
+                "material": "363"
             },
             "clearColor": [
                 0.3486658,
@@ -3950,6 +4381,9 @@
                 0.8549019,
                 1.0
             ]
+        },
+        "editor": {
+            "ids": "uuid"
         }
     },
     "animations": {
@@ -4114,7 +4548,21 @@
             "link": {
                 "name": "Physical Opaque Textured",
                 "file": "default"
-            }
+            },
+            "features": {
+                "OCCLUSION_TEXTURE": true,
+                "NORMAL_MAPPING": true,
+                "TEXTURED": false,
+                "GLOBAL_ILLUMINATION": true,
+                "TONEMAPPING": false,
+                "SHADOW_NORMAL_OFFSET_SCALE_BY_SHADOW_DEPTH": true,
+                "SHADOW_NORMAL_OFFSET_SLOPE_SCALE": true,
+                "SHADOW_NORMAL_OFFSET_UV_ONLY": true,
+                "ALPHA_MASKED": false,
+                "WITH_EMISSIVE": false
+            },
+            "depthTest": true,
+            "depthWrite": true
         },
         "226": {
             "link": {
@@ -4132,6 +4580,9 @@
             "link": {
                 "name": "Phong Normalmapped",
                 "file": "default"
+            },
+            "features": {
+                "WITH_EMISSIVE": false
             }
         },
         "232": {
@@ -4150,6 +4601,33 @@
             "link": {
                 "name": "CustomShader Textured",
                 "file": "default"
+            }
+        },
+        "345": {
+            "link": {
+                "name": "TestShader",
+                "file": "default"
+            }
+        },
+        "346": {
+            "link": {
+                "name": "TestShader Textured",
+                "file": "default"
+            }
+        },
+        "366": {
+            "link": {
+                "name": "TestShader Opaque",
+                "file": "default"
+            }
+        },
+        "367": {
+            "link": {
+                "name": "TestShader Opaque Textured",
+                "file": "default"
+            },
+            "features": {
+                "NORMAL_MAPPING": true
             }
         }
     },
@@ -4173,7 +4651,39 @@
         "static/LexendDeca-VariableFont_wght.ttf",
         "models/terrain/gound.glb",
         "models/terrain/cloud.glb",
-        "models/UI/panel.glb"
+        "models/UI/panel.glb",
+        "textures/Log/Rondin_AO.png",
+        "models/Bricks/Cube_1_1.glb",
+        "textures/Log/Rondin_N.png",
+        "textures/Grass/Herbe_AO.png",
+        "textures/Grass/Herbe_N.png",
+        "textures/Sky.png",
+        "textures/ToSort/BoisTresse_AO.png",
+        "textures/ToSort/BoisTresse_N.png",
+        "textures/ToSort/Bois_AO.png",
+        "textures/ToSort/Bois_N.png",
+        "textures/ToSort/Brique_AO.png",
+        "textures/ToSort/Brique_N.png",
+        "textures/ToSort/Chaux_AO.png",
+        "textures/ToSort/Chaux_N.png",
+        "textures/ToSort/Feuilles_AO.png",
+        "textures/ToSort/Feuilles_N.png",
+        "textures/ToSort/MetalMartele_AO.png",
+        "textures/ToSort/MetalMartele_N.png",
+        "textures/ToSort/Metal_AO.png",
+        "textures/ToSort/Metal_N.png",
+        "textures/ToSort/PierreGrossiere_AO.png",
+        "textures/ToSort/PierreGrossiere_N.png",
+        "textures/ToSort/PierreTaillee_AO.png",
+        "textures/ToSort/PierreTaillee_N.png",
+        "textures/ToSort/Planche_AO.png",
+        "textures/ToSort/Planche_N.png",
+        "textures/ToSort/Rondin_AO.png",
+        "textures/ToSort/Rondin_N.png",
+        "textures/ToSort/Tuiles_AO.png",
+        "textures/ToSort/Tuiles_N.png",
+        "textures/Grass/Vol_58_3_Grass_Base_Color.png",
+        "textures/Grass/Vol_58_3_Grass_Normal.png"
     ],
     "fonts": {
         "230": {
@@ -4188,5 +4698,6 @@
                 "file": "static\\LexendDeca-VariableFont_wght.ttf"
             }
         }
-    }
+    },
+    "languages": {}
 }

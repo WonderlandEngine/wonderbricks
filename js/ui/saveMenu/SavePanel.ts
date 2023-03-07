@@ -1,13 +1,11 @@
 import {Component, Object, TextComponent, Type} from "@wonderlandengine/api";
-import UiButton from "../UiButton";
+import {UiButton} from "../UiButton";
 import SerializationUtils from "../../gameplay/serialization/SerializationUtils";
-import {BlockData, SceneBuildData, UserPrefData} from "../../gameplay/serialization/SarielizationData";
-import {vec3} from "gl-matrix";
+import {SceneBuildData} from "../../gameplay/serialization/SarielizationData";
 import BuildController from "../../gameplay/buildSystem/BuildController";
-import BuildContainer from "../../gameplay/buildSystem/BuildContainer";
 
 
-export default class SavePanel extends Component
+export class SavePanel extends Component
 {
     static TypeName = 'save-panel';
     static Properties = {

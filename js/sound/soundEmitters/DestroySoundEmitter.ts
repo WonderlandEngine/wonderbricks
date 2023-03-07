@@ -1,8 +1,8 @@
-import SoundEmitterBase from "../SoundEmitterBase";
-import {SoundEmitterType} from "../SoundEmitterType";
+import { SoundEmitterBase } from "../SoundEmitterBase";
+import { SoundEmitterType } from "../SoundEmitterType";
 
 
-export default class DestroySoundEmitter extends SoundEmitterBase
+export class DestroySoundEmitter extends SoundEmitterBase
 {
     static TypeName = 'sound-emitter-destroy';
 

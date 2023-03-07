@@ -1,14 +1,9 @@
 import {Component, MeshComponent, Object, Scene, Type} from "@wonderlandengine/api";
-import {quat, vec3, vec4} from "gl-matrix";
+import {vec3, vec4} from "gl-matrix";
 import {getCurrentScene} from "../../lib/WlApi";
-import GridManager from "../grid/GridManager";
-import PrefabBase from "../prefabs/PrefabBase";
-import PrefabsRegistry from "../prefabs/PrefabsRegistry";
-import BlockPrefab from "../prefabs/BlockPrefab";
-import TagUtils from "../../utils/TagUtils";
 
 
-export default class PointerRay extends Component
+export class PointerRay extends Component
 {
     static TypeName = 'pointer-ray';
     static Properties = {

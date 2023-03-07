@@ -6,7 +6,7 @@ import TagUtils from "./TagUtils";
  * The only goal of this component is to set the object's tag
  * on start.
  */
-export default class TagComponent extends Component
+export class TagComponent extends Component
 {
     static TypeName = 'tag-component';
     static Properties = {

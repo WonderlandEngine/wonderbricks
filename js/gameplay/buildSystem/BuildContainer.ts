@@ -1,4 +1,4 @@
-import {Component, Object} from "@wonderlandengine/api";
+import {Component} from "@wonderlandengine/api";
 import BuildController from "./BuildController";
 import { BlockData } from "../serialization/SarielizationData";
 import PrefabsRegistry from "../prefabs/PrefabsRegistry";
@@ -6,12 +6,10 @@ import {vec3, vec4} from "gl-matrix";
 import PrefabBase from "../prefabs/PrefabBase";
 
 
-export default class BuildContainer extends Component
+export class BuildContainer extends Component
 {
     static TypeName = 'build-container';
     static Properties = {};
-
-    private tempTime: number = 0;
 
     public override init()
     {
@@ -23,9 +21,8 @@ export default class BuildContainer extends Component
     {
         let data = new Array<BlockData>();
 
-        console.log(this.object.children);
-
-        for (const child of this.object.children)
+        const children = this.object.children;
+        for (const child of children)
         {
             let visual = child.children[0];
 

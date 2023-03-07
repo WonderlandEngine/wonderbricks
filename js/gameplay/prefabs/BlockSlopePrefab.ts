@@ -1,9 +1,9 @@
-import {Object, Type} from "@wonderlandengine/api";
+import { Type } from "@wonderlandengine/api";
 import PrefabBase from "./PrefabBase";
 import PrefabsRegistry from "./PrefabsRegistry";
 
 
-export default class BlockSlopePrefab extends PrefabBase
+export class BlockSlopePrefab extends PrefabBase
 {
     static TypeName = 'block-slope-prefab';
     static Properties = {

@@ -3,7 +3,7 @@ import {Constructor, CustomParameter} from "@wonderlandengine/api/wonderland";
 import {quat, vec3, vec4} from "gl-matrix";
 import {getCurrentScene} from "../../lib/WlApi";
 import GridManager from "../grid/GridManager";
-import TagComponent from "../../utils/TagComponent";
+import {TagComponent} from "../../utils/TagComponent";
 import {Tag} from "../../utils/Tag";
 import PrefabsRegistry from "./PrefabsRegistry";
 

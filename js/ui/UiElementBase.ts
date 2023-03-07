@@ -5,7 +5,7 @@ export type UiInteractCallback = () => void;
 /**
  * Base class for UI Elements components
  */
-export default abstract class UiElementBase extends Component
+export abstract class UiElementBase extends Component
 {
     static TypeName = 'ui-element-base';
     static Properties = {};

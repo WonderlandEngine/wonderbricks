@@ -1,8 +1,8 @@
-import SoundEmitterBase from "../SoundEmitterBase";
-import {SoundEmitterType} from "../SoundEmitterType";
+import { SoundEmitterBase } from "../SoundEmitterBase";
+import { SoundEmitterType } from "../SoundEmitterType";
 
 
-export default class PlaceSoundEmitter extends SoundEmitterBase
+export class PlaceSoundEmitter extends SoundEmitterBase
 {
     static TypeName = 'sound-emitter-place';
 

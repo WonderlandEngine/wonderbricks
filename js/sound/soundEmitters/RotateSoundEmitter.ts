@@ -1,8 +1,8 @@
-import SoundEmitterBase from "../SoundEmitterBase";
-import {SoundEmitterType} from "../SoundEmitterType";
+import { SoundEmitterBase } from "../SoundEmitterBase";
+import { SoundEmitterType } from "../SoundEmitterType";
 
 
-export default class RotateSoundEmitter extends SoundEmitterBase
+export class RotateSoundEmitter extends SoundEmitterBase
 {
     static TypeName = 'sound-emitter-rotate';
 

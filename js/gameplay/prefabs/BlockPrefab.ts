@@ -3,7 +3,7 @@ import PrefabBase from "./PrefabBase";
 import PrefabsRegistry from "./PrefabsRegistry";
 
 
-export default class BlockPrefab extends PrefabBase
+export class BlockPrefab extends PrefabBase
 {
     static TypeName = 'block-prefab';
     static Properties = {

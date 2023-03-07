@@ -1,10 +1,10 @@
-import {Component, Object, Type} from "@wonderlandengine/api";
-import UiButton from "./UiButton";
+import {Component, Type} from "@wonderlandengine/api";
+import {UiButton} from "./UiButton";
 
 import BuildController from "../gameplay/buildSystem/BuildController";
 
 
-export default class ColorSelectorInteractible extends Component
+export class ColorSelectorInteractible extends Component
 {
     static TypeName = 'color-selector-interactible';
     static Properties = {

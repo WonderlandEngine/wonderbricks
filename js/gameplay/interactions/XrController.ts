@@ -3,19 +3,19 @@ import {Component, InputComponent, Object, Scene, Type} from "@wonderlandengine/
 import {getCurrentScene, getXrSessionStart} from "../../lib/WlApi";
 
 import XrGamepad from "../input/XrGamepad";
-import {PointerMode} from "./PointerMode";
-import PointerRay from "./PointerRay";
-import {XrInputButton} from "../input/XrInputButton";
+import { PointerMode } from "./PointerMode";
+import { PointerRay } from "./PointerRay";
+import { XrInputButton } from "../input/XrInputButton";
 
 import BuildController from "./../buildSystem/BuildController";
 import GridManager from "./../grid/GridManager";
 import TagUtils from "./../../utils/TagUtils";
 import {Tag} from "../../utils/Tag";
-import UiButton from "./../../ui/UiButton";
+import {UiButton} from "./../../ui/UiButton";
 import SoundSystem from "../../sound/SoundSystem";
 import {SoundEmitterType} from "../../sound/SoundEmitterType";
 
-export default class XrController extends Component
+export class XrController extends Component
 {
     static TypeName = 'XR-Controller';
     static Properties = {
@@ -25,26 +25,17 @@ export default class XrController extends Component
     }
 
     // Properties definition
-    private pointerMode: number;
     private inputObject: Object;
     private pointerRay: Object;
-    private objectToPlace: Object;
 
     private _inputComponent: InputComponent;
     private _hand: XRHandedness;
 
-    private _scene: Scene;
     private _xrGamepad: XrGamepad;
     private _pointerRayComponent: PointerRay;
 
     public override start()
     {
-        // Get the current scene
-        this._scene = getCurrentScene();
-
-        // Set pointer mode to grid by default
-        this.pointerMode = PointerMode.Grid;
-
         // Input component fetching
         if(this.inputObject === null)
             throw new Error("Input Object must be defined");

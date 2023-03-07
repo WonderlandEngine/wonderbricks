@@ -1,8 +1,8 @@
-import SoundEmitterBase from "../SoundEmitterBase";
-import {SoundEmitterType} from "../SoundEmitterType";
+import { SoundEmitterBase } from "../SoundEmitterBase";
+import { SoundEmitterType } from "../SoundEmitterType";
 
 
-export default class ClickSoundEmitter extends SoundEmitterBase
+export class ClickSoundEmitter extends SoundEmitterBase
 {
     static TypeName = 'sound-emitter-click';
 

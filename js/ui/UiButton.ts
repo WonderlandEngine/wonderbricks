@@ -1,10 +1,10 @@
-import {Component, Material, MeshComponent, Object, TextComponent, Type} from "@wonderlandengine/api";
-import TagComponent from "../utils/TagComponent";
+import {Material, MeshComponent, Object, TextComponent, Type} from "@wonderlandengine/api";
+import {TagComponent} from "../utils/TagComponent";
 import {Tag} from "../utils/Tag";
-import UiElementBase from "./UiElementBase";
+import {UiElementBase} from "./UiElementBase";
 
 
-export default class UiButton extends UiElementBase
+export class UiButton extends UiElementBase
 {
     static TypeName = 'ui-button';
     static Properties = {
