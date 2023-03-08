@@ -219,7 +219,7 @@
                 {
                     "type": "light",
                     "light": {
-                        "attenuation": 0.1,
+                        "attenuation": 0.5,
                         "type": "sun",
                         "shadows": true,
                         "color": [
@@ -757,6 +757,9 @@
                         "eyeLeft": "18",
                         "eyeRight": "19"
                     }
+                },
+                {
+                    "type": "vr-mode-active-switch"
                 }
             ],
             "translation": [
@@ -1626,6 +1629,9 @@
                         "eyeRight": "19"
                     },
                     "active": false
+                },
+                {
+                    "type": "vr-mode-active-switch"
                 }
             ],
             "translation": [
@@ -3122,6 +3128,353 @@
                     "type": "sound-emitter-destroy"
                 }
             ]
+        },
+        "a4468944-8f0f-4294-86b2-1fb598e0ac8d": {
+            "name": "TestCube",
+            "components": [
+                {
+                    "type": "mesh",
+                    "mesh": {
+                        "mesh": "3dff8522-a3dc-4443-a153-a7ee63aeedf0",
+                        "material": "348"
+                    }
+                }
+            ],
+            "translation": [
+                -1.75,
+                0.1252703,
+                -1.788139343261719e-7
+            ],
+            "rotation": [
+                0.0,
+                0.7069348,
+                0.0,
+                0.7072787
+            ],
+            "scaling": [
+                0.9999988,
+                1.0,
+                0.9999988
+            ]
+        },
+        "1978473c-c492-4d4f-ad96-08c1f5976165": {
+            "name": "TestCube",
+            "components": [
+                {
+                    "type": "mesh",
+                    "mesh": {
+                        "mesh": "351",
+                        "material": "348"
+                    }
+                }
+            ],
+            "translation": [
+                -2.25,
+                0.1252695,
+                0.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "parent": null
+        },
+        "79d19588-4f44-42eb-ab78-5adb19e4a6d2": {
+            "name": "TestCube",
+            "components": [
+                {
+                    "type": "mesh",
+                    "mesh": {
+                        "mesh": "433",
+                        "material": "348"
+                    }
+                }
+            ],
+            "translation": [
+                -2.75,
+                0.1252695,
+                0.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "parent": null
+        },
+        "ceecd6c9-7ccc-4cea-8c88-d84854bf5fb7": {
+            "name": "TestCube",
+            "components": [
+                {
+                    "type": "mesh",
+                    "mesh": {
+                        "mesh": "c5501db8-89bc-47ce-a387-dd42dc43e650",
+                        "material": "348"
+                    }
+                }
+            ],
+            "translation": [
+                -1.7500002,
+                0.12527,
+                0.4999999
+            ],
+            "rotation": [
+                0.0,
+                0.7069348,
+                0.0,
+                0.7072787
+            ],
+            "scaling": [
+                0.9999988,
+                1.0,
+                0.9999988
+            ],
+            "parent": null
+        },
+        "08c4cd61-36ad-4af2-a17d-9764f6bb0d97": {
+            "name": "TestCube",
+            "components": [
+                {
+                    "type": "mesh",
+                    "mesh": {
+                        "mesh": "400d766f-ec51-442b-bc97-1ce16d833abd",
+                        "material": "348"
+                    }
+                }
+            ],
+            "translation": [
+                -2.25,
+                0.12527,
+                0.5000002
+            ],
+            "rotation": [
+                0.0,
+                0.7069348,
+                0.0,
+                0.7072787
+            ],
+            "scaling": [
+                0.9999988,
+                1.0,
+                0.9999988
+            ],
+            "parent": null
+        },
+        "48bc6e3d-a598-4a79-a4fc-490f18254c20": {
+            "name": "TestCube",
+            "components": [
+                {
+                    "type": "mesh",
+                    "mesh": {
+                        "mesh": "8cb25760-c7bf-4dd1-b55e-50a9f0edbe9d",
+                        "material": "348"
+                    }
+                }
+            ],
+            "translation": [
+                -2.75,
+                0.12527,
+                0.5
+            ],
+            "rotation": [
+                0.0,
+                0.7069348,
+                0.0,
+                0.7072787
+            ],
+            "scaling": [
+                0.9999988,
+                1.0,
+                0.9999988
+            ],
+            "parent": null
+        },
+        "12fe5f1c-9cc8-4ea3-9532-02f1ce347428": {
+            "name": "TestCube",
+            "components": [
+                {
+                    "type": "mesh",
+                    "mesh": {
+                        "mesh": "90e1fefc-0404-44ee-b138-3e28dc98e79b",
+                        "material": "348"
+                    }
+                }
+            ],
+            "translation": [
+                -2.2500002,
+                0.12527,
+                1.0000002
+            ],
+            "rotation": [
+                0.0,
+                0.7069348,
+                0.0,
+                0.7072787
+            ],
+            "scaling": [
+                0.9999988,
+                1.0,
+                0.9999988
+            ],
+            "parent": null
+        },
+        "4ead97de-7c3a-44ca-ac0f-6695444d6142": {
+            "name": "TestCube",
+            "components": [
+                {
+                    "type": "mesh",
+                    "mesh": {
+                        "mesh": "dbf7df60-4571-4d5b-a669-0263792d9a1c",
+                        "material": "348"
+                    }
+                }
+            ],
+            "translation": [
+                -2.7500007,
+                0.12527,
+                1.0
+            ],
+            "rotation": [
+                0.0,
+                0.7069348,
+                0.0,
+                0.7072787
+            ],
+            "scaling": [
+                0.9999988,
+                1.0,
+                0.9999988
+            ],
+            "parent": null
+        },
+        "f373331d-6d6e-4886-96d2-b5373ca1045e": {
+            "name": "TestCube",
+            "components": [
+                {
+                    "type": "mesh",
+                    "mesh": {
+                        "mesh": "93cace90-d4c9-4b78-8319-234bae949cb4",
+                        "material": "348"
+                    }
+                }
+            ],
+            "translation": [
+                -1.7500003,
+                0.12527,
+                0.9999997
+            ],
+            "rotation": [
+                0.0,
+                0.7069348,
+                0.0,
+                0.7072787
+            ],
+            "scaling": [
+                0.9999988,
+                1.0,
+                0.9999988
+            ],
+            "parent": null
+        },
+        "9198f79c-9512-4687-b8d5-9c157b7df2dd": {
+            "name": "TestCube",
+            "components": [
+                {
+                    "type": "mesh",
+                    "mesh": {
+                        "mesh": "ccc719c2-37b9-4e1f-b188-6545bc2ee8c9",
+                        "material": "348"
+                    }
+                }
+            ],
+            "translation": [
+                -1.25,
+                0.1252703,
+                -1.1920928955078125e-7
+            ],
+            "rotation": [
+                0.0,
+                0.7069348,
+                0.0,
+                0.7072787
+            ],
+            "scaling": [
+                0.9999988,
+                1.0,
+                0.9999988
+            ],
+            "parent": null
+        },
+        "e04c43e8-524e-4322-af42-f4b5db88112d": {
+            "name": "TestCube",
+            "components": [
+                {
+                    "type": "mesh",
+                    "mesh": {
+                        "mesh": "a023ab2e-003b-4ce3-b26e-d635bff7b5b2",
+                        "material": "348"
+                    }
+                }
+            ],
+            "translation": [
+                -1.2500002,
+                0.12527,
+                0.4999999
+            ],
+            "rotation": [
+                0.0,
+                0.7069348,
+                0.0,
+                0.7072787
+            ],
+            "scaling": [
+                0.9999988,
+                1.0,
+                0.9999988
+            ],
+            "parent": null
+        },
+        "1bd7479f-988e-441b-a1e7-f1a66ca631dd": {
+            "name": "TestCube",
+            "components": [
+                {
+                    "type": "mesh",
+                    "mesh": {
+                        "mesh": "675bcac6-bc8d-40ce-8759-13303c0bfda7",
+                        "material": "348"
+                    }
+                }
+            ],
+            "translation": [
+                -1.2500004,
+                0.12527,
+                0.9999996
+            ],
+            "rotation": [
+                0.0,
+                0.7069348,
+                0.0,
+                0.7072787
+            ],
+            "scaling": [
+                0.9999988,
+                1.0,
+                0.9999988
+            ],
+            "parent": null
         }
     },
     "meshes": {
@@ -3302,12 +3655,6 @@
                 "file": "models\\Bricks\\StairWireframe.glb"
             }
         },
-        "272": {
-            "link": {
-                "name": "Slope",
-                "file": "models\\Bricks\\Slope.glb"
-            }
-        },
         "274": {
             "link": {
                 "name": "SlopeWireframe",
@@ -3342,6 +3689,78 @@
             "link": {
                 "name": "Cube",
                 "file": "models\\Bricks\\Cube_1_1.glb"
+            }
+        },
+        "3dff8522-a3dc-4443-a153-a7ee63aeedf0": {
+            "link": {
+                "name": "Cube.002",
+                "file": "models\\Bricks\\Stairs.glb"
+            }
+        },
+        "433": {
+            "link": {
+                "name": "Cube.004",
+                "file": "models\\Bricks\\Slope.glb"
+            }
+        },
+        "c5501db8-89bc-47ce-a387-dd42dc43e650": {
+            "link": {
+                "name": "Cube.003",
+                "file": "models\\Bricks\\StairsMid.glb"
+            }
+        },
+        "400d766f-ec51-442b-bc97-1ce16d833abd": {
+            "link": {
+                "name": "Cube.010",
+                "file": "models\\Bricks\\Pyramid_1_1.glb"
+            }
+        },
+        "fdffe6cf-0776-4ace-9f94-9a2484440bb5": {
+            "link": {
+                "name": "Cube.009",
+                "file": "models\\Bricks\\Plank_0.5_0.5_0.25.glb"
+            }
+        },
+        "8cb25760-c7bf-4dd1-b55e-50a9f0edbe9d": {
+            "link": {
+                "name": "Cube.007",
+                "file": "models\\Bricks\\Plank_1_1_0.25.glb"
+            }
+        },
+        "dbf7df60-4571-4d5b-a669-0263792d9a1c": {
+            "link": {
+                "name": "Cylinder.001",
+                "file": "models\\Bricks\\Cylinder_1_0.5.glb"
+            }
+        },
+        "90e1fefc-0404-44ee-b138-3e28dc98e79b": {
+            "link": {
+                "name": "Cylinder",
+                "file": "models\\Bricks\\Cylinder_1_1.glb"
+            }
+        },
+        "93cace90-d4c9-4b78-8319-234bae949cb4": {
+            "link": {
+                "name": "Cube.006",
+                "file": "models\\Bricks\\CubeVert.glb"
+            }
+        },
+        "ccc719c2-37b9-4e1f-b188-6545bc2ee8c9": {
+            "link": {
+                "name": "Cone.002",
+                "file": "models\\Bricks\\ConeCut.glb"
+            }
+        },
+        "a023ab2e-003b-4ce3-b26e-d635bff7b5b2": {
+            "link": {
+                "name": "Cone.001",
+                "file": "models\\Bricks\\Cone_0.5_0.5.glb"
+            }
+        },
+        "675bcac6-bc8d-40ce-8759-13303c0bfda7": {
+            "link": {
+                "name": "Cone",
+                "file": "models\\Bricks\\Cone_1_1.glb"
             }
         }
     },
@@ -3389,190 +3808,58 @@
                 "file": "models\\UI\\panel.glb"
             }
         },
-        "350": {
-            "link": {
-                "name": "Rondin_AO.png",
-                "file": "textures\\Log\\Rondin_AO.png"
-            }
-        },
-        "354": {
-            "link": {
-                "name": "Rondin_N.png",
-                "file": "textures\\Log\\Rondin_N.png"
-            }
-        },
-        "360": {
-            "link": {
-                "name": "Herbe_AO.png",
-                "file": "textures\\Grass\\Herbe_AO.png"
-            }
-        },
-        "362": {
-            "link": {
-                "name": "Herbe_N.png",
-                "file": "textures\\Grass\\Herbe_N.png"
-            }
-        },
         "365": {
             "link": {
                 "name": "Sky.png",
                 "file": "textures\\Sky.png"
             }
         },
-        "371": {
+        "4d3f8bb2-f98e-4960-b752-f6a40e236be2": {
             "link": {
-                "name": "BoisTresse_AO.png",
-                "file": "textures\\ToSort\\BoisTresse_AO.png"
+                "name": "Vol_52_4_Tiles_Base_Color.png",
+                "file": "textures\\Stone\\Vol_52_4_Tiles_Base_Color.png"
             }
         },
-        "373": {
+        "7414883d-2f99-4466-a13e-4b3f774c467f": {
             "link": {
-                "name": "BoisTresse_N.png",
-                "file": "textures\\ToSort\\BoisTresse_N.png"
+                "name": "Vol_52_4_Tiles_Normal.png",
+                "file": "textures\\Stone\\Vol_52_4_Tiles_Normal.png"
             }
         },
-        "375": {
+        "1cb5e014-5968-4693-bc41-596407820ee3": {
             "link": {
-                "name": "Bois_AO.png",
-                "file": "textures\\ToSort\\Bois_AO.png"
+                "name": "Vol_59_2_Nature_Base_Color.png",
+                "file": "textures\\Grass\\Vol_59_2_Nature_Base_Color.png"
             }
         },
-        "377": {
+        "b80d8a08-da2a-4cf1-b9ad-638947f9d332": {
             "link": {
-                "name": "Bois_N.png",
-                "file": "textures\\ToSort\\Bois_N.png"
+                "name": "Vol_59_2_Nature_Normal.png",
+                "file": "textures\\Grass\\Vol_59_2_Nature_Normal.png"
             }
         },
-        "379": {
+        "2acd8481-606a-41a1-ae0d-a447fa659175": {
             "link": {
-                "name": "Brique_AO.png",
-                "file": "textures\\ToSort\\Brique_AO.png"
+                "name": "Vol_52_2_Stone_Base_Color.png",
+                "file": "textures\\Stone\\Vol_52_2_Stone_Base_Color.png"
             }
         },
-        "381": {
+        "ea719192-540c-4552-ae83-0d95f24f58c5": {
             "link": {
-                "name": "Brique_N.png",
-                "file": "textures\\ToSort\\Brique_N.png"
+                "name": "Vol_52_2_Stone_Normal.png",
+                "file": "textures\\Stone\\Vol_52_2_Stone_Normal.png"
             }
         },
-        "383": {
+        "b5ed0eef-d5ed-4169-bf02-3f17393fdcb7": {
             "link": {
-                "name": "Chaux_AO.png",
-                "file": "textures\\ToSort\\Chaux_AO.png"
+                "name": "vol_2_2_Wood_Base_Color.png",
+                "file": "textures\\Wood\\vol_2_2_Wood_Base_Color.png"
             }
         },
-        "385": {
+        "1e4ce675-3834-4462-81f5-f5327d60a279": {
             "link": {
-                "name": "Chaux_N.png",
-                "file": "textures\\ToSort\\Chaux_N.png"
-            }
-        },
-        "387": {
-            "link": {
-                "name": "Feuilles_AO.png",
-                "file": "textures\\ToSort\\Feuilles_AO.png"
-            }
-        },
-        "389": {
-            "link": {
-                "name": "Feuilles_N.png",
-                "file": "textures\\ToSort\\Feuilles_N.png"
-            }
-        },
-        "391": {
-            "link": {
-                "name": "MetalMartele_AO.png",
-                "file": "textures\\ToSort\\MetalMartele_AO.png"
-            }
-        },
-        "393": {
-            "link": {
-                "name": "MetalMartele_N.png",
-                "file": "textures\\ToSort\\MetalMartele_N.png"
-            }
-        },
-        "395": {
-            "link": {
-                "name": "Metal_AO.png",
-                "file": "textures\\ToSort\\Metal_AO.png"
-            }
-        },
-        "397": {
-            "link": {
-                "name": "Metal_N.png",
-                "file": "textures\\ToSort\\Metal_N.png"
-            }
-        },
-        "399": {
-            "link": {
-                "name": "PierreGrossiere_AO.png",
-                "file": "textures\\ToSort\\PierreGrossiere_AO.png"
-            }
-        },
-        "401": {
-            "link": {
-                "name": "PierreGrossiere_N.png",
-                "file": "textures\\ToSort\\PierreGrossiere_N.png"
-            }
-        },
-        "403": {
-            "link": {
-                "name": "PierreTaillee_AO.png",
-                "file": "textures\\ToSort\\PierreTaillee_AO.png"
-            }
-        },
-        "405": {
-            "link": {
-                "name": "PierreTaillee_N.png",
-                "file": "textures\\ToSort\\PierreTaillee_N.png"
-            }
-        },
-        "407": {
-            "link": {
-                "name": "Planche_AO.png",
-                "file": "textures\\ToSort\\Planche_AO.png"
-            }
-        },
-        "409": {
-            "link": {
-                "name": "Planche_N.png",
-                "file": "textures\\ToSort\\Planche_N.png"
-            }
-        },
-        "411": {
-            "link": {
-                "name": "Rondin_AO.png",
-                "file": "textures\\ToSort\\Rondin_AO.png"
-            }
-        },
-        "413": {
-            "link": {
-                "name": "Rondin_N.png",
-                "file": "textures\\ToSort\\Rondin_N.png"
-            }
-        },
-        "415": {
-            "link": {
-                "name": "Tuiles_AO.png",
-                "file": "textures\\ToSort\\Tuiles_AO.png"
-            }
-        },
-        "417": {
-            "link": {
-                "name": "Tuiles_N.png",
-                "file": "textures\\ToSort\\Tuiles_N.png"
-            }
-        },
-        "430": {
-            "link": {
-                "name": "Vol_58_3_Grass_Base_Color.png",
-                "file": "textures\\Grass\\Vol_58_3_Grass_Base_Color.png"
-            }
-        },
-        "432": {
-            "link": {
-                "name": "Vol_58_3_Grass_Normal.png",
-                "file": "textures\\Grass\\Vol_58_3_Grass_Normal.png"
+                "name": "vol_2_2_Wood_Normal.png",
+                "file": "textures\\Wood\\vol_2_2_Wood_Normal.png"
             }
         }
     },
@@ -3629,47 +3916,6 @@
                 "file": "models\\UI\\panel.glb"
             }
         },
-        "349": {
-            "link": {
-                "name": "Rondin_AO.png",
-                "file": "textures\\Log\\Rondin_AO.png"
-            }
-        },
-        "353": {
-            "link": {
-                "name": "Rondin_N.png",
-                "file": "textures\\Log\\Rondin_N.png"
-            },
-            "compress": false,
-            "maxSize": [
-                128,
-                128
-            ]
-        },
-        "359": {
-            "link": {
-                "name": "Herbe_AO.png",
-                "file": "textures\\Grass\\Herbe_AO.png"
-            },
-            "compress": true,
-            "maxSize": [
-                128,
-                128
-            ],
-            "stream": false
-        },
-        "361": {
-            "link": {
-                "name": "Herbe_N.png",
-                "file": "textures\\Grass\\Herbe_N.png"
-            },
-            "compress": false,
-            "maxSize": [
-                128,
-                128
-            ],
-            "stream": false
-        },
         "364": {
             "link": {
                 "name": "Sky.png",
@@ -3708,172 +3954,60 @@
             "stream": false,
             "isProbe": true
         },
-        "370": {
+        "a75ead41-f98e-4e80-a784-b3dcfb7f6585": {
             "link": {
-                "name": "BoisTresse_AO.png",
-                "file": "textures\\ToSort\\BoisTresse_AO.png"
-            }
-        },
-        "372": {
-            "link": {
-                "name": "BoisTresse_N.png",
-                "file": "textures\\ToSort\\BoisTresse_N.png"
+                "name": "Vol_52_4_Tiles_Base_Color.png",
+                "file": "textures\\Stone\\Vol_52_4_Tiles_Base_Color.png"
             },
-            "compress": false
+            "maxSize": [
+                512,
+                512
+            ]
         },
-        "374": {
+        "3eefa7f9-3621-45ab-bc3b-f7631db45aa0": {
             "link": {
-                "name": "Bois_AO.png",
-                "file": "textures\\ToSort\\Bois_AO.png"
-            }
-        },
-        "376": {
-            "link": {
-                "name": "Bois_N.png",
-                "file": "textures\\ToSort\\Bois_N.png"
+                "name": "Vol_52_4_Tiles_Normal.png",
+                "file": "textures\\Stone\\Vol_52_4_Tiles_Normal.png"
             },
-            "compress": false
+            "maxSize": [
+                512,
+                512
+            ]
         },
-        "378": {
+        "e8f8107b-de91-4795-8e5b-810990e53898": {
             "link": {
-                "name": "Brique_AO.png",
-                "file": "textures\\ToSort\\Brique_AO.png"
+                "name": "Vol_59_2_Nature_Base_Color.png",
+                "file": "textures\\Grass\\Vol_59_2_Nature_Base_Color.png"
             }
         },
-        "380": {
+        "0ba5b4a7-808c-45f3-9338-1710c1f70cc0": {
             "link": {
-                "name": "Brique_N.png",
-                "file": "textures\\ToSort\\Brique_N.png"
-            },
-            "compress": false
-        },
-        "382": {
-            "link": {
-                "name": "Chaux_AO.png",
-                "file": "textures\\ToSort\\Chaux_AO.png"
+                "name": "Vol_59_2_Nature_Normal.png",
+                "file": "textures\\Grass\\Vol_59_2_Nature_Normal.png"
             }
         },
-        "384": {
+        "33f2a2dc-1873-4f1c-8dab-08ea2e61bbaf": {
             "link": {
-                "name": "Chaux_N.png",
-                "file": "textures\\ToSort\\Chaux_N.png"
-            },
-            "compress": false
-        },
-        "386": {
-            "link": {
-                "name": "Feuilles_AO.png",
-                "file": "textures\\ToSort\\Feuilles_AO.png"
+                "name": "Vol_52_2_Stone_Base_Color.png",
+                "file": "textures\\Stone\\Vol_52_2_Stone_Base_Color.png"
             }
         },
-        "388": {
+        "e544627b-f6a9-45c7-8c06-e6acb027173b": {
             "link": {
-                "name": "Feuilles_N.png",
-                "file": "textures\\ToSort\\Feuilles_N.png"
-            },
-            "compress": false
-        },
-        "390": {
-            "link": {
-                "name": "MetalMartele_AO.png",
-                "file": "textures\\ToSort\\MetalMartele_AO.png"
+                "name": "Vol_52_2_Stone_Normal.png",
+                "file": "textures\\Stone\\Vol_52_2_Stone_Normal.png"
             }
         },
-        "392": {
+        "34f187a0-ec54-41aa-882b-0b0f9e26bb47": {
             "link": {
-                "name": "MetalMartele_N.png",
-                "file": "textures\\ToSort\\MetalMartele_N.png"
-            },
-            "compress": false
-        },
-        "394": {
-            "link": {
-                "name": "Metal_AO.png",
-                "file": "textures\\ToSort\\Metal_AO.png"
+                "name": "vol_2_2_Wood_Base_Color.png",
+                "file": "textures\\Wood\\vol_2_2_Wood_Base_Color.png"
             }
         },
-        "396": {
+        "f5c09541-43cb-4676-85bb-ff332704c235": {
             "link": {
-                "name": "Metal_N.png",
-                "file": "textures\\ToSort\\Metal_N.png"
-            },
-            "compress": false
-        },
-        "398": {
-            "link": {
-                "name": "PierreGrossiere_AO.png",
-                "file": "textures\\ToSort\\PierreGrossiere_AO.png"
-            }
-        },
-        "400": {
-            "link": {
-                "name": "PierreGrossiere_N.png",
-                "file": "textures\\ToSort\\PierreGrossiere_N.png"
-            },
-            "compress": false
-        },
-        "402": {
-            "link": {
-                "name": "PierreTaillee_AO.png",
-                "file": "textures\\ToSort\\PierreTaillee_AO.png"
-            }
-        },
-        "404": {
-            "link": {
-                "name": "PierreTaillee_N.png",
-                "file": "textures\\ToSort\\PierreTaillee_N.png"
-            },
-            "compress": false
-        },
-        "406": {
-            "link": {
-                "name": "Planche_AO.png",
-                "file": "textures\\ToSort\\Planche_AO.png"
-            }
-        },
-        "408": {
-            "link": {
-                "name": "Planche_N.png",
-                "file": "textures\\ToSort\\Planche_N.png"
-            },
-            "compress": false
-        },
-        "410": {
-            "link": {
-                "name": "Rondin_AO.png",
-                "file": "textures\\ToSort\\Rondin_AO.png"
-            }
-        },
-        "412": {
-            "link": {
-                "name": "Rondin_N.png",
-                "file": "textures\\ToSort\\Rondin_N.png"
-            },
-            "compress": false
-        },
-        "414": {
-            "link": {
-                "name": "Tuiles_AO.png",
-                "file": "textures\\ToSort\\Tuiles_AO.png"
-            }
-        },
-        "416": {
-            "link": {
-                "name": "Tuiles_N.png",
-                "file": "textures\\ToSort\\Tuiles_N.png"
-            },
-            "compress": false
-        },
-        "429": {
-            "link": {
-                "name": "Vol_58_3_Grass_Base_Color.png",
-                "file": "textures\\Grass\\Vol_58_3_Grass_Base_Color.png"
-            }
-        },
-        "431": {
-            "link": {
-                "name": "Vol_58_3_Grass_Normal.png",
-                "file": "textures\\Grass\\Vol_58_3_Grass_Normal.png"
+                "name": "vol_2_2_Wood_Normal.png",
+                "file": "textures\\Wood\\vol_2_2_Wood_Normal.png"
             }
         }
     },
@@ -4129,36 +4263,39 @@
             "name": "BlockPBR",
             "pipeline": "223",
             "Physical": {
-                "occlusionTexture": "350",
-                "normalTexture": "354",
+                "occlusionTexture": null,
+                "normalTexture": "7414883d-2f99-4466-a13e-4b3f774c467f",
                 "albedoColor": [
-                    0.8392156,
-                    0.7893854,
-                    0.710865,
+                    1.0,
+                    0.9448007,
+                    0.7982062,
                     1.0
                 ],
                 "metallicFactor": 0.0,
                 "irradianceProbeTexture": "364-probe-tex",
                 "specularProbeTexture": "364-specular-tex",
-                "roughnessFactor": 1.0
+                "roughnessFactor": 1.0,
+                "albedoTexture": "4d3f8bb2-f98e-4960-b752-f6a40e236be2"
             }
         },
         "358": {
             "name": "Grass",
             "pipeline": "223",
             "Physical": {
-                "occlusionTexture": "360",
-                "normalTexture": "362",
+                "occlusionTexture": null,
+                "normalTexture": "b80d8a08-da2a-4cf1-b9ad-638947f9d332",
                 "albedoColor": [
-                    0.5683023,
-                    0.8705882,
-                    0.38579,
+                    0.8129662,
+                    1.0,
+                    0.6816143,
                     1.0
                 ],
                 "metallicFactor": 0.0,
                 "occlusionFactor": 1.0,
                 "irradianceProbeTexture": "364-probe-tex",
-                "specularProbeTexture": "364-specular-tex"
+                "specularProbeTexture": "364-specular-tex",
+                "albedoTexture": "1cb5e014-5968-4693-bc41-596407820ee3",
+                "roughnessFactor": 1.0
             },
             "Phong": {
                 "diffuseTexture": "360",
@@ -4683,7 +4820,26 @@
         "textures/ToSort/Tuiles_AO.png",
         "textures/ToSort/Tuiles_N.png",
         "textures/Grass/Vol_58_3_Grass_Base_Color.png",
-        "textures/Grass/Vol_58_3_Grass_Normal.png"
+        "textures/Grass/Vol_58_3_Grass_Normal.png",
+        "textures/Stone/Vol_52_4_Tiles_Base_Color.png",
+        "textures/Stone/Vol_52_4_Tiles_Normal.png",
+        "textures/Grass/Vol_59_2_Nature_Base_Color.png",
+        "textures/Grass/Vol_59_2_Nature_Normal.png",
+        "textures/Stone/Vol_52_2_Stone_Base_Color.png",
+        "textures/Stone/Vol_52_2_Stone_Normal.png",
+        "models/Bricks/Stairs.glb",
+        "textures/Wood/vol_2_2_Wood_Base_Color.png",
+        "textures/Wood/vol_2_2_Wood_Normal.png",
+        "models/Bricks/StairsMid.glb",
+        "models/Bricks/Pyramid_1_1.glb",
+        "models/Bricks/Plank_0.5_0.5_0.25.glb",
+        "models/Bricks/Plank_1_1_0.25.glb",
+        "models/Bricks/Cylinder_1_0.5.glb",
+        "models/Bricks/Cylinder_1_1.glb",
+        "models/Bricks/CubeVert.glb",
+        "models/Bricks/ConeCut.glb",
+        "models/Bricks/Cone_0.5_0.5.glb",
+        "models/Bricks/Cone_1_1.glb"
     ],
     "fonts": {
         "230": {

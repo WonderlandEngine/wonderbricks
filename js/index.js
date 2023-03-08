@@ -73,5 +73,4 @@ import './utils/Tag.ts';
 import { TagComponent } from './utils/TagComponent.ts';
 WL.registerComponent(TagComponent);
 import './utils/TagUtils.ts';
-import './utils/materials/PhysicalMaterial.ts';
 /* wle:auto-imports:end */

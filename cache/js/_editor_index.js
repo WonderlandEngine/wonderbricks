@@ -74,5 +74,3 @@ import * as _D__Projets_Wonderland_Projects_WonderBricks_js_utils_TagComponent_t
 _registerEditor(_D__Projets_Wonderland_Projects_WonderBricks_js_utils_TagComponent_ts);
 import * as _D__Projets_Wonderland_Projects_WonderBricks_js_utils_TagUtils_ts from 'D:/Projets/Wonderland/Projects/WonderBricks/js/utils/TagUtils.ts';
 _registerEditor(_D__Projets_Wonderland_Projects_WonderBricks_js_utils_TagUtils_ts);
-import * as _D__Projets_Wonderland_Projects_WonderBricks_js_utils_materials_PhysicalMaterial_ts from 'D:/Projets/Wonderland/Projects/WonderBricks/js/utils/materials/PhysicalMaterial.ts';
-_registerEditor(_D__Projets_Wonderland_Projects_WonderBricks_js_utils_materials_PhysicalMaterial_ts);
