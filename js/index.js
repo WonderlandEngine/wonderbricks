@@ -17,7 +17,6 @@
 
 /* wle:auto-imports:start */
 import '@wonderlandengine/components';
-import './bundle.js';
 import { BuildContainer } from './gameplay/buildSystem/BuildContainer.ts';
 WL.registerComponent(BuildContainer);
 import './gameplay/buildSystem/BuildController.ts';
@@ -74,4 +73,5 @@ import './utils/Tag.ts';
 import { TagComponent } from './utils/TagComponent.ts';
 WL.registerComponent(TagComponent);
 import './utils/TagUtils.ts';
+import './utils/materials/PhysicalMaterial.ts';
 /* wle:auto-imports:end */
