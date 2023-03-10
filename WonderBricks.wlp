@@ -3504,6 +3504,27 @@
                 0.9999988
             ],
             "parent": null
+        },
+        "b21141ad-a28f-4b05-ba1a-c4bdccabbece": {
+            "name": "TexturesInformationContainer",
+            "components": [
+                {
+                    "type": "texture-information-container"
+                }
+            ]
+        },
+        "828f55e1-a722-494e-b9d2-e144c2dd29a7": {
+            "name": "Floor01",
+            "parent": "b21141ad-a28f-4b05-ba1a-c4bdccabbece",
+            "components": [
+                {
+                    "type": "texture-information",
+                    "texture-information": {
+                        "albedo": "a060ef6f-de8a-4467-8cba-3aeab5931859",
+                        "normal": "0ba5fd24-b9b6-463c-b535-8ac655b02985"
+                    }
+                }
+            ]
         }
     },
     "meshes": {
@@ -4148,6 +4169,18 @@
                 "name": "Vol_38_5_Wood_Normal.png",
                 "file": "textures\\Wood\\Vol_38_5_Wood_Normal.png"
             }
+        },
+        "a060ef6f-de8a-4467-8cba-3aeab5931859": {
+            "link": {
+                "name": "Vol_8_5_Tiles_Base_Color.png",
+                "file": "textures\\Floors\\Vol_8_5_Tiles_Base_Color.png"
+            }
+        },
+        "0ba5fd24-b9b6-463c-b535-8ac655b02985": {
+            "link": {
+                "name": "Vol_8_5_Tiles_Normal.png",
+                "file": "textures\\Floors\\Vol_8_5_Tiles_Normal.png"
+            }
         }
     },
     "images": {
@@ -4722,6 +4755,18 @@
                 1024,
                 1024
             ]
+        },
+        "9b77d452-6c62-4404-8578-adbb7dc4c025": {
+            "link": {
+                "name": "Vol_8_5_Tiles_Base_Color.png",
+                "file": "textures\\Floors\\Vol_8_5_Tiles_Base_Color.png"
+            }
+        },
+        "1aecd1a4-fb3e-44b3-911f-53038917c2ad": {
+            "link": {
+                "name": "Vol_8_5_Tiles_Normal.png",
+                "file": "textures\\Floors\\Vol_8_5_Tiles_Normal.png"
+            }
         }
     },
     "materials": {
@@ -4977,7 +5022,7 @@
             "pipeline": "223",
             "Physical": {
                 "occlusionTexture": null,
-                "normalTexture": "cf83a348-e535-46ec-bb16-5c5d7f467ce9",
+                "normalTexture": "0ba5fd24-b9b6-463c-b535-8ac655b02985",
                 "albedoColor": [
                     1.0,
                     1.0,
@@ -4988,7 +5033,7 @@
                 "irradianceProbeTexture": "364-probe-tex",
                 "specularProbeTexture": "364-specular-tex",
                 "roughnessFactor": 1.0,
-                "albedoTexture": "3a9583c4-4d5c-468d-ac37-a079aad6ca68"
+                "albedoTexture": "a060ef6f-de8a-4467-8cba-3aeab5931859"
             }
         },
         "358": {
@@ -5213,7 +5258,8 @@
             "visualizeColliders": false,
             "webxr": {
                 "optionalFeatures": {
-                    "local-floor": true
+                    "local-floor": true,
+                    "hand-tracking": false
                 }
             }
         },
@@ -5226,9 +5272,9 @@
                 "material": "363"
             },
             "clearColor": [
-                0.3486658,
-                0.8132118,
-                0.8549019,
+                1.0,
+                1.0,
+                1.0,
                 1.0
             ]
         },
@@ -5595,7 +5641,9 @@
         "textures/Wood/Vol_33_4_Wood_Base_Color.png",
         "textures/Wood/Vol_33_4_Wood_Normal.png",
         "textures/Wood/Vol_38_5_Wood_Base_Color.png",
-        "textures/Wood/Vol_38_5_Wood_Normal.png"
+        "textures/Wood/Vol_38_5_Wood_Normal.png",
+        "textures/Floors/Vol_8_5_Tiles_Base_Color.png",
+        "textures/Floors/Vol_8_5_Tiles_Normal.png"
     ],
     "fonts": {
         "230": {

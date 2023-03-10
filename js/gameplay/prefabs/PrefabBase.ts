@@ -6,6 +6,7 @@ import GridManager from "../grid/GridManager";
 import { TagComponent } from "../../utils/TagComponent";
 import { Tag } from "../../utils/Tag";
 import PrefabsRegistry from "./PrefabsRegistry";
+import { PhysicalMaterial } from "../../utils/materials/PhysicalMaterial";
 
 export type PrefabBaseConstructor<T extends PrefabBase> = Constructor<T> & {
     TypeName: string;
@@ -77,7 +78,8 @@ export default abstract class PrefabBase extends Component
         finalVisual.translateObject([0, this._cellSize / 2.0, 0]);
         finalVisual.rotate(this._previsObject.rotationWorld);
 
-        let mat = this.finalMat.clone();
+        // Setup Material
+        let mat: PhysicalMaterial = this.finalMat.clone() as PhysicalMaterial;
         mat['diffuseColor'] = color;
         finalVisual.addComponent('mesh', {
             mesh: this.finalMesh,
