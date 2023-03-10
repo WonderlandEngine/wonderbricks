@@ -13,7 +13,7 @@ export class TextureInformationContainer extends Component
     static Properties: Record<string, CustomParameter> = {};
 
     private _children: Array<Object>;
-    private _texturesInformation: Array<TextureInformation>;
+    private _texturesInformation: Map<string, TextureInformation>;
 
     public override start(): void 
     {
@@ -27,14 +27,15 @@ export class TextureInformationContainer extends Component
 
     private buildTexturesInformationArray(): void 
     {
-        this._texturesInformation = new Array<TextureInformation>(this._children.length);
+        this._texturesInformation = new Map<string, TextureInformation>();
 
         for (let i = 0; i < this._children.length; i++) 
         {
-            const texInfo = this._children[i];
-            this._texturesInformation[i] = texInfo.getComponent(TextureInformation);
+            const child = this._children[i];
+            const texInfo = child.getComponent(TextureInformation);
+            this._texturesInformation.set(texInfo.uniqueID, texInfo);
         }
 
-        console.log(`Found ${this._texturesInformation.length} textures`);
+        console.log(`Found ${this._texturesInformation.size} textures`);
     }
 }

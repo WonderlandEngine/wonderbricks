@@ -3521,7 +3521,8 @@
                     "type": "texture-information",
                     "texture-information": {
                         "albedo": "a060ef6f-de8a-4467-8cba-3aeab5931859",
-                        "normal": "0ba5fd24-b9b6-463c-b535-8ac655b02985"
+                        "normal": "0ba5fd24-b9b6-463c-b535-8ac655b02985",
+                        "uid": "floor01"
                     }
                 }
             ]

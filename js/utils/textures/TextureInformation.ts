@@ -13,13 +13,16 @@ export class TextureInformation extends Component
 {
     static TypeName: string = "texture-information";
     static Properties: Record<string, CustomParameter> = {
+        uid: {type: Type.String},
         albedo: {type: Type.Texture, default: null},
         normal: {type: Type.Texture, default: null}
     };
 
+    private uid: string;
     private albedo: Texture;
     private normal: Texture;
 
+    public get uniqueID(): string { return this.uid; }
     public get albedoTexture(): Texture { return this.albedo; }
     public get normalTexture(): Texture { return this.normal; }
 }
