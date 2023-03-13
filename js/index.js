@@ -76,4 +76,6 @@ import './utils/TagUtils.ts';
 import {TextureInformation} from './utils/textures/TextureInformation.ts';
 WL.registerComponent(TextureInformation);
 import './utils/textures/TextureInformationRegistry.ts';
+import {TextureSelectorInteractible} from './ui/TextureSelectorInteractible.ts';
+WL.registerComponent(TextureSelectorInteractible);
 /* wle:auto-imports:end */

@@ -1672,7 +1672,7 @@
                 2.107342389479072e-8,
                 0.7071067
             ],
-            "name": "ButtonBlue",
+            "name": "ButtonStone01",
             "components": [
                 null,
                 {
@@ -1695,11 +1695,9 @@
                     }
                 },
                 {
-                    "type": "color-selector-interactible",
-                    "color-selector-interactible": {
-                        "blue": 0.86,
-                        "red": 0.2,
-                        "green": 0.6
+                    "type": "texture-selector-interactible",
+                    "texture-selector-interactible": {
+                        "textureInfoObject": "988a6406-f307-4861-a29d-88deff2a3a0c"
                     }
                 }
             ],
@@ -1746,7 +1744,7 @@
                 {
                     "type": "text",
                     "text": {
-                        "text": "Colors"
+                        "text": "Textures"
                     }
                 }
             ],
@@ -1783,7 +1781,7 @@
                 9.483037644031357e-8,
                 0.7071067
             ],
-            "name": "ButtonRed",
+            "name": "ButtonFloor",
             "components": [
                 null,
                 {
@@ -1806,11 +1804,9 @@
                     }
                 },
                 {
-                    "type": "color-selector-interactible",
-                    "color-selector-interactible": {
-                        "red": 0.75,
-                        "green": 0.2199999,
-                        "blue": 0.17
+                    "type": "texture-selector-interactible",
+                    "texture-selector-interactible": {
+                        "textureInfoObject": "828f55e1-a722-494e-b9d2-e144c2dd29a7"
                     }
                 }
             ],
@@ -1828,7 +1824,7 @@
                 {
                     "type": "text",
                     "text": {
-                        "text": "RED"
+                        "text": "FLOOR"
                     }
                 }
             ],
@@ -1865,7 +1861,7 @@
                 8.42936600520261e-8,
                 0.7071067
             ],
-            "name": "ButtonGreen",
+            "name": "ButtonStone02",
             "components": [
                 null,
                 {
@@ -1888,11 +1884,9 @@
                     }
                 },
                 {
-                    "type": "color-selector-interactible",
-                    "color-selector-interactible": {
-                        "green": 0.68,
-                        "red": 0.15,
-                        "blue": 0.3799999
+                    "type": "texture-selector-interactible",
+                    "texture-selector-interactible": {
+                        "textureInfoObject": "76bd8fbd-33d8-4f3e-bfbd-4ffe7b305cc8"
                     }
                 }
             ],
@@ -1910,7 +1904,7 @@
                 {
                     "type": "text",
                     "text": {
-                        "text": "GREEN"
+                        "text": "STONE02"
                     }
                 }
             ],
@@ -2050,7 +2044,7 @@
                 {
                     "type": "text",
                     "text": {
-                        "text": "BLUE"
+                        "text": "STONE01"
                     }
                 }
             ],
