@@ -16,7 +16,8 @@
  */
 
 /* wle:auto-imports:start */
-import '@wonderlandengine/components';
+import {ARCamera8thwall, Cursor, CursorTarget, DebugObject, DeviceOrientationLook, FingerCursor, FixedFoveation, HandTracking, HitTestLocation, HowlerAudioListener, HowlerAudioSource, ImageTexture, MouseLookComponent, PlayerHeight, TargetFramerate, TeleportComponent, Trail, TwoJointIkSolver, VideoTexture, VrModeActiveSwitch, Vrm, WasdControlsComponent} from '@wonderlandengine/components';
+WL.registerComponent(ARCamera8thwall, Cursor, CursorTarget, DebugObject, DeviceOrientationLook, FingerCursor, FixedFoveation, HandTracking, HitTestLocation, HowlerAudioListener, HowlerAudioSource, ImageTexture, MouseLookComponent, PlayerHeight, TargetFramerate, TeleportComponent, Trail, TwoJointIkSolver, VideoTexture, VrModeActiveSwitch, Vrm, WasdControlsComponent);
 import {BuildContainer} from './gameplay/buildSystem/BuildContainer.ts';
 WL.registerComponent(BuildContainer);
 import './gameplay/buildSystem/BuildController.ts';
@@ -61,6 +62,8 @@ import {BlockSelectorInteractible} from './ui/BlockSelectorInteractible.ts';
 WL.registerComponent(BlockSelectorInteractible);
 import {ColorSelectorInteractible} from './ui/ColorSelectorInteractible.ts';
 WL.registerComponent(ColorSelectorInteractible);
+import {TextureSelectorInteractible} from './ui/TextureSelectorInteractible.ts';
+WL.registerComponent(TextureSelectorInteractible);
 import {UiButton} from './ui/UiButton.ts';
 WL.registerComponent(UiButton);
 import {UiElementBase} from './ui/UiElementBase.ts';
@@ -76,6 +79,4 @@ import './utils/TagUtils.ts';
 import {TextureInformation} from './utils/textures/TextureInformation.ts';
 WL.registerComponent(TextureInformation);
 import './utils/textures/TextureInformationRegistry.ts';
-import {TextureSelectorInteractible} from './ui/TextureSelectorInteractible.ts';
-WL.registerComponent(TextureSelectorInteractible);
 /* wle:auto-imports:end */

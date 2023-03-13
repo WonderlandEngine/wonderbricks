@@ -2727,6 +2727,103 @@
                 1.0,
                 1.0
             ]
+        },
+        "7aedb7d8-a888-4492-91af-bfe43f332fab": {
+            "link": {
+                "name": "Plane",
+                "file": "models\\UI\\ArmButton.glb"
+            },
+            "components": [
+                {
+                    "mesh": {
+                        "material": "324",
+                        "mesh": "a71781dc-6b82-46d0-895b-f16b2f5a6109"
+                    }
+                }
+            ],
+            "translation": [
+                -0.1046487,
+                0.010018,
+                -0.0236651
+            ],
+            "rotation": [
+                -0.5088968,
+                0.4909426,
+                0.5088985,
+                0.4909395
+            ],
+            "scaling": [
+                0.9999769,
+                0.9999924,
+                0.9999756
+            ],
+            "parent": "1cd7c3b7-1ad5-412d-8bf3-b79e92462ebc"
+        },
+        "1cd7c3b7-1ad5-412d-8bf3-b79e92462ebc": {
+            "name": "ArmUiRoot",
+            "parent": "130"
+        },
+        "be52f64b-9076-403e-9d8d-edcd1573defe": {
+            "link": {
+                "name": "Plane",
+                "file": "models\\UI\\ArmButton.glb"
+            },
+            "components": [
+                {
+                    "mesh": {
+                        "material": "324",
+                        "mesh": "a71781dc-6b82-46d0-895b-f16b2f5a6109"
+                    }
+                }
+            ],
+            "translation": [
+                -0.1046492,
+                0.010018,
+                0.0304156
+            ],
+            "rotation": [
+                -0.5088922,
+                0.4909475,
+                0.5088952,
+                0.4909427
+            ],
+            "scaling": [
+                0.9999765,
+                0.999995,
+                0.9999729
+            ],
+            "parent": "1cd7c3b7-1ad5-412d-8bf3-b79e92462ebc"
+        },
+        "3d2b5d75-5338-4f8e-8b39-229169db899c": {
+            "link": {
+                "name": "Plane",
+                "file": "models\\UI\\ArmButton.glb"
+            },
+            "components": [
+                {
+                    "mesh": {
+                        "material": "324",
+                        "mesh": "a71781dc-6b82-46d0-895b-f16b2f5a6109"
+                    }
+                }
+            ],
+            "translation": [
+                -0.1046496,
+                0.010018,
+                0.0846148
+            ],
+            "rotation": [
+                -0.5088958,
+                0.490944,
+                0.5088974,
+                0.4909403
+            ],
+            "scaling": [
+                0.999974,
+                0.999998,
+                0.9999717
+            ],
+            "parent": "1cd7c3b7-1ad5-412d-8bf3-b79e92462ebc"
         }
     },
     "meshes": {
@@ -3013,6 +3110,12 @@
             "link": {
                 "name": "Cone",
                 "file": "models\\Bricks\\Cone_1_1.glb"
+            }
+        },
+        "a71781dc-6b82-46d0-895b-f16b2f5a6109": {
+            "link": {
+                "name": "Plane",
+                "file": "models\\UI\\ArmButton.glb"
             }
         }
     },
@@ -4217,7 +4320,8 @@
             "link": {
                 "name": "UI",
                 "file": "models\\UI\\panel.glb"
-            }
+            },
+            "pipeline": "35"
         },
         "348": {
             "name": "BlockPBR",
@@ -4518,33 +4622,7 @@
                 "file": "models\\hand-left.glb"
             },
             "name": "HandLeftSkin",
-            "joints": [
-                "139",
-                "140",
-                "141",
-                "142",
-                "143",
-                "144",
-                "145",
-                "146",
-                "147",
-                "148",
-                "149",
-                "150",
-                "151",
-                "152",
-                "153",
-                "154",
-                "155",
-                "156",
-                "157",
-                "158",
-                "159",
-                "160",
-                "161",
-                "162",
-                "163"
-            ]
+            "joints": []
         },
         "166": {
             "link": {
@@ -4552,33 +4630,7 @@
                 "file": "models\\hand-right.glb"
             },
             "name": "HandRightSkin",
-            "joints": [
-                "169",
-                "170",
-                "171",
-                "172",
-                "173",
-                "174",
-                "175",
-                "176",
-                "177",
-                "178",
-                "179",
-                "180",
-                "181",
-                "182",
-                "183",
-                "184",
-                "185",
-                "186",
-                "187",
-                "188",
-                "189",
-                "190",
-                "191",
-                "192",
-                "193"
-            ]
+            "joints": []
         }
     },
     "pipelines": {
@@ -4846,7 +4898,8 @@
         "textures/Wood/Vol_38_5_Wood_Base_Color.png",
         "textures/Wood/Vol_38_5_Wood_Normal.png",
         "textures/Floors/Vol_8_5_Tiles_Base_Color.png",
-        "textures/Floors/Vol_8_5_Tiles_Normal.png"
+        "textures/Floors/Vol_8_5_Tiles_Normal.png",
+        "models/UI/ArmButton.glb"
     ],
     "fonts": {
         "230": {
