@@ -7,6 +7,7 @@ import { TagComponent } from "../../utils/TagComponent";
 import { Tag } from "../../utils/Tag";
 import PrefabsRegistry from "./PrefabsRegistry";
 import { PhysicalMaterial } from "../../utils/materials/PhysicalMaterial";
+import { TextureInformation } from "../../utils/textures/TextureInformation";
 
 export type PrefabBaseConstructor<T extends PrefabBase> = Constructor<T> & {
     TypeName: string;
@@ -66,7 +67,7 @@ export default abstract class PrefabBase extends Component
      * @param color
      * @param container
      */
-    public createBlock(position: vec3, color: vec4, container: Object): Object
+    public createBlock(position: vec3, texInfo: TextureInformation, container: Object): Object
     {
         let newBlock = this._scene.addObject(container);
         newBlock[PrefabsRegistry.PREFAB_UNAME_KEY] = this.getPrefabUniqueName();
@@ -80,7 +81,12 @@ export default abstract class PrefabBase extends Component
 
         // Setup Material
         let mat: PhysicalMaterial = this.finalMat.clone() as PhysicalMaterial;
-        mat['diffuseColor'] = color;
+
+        // Set textures based on current Texture Information
+        mat.albedoTexture = texInfo.albedoTexture;
+        mat.normalTexture = texInfo.normalTexture;
+
+        // Apply the material to the mesh
         finalVisual.addComponent('mesh', {
             mesh: this.finalMesh,
             material: mat
