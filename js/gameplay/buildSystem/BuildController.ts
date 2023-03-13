@@ -92,7 +92,6 @@ class BuildController
         this._currentPrefab.createBlock(position, this._currentTexture, this._buildContainer); 
     }
 
-
     /**
      * Save and Load
      * ==============================
