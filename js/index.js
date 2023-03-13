@@ -75,6 +75,5 @@ WL.registerComponent(TagComponent);
 import './utils/TagUtils.ts';
 import {TextureInformation} from './utils/textures/TextureInformation.ts';
 WL.registerComponent(TextureInformation);
-import {TextureInformationContainer} from './utils/textures/TextureInformationContainer.ts';
-WL.registerComponent(TextureInformationContainer);
+import './utils/textures/TextureInformationRegistry.ts';
 /* wle:auto-imports:end */

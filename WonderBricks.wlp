@@ -3506,12 +3506,7 @@
             "parent": null
         },
         "b21141ad-a28f-4b05-ba1a-c4bdccabbece": {
-            "name": "TexturesInformationContainer",
-            "components": [
-                {
-                    "type": "texture-information-container"
-                }
-            ]
+            "name": "TexturesInformationContainer"
         },
         "828f55e1-a722-494e-b9d2-e144c2dd29a7": {
             "name": "Floor01",
@@ -5247,7 +5242,8 @@
                 "js/sound/soundEmitters",
                 "js/ui",
                 "js/ui/saveMenu",
-                "js/utils"
+                "js/utils",
+                "js/utils/textures"
             ],
             "libraryPaths": [
                 "/js/lib/"
