@@ -943,562 +943,6 @@
                 1.0
             ]
         },
-        "134": {
-            "link": {
-                "name": "Armature",
-                "file": "models\\hand-left.glb"
-            },
-            "parent": "205",
-            "name": "HandLeft",
-            "components": [
-                {
-                    "type": "hand-tracking",
-                    "hand-tracking": {
-                        "handedness": "left",
-                        "handSkin": "133",
-                        "controllerToDeactivate": "130",
-                        "deactivateChildrenWithoutPose": true
-                    }
-                },
-                {
-                    "type": "vr-mode-active-switch",
-                    "active": true
-                }
-            ],
-            "translation": [
-                0.0,
-                0.0,
-                -2.384185791015625e-7
-            ],
-            "rotation": [
-                0.0,
-                0.0,
-                0.0,
-                1.0
-            ],
-            "scaling": [
-                1.0,
-                1.0,
-                1.0
-            ]
-        },
-        "135": {
-            "link": {
-                "name": "l_handMeshNode<Armature",
-                "file": "models\\hand-left.glb"
-            },
-            "parent": "134",
-            "components": [
-                {
-                    "active": true,
-                    "mesh": {
-                        "skin": "133"
-                    }
-                }
-            ]
-        },
-        "136": {
-            "link": {
-                "name": "xr_standard_trigger_pressed_max<Armature",
-                "file": "models\\hand-left.glb"
-            },
-            "parent": "134"
-        },
-        "137": {
-            "link": {
-                "name": "xr_standard_trigger_pressed_min<Armature",
-                "file": "models\\hand-left.glb"
-            },
-            "parent": "134"
-        },
-        "138": {
-            "link": {
-                "name": "xr_standard_trigger_pressed_value<Armature",
-                "file": "models\\hand-left.glb"
-            },
-            "parent": "134"
-        },
-        "139": {
-            "link": {
-                "name": "pinky-finger-tip<Armature",
-                "file": "models\\hand-left.glb"
-            },
-            "parent": "134",
-            "skin": "133"
-        },
-        "140": {
-            "link": {
-                "name": "pinky-finger-phalanx-distal<Armature",
-                "file": "models\\hand-left.glb"
-            },
-            "parent": "134",
-            "skin": "133"
-        },
-        "141": {
-            "link": {
-                "name": "pinky-finger-phalanx-intermediate<Armature",
-                "file": "models\\hand-left.glb"
-            },
-            "parent": "134",
-            "skin": "133"
-        },
-        "142": {
-            "link": {
-                "name": "pinky-finger-phalanx-proximal<Armature",
-                "file": "models\\hand-left.glb"
-            },
-            "parent": "134",
-            "skin": "133"
-        },
-        "143": {
-            "link": {
-                "name": "pinky-finger-metacarpal<Armature",
-                "file": "models\\hand-left.glb"
-            },
-            "parent": "134",
-            "skin": "133"
-        },
-        "144": {
-            "link": {
-                "name": "ring-finger-tip<Armature",
-                "file": "models\\hand-left.glb"
-            },
-            "parent": "134",
-            "skin": "133"
-        },
-        "145": {
-            "link": {
-                "name": "ring-finger-phalanx-distal<Armature",
-                "file": "models\\hand-left.glb"
-            },
-            "parent": "134",
-            "skin": "133"
-        },
-        "146": {
-            "link": {
-                "name": "ring-finger-phalanx-intermediate<Armature",
-                "file": "models\\hand-left.glb"
-            },
-            "parent": "134",
-            "skin": "133"
-        },
-        "147": {
-            "link": {
-                "name": "ring-finger-phalanx-proximal<Armature",
-                "file": "models\\hand-left.glb"
-            },
-            "parent": "134",
-            "skin": "133"
-        },
-        "148": {
-            "link": {
-                "name": "ring-finger-metacarpal<Armature",
-                "file": "models\\hand-left.glb"
-            },
-            "parent": "134",
-            "skin": "133"
-        },
-        "149": {
-            "link": {
-                "name": "middle-finger-tip<Armature",
-                "file": "models\\hand-left.glb"
-            },
-            "parent": "134",
-            "skin": "133"
-        },
-        "150": {
-            "link": {
-                "name": "middle-finger-phalanx-distal<Armature",
-                "file": "models\\hand-left.glb"
-            },
-            "parent": "134",
-            "skin": "133"
-        },
-        "151": {
-            "link": {
-                "name": "middle-finger-phalanx-intermediate<Armature",
-                "file": "models\\hand-left.glb"
-            },
-            "parent": "134",
-            "skin": "133"
-        },
-        "152": {
-            "link": {
-                "name": "middle-finger-phalanx-proximal<Armature",
-                "file": "models\\hand-left.glb"
-            },
-            "parent": "134",
-            "skin": "133"
-        },
-        "153": {
-            "link": {
-                "name": "middle-finger-metacarpal<Armature",
-                "file": "models\\hand-left.glb"
-            },
-            "parent": "134",
-            "skin": "133"
-        },
-        "154": {
-            "link": {
-                "name": "index-finger-tip<Armature",
-                "file": "models\\hand-left.glb"
-            },
-            "parent": "134",
-            "components": [
-                {
-                    "type": "finger-cursor"
-                },
-                {
-                    "type": "collision",
-                    "collision": {
-                        "sphere": {
-                            "radius": 0.0099999
-                        },
-                        "groups": 2
-                    }
-                }
-            ],
-            "skin": "133"
-        },
-        "155": {
-            "link": {
-                "name": "index-finger-phalanx-distal<Armature",
-                "file": "models\\hand-left.glb"
-            },
-            "parent": "134",
-            "skin": "133"
-        },
-        "156": {
-            "link": {
-                "name": "index-finger-phalanx-intermediate<Armature",
-                "file": "models\\hand-left.glb"
-            },
-            "parent": "134",
-            "skin": "133"
-        },
-        "157": {
-            "link": {
-                "name": "index-finger-phalanx-proximal<Armature",
-                "file": "models\\hand-left.glb"
-            },
-            "parent": "134",
-            "skin": "133"
-        },
-        "158": {
-            "link": {
-                "name": "index-finger-metacarpal<Armature",
-                "file": "models\\hand-left.glb"
-            },
-            "parent": "134",
-            "skin": "133"
-        },
-        "159": {
-            "link": {
-                "name": "thumb-tip<Armature",
-                "file": "models\\hand-left.glb"
-            },
-            "parent": "134",
-            "skin": "133"
-        },
-        "160": {
-            "link": {
-                "name": "thumb-phalanx-distal<Armature",
-                "file": "models\\hand-left.glb"
-            },
-            "parent": "134",
-            "skin": "133"
-        },
-        "161": {
-            "link": {
-                "name": "thumb-phalanx-proximal<Armature",
-                "file": "models\\hand-left.glb"
-            },
-            "parent": "134",
-            "skin": "133"
-        },
-        "162": {
-            "link": {
-                "name": "thumb-metacarpal<Armature",
-                "file": "models\\hand-left.glb"
-            },
-            "parent": "134",
-            "skin": "133"
-        },
-        "163": {
-            "link": {
-                "name": "wrist<Armature",
-                "file": "models\\hand-left.glb"
-            },
-            "parent": "134",
-            "skin": "133"
-        },
-        "167": {
-            "link": {
-                "name": "Armature",
-                "file": "models\\hand-right.glb"
-            },
-            "parent": "205",
-            "name": "HandRight",
-            "components": [
-                {
-                    "type": "hand-tracking",
-                    "hand-tracking": {
-                        "handedness": "right",
-                        "handSkin": "166",
-                        "controllerToDeactivate": "129"
-                    },
-                    "active": true
-                },
-                {
-                    "type": "vr-mode-active-switch",
-                    "active": true
-                }
-            ],
-            "translation": [
-                0.0,
-                0.0,
-                -2.384185791015625e-7
-            ],
-            "rotation": [
-                0.0,
-                0.0,
-                0.0,
-                1.0
-            ],
-            "scaling": [
-                1.0,
-                1.0,
-                1.0
-            ]
-        },
-        "168": {
-            "link": {
-                "name": "r_handMeshNode<Armature",
-                "file": "models\\hand-right.glb"
-            },
-            "parent": "167",
-            "components": [
-                {
-                    "mesh": {
-                        "skin": "166"
-                    }
-                }
-            ]
-        },
-        "169": {
-            "link": {
-                "name": "wrist<Armature",
-                "file": "models\\hand-right.glb"
-            },
-            "parent": "167",
-            "skin": "166"
-        },
-        "170": {
-            "link": {
-                "name": "thumb-metacarpal<Armature",
-                "file": "models\\hand-right.glb"
-            },
-            "parent": "167",
-            "skin": "166"
-        },
-        "171": {
-            "link": {
-                "name": "thumb-phalanx-proximal<Armature",
-                "file": "models\\hand-right.glb"
-            },
-            "parent": "167",
-            "skin": "166"
-        },
-        "172": {
-            "link": {
-                "name": "thumb-phalanx-distal<Armature",
-                "file": "models\\hand-right.glb"
-            },
-            "parent": "167",
-            "skin": "166"
-        },
-        "173": {
-            "link": {
-                "name": "thumb-tip<Armature",
-                "file": "models\\hand-right.glb"
-            },
-            "parent": "167",
-            "skin": "166"
-        },
-        "174": {
-            "link": {
-                "name": "index-finger-metacarpal<Armature",
-                "file": "models\\hand-right.glb"
-            },
-            "parent": "167",
-            "skin": "166"
-        },
-        "175": {
-            "link": {
-                "name": "index-finger-phalanx-proximal<Armature",
-                "file": "models\\hand-right.glb"
-            },
-            "parent": "167",
-            "skin": "166"
-        },
-        "176": {
-            "link": {
-                "name": "index-finger-phalanx-intermediate<Armature",
-                "file": "models\\hand-right.glb"
-            },
-            "parent": "167",
-            "skin": "166"
-        },
-        "177": {
-            "link": {
-                "name": "index-finger-phalanx-distal<Armature",
-                "file": "models\\hand-right.glb"
-            },
-            "parent": "167",
-            "skin": "166"
-        },
-        "178": {
-            "link": {
-                "name": "index-finger-tip<Armature",
-                "file": "models\\hand-right.glb"
-            },
-            "parent": "167",
-            "components": [
-                {
-                    "type": "collision",
-                    "collision": {
-                        "sphere": {
-                            "radius": 0.0099999
-                        },
-                        "groups": 2
-                    }
-                },
-                {
-                    "type": "finger-cursor"
-                }
-            ],
-            "skin": "166"
-        },
-        "179": {
-            "link": {
-                "name": "middle-finger-metacarpal<Armature",
-                "file": "models\\hand-right.glb"
-            },
-            "parent": "167",
-            "skin": "166"
-        },
-        "180": {
-            "link": {
-                "name": "middle-finger-phalanx-proximal<Armature",
-                "file": "models\\hand-right.glb"
-            },
-            "parent": "167",
-            "skin": "166"
-        },
-        "181": {
-            "link": {
-                "name": "middle-finger-phalanx-intermediate<Armature",
-                "file": "models\\hand-right.glb"
-            },
-            "parent": "167",
-            "skin": "166"
-        },
-        "182": {
-            "link": {
-                "name": "middle-finger-phalanx-distal<Armature",
-                "file": "models\\hand-right.glb"
-            },
-            "parent": "167",
-            "skin": "166"
-        },
-        "183": {
-            "link": {
-                "name": "middle-finger-tip<Armature",
-                "file": "models\\hand-right.glb"
-            },
-            "parent": "167",
-            "skin": "166"
-        },
-        "184": {
-            "link": {
-                "name": "ring-finger-metacarpal<Armature",
-                "file": "models\\hand-right.glb"
-            },
-            "parent": "167",
-            "skin": "166"
-        },
-        "185": {
-            "link": {
-                "name": "ring-finger-phalanx-proximal<Armature",
-                "file": "models\\hand-right.glb"
-            },
-            "parent": "167",
-            "skin": "166"
-        },
-        "186": {
-            "link": {
-                "name": "ring-finger-phalanx-intermediate<Armature",
-                "file": "models\\hand-right.glb"
-            },
-            "parent": "167",
-            "skin": "166"
-        },
-        "187": {
-            "link": {
-                "name": "ring-finger-phalanx-distal<Armature",
-                "file": "models\\hand-right.glb"
-            },
-            "parent": "167",
-            "skin": "166"
-        },
-        "188": {
-            "link": {
-                "name": "ring-finger-tip<Armature",
-                "file": "models\\hand-right.glb"
-            },
-            "parent": "167",
-            "skin": "166"
-        },
-        "189": {
-            "link": {
-                "name": "pinky-finger-metacarpal<Armature",
-                "file": "models\\hand-right.glb"
-            },
-            "parent": "167",
-            "skin": "166"
-        },
-        "190": {
-            "link": {
-                "name": "pinky-finger-phalanx-proximal<Armature",
-                "file": "models\\hand-right.glb"
-            },
-            "parent": "167",
-            "skin": "166"
-        },
-        "191": {
-            "link": {
-                "name": "pinky-finger-phalanx-intermediate<Armature",
-                "file": "models\\hand-right.glb"
-            },
-            "parent": "167",
-            "skin": "166"
-        },
-        "192": {
-            "link": {
-                "name": "pinky-finger-phalanx-distal<Armature",
-                "file": "models\\hand-right.glb"
-            },
-            "parent": "167",
-            "skin": "166"
-        },
-        "193": {
-            "link": {
-                "name": "pinky-finger-tip<Armature",
-                "file": "models\\hand-right.glb"
-            },
-            "parent": "167",
-            "skin": "166"
-        },
         "205": {
             "name": "TrackedSpace",
             "parent": "14",
@@ -3510,7 +2954,7 @@
         },
         "828f55e1-a722-494e-b9d2-e144c2dd29a7": {
             "name": "Floor01",
-            "parent": "b21141ad-a28f-4b05-ba1a-c4bdccabbece",
+            "parent": "fb449235-45f7-45e3-91e1-4f6a22e2972f",
             "components": [
                 {
                     "type": "texture-information",
@@ -3520,6 +2964,150 @@
                         "uid": "floor01"
                     }
                 }
+            ],
+            "translation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        "988a6406-f307-4861-a29d-88deff2a3a0c": {
+            "name": "Stone01",
+            "parent": "dd837f2b-4973-4acd-b4d3-04c909f0a737",
+            "components": [
+                {
+                    "type": "texture-information",
+                    "texture-information": {
+                        "albedo": "d2adc269-d357-47a4-93bb-c0e6966abede",
+                        "normal": "e63e42b6-d13f-49e4-a298-0a0a48e1aef3",
+                        "uid": "Stone01"
+                    }
+                }
+            ],
+            "translation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        "fb449235-45f7-45e3-91e1-4f6a22e2972f": {
+            "name": "TI_Floors",
+            "parent": "b21141ad-a28f-4b05-ba1a-c4bdccabbece"
+        },
+        "dd837f2b-4973-4acd-b4d3-04c909f0a737": {
+            "name": "Stones",
+            "parent": "b21141ad-a28f-4b05-ba1a-c4bdccabbece"
+        },
+        "76bd8fbd-33d8-4f3e-bfbd-4ffe7b305cc8": {
+            "name": "Stone02",
+            "parent": "dd837f2b-4973-4acd-b4d3-04c909f0a737",
+            "components": [
+                {
+                    "type": "texture-information",
+                    "texture-information": {
+                        "albedo": "feb58eab-a0f2-4413-aa5d-e9b671698955",
+                        "normal": "14bcd4ef-201e-422a-862a-c6754d316759",
+                        "uid": "Stone02"
+                    }
+                }
+            ],
+            "translation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        "2850a444-2a76-4ffa-b06e-c41c11594ab1": {
+            "name": "Stone03",
+            "parent": "dd837f2b-4973-4acd-b4d3-04c909f0a737",
+            "components": [
+                {
+                    "type": "texture-information",
+                    "texture-information": {
+                        "albedo": "d0fb8ff6-1e20-41d7-8f03-3518d3201456",
+                        "normal": "a531714d-a4c9-4de8-9a13-da8ea75fd98b",
+                        "uid": "Stone03"
+                    }
+                }
+            ],
+            "translation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        "bff3bf15-2993-4f17-8900-bebe7d280247": {
+            "name": "Stone04",
+            "parent": "dd837f2b-4973-4acd-b4d3-04c909f0a737",
+            "components": [
+                {
+                    "type": "texture-information",
+                    "texture-information": {
+                        "albedo": "87c7ca18-93b6-4a3b-a315-8475643a58b7",
+                        "normal": "e67f6df7-986b-4716-8e9b-be3ee5d71f19",
+                        "uid": "Stone04"
+                    }
+                }
+            ],
+            "translation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                1.0,
+                1.0,
+                1.0
             ]
         }
     },

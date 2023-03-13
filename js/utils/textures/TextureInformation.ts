@@ -1,4 +1,5 @@
 import { Component, CustomParameter, Texture, Type } from "@wonderlandengine/api";
+import TextureInformationRegistry from "./TextureInformationRegistry";
 
 
 /**
@@ -25,4 +26,10 @@ export class TextureInformation extends Component
     public get uniqueID(): string { return this.uid; }
     public get albedoTexture(): Texture { return this.albedo; }
     public get normalTexture(): Texture { return this.normal; }
+
+    public override start(): void 
+    {
+        // Register himself to the texture information registry
+        TextureInformationRegistry.register(this);
+    }
 }

@@ -1,19 +1,16 @@
-import { Component, CustomParameter, Object } from "@wonderlandengine/api";
 import { TextureInformation } from "./TextureInformation";
 
 
 /**
- * Contains only objects that hold a TextureInformation component.
- * Only one instance by scene is optimal (but not mandatory... as long
- * as it fits the need).
+ * Is used as registry for all Texture Information that leave in the
+ * scene. It's usefull to fetch information.
+ * Use the same system as prefabs.
  */
 class TextureInformationRegistry
 {
-    static TypeName: string = "texture-information-container";
-    static Properties: Record<string, CustomParameter> = {};
-
-    private _children: Array<Object>;
     private _texturesInformation: Map<string, TextureInformation>;
+
+    public get texturesUniqueID(): Array<string> { return Array.from(this._texturesInformation.keys()); }
 
     public constructor()
     {
@@ -27,7 +24,14 @@ class TextureInformationRegistry
             return false;
 
         this._texturesInformation.set(texInfo.uniqueID, texInfo);
+        console.log('New Texture information registered ', texInfo.uniqueID);
+        
         return true;
+    }
+
+    public getTextureInformation(uniqueID: string): TextureInformation | null
+    {
+        return this._texturesInformation.get(uniqueID) ?? null;
     }
 }
 

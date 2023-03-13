@@ -1,8 +1,11 @@
-import SoundEmitterBase from "./SoundEmitterBase";
-import {SoundEmitterType} from "./SoundEmitterType";
-import {vec3} from "gl-matrix";
+import { SoundEmitterBase } from "./SoundEmitterBase";
+import { SoundEmitterType } from "./SoundEmitterType";
+import { vec3 } from "gl-matrix";
 
-
+/**
+ * Manage all sound emitter sources from the scene that register
+ * by themself to the system.
+ */
 class SoundSystem
 {
     private _soundEmitters: Map<SoundEmitterType, SoundEmitterBase>;
@@ -20,7 +23,6 @@ class SoundSystem
             return;
         }
 
-        console.log(`Register emmitter ${soundEmitter.emitterType}`);
         this._soundEmitters.set(soundEmitter.emitterType, soundEmitter);
     }
 
