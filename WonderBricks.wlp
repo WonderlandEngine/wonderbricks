@@ -1229,7 +1229,7 @@
                 {
                     "type": "block-prefab",
                     "block-prefab": {
-                        "finalMesh": "261",
+                        "finalMesh": "351",
                         "previsMesh": "258",
                         "finalMat": "348",
                         "previsMat": "22"
@@ -1305,7 +1305,7 @@
                 {
                     "type": "block-slope-prefab",
                     "block-slope-prefab": {
-                        "finalMesh": "272",
+                        "finalMesh": "433",
                         "previsMesh": "274",
                         "finalMat": "348",
                         "previsMat": "22"
@@ -1336,7 +1336,7 @@
                 {
                     "type": "block-stair-prefab",
                     "block-stair-prefab": {
-                        "finalMesh": "267",
+                        "finalMesh": "3dff8522-a3dc-4443-a153-a7ee63aeedf0",
                         "previsMesh": "269",
                         "finalMat": "348",
                         "previsMat": "22"
