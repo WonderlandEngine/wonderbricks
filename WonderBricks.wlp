@@ -2757,7 +2757,8 @@
                 0.9999924,
                 0.9999756
             ],
-            "parent": "1cd7c3b7-1ad5-412d-8bf3-b79e92462ebc"
+            "parent": "1cd7c3b7-1ad5-412d-8bf3-b79e92462ebc",
+            "name": "MenuButton"
         },
         "1cd7c3b7-1ad5-412d-8bf3-b79e92462ebc": {
             "name": "ArmUiRoot",
@@ -2774,6 +2775,9 @@
                         "material": "324",
                         "mesh": "a71781dc-6b82-46d0-895b-f16b2f5a6109"
                     }
+                },
+                {
+                    "type": "menu-selection-button"
                 }
             ],
             "translation": [
@@ -2792,7 +2796,8 @@
                 0.999995,
                 0.9999729
             ],
-            "parent": "1cd7c3b7-1ad5-412d-8bf3-b79e92462ebc"
+            "parent": "1cd7c3b7-1ad5-412d-8bf3-b79e92462ebc",
+            "name": "MenuButton"
         },
         "3d2b5d75-5338-4f8e-8b39-229169db899c": {
             "link": {
@@ -2823,7 +2828,113 @@
                 0.999998,
                 0.9999717
             ],
-            "parent": "1cd7c3b7-1ad5-412d-8bf3-b79e92462ebc"
+            "parent": "1cd7c3b7-1ad5-412d-8bf3-b79e92462ebc",
+            "name": "MenuButton"
+        },
+        "cfdede21-edc5-4cb3-917d-79bcc158dcdd": {
+            "link": {
+                "name": "Plane",
+                "file": "models\\UI\\ArmButton.glb"
+            },
+            "components": [
+                {
+                    "mesh": {
+                        "material": "48969817-f057-4b9d-a232-8d2603877553",
+                        "mesh": "a71781dc-6b82-46d0-895b-f16b2f5a6109"
+                    }
+                },
+                {
+                    "type": "menu-selection-button"
+                }
+            ],
+            "translation": [
+                0.0,
+                -0.000068,
+                0.0012942
+            ],
+            "rotation": [
+                1.6763806343078613e-7,
+                -0.0,
+                -0.0,
+                1.0
+            ],
+            "scaling": [
+                0.75,
+                0.75,
+                0.75
+            ],
+            "parent": "be52f64b-9076-403e-9d8d-edcd1573defe",
+            "name": "Icon"
+        },
+        "879cccdf-8e1a-4eab-8b14-7d11f0547930": {
+            "link": {
+                "name": "Plane",
+                "file": "models\\UI\\ArmButton.glb"
+            },
+            "components": [
+                {
+                    "mesh": {
+                        "material": "48969817-f057-4b9d-a232-8d2603877553",
+                        "mesh": "a71781dc-6b82-46d0-895b-f16b2f5a6109"
+                    }
+                },
+                {
+                    "type": "menu-selection-button"
+                }
+            ],
+            "translation": [
+                0.0,
+                -0.000069,
+                0.0012937
+            ],
+            "rotation": [
+                0.000006,
+                -1.8002663182414835e-7,
+                0.0000012,
+                1.0
+            ],
+            "scaling": [
+                0.7500017,
+                0.7499977,
+                0.7500008
+            ],
+            "parent": "3d2b5d75-5338-4f8e-8b39-229169db899c",
+            "name": "Icon"
+        },
+        "b353330e-85b2-43cd-9187-c861ea6a7faf": {
+            "link": {
+                "name": "Plane",
+                "file": "models\\UI\\ArmButton.glb"
+            },
+            "components": [
+                {
+                    "mesh": {
+                        "material": "48969817-f057-4b9d-a232-8d2603877553",
+                        "mesh": "a71781dc-6b82-46d0-895b-f16b2f5a6109"
+                    }
+                },
+                {
+                    "type": "menu-selection-button"
+                }
+            ],
+            "translation": [
+                0.0,
+                -0.0000673,
+                0.0012936
+            ],
+            "rotation": [
+                0.0000082,
+                1.528479742773925e-7,
+                0.0000015,
+                1.0
+            ],
+            "scaling": [
+                0.7499995,
+                0.7500019,
+                0.7499979
+            ],
+            "parent": "7aedb7d8-a888-4492-91af-bfe43f332fab",
+            "name": "Icon"
         }
     },
     "meshes": {
@@ -3486,6 +3597,30 @@
                 "name": "Vol_8_5_Tiles_Normal.png",
                 "file": "textures\\Floors\\Vol_8_5_Tiles_Normal.png"
             }
+        },
+        "114b23b6-ad70-4c46-8a02-d61fc5423a25": {
+            "link": {
+                "name": "UiButtonBackgroundWhite.png",
+                "file": "textures\\00_UI\\UiButtonBackgroundWhite.png"
+            }
+        },
+        "dc55ca6f-7ba2-405a-a4f0-f11d79a52c20": {
+            "link": {
+                "name": "Home_Icon.png",
+                "file": "textures\\00_UI\\00_Icons\\Home_Icon.png"
+            }
+        },
+        "7277514f-64f6-4eea-b58e-9e45ddf3454a": {
+            "link": {
+                "name": "Shapes_Icon.png",
+                "file": "textures\\00_UI\\00_Icons\\Shapes_Icon.png"
+            }
+        },
+        "44333ea4-d490-40b3-b363-46576eaebf20": {
+            "link": {
+                "name": "Texture_Icon.png",
+                "file": "textures\\00_UI\\00_Icons\\Texture_Icon.png"
+            }
         }
     },
     "images": {
@@ -4072,6 +4207,30 @@
                 "name": "Vol_8_5_Tiles_Normal.png",
                 "file": "textures\\Floors\\Vol_8_5_Tiles_Normal.png"
             }
+        },
+        "ed2cf8c5-1619-40da-9bee-8dcb1848f7bc": {
+            "link": {
+                "name": "UiButtonBackgroundWhite.png",
+                "file": "textures\\00_UI\\UiButtonBackgroundWhite.png"
+            }
+        },
+        "3ff2518b-ae8c-4dc3-92e9-16d4e3a9d84b": {
+            "link": {
+                "name": "Home_Icon.png",
+                "file": "textures\\00_UI\\00_Icons\\Home_Icon.png"
+            }
+        },
+        "4fbdebc5-ea54-4deb-ad5f-38bc3c5bdd23": {
+            "link": {
+                "name": "Shapes_Icon.png",
+                "file": "textures\\00_UI\\00_Icons\\Shapes_Icon.png"
+            }
+        },
+        "446af0f9-5eba-4525-b1d5-c8e0df4e9c59": {
+            "link": {
+                "name": "Texture_Icon.png",
+                "file": "textures\\00_UI\\00_Icons\\Texture_Icon.png"
+            }
         }
     },
     "materials": {
@@ -4321,7 +4480,16 @@
                 "name": "UI",
                 "file": "models\\UI\\panel.glb"
             },
-            "pipeline": "35"
+            "pipeline": "35",
+            "Flat": {
+                "flatTexture": "114b23b6-ad70-4c46-8a02-d61fc5423a25",
+                "color": [
+                    1.0,
+                    0.6352941,
+                    0.2196078,
+                    1.0
+                ]
+            }
         },
         "348": {
             "name": "BlockPBR",
@@ -4388,6 +4556,26 @@
             "pipeline": "229",
             "Sky": {
                 "texture": "365"
+            }
+        },
+        "48969817-f057-4b9d-a232-8d2603877553": {
+            "name": "IconMaterial",
+            "pipeline": "35",
+            "Particle": {
+                "mainTexture": "dc55ca6f-7ba2-405a-a4f0-f11d79a52c20",
+                "color": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "Phong": {
+                "diffuseTexture": "dc55ca6f-7ba2-405a-a4f0-f11d79a52c20",
+                "emissiveTexture": "dc55ca6f-7ba2-405a-a4f0-f11d79a52c20"
+            },
+            "Flat": {
+                "flatTexture": "44333ea4-d490-40b3-b363-46576eaebf20"
             }
         }
     },
@@ -4553,7 +4741,8 @@
                 "js/ui",
                 "js/ui/saveMenu",
                 "js/utils",
-                "js/utils/textures"
+                "js/utils/textures",
+                "js/ui/armMenu"
             ],
             "libraryPaths": [
                 "/js/lib/"
@@ -4579,10 +4768,10 @@
                 "material": "363"
             },
             "clearColor": [
-                1.0,
-                1.0,
-                1.0,
-                1.0
+                0.0,
+                0.0,
+                0.0,
+                0.0
             ]
         },
         "editor": {
@@ -4644,12 +4833,21 @@
             "link": {
                 "name": "Flat Opaque",
                 "file": "default"
-            }
+            },
+            "features": {
+                "ALPHA_MASKED": true,
+                "TEXTURED": true
+            },
+            "sampleAlphaToCoverage": true
         },
         "35": {
             "link": {
                 "name": "Flat Opaque Textured",
                 "file": "default"
+            },
+            "sampleAlphaToCoverage": false,
+            "features": {
+                "ALPHA_MASKED": true
             }
         },
         "36": {
@@ -4899,7 +5097,11 @@
         "textures/Wood/Vol_38_5_Wood_Normal.png",
         "textures/Floors/Vol_8_5_Tiles_Base_Color.png",
         "textures/Floors/Vol_8_5_Tiles_Normal.png",
-        "models/UI/ArmButton.glb"
+        "models/UI/ArmButton.glb",
+        "textures/00_UI/UiButtonBackgroundWhite.png",
+        "textures/00_UI/00_Icons/Home_Icon.png",
+        "textures/00_UI/00_Icons/Shapes_Icon.png",
+        "textures/00_UI/00_Icons/Texture_Icon.png"
     ],
     "fonts": {
         "230": {

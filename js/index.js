@@ -79,5 +79,6 @@ import './utils/TagUtils.ts';
 import { TextureInformation } from './utils/textures/TextureInformation.ts';
 WL.registerComponent(TextureInformation);
 import './utils/textures/TextureInformationRegistry.ts';
-import './utils/materials/FlatTexturedMaterial.ts';
+import { MenuSelectionButton } from './ui/armMenu/MenuSelectionButton.ts';
+WL.registerComponent(MenuSelectionButton);
 /* wle:auto-imports:end */
