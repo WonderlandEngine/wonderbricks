@@ -81,4 +81,6 @@ WL.registerComponent(TextureInformation);
 import './utils/textures/TextureInformationRegistry.ts';
 import { MenuSelectionButton } from './ui/armMenu/MenuSelectionButton.ts';
 WL.registerComponent(MenuSelectionButton);
+import { MenuController } from './ui/armMenu/MenuController.ts';
+WL.registerComponent(MenuController);
 /* wle:auto-imports:end */

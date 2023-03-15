@@ -2758,7 +2758,7 @@
                 0.9999756
             ],
             "parent": "1cd7c3b7-1ad5-412d-8bf3-b79e92462ebc",
-            "name": "MenuButton"
+            "name": "MenuButtonTexture"
         },
         "1cd7c3b7-1ad5-412d-8bf3-b79e92462ebc": {
             "name": "ArmUiRoot",
@@ -2797,7 +2797,7 @@
                 0.9999729
             ],
             "parent": "1cd7c3b7-1ad5-412d-8bf3-b79e92462ebc",
-            "name": "MenuButton"
+            "name": "MenuButtonBlock"
         },
         "3d2b5d75-5338-4f8e-8b39-229169db899c": {
             "link": {
@@ -2809,6 +2809,35 @@
                     "mesh": {
                         "material": "324",
                         "mesh": "a71781dc-6b82-46d0-895b-f16b2f5a6109"
+                    }
+                },
+                {
+                    "type": "menu-selection-button"
+                },
+                {
+                    "type": "ui-button",
+                    "ui-button": {
+                        "visualFeedbackEnabled": false
+                    }
+                },
+                {
+                    "type": "collision",
+                    "collision": {
+                        "collider": "box",
+                        "aabb": {
+                            "extents": [
+                                0.025,
+                                0.001,
+                                0.025
+                            ]
+                        },
+                        "box": {
+                            "extents": [
+                                0.025,
+                                0.025,
+                                0.002
+                            ]
+                        }
                     }
                 }
             ],
@@ -2829,7 +2858,7 @@
                 0.9999717
             ],
             "parent": "1cd7c3b7-1ad5-412d-8bf3-b79e92462ebc",
-            "name": "MenuButton"
+            "name": "MenuButtonMenu"
         },
         "cfdede21-edc5-4cb3-917d-79bcc158dcdd": {
             "link": {
@@ -2889,7 +2918,7 @@
             ],
             "rotation": [
                 0.000006,
-                -1.8002663182414835e-7,
+                -1.8002663182414838e-7,
                 0.0000012,
                 1.0
             ],

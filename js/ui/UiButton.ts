@@ -9,10 +9,12 @@ export class UiButton extends UiElementBase
     static TypeName = 'ui-button';
     static Properties = {
         textObject: {type: Type.Object},
+        visualFeedbackEnabled: {type: Type.Bool, default: true}
     }
 
     // Properties declaration
     private textObject: Object;
+    private visualFeedbackEnabled: boolean;
 
     // Class fields
     private _meshComponent: MeshComponent;
@@ -38,12 +40,12 @@ export class UiButton extends UiElementBase
     public interact(): void
     {
         console.log("Button clicked: " + this.object.name);
+        
         for (const interactCallback of this._interactCallbacks)
-        {
             interactCallback();
-        }
 
-        this.processVisualFeedback();
+        if(this.visualFeedbackEnabled)
+            this.processVisualFeedback();
     }
 
     private processVisualFeedback(): void
