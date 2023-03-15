@@ -1,4 +1,4 @@
-import { Component, CustomParameter, MeshComponent, Object, Texture, Type } from "@wonderlandengine/api";
+import { Component, CustomParameter, MeshComponent, Object, Texture, Type, WASM } from "@wonderlandengine/api";
 import { vec4 } from "gl-matrix";
 import { FlatTexturedMaterial } from "../../utils/materials/FlatTexturedMaterial";
 import { UiButton } from "../UiButton";
@@ -26,6 +26,7 @@ export class MenuSelectionButton extends Component
 
     // Private fields
     private _button: UiButton;
+    private _mesh: MeshComponent;
     private _material: FlatTexturedMaterial;
     private _iconMaterial: FlatTexturedMaterial;
     private _isActive: boolean;
@@ -34,10 +35,8 @@ export class MenuSelectionButton extends Component
     public get isActive(): boolean { return this._isActive; }
     public get button(): UiButton { return this._button; }
 
-    public override start(): void 
+    public override init(): void 
     {
-        super.start();
-
         this.setup();
         this.setupIcon();
     }
@@ -49,7 +48,10 @@ export class MenuSelectionButton extends Component
      */
     public setActive(isActive: boolean): void 
     {
-        this._material.color = isActive ? this.COLOR_ACTIVE : this.COLOR_NORMAL;
+        // NOTE: since it seems that it's not possible to keep a reference
+        // to the WASM instance of the material, it's mandatory to modify the material value
+        // through the array access notation... 
+        this._mesh.material['color'] = isActive ? this.COLOR_ACTIVE : this.COLOR_NORMAL;
         this._isActive = isActive;
     }
 
@@ -57,16 +59,11 @@ export class MenuSelectionButton extends Component
     {
         // === Button setup ===
         this._button = this.object.getComponent(UiButton);
-        if(!this._button) this.throwMissingComponent(UiButton.TypeName);
 
         // === Visual setup ===
-        const tempMesh = this.object.getComponent('mesh');
-        if(!tempMesh) this.throwMissingComponent(MeshComponent.TypeName);
-
-        this._material = tempMesh.material?.clone() as FlatTexturedMaterial;
-        if(this._material) this.throwMissingComponent('Material');
-
-        tempMesh.material = this._material;
+        this._mesh = this.object.getComponent('mesh');
+        this._material = this._mesh.material?.clone() as FlatTexturedMaterial;
+        this._mesh.material = this._material;
 
         // Set to not selected by default
         this._material.color = this.COLOR_NORMAL;
@@ -76,17 +73,9 @@ export class MenuSelectionButton extends Component
     private setupIcon(): void
     {
         const iconTempMesh = this.iconObject.getComponent('mesh');
-        if(!iconTempMesh) this.throwMissingComponent(MeshComponent.TypeName);
-
         this._iconMaterial = iconTempMesh.material?.clone() as FlatTexturedMaterial;
-        if(this._iconMaterial) this.throwMissingComponent('Material');
 
         iconTempMesh.material = this._iconMaterial;
         this._iconMaterial.flatTexture = this.iconTexture;
-    }
-
-    private throwMissingComponent(component: string)
-    {
-        throw new Error(`Component MenuSelectionButton require a ${component} Component`);
     }
 }

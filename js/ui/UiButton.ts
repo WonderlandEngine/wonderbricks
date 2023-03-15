@@ -29,7 +29,8 @@ export class UiButton extends UiElementBase
         this._meshComponent.material = this._meshMaterial;
 
         // Get the text component
-        this._textComponent = this.textObject.getComponent('text');
+        if(this.textObject != null)
+            this._textComponent = this.textObject.getComponent('text');
 
         // Mark object as UI Element
         this.object.addComponent(TagComponent, {

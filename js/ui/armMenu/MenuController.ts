@@ -52,7 +52,7 @@ export class MenuController extends Component
 
         this._blockButtonComp.setActive(false);
         this._textureButtonComp.setActive(false);
-    }   
+    }
     
     private onBlockButtonPressed(): void 
     {

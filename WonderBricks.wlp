@@ -2739,6 +2739,32 @@
                         "material": "324",
                         "mesh": "a71781dc-6b82-46d0-895b-f16b2f5a6109"
                     }
+                },
+                {
+                    "type": "menu-selection-button",
+                    "menu-selection-button": {
+                        "iconObject": "b353330e-85b2-43cd-9187-c861ea6a7faf",
+                        "iconTexture": "44333ea4-d490-40b3-b363-46576eaebf20"
+                    }
+                },
+                {
+                    "type": "ui-button",
+                    "ui-button": {
+                        "visualFeedbackEnabled": false
+                    }
+                },
+                {
+                    "type": "collision",
+                    "collision": {
+                        "collider": "box",
+                        "box": {
+                            "extents": [
+                                0.025,
+                                0.025,
+                                0.002
+                            ]
+                        }
+                    }
                 }
             ],
             "translation": [
@@ -2762,7 +2788,17 @@
         },
         "1cd7c3b7-1ad5-412d-8bf3-b79e92462ebc": {
             "name": "ArmUiRoot",
-            "parent": "130"
+            "parent": "130",
+            "components": [
+                {
+                    "type": "menu-controller",
+                    "menu-controller": {
+                        "menuButton": "3d2b5d75-5338-4f8e-8b39-229169db899c",
+                        "blockButton": "be52f64b-9076-403e-9d8d-edcd1573defe",
+                        "textureButton": "7aedb7d8-a888-4492-91af-bfe43f332fab"
+                    }
+                }
+            ]
         },
         "be52f64b-9076-403e-9d8d-edcd1573defe": {
             "link": {
@@ -2777,7 +2813,30 @@
                     }
                 },
                 {
-                    "type": "menu-selection-button"
+                    "type": "menu-selection-button",
+                    "menu-selection-button": {
+                        "iconObject": "cfdede21-edc5-4cb3-917d-79bcc158dcdd",
+                        "iconTexture": "7277514f-64f6-4eea-b58e-9e45ddf3454a"
+                    }
+                },
+                {
+                    "type": "ui-button",
+                    "ui-button": {
+                        "visualFeedbackEnabled": false
+                    }
+                },
+                {
+                    "type": "collision",
+                    "collision": {
+                        "collider": "box",
+                        "box": {
+                            "extents": [
+                                0.025,
+                                0.025,
+                                0.002
+                            ]
+                        }
+                    }
                 }
             ],
             "translation": [
@@ -2812,7 +2871,11 @@
                     }
                 },
                 {
-                    "type": "menu-selection-button"
+                    "type": "menu-selection-button",
+                    "menu-selection-button": {
+                        "iconObject": "879cccdf-8e1a-4eab-8b14-7d11f0547930",
+                        "iconTexture": "dc55ca6f-7ba2-405a-a4f0-f11d79a52c20"
+                    }
                 },
                 {
                     "type": "ui-button",
@@ -2871,9 +2934,6 @@
                         "material": "48969817-f057-4b9d-a232-8d2603877553",
                         "mesh": "a71781dc-6b82-46d0-895b-f16b2f5a6109"
                     }
-                },
-                {
-                    "type": "menu-selection-button"
                 }
             ],
             "translation": [
@@ -2906,9 +2966,6 @@
                         "material": "48969817-f057-4b9d-a232-8d2603877553",
                         "mesh": "a71781dc-6b82-46d0-895b-f16b2f5a6109"
                     }
-                },
-                {
-                    "type": "menu-selection-button"
                 }
             ],
             "translation": [
@@ -2918,7 +2975,7 @@
             ],
             "rotation": [
                 0.000006,
-                -1.8002663182414838e-7,
+                -1.800266318241484e-7,
                 0.0000012,
                 1.0
             ],
@@ -2941,9 +2998,6 @@
                         "material": "48969817-f057-4b9d-a232-8d2603877553",
                         "mesh": "a71781dc-6b82-46d0-895b-f16b2f5a6109"
                     }
-                },
-                {
-                    "type": "menu-selection-button"
                 }
             ],
             "translation": [
@@ -4874,9 +4928,9 @@
                 "name": "Flat Opaque Textured",
                 "file": "default"
             },
-            "sampleAlphaToCoverage": false,
+            "sampleAlphaToCoverage": true,
             "features": {
-                "ALPHA_MASKED": true
+                "ALPHA_MASKED": false
             }
         },
         "36": {
