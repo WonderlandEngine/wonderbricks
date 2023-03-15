@@ -2795,7 +2795,10 @@
                     "menu-controller": {
                         "menuButton": "3d2b5d75-5338-4f8e-8b39-229169db899c",
                         "blockButton": "be52f64b-9076-403e-9d8d-edcd1573defe",
-                        "textureButton": "7aedb7d8-a888-4492-91af-bfe43f332fab"
+                        "textureButton": "7aedb7d8-a888-4492-91af-bfe43f332fab",
+                        "menuPanel": "6c183694-73ca-4845-a37b-e999866024da",
+                        "blockPanel": "64d196de-3e6b-45d4-90cd-51ec9e669492",
+                        "texturePanel": "b1dd9e0f-0038-4d0b-8db6-e780393e0de1"
                     }
                 }
             ],
@@ -3072,6 +3075,148 @@
                 1.0,
                 1.0,
                 0.9999815
+            ]
+        },
+        "eab81dae-e042-4681-99c6-4311bfddc984": {
+            "name": "TitleText",
+            "parent": "6c183694-73ca-4845-a37b-e999866024da",
+            "components": [
+                {
+                    "type": "text",
+                    "text": {
+                        "text": "Menu"
+                    }
+                }
+            ],
+            "translation": [
+                0.0000158,
+                0.1414877,
+                0.0099688
+            ],
+            "scaling": [
+                0.4,
+                0.4,
+                1.0
+            ],
+            "rotation": [
+                0.0000019,
+                -0.0,
+                -0.0,
+                1.0
+            ]
+        },
+        "64d196de-3e6b-45d4-90cd-51ec9e669492": {
+            "name": "MenuPanelBlocks",
+            "parent": "2725c345-0f68-41f8-83eb-9ee1da797112",
+            "components": [
+                {
+                    "type": "mesh",
+                    "mesh": {
+                        "mesh": "dd64d357-a896-41cd-b978-29b0fa5e26c3",
+                        "material": "1d6c7161-1e19-42c1-be93-eae7e5d3226e"
+                    }
+                }
+            ],
+            "translation": [
+                -0.0217152,
+                0.0779156,
+                -0.2972052
+            ],
+            "rotation": [
+                -0.4895719,
+                -1.3793324704636234e-8,
+                1.113435565969212e-8,
+                0.8719629
+            ],
+            "scaling": [
+                1.0,
+                1.0,
+                0.9999815
+            ]
+        },
+        "1037c3e5-5b7b-43f7-8c53-a2ca0e397b0e": {
+            "name": "TitleText",
+            "parent": "64d196de-3e6b-45d4-90cd-51ec9e669492",
+            "components": [
+                {
+                    "type": "text",
+                    "text": {
+                        "text": "Select an object"
+                    }
+                }
+            ],
+            "translation": [
+                0.0000158,
+                0.1414877,
+                0.0099688
+            ],
+            "scaling": [
+                0.4,
+                0.4,
+                1.0
+            ],
+            "rotation": [
+                0.0000019,
+                -0.0,
+                -0.0,
+                1.0
+            ]
+        },
+        "b1dd9e0f-0038-4d0b-8db6-e780393e0de1": {
+            "name": "MenuPanelTextures",
+            "parent": "2725c345-0f68-41f8-83eb-9ee1da797112",
+            "components": [
+                {
+                    "type": "mesh",
+                    "mesh": {
+                        "mesh": "dd64d357-a896-41cd-b978-29b0fa5e26c3",
+                        "material": "1d6c7161-1e19-42c1-be93-eae7e5d3226e"
+                    }
+                }
+            ],
+            "translation": [
+                -0.0217152,
+                0.0779156,
+                -0.2972052
+            ],
+            "rotation": [
+                -0.4895719,
+                -1.3793324704636234e-8,
+                1.113435565969212e-8,
+                0.8719629
+            ],
+            "scaling": [
+                1.0,
+                1.0,
+                0.9999815
+            ]
+        },
+        "3fd90629-1277-4e6b-b7fe-18d8dfdb0f2a": {
+            "name": "TitleText",
+            "parent": "b1dd9e0f-0038-4d0b-8db6-e780393e0de1",
+            "components": [
+                {
+                    "type": "text",
+                    "text": {
+                        "text": "Select an texture"
+                    }
+                }
+            ],
+            "translation": [
+                0.0000158,
+                0.1414877,
+                0.0099688
+            ],
+            "scaling": [
+                0.4,
+                0.4,
+                1.0
+            ],
+            "rotation": [
+                0.0000019,
+                -0.0,
+                -0.0,
+                1.0
             ]
         }
     },
@@ -4403,7 +4548,7 @@
                     1.0,
                     1.0
                 ],
-                "font": "287"
+                "font": "61a7ca05-6c34-4f32-a71b-04c14d76bb46"
             }
         },
         "20": {
@@ -5267,7 +5412,8 @@
         "textures/00_UI/00_Icons/Shapes_Icon.png",
         "textures/00_UI/00_Icons/Texture_Icon.png",
         "textures/00_UI/paletUI.png",
-        "models/UI/armPanel.glb"
+        "models/UI/armPanel.glb",
+        "static/LuckiestGuy-Regular.ttf"
     ],
     "fonts": {
         "230": {
@@ -5280,6 +5426,12 @@
             "link": {
                 "name": "font_0",
                 "file": "static\\LexendDeca-VariableFont_wght.ttf"
+            }
+        },
+        "61a7ca05-6c34-4f32-a71b-04c14d76bb46": {
+            "link": {
+                "name": "font_0",
+                "file": "static\\LuckiestGuy-Regular.ttf"
             }
         }
     },

@@ -44,29 +44,43 @@ export class MenuController extends Component
         this._menuButtonComp.button.addInteractCallback(this.onMenuButtonPressed.bind(this));
         this._blockButtonComp.button.addInteractCallback(this.onBlockButtonPressed.bind(this));
         this._textureButtonComp.button.addInteractCallback(this.onTextureButtonPressed.bind(this));
+
+        // Disable all panels
+        this.menuPanel.active = false;
+        this.blockPanel.active = false;
+        this.texturePanel.active = false;
     }
 
     private onMenuButtonPressed(): void 
     {
         this._menuButtonComp.setActive(true);
+        this.menuPanel.active = true;
 
         this._blockButtonComp.setActive(false);
         this._textureButtonComp.setActive(false);
+        this.blockPanel.active = false;
+        this.texturePanel.active = false;
     }
     
     private onBlockButtonPressed(): void 
     {
         this._blockButtonComp.setActive(true);
+        this.blockPanel.active = true;
 
         this._menuButtonComp.setActive(false);
         this._textureButtonComp.setActive(false);
+        this.menuPanel.active = false;
+        this.texturePanel.active = false;
     }
 
     private onTextureButtonPressed(): void 
     {
         this._textureButtonComp.setActive(true);
+        this.texturePanel.active = true;
 
         this._menuButtonComp.setActive(false);
         this._blockButtonComp.setActive(false);
+        this.menuPanel.active = false;
+        this.blockPanel.active = false;
     }
 }
