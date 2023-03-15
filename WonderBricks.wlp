@@ -2770,18 +2770,18 @@
             "translation": [
                 -0.1046487,
                 0.010018,
-                -0.0236651
+                -0.0361891
             ],
             "rotation": [
-                -0.5088968,
-                0.4909426,
+                -0.5088967,
+                0.4909427,
                 0.5088985,
                 0.4909395
             ],
             "scaling": [
-                0.9999769,
-                0.9999924,
-                0.9999756
+                0.9999767,
+                0.9999923,
+                0.9999755
             ],
             "parent": "1cd7c3b7-1ad5-412d-8bf3-b79e92462ebc",
             "name": "MenuButtonTexture"
@@ -2798,6 +2798,12 @@
                         "textureButton": "7aedb7d8-a888-4492-91af-bfe43f332fab"
                     }
                 }
+            ],
+            "rotation": [
+                -6.181724643283815e-8,
+                0.7071068,
+                -6.181724643283815e-8,
+                -0.7071068
             ]
         },
         "be52f64b-9076-403e-9d8d-edcd1573defe": {
@@ -2840,20 +2846,20 @@
                 }
             ],
             "translation": [
-                -0.1046492,
+                -0.1046493,
                 0.010018,
-                0.0304156
+                0.0178916
             ],
             "rotation": [
-                -0.5088922,
-                0.4909475,
-                0.5088952,
-                0.4909427
+                -0.5088928,
+                0.490947,
+                0.5088959,
+                0.490942
             ],
             "scaling": [
-                0.9999765,
-                0.999995,
-                0.9999729
+                0.9999771,
+                0.9999953,
+                0.9999732
             ],
             "parent": "1cd7c3b7-1ad5-412d-8bf3-b79e92462ebc",
             "name": "MenuButtonBlock"
@@ -2907,18 +2913,18 @@
             "translation": [
                 -0.1046496,
                 0.010018,
-                0.0846148
+                0.0720908
             ],
             "rotation": [
-                -0.5088958,
-                0.490944,
-                0.5088974,
-                0.4909403
+                -0.5088957,
+                0.4909441,
+                0.5088973,
+                0.4909404
             ],
             "scaling": [
                 0.999974,
-                0.999998,
-                0.9999717
+                0.9999979,
+                0.9999716
             ],
             "parent": "1cd7c3b7-1ad5-412d-8bf3-b79e92462ebc",
             "name": "MenuButtonMenu"
@@ -3018,6 +3024,55 @@
             ],
             "parent": "7aedb7d8-a888-4492-91af-bfe43f332fab",
             "name": "Icon"
+        },
+        "2725c345-0f68-41f8-83eb-9ee1da797112": {
+            "name": "UiPanels",
+            "parent": "130",
+            "translation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        "6c183694-73ca-4845-a37b-e999866024da": {
+            "name": "MenuPanelMenu",
+            "parent": "2725c345-0f68-41f8-83eb-9ee1da797112",
+            "components": [
+                {
+                    "type": "mesh",
+                    "mesh": {
+                        "mesh": "dd64d357-a896-41cd-b978-29b0fa5e26c3",
+                        "material": "1d6c7161-1e19-42c1-be93-eae7e5d3226e"
+                    }
+                }
+            ],
+            "translation": [
+                -0.0217152,
+                0.0779156,
+                -0.2972052
+            ],
+            "rotation": [
+                -0.4895719,
+                -1.3793324704636234e-8,
+                1.1134355659692119e-8,
+                0.8719629
+            ],
+            "scaling": [
+                1.0,
+                1.0,
+                0.9999815
+            ]
         }
     },
     "meshes": {
@@ -3310,6 +3365,12 @@
             "link": {
                 "name": "Plane",
                 "file": "models\\UI\\ArmButton.glb"
+            }
+        },
+        "dd64d357-a896-41cd-b978-29b0fa5e26c3": {
+            "link": {
+                "name": "Plane",
+                "file": "models\\UI\\armPanel.glb"
             }
         }
     },
@@ -3703,6 +3764,12 @@
             "link": {
                 "name": "Texture_Icon.png",
                 "file": "textures\\00_UI\\00_Icons\\Texture_Icon.png"
+            }
+        },
+        "8c403fac-a2ec-439c-a596-91168d5494d1": {
+            "link": {
+                "name": "paletUI.png",
+                "file": "textures\\00_UI\\paletUI.png"
             }
         }
     },
@@ -4314,6 +4381,13 @@
                 "name": "Texture_Icon.png",
                 "file": "textures\\00_UI\\00_Icons\\Texture_Icon.png"
             }
+        },
+        "cc744e2d-066f-4245-a836-b5da357d07d9": {
+            "link": {
+                "name": "paletUI.png",
+                "file": "textures\\00_UI\\paletUI.png"
+            },
+            "compress": false
         }
     },
     "materials": {
@@ -4659,6 +4733,13 @@
             },
             "Flat": {
                 "flatTexture": "44333ea4-d490-40b3-b363-46576eaebf20"
+            }
+        },
+        "1d6c7161-1e19-42c1-be93-eae7e5d3226e": {
+            "name": "UI-Panels",
+            "pipeline": "35",
+            "Flat": {
+                "flatTexture": "8c403fac-a2ec-439c-a596-91168d5494d1"
             }
         }
     },
@@ -5184,7 +5265,9 @@
         "textures/00_UI/UiButtonBackgroundWhite.png",
         "textures/00_UI/00_Icons/Home_Icon.png",
         "textures/00_UI/00_Icons/Shapes_Icon.png",
-        "textures/00_UI/00_Icons/Texture_Icon.png"
+        "textures/00_UI/00_Icons/Texture_Icon.png",
+        "textures/00_UI/paletUI.png",
+        "models/UI/armPanel.glb"
     ],
     "fonts": {
         "230": {
