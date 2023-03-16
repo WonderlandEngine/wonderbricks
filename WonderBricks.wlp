@@ -2803,9 +2803,9 @@
                 }
             ],
             "rotation": [
-                -6.181724643283815e-8,
+                -6.181724643283816e-8,
                 0.7071068,
-                -6.181724643283815e-8,
+                -6.181724643283816e-8,
                 -0.7071068
             ]
         },
@@ -3057,7 +3057,11 @@
                     "mesh": {
                         "mesh": "dd64d357-a896-41cd-b978-29b0fa5e26c3",
                         "material": "1d6c7161-1e19-42c1-be93-eae7e5d3226e"
-                    }
+                    },
+                    "active": true
+                },
+                {
+                    "type": "arm-panel"
                 }
             ],
             "translation": [
@@ -3068,7 +3072,7 @@
             "rotation": [
                 -0.4895719,
                 -1.3793324704636234e-8,
-                1.1134355659692119e-8,
+                1.113435565969212e-8,
                 0.8719629
             ],
             "scaling": [
@@ -3114,7 +3118,11 @@
                     "mesh": {
                         "mesh": "dd64d357-a896-41cd-b978-29b0fa5e26c3",
                         "material": "1d6c7161-1e19-42c1-be93-eae7e5d3226e"
-                    }
+                    },
+                    "active": true
+                },
+                {
+                    "type": "arm-panel"
                 }
             ],
             "translation": [
@@ -3171,7 +3179,11 @@
                     "mesh": {
                         "mesh": "dd64d357-a896-41cd-b978-29b0fa5e26c3",
                         "material": "1d6c7161-1e19-42c1-be93-eae7e5d3226e"
-                    }
+                    },
+                    "active": true
+                },
+                {
+                    "type": "arm-panel"
                 }
             ],
             "translation": [
@@ -3992,7 +4004,7 @@
                 1024,
                 512
             ],
-            "compress": false,
+            "compress": true,
             "stream": false,
             "isSpecularProbe": true
         },
@@ -5026,9 +5038,10 @@
         "project": {
             "name": "wonderbrick",
             "version": [
+                1,
                 0,
-                9,
-                5
+                0,
+                1
             ]
         },
         "vr": {
@@ -5088,18 +5101,6 @@
         }
     },
     "animations": {
-        "243": {
-            "link": {
-                "name": "WireframeCube",
-                "file": "models\\Bricks\\Wireframe_Cube.glb"
-            }
-        },
-        "248": {
-            "link": {
-                "name": "Cube",
-                "file": "models\\Bricks\\Cube.glb"
-            }
-        },
         "284": {
             "link": {
                 "name": "Plane",
