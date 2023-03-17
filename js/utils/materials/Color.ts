@@ -6,6 +6,9 @@ import { vec4 } from "gl-matrix";
  */
 export class Color
 {
+    public static readonly COLOR_NORMAL = vec4.fromValues(76.0/255.0, 106.0/255.0, 134.0/255.0, 1.0);
+    public static readonly COLOR_ACTIVE = vec4.fromValues(255.0/255.0, 162.0/255.0, 56.0/255.0, 1.0);
+
     private _value: vec4;
 
     public constructor(r: number, g: number, b: number, a: number)

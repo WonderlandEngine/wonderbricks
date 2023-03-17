@@ -85,7 +85,6 @@ import { ArmPanel } from './ui/armMenu/ArmPanel.ts';
 WL.registerComponent(ArmPanel);
 import { BlockSelectionPanel } from './ui/armMenu/BlockSelectionPanel.ts';
 WL.registerComponent(BlockSelectionPanel);
-import './ui/armMenu/GridLayout.ts';
 import { MenuController } from './ui/armMenu/MenuController.ts';
 WL.registerComponent(MenuController);
 import { MenuSelectionButton } from './ui/armMenu/MenuSelectionButton.ts';

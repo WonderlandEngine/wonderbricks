@@ -20,7 +20,7 @@
         "Scene Outline": true,
         "Properties": true,
         "Project Settings": false,
-        "Resources": true,
+        "Resources": false,
         "Project Data": false,
         "Profile": false,
         "Preferences": false,

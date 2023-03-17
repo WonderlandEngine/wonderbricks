@@ -2797,7 +2797,7 @@
                         "blockButton": "be52f64b-9076-403e-9d8d-edcd1573defe",
                         "textureButton": "7aedb7d8-a888-4492-91af-bfe43f332fab",
                         "menuPanel": "6c183694-73ca-4845-a37b-e999866024da",
-                        "blockPanel": "64d196de-3e6b-45d4-90cd-51ec9e669492",
+                        "blockPanel": "71d203bc-721c-49ef-a43a-b799255c49d3",
                         "texturePanel": "b1dd9e0f-0038-4d0b-8db6-e780393e0de1"
                     }
                 }
@@ -3228,6 +3228,19 @@
                     "mesh": {
                         "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
                     }
+                },
+                {
+                    "type": "collision",
+                    "collision": {
+                        "collider": "box",
+                        "box": {
+                            "extents": [
+                                0.25,
+                                0.15,
+                                0.001
+                            ]
+                        }
+                    }
                 }
             ]
         },
@@ -3266,11 +3279,11 @@
                 "name": "Buttons.021",
                 "file": "models\\UI\\ArmMenuPanel.glb"
             },
-            "parent": "71d203bc-721c-49ef-a43a-b799255c49d3",
+            "parent": "eff0d982-208c-426e-bb4f-1a1ea5919de8",
             "translation": [
-                -0.1799999,
-                0.0599999,
-                0.0030121
+                1.1920928955078125e-7,
+                -1.1920928955078125e-7,
+                0.0023505
             ],
             "rotation": [
                 0.0,
@@ -3280,8 +3293,8 @@
             ],
             "scaling": [
                 0.8,
-                0.8,
-                0.8
+                0.7999999,
+                0.7999999
             ],
             "components": [
                 {
@@ -3296,11 +3309,11 @@
                 "name": "Buttons.022",
                 "file": "models\\UI\\ArmMenuPanel.glb"
             },
-            "parent": "71d203bc-721c-49ef-a43a-b799255c49d3",
+            "parent": "05d92808-90ee-4654-b02b-30d63e647d75",
             "translation": [
-                -0.1199999,
-                0.0599999,
-                0.0030121
+                0.0,
+                -1.1920928955078125e-7,
+                0.0023505
             ],
             "rotation": [
                 0.0,
@@ -3310,8 +3323,8 @@
             ],
             "scaling": [
                 0.8,
-                0.8,
-                0.8
+                0.7999999,
+                0.7999999
             ],
             "components": [
                 {
@@ -3326,11 +3339,11 @@
                 "name": "Buttons.023",
                 "file": "models\\UI\\ArmMenuPanel.glb"
             },
-            "parent": "71d203bc-721c-49ef-a43a-b799255c49d3",
+            "parent": "691a5f41-7967-4423-af23-1fd499268b7c",
             "translation": [
-                -0.0599999,
-                0.0599999,
-                0.0030121
+                0.0,
+                -1.1920928955078125e-7,
+                0.0023505
             ],
             "rotation": [
                 0.0,
@@ -3340,8 +3353,8 @@
             ],
             "scaling": [
                 0.8,
-                0.8,
-                0.8
+                0.7999999,
+                0.7999999
             ],
             "components": [
                 {
@@ -3356,11 +3369,11 @@
                 "name": "Buttons.024",
                 "file": "models\\UI\\ArmMenuPanel.glb"
             },
-            "parent": "71d203bc-721c-49ef-a43a-b799255c49d3",
+            "parent": "a8982cdc-6bd0-4a70-bc9c-59d7dc090585",
             "translation": [
                 0.0,
-                0.0599999,
-                0.0030121
+                -1.1920928955078125e-7,
+                0.0023505
             ],
             "rotation": [
                 0.0,
@@ -3370,8 +3383,8 @@
             ],
             "scaling": [
                 0.8,
-                0.8,
-                0.8
+                0.7999999,
+                0.7999999
             ],
             "components": [
                 {
@@ -3386,11 +3399,11 @@
                 "name": "Buttons.025",
                 "file": "models\\UI\\ArmMenuPanel.glb"
             },
-            "parent": "71d203bc-721c-49ef-a43a-b799255c49d3",
+            "parent": "92bed9f2-5f3d-44ef-888b-d770434a27a7",
             "translation": [
-                0.06,
-                0.0599999,
-                0.0030121
+                1.1920928955078125e-7,
+                -1.1920928955078125e-7,
+                0.0023505
             ],
             "rotation": [
                 0.0,
@@ -3400,8 +3413,8 @@
             ],
             "scaling": [
                 0.8,
-                0.8,
-                0.8
+                0.7999999,
+                0.7999999
             ],
             "components": [
                 {
@@ -3438,6 +3451,31 @@
                     "mesh": {
                         "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
                     }
+                },
+                {
+                    "type": "ui-button",
+                    "ui-button": {
+                        "visualFeedbackEnabled": false
+                    }
+                },
+                {
+                    "type": "block-selector-interactible",
+                    "block-selector-interactible": {
+                        "prefab": "256"
+                    }
+                },
+                {
+                    "type": "collision",
+                    "collision": {
+                        "collider": "box",
+                        "box": {
+                            "extents": [
+                                0.025,
+                                0.025,
+                                0.001
+                            ]
+                        }
+                    }
                 }
             ]
         },
@@ -3467,6 +3505,31 @@
                 {
                     "mesh": {
                         "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
+                    }
+                },
+                {
+                    "type": "ui-button",
+                    "ui-button": {
+                        "visualFeedbackEnabled": false
+                    }
+                },
+                {
+                    "type": "block-selector-interactible",
+                    "block-selector-interactible": {
+                        "prefab": "277"
+                    }
+                },
+                {
+                    "type": "collision",
+                    "collision": {
+                        "collider": "box",
+                        "box": {
+                            "extents": [
+                                0.025,
+                                0.025,
+                                0.001
+                            ]
+                        }
                     }
                 }
             ]
@@ -3558,6 +3621,31 @@
                     "mesh": {
                         "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
                     }
+                },
+                {
+                    "type": "ui-button",
+                    "ui-button": {
+                        "visualFeedbackEnabled": false
+                    }
+                },
+                {
+                    "type": "block-selector-interactible",
+                    "block-selector-interactible": {
+                        "prefab": "276"
+                    }
+                },
+                {
+                    "type": "collision",
+                    "collision": {
+                        "collider": "box",
+                        "box": {
+                            "extents": [
+                                0.025,
+                                0.025,
+                                0.001
+                            ]
+                        }
+                    }
                 }
             ]
         },
@@ -3583,6 +3671,9 @@
             "components": [
                 {
                     "type": "arm-panel"
+                },
+                {
+                    "type": "block-selection-panel"
                 }
             ]
         },
