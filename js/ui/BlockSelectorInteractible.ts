@@ -20,20 +20,12 @@ export class BlockSelectorInteractible extends Component
     private _prefabComponent: PrefabBase;
     private _buttonComponent: UiButton;
 
-    private _meshComp: MeshComponent;
-
     public override start()
     {
         this._prefabComponent = PrefabsRegistry.getPrefabByName(this.prefab[PrefabsRegistry.PREFAB_UNAME_KEY]);
 
         this._buttonComponent = this.object.getComponent(UiButton);
         this._buttonComponent.addInteractCallback(this.onInteractHandler.bind(this));
-
-        this._meshComp = this.object.getComponent('mesh');
-        let tempMat = this._meshComp.material.clone();
-        tempMat['color'] = Color.COLOR_NORMAL;
-
-        this._meshComp.material = tempMat;
     }
 
     public override onActivate(): void 
