@@ -2978,20 +2978,20 @@
                 }
             ],
             "translation": [
-                0.0,
-                -0.000069,
-                0.0012937
+                -1.1920927533992653e-7,
+                -0.0000689,
+                0.0012931
             ],
             "rotation": [
-                0.000006,
-                -1.800266318241484e-7,
-                0.0000012,
+                0.0000052,
+                -1.8002810975303873e-7,
+                0.0000011,
                 1.0
             ],
             "scaling": [
                 0.7500017,
-                0.7499977,
-                0.7500008
+                0.7499976,
+                0.7500007
             ],
             "parent": "3d2b5d75-5338-4f8e-8b39-229169db899c",
             "name": "Icon"
@@ -3058,7 +3058,7 @@
                         "mesh": "dd64d357-a896-41cd-b978-29b0fa5e26c3",
                         "material": "1d6c7161-1e19-42c1-be93-eae7e5d3226e"
                     },
-                    "active": true
+                    "active": false
                 },
                 {
                     "type": "arm-panel"
@@ -3089,7 +3089,8 @@
                     "type": "text",
                     "text": {
                         "text": "Menu"
-                    }
+                    },
+                    "active": false
                 }
             ],
             "translation": [
@@ -3109,54 +3110,22 @@
                 1.0
             ]
         },
-        "64d196de-3e6b-45d4-90cd-51ec9e669492": {
-            "name": "MenuPanelBlocks",
-            "parent": "2725c345-0f68-41f8-83eb-9ee1da797112",
-            "components": [
-                {
-                    "type": "mesh",
-                    "mesh": {
-                        "mesh": "dd64d357-a896-41cd-b978-29b0fa5e26c3",
-                        "material": "1d6c7161-1e19-42c1-be93-eae7e5d3226e"
-                    },
-                    "active": true
-                },
-                {
-                    "type": "arm-panel"
-                }
-            ],
-            "translation": [
-                -0.0217152,
-                0.0779156,
-                -0.2972052
-            ],
-            "rotation": [
-                -0.4895719,
-                -1.3793324704636234e-8,
-                1.113435565969212e-8,
-                0.8719629
-            ],
-            "scaling": [
-                1.0,
-                1.0,
-                0.9999815
-            ]
-        },
         "1037c3e5-5b7b-43f7-8c53-a2ca0e397b0e": {
             "name": "TitleText",
-            "parent": "64d196de-3e6b-45d4-90cd-51ec9e669492",
+            "parent": "e9e09d9d-00fd-4bdc-be49-ea424c642389",
             "components": [
                 {
                     "type": "text",
                     "text": {
                         "text": "Select an object"
-                    }
+                    },
+                    "active": true
                 }
             ],
             "translation": [
-                0.0000158,
-                0.1414877,
-                0.0099688
+                0.0003006,
+                0.1440852,
+                0.0081076
             ],
             "scaling": [
                 0.4,
@@ -3164,9 +3133,9 @@
                 1.0
             ],
             "rotation": [
-                0.0000019,
-                -0.0,
-                -0.0,
+                0.0000027,
+                -1.7478335223586328e-8,
+                0.0,
                 1.0
             ]
         },
@@ -3180,7 +3149,7 @@
                         "mesh": "dd64d357-a896-41cd-b978-29b0fa5e26c3",
                         "material": "1d6c7161-1e19-42c1-be93-eae7e5d3226e"
                     },
-                    "active": true
+                    "active": false
                 },
                 {
                     "type": "arm-panel"
@@ -3211,7 +3180,8 @@
                     "type": "text",
                     "text": {
                         "text": "Select an texture"
-                    }
+                    },
+                    "active": false
                 }
             ],
             "translation": [
@@ -3230,6 +3200,411 @@
                 -0.0,
                 1.0
             ]
+        },
+        "38d45426-ff32-4536-a053-80772454abf7": {
+            "link": {
+                "name": "ArmPanel",
+                "file": "models\\UI\\ArmMenuPanel.glb"
+            },
+            "parent": "71d203bc-721c-49ef-a43a-b799255c49d3",
+            "translation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "components": [
+                {
+                    "mesh": {
+                        "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
+                    }
+                }
+            ]
+        },
+        "e9e09d9d-00fd-4bdc-be49-ea424c642389": {
+            "link": {
+                "name": "PanelTitle",
+                "file": "models\\UI\\ArmMenuPanel.glb"
+            },
+            "parent": "71d203bc-721c-49ef-a43a-b799255c49d3",
+            "translation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "components": [
+                {
+                    "mesh": {
+                        "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
+                    }
+                }
+            ]
+        },
+        "0a3c51b7-eca7-4ce4-afca-7797c4a8d957": {
+            "link": {
+                "name": "Buttons.021",
+                "file": "models\\UI\\ArmMenuPanel.glb"
+            },
+            "parent": "71d203bc-721c-49ef-a43a-b799255c49d3",
+            "translation": [
+                -0.1799999,
+                0.0599999,
+                0.0030121
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                0.8,
+                0.8,
+                0.8
+            ],
+            "components": [
+                {
+                    "mesh": {
+                        "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
+                    }
+                }
+            ]
+        },
+        "06f2322c-ccc0-4d0e-a3f1-99ac972da830": {
+            "link": {
+                "name": "Buttons.022",
+                "file": "models\\UI\\ArmMenuPanel.glb"
+            },
+            "parent": "71d203bc-721c-49ef-a43a-b799255c49d3",
+            "translation": [
+                -0.1199999,
+                0.0599999,
+                0.0030121
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                0.8,
+                0.8,
+                0.8
+            ],
+            "components": [
+                {
+                    "mesh": {
+                        "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
+                    }
+                }
+            ]
+        },
+        "165aa5f4-8181-42af-8997-b9cad57c6d83": {
+            "link": {
+                "name": "Buttons.023",
+                "file": "models\\UI\\ArmMenuPanel.glb"
+            },
+            "parent": "71d203bc-721c-49ef-a43a-b799255c49d3",
+            "translation": [
+                -0.0599999,
+                0.0599999,
+                0.0030121
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                0.8,
+                0.8,
+                0.8
+            ],
+            "components": [
+                {
+                    "mesh": {
+                        "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
+                    }
+                }
+            ]
+        },
+        "279e925a-610d-4480-96ee-ef59fc78704e": {
+            "link": {
+                "name": "Buttons.024",
+                "file": "models\\UI\\ArmMenuPanel.glb"
+            },
+            "parent": "71d203bc-721c-49ef-a43a-b799255c49d3",
+            "translation": [
+                0.0,
+                0.0599999,
+                0.0030121
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                0.8,
+                0.8,
+                0.8
+            ],
+            "components": [
+                {
+                    "mesh": {
+                        "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
+                    }
+                }
+            ]
+        },
+        "900a6139-dc36-4e20-868a-0903c687fcef": {
+            "link": {
+                "name": "Buttons.025",
+                "file": "models\\UI\\ArmMenuPanel.glb"
+            },
+            "parent": "71d203bc-721c-49ef-a43a-b799255c49d3",
+            "translation": [
+                0.06,
+                0.0599999,
+                0.0030121
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                0.8,
+                0.8,
+                0.8
+            ],
+            "components": [
+                {
+                    "mesh": {
+                        "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
+                    }
+                }
+            ]
+        },
+        "eff0d982-208c-426e-bb4f-1a1ea5919de8": {
+            "link": {
+                "name": "Buttons",
+                "file": "models\\UI\\ArmMenuPanel.glb"
+            },
+            "parent": "71d203bc-721c-49ef-a43a-b799255c49d3",
+            "translation": [
+                -0.1799999,
+                0.0599999,
+                0.0006618
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "components": [
+                {
+                    "mesh": {
+                        "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
+                    }
+                }
+            ]
+        },
+        "05d92808-90ee-4654-b02b-30d63e647d75": {
+            "link": {
+                "name": "Buttons.001",
+                "file": "models\\UI\\ArmMenuPanel.glb"
+            },
+            "parent": "71d203bc-721c-49ef-a43a-b799255c49d3",
+            "translation": [
+                -0.1199999,
+                0.0599999,
+                0.0006618
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "components": [
+                {
+                    "mesh": {
+                        "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
+                    }
+                }
+            ]
+        },
+        "691a5f41-7967-4423-af23-1fd499268b7c": {
+            "link": {
+                "name": "Buttons.002",
+                "file": "models\\UI\\ArmMenuPanel.glb"
+            },
+            "parent": "71d203bc-721c-49ef-a43a-b799255c49d3",
+            "translation": [
+                -0.0599999,
+                0.0599999,
+                0.0006618
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "components": [
+                {
+                    "mesh": {
+                        "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
+                    }
+                }
+            ]
+        },
+        "a8982cdc-6bd0-4a70-bc9c-59d7dc090585": {
+            "link": {
+                "name": "Buttons.003",
+                "file": "models\\UI\\ArmMenuPanel.glb"
+            },
+            "parent": "71d203bc-721c-49ef-a43a-b799255c49d3",
+            "translation": [
+                0.0,
+                0.0599999,
+                0.0006618
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "components": [
+                {
+                    "mesh": {
+                        "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
+                    }
+                }
+            ]
+        },
+        "92bed9f2-5f3d-44ef-888b-d770434a27a7": {
+            "link": {
+                "name": "Buttons.004",
+                "file": "models\\UI\\ArmMenuPanel.glb"
+            },
+            "parent": "71d203bc-721c-49ef-a43a-b799255c49d3",
+            "translation": [
+                0.06,
+                0.0599999,
+                0.0006618
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "components": [
+                {
+                    "mesh": {
+                        "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
+                    }
+                }
+            ]
+        },
+        "71d203bc-721c-49ef-a43a-b799255c49d3": {
+            "name": "PanelBLockSelection",
+            "translation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "parent": "0c603522-4a1c-4fa3-af2e-21f92df5ae6b",
+            "components": [
+                {
+                    "type": "arm-panel"
+                }
+            ]
+        },
+        "0c603522-4a1c-4fa3-af2e-21f92df5ae6b": {
+            "name": "PanelsOffset",
+            "translation": [
+                -0.022,
+                0.0749915,
+                -0.2888344
+            ],
+            "rotation": [
+                -0.4895727,
+                0.0,
+                0.0,
+                0.8719624
+            ],
+            "scaling": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "parent": "2725c345-0f68-41f8-83eb-9ee1da797112"
         }
     },
     "meshes": {
@@ -3528,6 +3903,78 @@
             "link": {
                 "name": "Plane",
                 "file": "models\\UI\\armPanel.glb"
+            }
+        },
+        "2de41a54-8b37-4f41-92bc-9abdd8a94491": {
+            "link": {
+                "name": "ArmPanel",
+                "file": "models\\UI\\ArmMenuPanel.glb"
+            }
+        },
+        "d5835a02-586d-49d1-b944-5794ecf94981": {
+            "link": {
+                "name": "PanelTitle",
+                "file": "models\\UI\\ArmMenuPanel.glb"
+            }
+        },
+        "931b660f-f2a3-4509-bc99-1d992c0ed517": {
+            "link": {
+                "name": "Buttons.021",
+                "file": "models\\UI\\ArmMenuPanel.glb"
+            }
+        },
+        "73f0ff60-b0ce-43c8-b3c8-ab899c1373a5": {
+            "link": {
+                "name": "Buttons.022",
+                "file": "models\\UI\\ArmMenuPanel.glb"
+            }
+        },
+        "6f30d49a-0ef5-4d49-b876-73f1a5cbe576": {
+            "link": {
+                "name": "Buttons.023",
+                "file": "models\\UI\\ArmMenuPanel.glb"
+            }
+        },
+        "5978c0bd-9ede-4462-84a0-6d6c96dcb3db": {
+            "link": {
+                "name": "Buttons.024",
+                "file": "models\\UI\\ArmMenuPanel.glb"
+            }
+        },
+        "be30cae6-7a09-4e08-bdd3-4eea7d665a86": {
+            "link": {
+                "name": "Buttons.025",
+                "file": "models\\UI\\ArmMenuPanel.glb"
+            }
+        },
+        "567465f5-ac99-485f-a3c0-f2e742208341": {
+            "link": {
+                "name": "Buttons",
+                "file": "models\\UI\\ArmMenuPanel.glb"
+            }
+        },
+        "286ca64a-8a13-4bbb-8fda-d0dcac40a80f": {
+            "link": {
+                "name": "Buttons.001",
+                "file": "models\\UI\\ArmMenuPanel.glb"
+            }
+        },
+        "e9e52666-5f27-4574-95cd-c88fdbdf31b1": {
+            "link": {
+                "name": "Buttons.002",
+                "file": "models\\UI\\ArmMenuPanel.glb"
+            }
+        },
+        "5b3533a6-6c70-4f4e-a851-00fd365896df": {
+            "link": {
+                "name": "Buttons.003",
+                "file": "models\\UI\\ArmMenuPanel.glb"
+            }
+        },
+        "92a166f8-cf37-4d15-a031-ada89997c709": {
+            "link": {
+                "name": "Buttons.004",
+                "file": "models\\UI\\ArmMenuPanel.glb"
             }
         }
     },
@@ -3927,6 +4374,12 @@
             "link": {
                 "name": "paletUI.png",
                 "file": "textures\\00_UI\\paletUI.png"
+            }
+        },
+        "06a9213e-a733-43fd-bc49-92b7e79e5030": {
+            "link": {
+                "name": "UIAtlas.png",
+                "file": "textures\\00_UI\\UIAtlas.png"
             }
         }
     },
@@ -4545,6 +4998,12 @@
                 "file": "textures\\00_UI\\paletUI.png"
             },
             "compress": false
+        },
+        "0c97b89a-3551-4e2f-a356-0c6848f4b33a": {
+            "link": {
+                "name": "UIAtlas.png",
+                "file": "textures\\00_UI\\UIAtlas.png"
+            }
         }
     },
     "materials": {
@@ -4898,6 +5357,23 @@
             "Flat": {
                 "flatTexture": "8c403fac-a2ec-439c-a596-91168d5494d1"
             }
+        },
+        "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a": {
+            "link": {
+                "name": "UI",
+                "file": "models\\UI\\panel.glb"
+            },
+            "pipeline": "35",
+            "Flat": {
+                "flatTexture": "06a9213e-a733-43fd-bc49-92b7e79e5030",
+                "color": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "name": "UI-New"
         }
     },
     "shaders": {
@@ -5038,10 +5514,9 @@
         "project": {
             "name": "wonderbrick",
             "version": [
-                1,
                 0,
-                0,
-                1
+                9,
+                5
             ]
         },
         "vr": {
@@ -5414,7 +5889,9 @@
         "textures/00_UI/00_Icons/Texture_Icon.png",
         "textures/00_UI/paletUI.png",
         "models/UI/armPanel.glb",
-        "static/LuckiestGuy-Regular.ttf"
+        "static/LuckiestGuy-Regular.ttf",
+        "models/UI/ArmMenuPanel.glb",
+        "textures/00_UI/UIAtlas.png"
     ],
     "fonts": {
         "230": {

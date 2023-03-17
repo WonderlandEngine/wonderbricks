@@ -65,7 +65,7 @@ export class MenuController extends Component
                 this._blockPanelComp.hide();
                 this._texturePanelComp.hide();
                 console.log("COUCOU scene loaded !");
-            }, 500);
+            }, 100);
         });
     }
 
