@@ -1349,293 +1349,6 @@
                 1.0
             ]
         },
-        "285": {
-            "link": {
-                "name": "Plane",
-                "file": "models\\UI\\button.glb"
-            },
-            "translation": [
-                0.0,
-                0.0,
-                0.0
-            ],
-            "rotation": [
-                0.7071068,
-                0.0,
-                0.0,
-                0.7071067
-            ],
-            "name": "ButtonCube",
-            "components": [
-                null,
-                {
-                    "type": "collision",
-                    "collision": {
-                        "collider": "box",
-                        "box": {
-                            "extents": [
-                                0.25,
-                                0.0299999,
-                                0.1
-                            ]
-                        }
-                    }
-                },
-                {
-                    "type": "ui-button",
-                    "ui-button": {
-                        "textObject": "286"
-                    }
-                },
-                {
-                    "type": "block-selector-interactible",
-                    "block-selector-interactible": {
-                        "prefab": "256"
-                    }
-                }
-            ],
-            "parent": "293",
-            "scaling": [
-                1.0,
-                0.9999759,
-                0.9999759
-            ]
-        },
-        "286": {
-            "name": "Text",
-            "parent": "285",
-            "components": [
-                {
-                    "type": "text",
-                    "text": {
-                        "text": "CUBE"
-                    }
-                }
-            ],
-            "translation": [
-                0.0,
-                0.0251925,
-                7.152557373046875e-7
-            ],
-            "rotation": [
-                -0.7071068,
-                0.0,
-                0.0,
-                0.7071067
-            ],
-            "scaling": [
-                1.0,
-                1.0,
-                1.0
-            ]
-        },
-        "289": {
-            "link": {
-                "name": "Plane",
-                "file": "models\\UI\\button.glb"
-            },
-            "translation": [
-                0.0,
-                0.2,
-                -5.960464477539065e-8
-            ],
-            "rotation": [
-                0.7071068,
-                0.0,
-                0.0,
-                0.7071067
-            ],
-            "name": "ButtonSlope",
-            "components": [
-                null,
-                {
-                    "type": "collision",
-                    "collision": {
-                        "collider": "box",
-                        "box": {
-                            "extents": [
-                                0.25,
-                                0.0299999,
-                                0.1
-                            ]
-                        }
-                    }
-                },
-                {
-                    "type": "ui-button",
-                    "ui-button": {
-                        "textObject": "286"
-                    }
-                },
-                {
-                    "type": "block-selector-interactible",
-                    "block-selector-interactible": {
-                        "prefab": "276"
-                    }
-                }
-            ],
-            "parent": "293",
-            "scaling": [
-                1.0,
-                0.9999852,
-                0.9999852
-            ]
-        },
-        "290": {
-            "name": "Text",
-            "parent": "289",
-            "components": [
-                {
-                    "type": "text",
-                    "text": {
-                        "text": "SLOPE"
-                    }
-                }
-            ],
-            "translation": [
-                0.0,
-                0.0251925,
-                7.152557373046875e-7
-            ],
-            "rotation": [
-                -0.7071068,
-                0.0,
-                0.0,
-                0.7071067
-            ],
-            "scaling": [
-                1.0,
-                1.0,
-                1.0
-            ]
-        },
-        "291": {
-            "link": {
-                "name": "Plane",
-                "file": "models\\UI\\button.glb"
-            },
-            "translation": [
-                0.0,
-                -0.2,
-                -2.9802322387695313e-8
-            ],
-            "rotation": [
-                0.7071068,
-                0.0,
-                0.0,
-                0.7071067
-            ],
-            "name": "ButtonStair",
-            "components": [
-                null,
-                {
-                    "type": "collision",
-                    "collision": {
-                        "collider": "box",
-                        "box": {
-                            "extents": [
-                                0.25,
-                                0.0299999,
-                                0.1
-                            ]
-                        }
-                    }
-                },
-                {
-                    "type": "ui-button",
-                    "ui-button": {
-                        "textObject": "286"
-                    }
-                },
-                {
-                    "type": "block-selector-interactible",
-                    "block-selector-interactible": {
-                        "prefab": "277"
-                    }
-                }
-            ],
-            "parent": "293",
-            "scaling": [
-                1.0,
-                0.9999802,
-                0.9999802
-            ]
-        },
-        "292": {
-            "name": "Text",
-            "parent": "291",
-            "components": [
-                {
-                    "type": "text",
-                    "text": {
-                        "text": "STAIR"
-                    }
-                }
-            ],
-            "translation": [
-                0.0,
-                0.0251925,
-                7.152557373046875e-7
-            ],
-            "rotation": [
-                -0.7071068,
-                0.0,
-                0.0,
-                0.7071067
-            ],
-            "scaling": [
-                1.0,
-                1.0,
-                1.0
-            ]
-        },
-        "293": {
-            "name": "BlocksUiContainer",
-            "translation": [
-                -3.2000002,
-                1.2999999,
-                -2.384185791015625e-7
-            ],
-            "rotation": [
-                0.0,
-                0.2589858,
-                0.0,
-                0.9658811
-            ],
-            "scaling": [
-                0.9999998,
-                1.0,
-                0.9999998
-            ]
-        },
-        "294": {
-            "name": "Text.000",
-            "parent": "293",
-            "components": [
-                {
-                    "type": "text",
-                    "text": {
-                        "text": "Blocks"
-                    }
-                }
-            ],
-            "translation": [
-                0.0,
-                0.3707144,
-                0.0
-            ],
-            "rotation": [
-                0.0,
-                0.0,
-                0.0,
-                1.0
-            ],
-            "scaling": [
-                1.0,
-                1.0,
-                1.0
-            ]
-        },
         "296": {
             "name": "ColorUiContainer",
             "translation": [
@@ -3281,8 +2994,8 @@
             },
             "parent": "eff0d982-208c-426e-bb4f-1a1ea5919de8",
             "translation": [
-                1.1920928955078125e-7,
-                -1.1920928955078125e-7,
+                0.0000015,
+                -0.0000016,
                 0.0023505
             ],
             "rotation": [
@@ -3293,8 +3006,8 @@
             ],
             "scaling": [
                 0.8,
-                0.7999999,
-                0.7999999
+                0.7999998,
+                0.7999998
             ],
             "components": [
                 {
@@ -3433,7 +3146,7 @@
             "translation": [
                 -0.1799999,
                 0.0599999,
-                0.0006618
+                0.0006617
             ],
             "rotation": [
                 0.0,
@@ -3832,13 +3545,29 @@
                 "name": "Buttons.062",
                 "file": "models\\UI\\TextureButtons.glb"
             },
-            "parent": "36b8383d-05af-4032-85ad-b49eb3e6c2a3",
+            "parent": "4d8a5af1-28a9-407f-923b-5a47515d2d69",
             "components": [
                 {
                     "mesh": {
                         "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
                     }
                 }
+            ],
+            "translation": [
+                0.0,
+                -5.960464477539064e-8,
+                0.0023503
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                0.8,
+                0.8,
+                0.8
             ]
         },
         "f29f195b-21e8-4bef-94ab-2d16033aa3c8": {
@@ -3846,13 +3575,29 @@
                 "name": "Buttons.061",
                 "file": "models\\UI\\TextureButtons.glb"
             },
-            "parent": "36b8383d-05af-4032-85ad-b49eb3e6c2a3",
+            "parent": "be5fbaac-dfda-4fd1-972a-ab6d81e50723",
             "components": [
                 {
                     "mesh": {
                         "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
                     }
                 }
+            ],
+            "translation": [
+                1.1920928955078125e-7,
+                -5.960464477539064e-8,
+                0.0023503
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                0.8,
+                0.8,
+                0.8
             ]
         },
         "4d91a54c-c9ae-4bb6-a618-0d00885dbce1": {
@@ -3860,13 +3605,29 @@
                 "name": "Buttons.060",
                 "file": "models\\UI\\TextureButtons.glb"
             },
-            "parent": "36b8383d-05af-4032-85ad-b49eb3e6c2a3",
+            "parent": "eff3f41f-f0d0-486c-8cca-83a296aa7fa8",
             "components": [
                 {
                     "mesh": {
                         "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
                     }
                 }
+            ],
+            "translation": [
+                0.0,
+                -5.960464477539064e-8,
+                0.0023503
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                0.8,
+                0.8,
+                0.8
             ]
         },
         "2281bfb2-b1d4-4c61-b68a-a87a04b3b289": {
@@ -3874,13 +3635,29 @@
                 "name": "Buttons.059",
                 "file": "models\\UI\\TextureButtons.glb"
             },
-            "parent": "36b8383d-05af-4032-85ad-b49eb3e6c2a3",
+            "parent": "d50530d8-8e56-44f5-8f9f-e39ffb59ff0d",
             "components": [
                 {
                     "mesh": {
                         "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
                     }
                 }
+            ],
+            "translation": [
+                0.0,
+                -5.960464477539064e-8,
+                0.0023503
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                0.8,
+                0.8,
+                0.8
             ]
         },
         "1f3c59a4-0f23-4658-ad0a-e9602eb787ee": {
@@ -3888,13 +3665,29 @@
                 "name": "Buttons.058",
                 "file": "models\\UI\\TextureButtons.glb"
             },
-            "parent": "36b8383d-05af-4032-85ad-b49eb3e6c2a3",
+            "parent": "a1fa8ae0-a91a-4246-8f47-9ee13a310d65",
             "components": [
                 {
                     "mesh": {
                         "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
                     }
                 }
+            ],
+            "translation": [
+                0.0,
+                -5.960464477539064e-8,
+                0.0023503
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                0.8,
+                0.8,
+                0.8
             ]
         },
         "fb953f87-5731-4c96-8d73-e20da3639a1f": {
@@ -3902,13 +3695,29 @@
                 "name": "Buttons.057",
                 "file": "models\\UI\\TextureButtons.glb"
             },
-            "parent": "36b8383d-05af-4032-85ad-b49eb3e6c2a3",
+            "parent": "aaff280d-b053-4a3b-a3c4-2aad8cca049e",
             "components": [
                 {
                     "mesh": {
                         "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
                     }
                 }
+            ],
+            "translation": [
+                0.0,
+                -5.960464477539064e-8,
+                0.0023503
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                0.8,
+                0.8,
+                0.8
             ]
         },
         "f5c37517-1209-4e88-8b7f-edb27b635722": {
@@ -3916,13 +3725,29 @@
                 "name": "Buttons.056",
                 "file": "models\\UI\\TextureButtons.glb"
             },
-            "parent": "36b8383d-05af-4032-85ad-b49eb3e6c2a3",
+            "parent": "0e1c99e3-fb21-4714-97fe-40addc4e00b8",
             "components": [
                 {
                     "mesh": {
                         "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
                     }
                 }
+            ],
+            "translation": [
+                0.0,
+                -5.960464477539064e-8,
+                0.0023503
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                0.8,
+                0.8,
+                0.8
             ]
         },
         "2990b9b5-12a7-4d7d-8deb-df0616a385fe": {
@@ -3930,13 +3755,29 @@
                 "name": "Buttons.055",
                 "file": "models\\UI\\TextureButtons.glb"
             },
-            "parent": "36b8383d-05af-4032-85ad-b49eb3e6c2a3",
+            "parent": "3854b606-bc95-452c-bea7-d9959190b61e",
             "components": [
                 {
                     "mesh": {
                         "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
                     }
                 }
+            ],
+            "translation": [
+                0.0,
+                -5.960464477539064e-8,
+                0.0023505
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                0.8,
+                0.8,
+                0.8
             ]
         },
         "2e702bc9-8d82-4868-b11c-a404deebbfb0": {
@@ -3944,13 +3785,29 @@
                 "name": "Buttons.054",
                 "file": "models\\UI\\TextureButtons.glb"
             },
-            "parent": "36b8383d-05af-4032-85ad-b49eb3e6c2a3",
+            "parent": "2e4d70bb-4f74-48fe-abfc-b23e51f0744a",
             "components": [
                 {
                     "mesh": {
                         "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
                     }
                 }
+            ],
+            "translation": [
+                1.1920928955078125e-7,
+                -5.960464477539064e-8,
+                0.0023505
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                0.8,
+                0.8,
+                0.8
             ]
         },
         "9555d87f-6670-4edc-98d0-62ba6472a48b": {
@@ -3958,13 +3815,29 @@
                 "name": "Buttons.053",
                 "file": "models\\UI\\TextureButtons.glb"
             },
-            "parent": "36b8383d-05af-4032-85ad-b49eb3e6c2a3",
+            "parent": "d2b2b5a7-abfd-44db-aeda-ae24543747ca",
             "components": [
                 {
                     "mesh": {
                         "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
                     }
                 }
+            ],
+            "translation": [
+                0.0,
+                -5.960464477539064e-8,
+                0.0023505
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                0.8,
+                0.8,
+                0.8
             ]
         },
         "56a5892e-8fd5-4127-98e3-3898fdb0a31e": {
@@ -3972,13 +3845,29 @@
                 "name": "Buttons.052",
                 "file": "models\\UI\\TextureButtons.glb"
             },
-            "parent": "36b8383d-05af-4032-85ad-b49eb3e6c2a3",
+            "parent": "f7e05862-ae5f-4d8b-804d-29e0f9bb896f",
             "components": [
                 {
                     "mesh": {
                         "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
                     }
                 }
+            ],
+            "translation": [
+                0.0,
+                -5.960464477539064e-8,
+                0.0023505
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                0.8,
+                0.8,
+                0.8
             ]
         },
         "dd21e02f-78a7-4aab-a6cd-8edd9d785079": {
@@ -3986,13 +3875,29 @@
                 "name": "Buttons.051",
                 "file": "models\\UI\\TextureButtons.glb"
             },
-            "parent": "36b8383d-05af-4032-85ad-b49eb3e6c2a3",
+            "parent": "7b47097e-1329-4918-8a59-ce30f3fbe96f",
             "components": [
                 {
                     "mesh": {
                         "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
                     }
                 }
+            ],
+            "translation": [
+                0.0,
+                -5.960464477539064e-8,
+                0.0023505
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                0.8,
+                0.8,
+                0.8
             ]
         },
         "d84b4551-5e37-408a-93e3-a7591b8553eb": {
@@ -4000,13 +3905,29 @@
                 "name": "Buttons.050",
                 "file": "models\\UI\\TextureButtons.glb"
             },
-            "parent": "36b8383d-05af-4032-85ad-b49eb3e6c2a3",
+            "parent": "495dd22a-95d1-4a80-8550-be891085845a",
             "components": [
                 {
                     "mesh": {
                         "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
                     }
                 }
+            ],
+            "translation": [
+                0.0,
+                -5.960464477539064e-8,
+                0.0023505
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                0.8,
+                0.8,
+                0.8
             ]
         },
         "2a8bc6d2-d075-48e4-9ddf-bb378e525db9": {
@@ -4014,13 +3935,29 @@
                 "name": "Buttons.049",
                 "file": "models\\UI\\TextureButtons.glb"
             },
-            "parent": "36b8383d-05af-4032-85ad-b49eb3e6c2a3",
+            "parent": "ef4031dd-9656-4456-8969-eeeb82c3bdc3",
             "components": [
                 {
                     "mesh": {
                         "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
                     }
                 }
+            ],
+            "translation": [
+                0.0,
+                -5.960464477539064e-8,
+                0.0023505
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                0.8,
+                0.8,
+                0.8
             ]
         },
         "3a087e60-1f86-4e4d-a458-5ae42aed2feb": {
@@ -4028,13 +3965,29 @@
                 "name": "Buttons.048",
                 "file": "models\\UI\\TextureButtons.glb"
             },
-            "parent": "36b8383d-05af-4032-85ad-b49eb3e6c2a3",
+            "parent": "51450e5e-6ba8-4819-bde2-bcb5f9738701",
             "components": [
                 {
                     "mesh": {
                         "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
                     }
                 }
+            ],
+            "translation": [
+                0.0,
+                -1.1920928955078125e-7,
+                0.0023505
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                0.8,
+                0.8,
+                0.8
             ]
         },
         "e844514a-692b-4dab-b82d-3542b7ba6530": {
@@ -4042,13 +3995,29 @@
                 "name": "Buttons.047",
                 "file": "models\\UI\\TextureButtons.glb"
             },
-            "parent": "36b8383d-05af-4032-85ad-b49eb3e6c2a3",
+            "parent": "30159f18-41d8-418b-b71b-9062dc0c0027",
             "components": [
                 {
                     "mesh": {
                         "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
                     }
                 }
+            ],
+            "translation": [
+                1.1920928955078125e-7,
+                -1.1920928955078125e-7,
+                0.0023505
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                0.8,
+                0.8,
+                0.8
             ]
         },
         "d9a1c550-e6a0-43ea-bbf6-98073414510d": {
@@ -4056,13 +4025,29 @@
                 "name": "Buttons.046",
                 "file": "models\\UI\\TextureButtons.glb"
             },
-            "parent": "36b8383d-05af-4032-85ad-b49eb3e6c2a3",
+            "parent": "5805b92f-298f-4d64-a4a5-e362c49fb612",
             "components": [
                 {
                     "mesh": {
                         "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
                     }
                 }
+            ],
+            "translation": [
+                0.0,
+                -1.1920928955078125e-7,
+                0.0023505
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                0.8,
+                0.8,
+                0.8
             ]
         },
         "9f5e3450-9389-43bf-9aba-d4d4f6c2f3ab": {
@@ -4070,13 +4055,29 @@
                 "name": "Buttons.045",
                 "file": "models\\UI\\TextureButtons.glb"
             },
-            "parent": "36b8383d-05af-4032-85ad-b49eb3e6c2a3",
+            "parent": "39e9831f-a689-4215-970d-4c6a644b3991",
             "components": [
                 {
                     "mesh": {
                         "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
                     }
                 }
+            ],
+            "translation": [
+                0.0,
+                -1.1920928955078125e-7,
+                0.0023505
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                0.8,
+                0.8,
+                0.8
             ]
         },
         "3447fa8a-8a7c-4ed2-8821-7f91260bd35c": {
@@ -4084,13 +4085,29 @@
                 "name": "Buttons.044",
                 "file": "models\\UI\\TextureButtons.glb"
             },
-            "parent": "36b8383d-05af-4032-85ad-b49eb3e6c2a3",
+            "parent": "43978ddf-c9ca-4c0d-a380-c3b98f80f16f",
             "components": [
                 {
                     "mesh": {
                         "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
                     }
                 }
+            ],
+            "translation": [
+                0.0,
+                -1.1920928955078125e-7,
+                0.0023505
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                0.8,
+                0.8,
+                0.8
             ]
         },
         "bc423920-8ae4-4496-9869-e274f3b70bb7": {
@@ -4098,13 +4115,29 @@
                 "name": "Buttons.043",
                 "file": "models\\UI\\TextureButtons.glb"
             },
-            "parent": "36b8383d-05af-4032-85ad-b49eb3e6c2a3",
+            "parent": "e8dd2a27-d6ab-4438-ab10-d35f79a6aba0",
             "components": [
                 {
                     "mesh": {
                         "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
                     }
                 }
+            ],
+            "translation": [
+                0.0,
+                -1.1920928955078125e-7,
+                0.0023505
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                0.8,
+                0.8,
+                0.8
             ]
         },
         "3e5bd23e-ac70-464f-b854-11ca478dc4bb": {
@@ -4112,13 +4145,29 @@
                 "name": "Buttons.042",
                 "file": "models\\UI\\TextureButtons.glb"
             },
-            "parent": "36b8383d-05af-4032-85ad-b49eb3e6c2a3",
+            "parent": "320378c4-8145-496c-bd01-103f65157980",
             "components": [
                 {
                     "mesh": {
                         "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
                     }
                 }
+            ],
+            "translation": [
+                0.0,
+                -1.1920928955078125e-7,
+                0.0023505
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                0.8,
+                0.8,
+                0.8
             ]
         },
         "6f181fcf-3577-4785-9a67-2d754128b965": {
@@ -4126,13 +4175,29 @@
                 "name": "Buttons.084",
                 "file": "models\\UI\\TextureButtons.glb"
             },
-            "parent": "36b8383d-05af-4032-85ad-b49eb3e6c2a3",
+            "parent": "ed5a93a2-dfd1-4ecb-bee7-56d29a1914cd",
             "components": [
                 {
                     "mesh": {
                         "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
                     }
                 }
+            ],
+            "translation": [
+                0.0,
+                5.960464477539064e-8,
+                0.0023505
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                0.8,
+                0.8,
+                0.8
             ]
         },
         "1405de76-9be1-4b03-9c2f-36fcc4239914": {
@@ -4140,13 +4205,29 @@
                 "name": "Buttons.085",
                 "file": "models\\UI\\TextureButtons.glb"
             },
-            "parent": "36b8383d-05af-4032-85ad-b49eb3e6c2a3",
+            "parent": "c4da75e7-a7c6-4fab-85ce-e30cbb526097",
             "components": [
                 {
                     "mesh": {
                         "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
                     }
                 }
+            ],
+            "translation": [
+                1.1920928955078125e-7,
+                5.960464477539064e-8,
+                0.0023505
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                0.8,
+                0.8,
+                0.8
             ]
         },
         "888adb01-1ec1-4c8d-a7ce-d81a7e53c4b9": {
@@ -4154,13 +4235,29 @@
                 "name": "Buttons.086",
                 "file": "models\\UI\\TextureButtons.glb"
             },
-            "parent": "36b8383d-05af-4032-85ad-b49eb3e6c2a3",
+            "parent": "800926f3-a235-4d25-82ba-04a7b465615a",
             "components": [
                 {
                     "mesh": {
                         "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
                     }
                 }
+            ],
+            "translation": [
+                0.0,
+                5.960464477539064e-8,
+                0.0023505
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                0.8,
+                0.8,
+                0.8
             ]
         },
         "1e76cc6d-ef37-4732-a8fd-831b79350e52": {
@@ -4168,13 +4265,29 @@
                 "name": "Buttons.087",
                 "file": "models\\UI\\TextureButtons.glb"
             },
-            "parent": "36b8383d-05af-4032-85ad-b49eb3e6c2a3",
+            "parent": "55141ae6-1aaf-4af3-bf24-e285ec553639",
             "components": [
                 {
                     "mesh": {
                         "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
                     }
                 }
+            ],
+            "translation": [
+                0.0,
+                5.960464477539064e-8,
+                0.0023505
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                0.8,
+                0.8,
+                0.8
             ]
         },
         "4d8a5af1-28a9-407f-923b-5a47515d2d69": {
@@ -5196,6 +5309,84 @@
             "link": {
                 "name": "Buttons.094",
                 "file": "models\\UI\\TextureButtons.glb"
+            }
+        },
+        "29ee42f7-1e5b-4112-9b1b-65d0be208390": {
+            "link": {
+                "name": "ArmPanel",
+                "file": "models\\UI\\panel.glb"
+            }
+        },
+        "bca6aa8d-15c3-414b-9d21-16a765261456": {
+            "link": {
+                "name": "PanelTitle",
+                "file": "models\\UI\\panel.glb"
+            }
+        },
+        "66cbab8b-53d1-4b32-8939-776afce95ea1": {
+            "link": {
+                "name": "Buttons.021",
+                "file": "models\\UI\\panel.glb"
+            }
+        },
+        "1475d94b-564e-4b7b-b388-49dc011fbfa8": {
+            "link": {
+                "name": "Buttons.022",
+                "file": "models\\UI\\panel.glb"
+            }
+        },
+        "dd194303-ab89-4a59-ba19-ed2d7d5577cb": {
+            "link": {
+                "name": "Buttons.023",
+                "file": "models\\UI\\panel.glb"
+            }
+        },
+        "8925b440-fb7d-4aeb-8b43-2daaf00ce9b4": {
+            "link": {
+                "name": "Buttons.024",
+                "file": "models\\UI\\panel.glb"
+            }
+        },
+        "4f51383d-a26e-41d0-9b08-69a10d1f7c85": {
+            "link": {
+                "name": "Buttons.025",
+                "file": "models\\UI\\panel.glb"
+            }
+        },
+        "e8728957-3972-4cf6-886e-65b52471284b": {
+            "link": {
+                "name": "Buttons",
+                "file": "models\\UI\\panel.glb"
+            }
+        },
+        "4ac801d1-ecb7-4720-9f27-f43304445253": {
+            "link": {
+                "name": "Buttons.001",
+                "file": "models\\UI\\panel.glb"
+            }
+        },
+        "09be0086-4b6f-4583-bc99-d96a2185dd5f": {
+            "link": {
+                "name": "Buttons.002",
+                "file": "models\\UI\\panel.glb"
+            }
+        },
+        "71e2a007-ac21-4ee7-bf03-2b22bb2d4a0b": {
+            "link": {
+                "name": "Buttons.003",
+                "file": "models\\UI\\panel.glb"
+            }
+        },
+        "9f1d6e16-85ed-45bb-b369-f2a2e6b88508": {
+            "link": {
+                "name": "Buttons.004",
+                "file": "models\\UI\\panel.glb"
+            }
+        },
+        "e1487cdf-6f08-46af-8d81-929bca8e5f90": {
+            "link": {
+                "name": "Buttons.098",
+                "file": "models\\UI\\panel.glb"
             }
         }
     },

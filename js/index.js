@@ -89,4 +89,5 @@ import { MenuController } from './ui/armMenu/MenuController.ts';
 WL.registerComponent(MenuController);
 import { MenuSelectionButton } from './ui/armMenu/MenuSelectionButton.ts';
 WL.registerComponent(MenuSelectionButton);
+import './utils/materials/Color.ts';
 /* wle:auto-imports:end */
