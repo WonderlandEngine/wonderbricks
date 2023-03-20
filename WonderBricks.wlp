@@ -2511,7 +2511,7 @@
                         "textureButton": "7aedb7d8-a888-4492-91af-bfe43f332fab",
                         "menuPanel": "6c183694-73ca-4845-a37b-e999866024da",
                         "blockPanel": "71d203bc-721c-49ef-a43a-b799255c49d3",
-                        "texturePanel": "b1dd9e0f-0038-4d0b-8db6-e780393e0de1"
+                        "texturePanel": "36b8383d-05af-4032-85ad-b49eb3e6c2a3"
                     }
                 }
             ],
@@ -2849,68 +2849,6 @@
                 0.0000027,
                 -1.7478335223586328e-8,
                 0.0,
-                1.0
-            ]
-        },
-        "b1dd9e0f-0038-4d0b-8db6-e780393e0de1": {
-            "name": "MenuPanelTextures",
-            "parent": "2725c345-0f68-41f8-83eb-9ee1da797112",
-            "components": [
-                {
-                    "type": "mesh",
-                    "mesh": {
-                        "mesh": "dd64d357-a896-41cd-b978-29b0fa5e26c3",
-                        "material": "1d6c7161-1e19-42c1-be93-eae7e5d3226e"
-                    },
-                    "active": false
-                },
-                {
-                    "type": "arm-panel"
-                }
-            ],
-            "translation": [
-                -0.0217152,
-                0.0779156,
-                -0.2972052
-            ],
-            "rotation": [
-                -0.4895719,
-                -1.3793324704636234e-8,
-                1.113435565969212e-8,
-                0.8719629
-            ],
-            "scaling": [
-                1.0,
-                1.0,
-                0.9999815
-            ]
-        },
-        "3fd90629-1277-4e6b-b7fe-18d8dfdb0f2a": {
-            "name": "TitleText",
-            "parent": "b1dd9e0f-0038-4d0b-8db6-e780393e0de1",
-            "components": [
-                {
-                    "type": "text",
-                    "text": {
-                        "text": "Select an texture"
-                    },
-                    "active": false
-                }
-            ],
-            "translation": [
-                0.0000158,
-                0.1414877,
-                0.0099688
-            ],
-            "scaling": [
-                0.4,
-                0.4,
-                1.0
-            ],
-            "rotation": [
-                0.0000019,
-                -0.0,
-                -0.0,
                 1.0
             ]
         },
@@ -3432,9 +3370,6 @@
             "components": [
                 {
                     "type": "arm-panel"
-                },
-                {
-                    "type": "block-selection-panel"
                 }
             ]
         },

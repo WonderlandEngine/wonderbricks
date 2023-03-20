@@ -1,4 +1,5 @@
 import { Component, CustomParameter, MeshComponent, Object } from "@wonderlandengine/api";
+import { vec3 } from "gl-matrix";
 import { ObjectToggler } from "../../utils/ObjectToggler";
 
 
@@ -20,6 +21,9 @@ export class ArmPanel extends Component
     {
         this._objToggler = this.object.addComponent(ObjectToggler);
         this._mesh = this.object.getComponent('mesh');
+
+        // Reset object position
+        this.object.setTranslationLocal(vec3.fromValues(0, 0, 0));
     }
 
     /** Show the panel and enable all interactions */
