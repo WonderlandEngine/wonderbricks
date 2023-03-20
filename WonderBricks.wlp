@@ -1349,78 +1349,6 @@
                 1.0
             ]
         },
-        "296": {
-            "name": "ColorUiContainer",
-            "translation": [
-                -3.5236268,
-                1.3,
-                0.7062699
-            ],
-            "rotation": [
-                0.0,
-                0.7072291,
-                0.0,
-                0.7069844
-            ],
-            "parent": null,
-            "scaling": [
-                0.9999997,
-                1.0,
-                0.9999997
-            ]
-        },
-        "297": {
-            "link": {
-                "name": "Plane",
-                "file": "models\\UI\\button.glb"
-            },
-            "translation": [
-                0.0,
-                -1.1920928955078125e-7,
-                -1.1920928955078125e-7
-            ],
-            "rotation": [
-                0.7071068,
-                -2.1073418565720203e-8,
-                2.107342389479072e-8,
-                0.7071067
-            ],
-            "name": "ButtonStone01",
-            "components": [
-                null,
-                {
-                    "type": "collision",
-                    "collision": {
-                        "collider": "box",
-                        "box": {
-                            "extents": [
-                                0.25,
-                                0.0299999,
-                                0.1
-                            ]
-                        }
-                    }
-                },
-                {
-                    "type": "ui-button",
-                    "ui-button": {
-                        "textObject": "286"
-                    }
-                },
-                {
-                    "type": "texture-selector-interactible",
-                    "texture-selector-interactible": {
-                        "textureInfoObject": "988a6406-f307-4861-a29d-88deff2a3a0c"
-                    }
-                }
-            ],
-            "parent": "296",
-            "scaling": [
-                1.0000001,
-                0.9999759,
-                0.9999759
-            ]
-        },
         "298": {
             "name": "Text",
             "parent": "317",
@@ -1448,194 +1376,6 @@
                 0.6999999,
                 0.6999999,
                 0.6999999
-            ]
-        },
-        "299": {
-            "name": "Text.001",
-            "parent": "296",
-            "components": [
-                {
-                    "type": "text",
-                    "text": {
-                        "text": "Textures"
-                    }
-                }
-            ],
-            "translation": [
-                -1.788139343261719e-7,
-                0.4104439,
-                -0.0000021
-            ],
-            "rotation": [
-                0.0,
-                0.0,
-                0.0,
-                1.0
-            ],
-            "scaling": [
-                1.0000001,
-                1.0,
-                1.0000001
-            ]
-        },
-        "300": {
-            "link": {
-                "name": "Plane",
-                "file": "models\\UI\\button.glb"
-            },
-            "translation": [
-                -0.0000228,
-                0.2058933,
-                -0.0000646
-            ],
-            "rotation": [
-                0.7071068,
-                1.05367181646443e-8,
-                9.483037644031357e-8,
-                0.7071067
-            ],
-            "name": "ButtonFloor",
-            "components": [
-                null,
-                {
-                    "type": "collision",
-                    "collision": {
-                        "collider": "box",
-                        "box": {
-                            "extents": [
-                                0.25,
-                                0.0299999,
-                                0.1
-                            ]
-                        }
-                    }
-                },
-                {
-                    "type": "ui-button",
-                    "ui-button": {
-                        "textObject": "286"
-                    }
-                },
-                {
-                    "type": "texture-selector-interactible",
-                    "texture-selector-interactible": {
-                        "textureInfoObject": "828f55e1-a722-494e-b9d2-e144c2dd29a7"
-                    }
-                }
-            ],
-            "parent": "296",
-            "scaling": [
-                1.0000003,
-                0.9999842,
-                0.9999759
-            ]
-        },
-        "301": {
-            "name": "Text",
-            "parent": "300",
-            "components": [
-                {
-                    "type": "text",
-                    "text": {
-                        "text": "FLOOR"
-                    }
-                }
-            ],
-            "translation": [
-                -1.788139343261719e-7,
-                0.0251924,
-                1.1920928955078125e-7
-            ],
-            "rotation": [
-                -0.7071068,
-                2.950175996829785e-7,
-                -2.9501768494810676e-7,
-                0.7071067
-            ],
-            "scaling": [
-                1.0,
-                0.9999997,
-                1.0
-            ]
-        },
-        "302": {
-            "link": {
-                "name": "Plane",
-                "file": "models\\UI\\button.glb"
-            },
-            "translation": [
-                -0.0000295,
-                -0.2052153,
-                -0.0000936
-            ],
-            "rotation": [
-                0.7071068,
-                0.0,
-                8.42936600520261e-8,
-                0.7071067
-            ],
-            "name": "ButtonStone02",
-            "components": [
-                null,
-                {
-                    "type": "collision",
-                    "collision": {
-                        "collider": "box",
-                        "box": {
-                            "extents": [
-                                0.25,
-                                0.0299999,
-                                0.1
-                            ]
-                        }
-                    }
-                },
-                {
-                    "type": "ui-button",
-                    "ui-button": {
-                        "textObject": "286"
-                    }
-                },
-                {
-                    "type": "texture-selector-interactible",
-                    "texture-selector-interactible": {
-                        "textureInfoObject": "76bd8fbd-33d8-4f3e-bfbd-4ffe7b305cc8"
-                    }
-                }
-            ],
-            "parent": "296",
-            "scaling": [
-                1.0000003,
-                0.9999877,
-                0.9999759
-            ]
-        },
-        "303": {
-            "name": "Text",
-            "parent": "302",
-            "components": [
-                {
-                    "type": "text",
-                    "text": {
-                        "text": "STONE02"
-                    }
-                }
-            ],
-            "translation": [
-                0.0,
-                0.0251925,
-                7.152557373046875e-7
-            ],
-            "rotation": [
-                -0.7071068,
-                0.0,
-                0.0,
-                0.7071067
-            ],
-            "scaling": [
-                1.0,
-                1.0,
-                1.0
             ]
         },
         "304": {
@@ -1748,34 +1488,6 @@
                 0.9999995,
                 1.0,
                 0.999993
-            ]
-        },
-        "318": {
-            "name": "Text",
-            "parent": "297",
-            "components": [
-                {
-                    "type": "text",
-                    "text": {
-                        "text": "STONE01"
-                    }
-                }
-            ],
-            "translation": [
-                0.0,
-                0.0251925,
-                7.152557373046875e-7
-            ],
-            "rotation": [
-                -0.7071068,
-                0.0,
-                0.0,
-                0.7071067
-            ],
-            "scaling": [
-                1.0,
-                1.0,
-                1.0
             ]
         },
         "320": {
@@ -3490,7 +3202,7 @@
             ],
             "translation": [
                 0.0,
-                -5.960464477539064e-8,
+                -5.960464477539065e-8,
                 0.0023503
             ],
             "rotation": [
@@ -3520,7 +3232,7 @@
             ],
             "translation": [
                 1.1920928955078125e-7,
-                -5.960464477539064e-8,
+                -5.960464477539065e-8,
                 0.0023503
             ],
             "rotation": [
@@ -3550,7 +3262,7 @@
             ],
             "translation": [
                 0.0,
-                -5.960464477539064e-8,
+                -5.960464477539065e-8,
                 0.0023503
             ],
             "rotation": [
@@ -3580,7 +3292,7 @@
             ],
             "translation": [
                 0.0,
-                -5.960464477539064e-8,
+                -5.960464477539065e-8,
                 0.0023503
             ],
             "rotation": [
@@ -3610,7 +3322,7 @@
             ],
             "translation": [
                 0.0,
-                -5.960464477539064e-8,
+                -5.960464477539065e-8,
                 0.0023503
             ],
             "rotation": [
@@ -3640,7 +3352,7 @@
             ],
             "translation": [
                 0.0,
-                -5.960464477539064e-8,
+                -5.960464477539065e-8,
                 0.0023503
             ],
             "rotation": [
@@ -3670,7 +3382,7 @@
             ],
             "translation": [
                 0.0,
-                -5.960464477539064e-8,
+                -5.960464477539065e-8,
                 0.0023503
             ],
             "rotation": [
@@ -3700,7 +3412,7 @@
             ],
             "translation": [
                 0.0,
-                -5.960464477539064e-8,
+                -5.960464477539065e-8,
                 0.0023505
             ],
             "rotation": [
@@ -3730,7 +3442,7 @@
             ],
             "translation": [
                 1.1920928955078125e-7,
-                -5.960464477539064e-8,
+                -5.960464477539065e-8,
                 0.0023505
             ],
             "rotation": [
@@ -3760,7 +3472,7 @@
             ],
             "translation": [
                 0.0,
-                -5.960464477539064e-8,
+                -5.960464477539065e-8,
                 0.0023505
             ],
             "rotation": [
@@ -3790,7 +3502,7 @@
             ],
             "translation": [
                 0.0,
-                -5.960464477539064e-8,
+                -5.960464477539065e-8,
                 0.0023505
             ],
             "rotation": [
@@ -3820,7 +3532,7 @@
             ],
             "translation": [
                 0.0,
-                -5.960464477539064e-8,
+                -5.960464477539065e-8,
                 0.0023505
             ],
             "rotation": [
@@ -3850,7 +3562,7 @@
             ],
             "translation": [
                 0.0,
-                -5.960464477539064e-8,
+                -5.960464477539065e-8,
                 0.0023505
             ],
             "rotation": [
@@ -3880,7 +3592,7 @@
             ],
             "translation": [
                 0.0,
-                -5.960464477539064e-8,
+                -5.960464477539065e-8,
                 0.0023505
             ],
             "rotation": [
@@ -4120,7 +3832,7 @@
             ],
             "translation": [
                 0.0,
-                5.960464477539064e-8,
+                5.960464477539065e-8,
                 0.0023505
             ],
             "rotation": [
@@ -4150,7 +3862,7 @@
             ],
             "translation": [
                 1.1920928955078125e-7,
-                5.960464477539064e-8,
+                5.960464477539065e-8,
                 0.0023505
             ],
             "rotation": [
@@ -4180,7 +3892,7 @@
             ],
             "translation": [
                 0.0,
-                5.960464477539064e-8,
+                5.960464477539065e-8,
                 0.0023505
             ],
             "rotation": [
@@ -4210,7 +3922,7 @@
             ],
             "translation": [
                 0.0,
-                5.960464477539064e-8,
+                5.960464477539065e-8,
                 0.0023505
             ],
             "rotation": [
@@ -4235,6 +3947,28 @@
                 {
                     "mesh": {
                         "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
+                    }
+                },
+                {
+                    "type": "ui-button",
+                    "ui-button": {
+                        "visualFeedbackEnabled": false
+                    }
+                },
+                {
+                    "type": "texture-selector-interactible"
+                },
+                {
+                    "type": "collision",
+                    "collision": {
+                        "collider": "box",
+                        "box": {
+                            "extents": [
+                                0.025,
+                                0.025,
+                                0.001
+                            ]
+                        }
                     }
                 }
             ]
@@ -4573,6 +4307,574 @@
                         "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
                     }
                 }
+            ]
+        },
+        "6f636642-caa0-49de-b5d6-9ffe3652779a": {
+            "name": "Grass",
+            "parent": "b21141ad-a28f-4b05-ba1a-c4bdccabbece"
+        },
+        "fce83a2c-4595-4bbf-86e2-930106d1590d": {
+            "name": "Grass01",
+            "parent": "6f636642-caa0-49de-b5d6-9ffe3652779a",
+            "components": [
+                {
+                    "type": "texture-information",
+                    "texture-information": {
+                        "uid": "Grass01",
+                        "albedo": "95442dee-c1b8-429e-8a5a-2822fd18255d",
+                        "normal": "a5c0f2fc-4c5d-45c9-bec2-9e591e70a066"
+                    }
+                }
+            ]
+        },
+        "ef5698eb-6514-47f5-a3dc-368063c4cc98": {
+            "name": "Grass02",
+            "parent": "6f636642-caa0-49de-b5d6-9ffe3652779a",
+            "components": [
+                {
+                    "type": "texture-information",
+                    "texture-information": {
+                        "uid": "Grass02",
+                        "albedo": "f448cf5c-8e79-4367-ba40-8ea1f88ab6b8",
+                        "normal": "6fd6c863-30e6-4c59-8934-650a83ed961a"
+                    }
+                }
+            ]
+        },
+        "ae639982-4475-4c4c-9c01-a3562c6b4f21": {
+            "name": "Grass03",
+            "parent": "6f636642-caa0-49de-b5d6-9ffe3652779a",
+            "components": [
+                {
+                    "type": "texture-information",
+                    "texture-information": {
+                        "uid": "Grass03",
+                        "albedo": "ff341bcd-2e8d-4d84-a6dc-fea4f55c3f0a",
+                        "normal": "411680a1-30c8-47e3-b9fc-c6d88f7b0664"
+                    }
+                }
+            ]
+        },
+        "af406c41-04a3-4056-bbf7-f31ea4d5b373": {
+            "name": "Metals",
+            "parent": "b21141ad-a28f-4b05-ba1a-c4bdccabbece"
+        },
+        "11dfd304-1b5b-4ba9-bdd5-5e5f351b3afa": {
+            "name": "Metal01",
+            "parent": "af406c41-04a3-4056-bbf7-f31ea4d5b373",
+            "components": [
+                {
+                    "type": "texture-information",
+                    "texture-information": {
+                        "uid": "Metal01",
+                        "albedo": "5387b1b0-6ee6-44fe-ac7e-644e34e91662",
+                        "normal": "18db6443-1432-4749-918d-9a6da1057be9"
+                    }
+                }
+            ],
+            "translation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        "21283b9f-791c-4615-babd-f216c4bde601": {
+            "name": "Roofs",
+            "parent": "b21141ad-a28f-4b05-ba1a-c4bdccabbece"
+        },
+        "70c10d2e-a48e-436c-bfc8-125f9dccbb32": {
+            "name": "Roof01",
+            "parent": "21283b9f-791c-4615-babd-f216c4bde601",
+            "components": [
+                {
+                    "type": "texture-information",
+                    "texture-information": {
+                        "uid": "Roof01",
+                        "albedo": "f585366f-a450-4c80-a989-9db187e354e1",
+                        "normal": "68920948-5210-466c-aa51-d5338ca53751"
+                    }
+                }
+            ],
+            "translation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        "d501f4d0-5b9d-4317-b1da-57e26832874a": {
+            "name": "Roof02",
+            "parent": "21283b9f-791c-4615-babd-f216c4bde601",
+            "components": [
+                {
+                    "type": "texture-information",
+                    "texture-information": {
+                        "uid": "Roof02",
+                        "albedo": "9b28b30d-3786-44ae-9d6f-09d921ea2a15",
+                        "normal": "029da3f1-5e06-4166-900c-e35e3f8471ec"
+                    }
+                }
+            ],
+            "translation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        "6b1452d9-d46d-4d56-99cb-36519cc016dc": {
+            "name": "Roof03",
+            "parent": "21283b9f-791c-4615-babd-f216c4bde601",
+            "components": [
+                {
+                    "type": "texture-information",
+                    "texture-information": {
+                        "uid": "Roof03",
+                        "albedo": "4f83ab8d-b844-4409-bec1-1385298ab4c8",
+                        "normal": "7b8e1681-5729-42a8-9bcc-6f36a3bed3bc"
+                    }
+                }
+            ],
+            "translation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        "7c28abb1-df5a-41b1-a68e-b8d78467c5d9": {
+            "name": "Roof04",
+            "parent": "21283b9f-791c-4615-babd-f216c4bde601",
+            "components": [
+                {
+                    "type": "texture-information",
+                    "texture-information": {
+                        "uid": "Roof04",
+                        "albedo": "0d812989-dda5-42da-874e-0c91f3f65849",
+                        "normal": "afa80ad3-eb8a-4c76-b915-3355ba3c00e2"
+                    }
+                }
+            ],
+            "translation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        "6b595494-bb82-419c-86d7-b31774c27626": {
+            "name": "Roof05",
+            "parent": "21283b9f-791c-4615-babd-f216c4bde601",
+            "components": [
+                {
+                    "type": "texture-information",
+                    "texture-information": {
+                        "uid": "Roof05",
+                        "albedo": "27c893f2-a7ba-434b-9766-1f9f6c077592",
+                        "normal": "ea588622-125a-4867-99b0-a79f6a10518b"
+                    }
+                }
+            ],
+            "translation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        "1191cc96-8541-438b-8d02-174512c9ee13": {
+            "name": "Stone05",
+            "parent": "dd837f2b-4973-4acd-b4d3-04c909f0a737",
+            "components": [
+                {
+                    "type": "texture-information",
+                    "texture-information": {
+                        "albedo": "cba4fabd-d5c0-420e-b4c2-4fdff08f2aed",
+                        "normal": "618e67f2-f22c-4689-b59f-b21c9381b075",
+                        "uid": "Stone05"
+                    }
+                }
+            ],
+            "translation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        "737f10ab-746b-4180-9e86-03962a53e1b7": {
+            "name": "Stone06",
+            "parent": "dd837f2b-4973-4acd-b4d3-04c909f0a737",
+            "components": [
+                {
+                    "type": "texture-information",
+                    "texture-information": {
+                        "albedo": "8bad2311-f901-43db-ac16-6243e7c80dd9",
+                        "normal": "26414745-6d59-4077-82c7-6fa06d659536",
+                        "uid": "Stone06"
+                    }
+                }
+            ],
+            "translation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        "a623d3df-3b00-4f98-91dc-e439b2932832": {
+            "name": "Stone07",
+            "parent": "dd837f2b-4973-4acd-b4d3-04c909f0a737",
+            "components": [
+                {
+                    "type": "texture-information",
+                    "texture-information": {
+                        "albedo": "2acd8481-606a-41a1-ae0d-a447fa659175",
+                        "normal": "ea719192-540c-4552-ae83-0d95f24f58c5",
+                        "uid": "Stone07"
+                    }
+                }
+            ],
+            "translation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        "5f00c885-aa07-42ac-8312-c35b165de808": {
+            "name": "Stone08",
+            "parent": "dd837f2b-4973-4acd-b4d3-04c909f0a737",
+            "components": [
+                {
+                    "type": "texture-information",
+                    "texture-information": {
+                        "albedo": "4d3f8bb2-f98e-4960-b752-f6a40e236be2",
+                        "normal": "7414883d-2f99-4466-a13e-4b3f774c467f",
+                        "uid": "Stone08"
+                    }
+                }
+            ],
+            "translation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        "ae5550d0-44c3-4f10-875e-02d5980574e5": {
+            "name": "Woods",
+            "parent": "b21141ad-a28f-4b05-ba1a-c4bdccabbece"
+        },
+        "8137ccae-c5bb-4660-9813-92dc4aabfcaf": {
+            "name": "Wood01",
+            "parent": "ae5550d0-44c3-4f10-875e-02d5980574e5",
+            "components": [
+                {
+                    "type": "texture-information",
+                    "texture-information": {
+                        "uid": "Wood01",
+                        "albedo": "b5ed0eef-d5ed-4169-bf02-3f17393fdcb7",
+                        "normal": "1e4ce675-3834-4462-81f5-f5327d60a279"
+                    }
+                }
+            ],
+            "translation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        "d7d4c40e-c0dc-4013-9673-c8a0162b30f9": {
+            "name": "Wood02",
+            "parent": "ae5550d0-44c3-4f10-875e-02d5980574e5",
+            "components": [
+                {
+                    "type": "texture-information",
+                    "texture-information": {
+                        "uid": "Wood02",
+                        "albedo": "826026db-5b60-4b94-bfc7-a6d691fe62a2",
+                        "normal": "453366ba-2340-4fa8-9f4b-e13d9547639d"
+                    }
+                }
+            ],
+            "translation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        "b409ed8f-721a-489f-9ab7-8f16540f5de3": {
+            "name": "Wood03",
+            "parent": "ae5550d0-44c3-4f10-875e-02d5980574e5",
+            "components": [
+                {
+                    "type": "texture-information",
+                    "texture-information": {
+                        "uid": "Wood03",
+                        "albedo": "122ba89a-b9b4-4579-89b6-2543f717e6f9",
+                        "normal": "09d28e2a-a83d-4333-9012-00776011709e"
+                    }
+                }
+            ],
+            "translation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        "fc5fd4b5-53f0-497d-9b9b-0e6e6973d1d9": {
+            "name": "Wood04",
+            "parent": "ae5550d0-44c3-4f10-875e-02d5980574e5",
+            "components": [
+                {
+                    "type": "texture-information",
+                    "texture-information": {
+                        "uid": "Wood04",
+                        "albedo": "c9b7a708-5212-49ef-8b93-c60073d01735",
+                        "normal": "0389895e-c5b0-44bd-867e-97419822d2d1"
+                    }
+                }
+            ],
+            "translation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        "0efe6390-83ee-4ab8-a5b6-af6323484b0a": {
+            "name": "Wood05",
+            "parent": "ae5550d0-44c3-4f10-875e-02d5980574e5",
+            "components": [
+                {
+                    "type": "texture-information",
+                    "texture-information": {
+                        "uid": "Wood05",
+                        "albedo": "c7b821a1-f9ad-4045-bb89-446c57027c9c",
+                        "normal": "d1538cd3-1de9-4b65-9d96-241c72804e55"
+                    }
+                }
+            ],
+            "translation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        "d7a15c9f-9ca6-4e5b-9988-d772360dfa2e": {
+            "name": "Wood06",
+            "parent": "ae5550d0-44c3-4f10-875e-02d5980574e5",
+            "components": [
+                {
+                    "type": "texture-information",
+                    "texture-information": {
+                        "uid": "Wood06",
+                        "albedo": "3a9583c4-4d5c-468d-ac37-a079aad6ca68",
+                        "normal": "cf83a348-e535-46ec-bb16-5c5d7f467ce9"
+                    }
+                }
+            ],
+            "translation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        "4f4252b2-6293-4824-8dbc-eaa3964aee22": {
+            "name": "Wood07",
+            "parent": "ae5550d0-44c3-4f10-875e-02d5980574e5",
+            "components": [
+                {
+                    "type": "texture-information",
+                    "texture-information": {
+                        "uid": "Wood07",
+                        "albedo": "d68da8cb-5fea-4dfb-b58b-724a54b90495",
+                        "normal": "ce980125-e98d-41c1-89ec-2313a15f4ceb"
+                    }
+                }
+            ],
+            "translation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                1.0,
+                1.0,
+                1.0
             ]
         }
     },
@@ -5728,6 +6030,18 @@
                 "name": "UIAtlas.png",
                 "file": "textures\\00_UI\\UIAtlas.png"
             }
+        },
+        "d68da8cb-5fea-4dfb-b58b-724a54b90495": {
+            "link": {
+                "name": "Vol_41_3_Tiles_Base_Color.png",
+                "file": "textures\\Wood\\Vol_41_3_Tiles_Base_Color.png"
+            }
+        },
+        "ce980125-e98d-41c1-89ec-2313a15f4ceb": {
+            "link": {
+                "name": "Vol_41_3_Tiles_Normal.png",
+                "file": "textures\\Wood\\Vol_41_3_Tiles_Normal.png"
+            }
         }
     },
     "images": {
@@ -6351,6 +6665,18 @@
                 "name": "UIAtlas.png",
                 "file": "textures\\00_UI\\UIAtlas.png"
             }
+        },
+        "b8d8ea56-f64f-4943-be39-89ff87955c45": {
+            "link": {
+                "name": "Vol_41_3_Tiles_Base_Color.png",
+                "file": "textures\\Wood\\Vol_41_3_Tiles_Base_Color.png"
+            }
+        },
+        "677db1f8-cb21-4f71-9fce-f2a31ffd205d": {
+            "link": {
+                "name": "Vol_41_3_Tiles_Normal.png",
+                "file": "textures\\Wood\\Vol_41_3_Tiles_Normal.png"
+            }
         }
     },
     "materials": {
@@ -6592,7 +6918,8 @@
                     1.0,
                     1.0,
                     1.0
-                ]
+                ],
+                "flatTexture": "281"
             }
         },
         "324": {
@@ -7239,7 +7566,9 @@
         "static/LuckiestGuy-Regular.ttf",
         "models/UI/ArmMenuPanel.glb",
         "textures/00_UI/UIAtlas.png",
-        "models/UI/TextureButtons.glb"
+        "models/UI/TextureButtons.glb",
+        "textures/Wood/Vol_41_3_Tiles_Base_Color.png",
+        "textures/Wood/Vol_41_3_Tiles_Normal.png"
     ],
     "fonts": {
         "230": {

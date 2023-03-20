@@ -5,12 +5,13 @@ import { vec3, vec4 } from "gl-matrix";
 // Prefabs
 import PrefabsRegistry from "../prefabs/PrefabsRegistry";
 import PrefabBase from "../prefabs/PrefabBase";
-import { BlockSlopePrefab } from "../prefabs/BlockSlopePrefab";
 
 // Others
 import { BlockData } from "../serialization/SarielizationData";
 import { BuildContainer } from "./BuildContainer";
 import { TextureInformation } from "../../utils/textures/TextureInformation";
+import TextureInformationRegistry from "../../utils/textures/TextureInformationRegistry";
+import { BlockPrefab } from "../prefabs/BlockPrefab";
 
 
 /**
@@ -38,8 +39,13 @@ class BuildController
     private async test(): Promise<void>
     {
         await new Promise(f => setTimeout(f, 1000));
-        this._currentPrefab = PrefabsRegistry.getPrefab(BlockSlopePrefab);
+
+        // Set default selected cube
+        this._currentPrefab = PrefabsRegistry.getPrefab(BlockPrefab);
         this._currentPrefab.updatePrevisColor(this._currentColor);
+
+        // Set default selected texture
+        this._currentTexture = TextureInformationRegistry.getTextureInformation('Stone01');
     }
 
     /**

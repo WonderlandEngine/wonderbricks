@@ -89,4 +89,6 @@ import { MenuController } from './ui/armMenu/MenuController.ts';
 WL.registerComponent(MenuController);
 import { MenuSelectionButton } from './ui/armMenu/MenuSelectionButton.ts';
 WL.registerComponent(MenuSelectionButton);
+import { TextureSelectionPanel } from './ui/armMenu/TextureSelectionPanel.ts';
+WL.registerComponent(TextureSelectionPanel);
 /* wle:auto-imports:end */
