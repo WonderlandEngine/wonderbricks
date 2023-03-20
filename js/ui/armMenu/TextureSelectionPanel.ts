@@ -10,7 +10,7 @@ import { TextureSelectorInteractible } from "../TextureSelectorInteractible";
  */
 export class TextureSelectionPanel extends Component
 {
-    static TypeName: string = 'block-selection-panel';
+    static TypeName: string = 'texture-selection-panel';
     static Properties: Record<string, CustomParameter> = { };
 
     // Private fields 

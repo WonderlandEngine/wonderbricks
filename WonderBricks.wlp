@@ -3082,6 +3082,9 @@
             "components": [
                 {
                     "type": "arm-panel"
+                },
+                {
+                    "type": "texture-selection-panel"
                 }
             ]
         },
@@ -4065,6 +4068,31 @@
                     "mesh": {
                         "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
                     }
+                },
+                {
+                    "type": "ui-button",
+                    "ui-button": {
+                        "visualFeedbackEnabled": false
+                    }
+                },
+                {
+                    "type": "texture-selector-interactible",
+                    "texture-selector-interactible": {
+                        "textureInfoObject": "8137ccae-c5bb-4660-9813-92dc4aabfcaf"
+                    }
+                },
+                {
+                    "type": "collision",
+                    "collision": {
+                        "collider": "box",
+                        "box": {
+                            "extents": [
+                                0.025,
+                                0.025,
+                                0.001
+                            ]
+                        }
+                    }
                 }
             ]
         },
@@ -4078,6 +4106,31 @@
                 {
                     "mesh": {
                         "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
+                    }
+                },
+                {
+                    "type": "ui-button",
+                    "ui-button": {
+                        "visualFeedbackEnabled": false
+                    }
+                },
+                {
+                    "type": "texture-selector-interactible",
+                    "texture-selector-interactible": {
+                        "textureInfoObject": "d7d4c40e-c0dc-4013-9673-c8a0162b30f9"
+                    }
+                },
+                {
+                    "type": "collision",
+                    "collision": {
+                        "collider": "box",
+                        "box": {
+                            "extents": [
+                                0.025,
+                                0.025,
+                                0.001
+                            ]
+                        }
                     }
                 }
             ]
@@ -4093,6 +4146,31 @@
                     "mesh": {
                         "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
                     }
+                },
+                {
+                    "type": "ui-button",
+                    "ui-button": {
+                        "visualFeedbackEnabled": false
+                    }
+                },
+                {
+                    "type": "texture-selector-interactible",
+                    "texture-selector-interactible": {
+                        "textureInfoObject": "b409ed8f-721a-489f-9ab7-8f16540f5de3"
+                    }
+                },
+                {
+                    "type": "collision",
+                    "collision": {
+                        "collider": "box",
+                        "box": {
+                            "extents": [
+                                0.025,
+                                0.025,
+                                0.001
+                            ]
+                        }
+                    }
                 }
             ]
         },
@@ -4106,6 +4184,31 @@
                 {
                     "mesh": {
                         "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
+                    }
+                },
+                {
+                    "type": "ui-button",
+                    "ui-button": {
+                        "visualFeedbackEnabled": false
+                    }
+                },
+                {
+                    "type": "texture-selector-interactible",
+                    "texture-selector-interactible": {
+                        "textureInfoObject": "fc5fd4b5-53f0-497d-9b9b-0e6e6973d1d9"
+                    }
+                },
+                {
+                    "type": "collision",
+                    "collision": {
+                        "collider": "box",
+                        "box": {
+                            "extents": [
+                                0.025,
+                                0.025,
+                                0.001
+                            ]
+                        }
                     }
                 }
             ]
@@ -4121,6 +4224,31 @@
                     "mesh": {
                         "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
                     }
+                },
+                {
+                    "type": "ui-button",
+                    "ui-button": {
+                        "visualFeedbackEnabled": false
+                    }
+                },
+                {
+                    "type": "texture-selector-interactible",
+                    "texture-selector-interactible": {
+                        "textureInfoObject": "0efe6390-83ee-4ab8-a5b6-af6323484b0a"
+                    }
+                },
+                {
+                    "type": "collision",
+                    "collision": {
+                        "collider": "box",
+                        "box": {
+                            "extents": [
+                                0.025,
+                                0.025,
+                                0.001
+                            ]
+                        }
+                    }
                 }
             ]
         },
@@ -4134,6 +4262,31 @@
                 {
                     "mesh": {
                         "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
+                    }
+                },
+                {
+                    "type": "ui-button",
+                    "ui-button": {
+                        "visualFeedbackEnabled": false
+                    }
+                },
+                {
+                    "type": "texture-selector-interactible",
+                    "texture-selector-interactible": {
+                        "textureInfoObject": "d7a15c9f-9ca6-4e5b-9988-d772360dfa2e"
+                    }
+                },
+                {
+                    "type": "collision",
+                    "collision": {
+                        "collider": "box",
+                        "box": {
+                            "extents": [
+                                0.025,
+                                0.025,
+                                0.001
+                            ]
+                        }
                     }
                 }
             ]
@@ -4149,6 +4302,31 @@
                     "mesh": {
                         "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
                     }
+                },
+                {
+                    "type": "ui-button",
+                    "ui-button": {
+                        "visualFeedbackEnabled": false
+                    }
+                },
+                {
+                    "type": "texture-selector-interactible",
+                    "texture-selector-interactible": {
+                        "textureInfoObject": "4f4252b2-6293-4824-8dbc-eaa3964aee22"
+                    }
+                },
+                {
+                    "type": "collision",
+                    "collision": {
+                        "collider": "box",
+                        "box": {
+                            "extents": [
+                                0.025,
+                                0.025,
+                                0.001
+                            ]
+                        }
+                    }
                 }
             ]
         },
@@ -4162,6 +4340,31 @@
                 {
                     "mesh": {
                         "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
+                    }
+                },
+                {
+                    "type": "ui-button",
+                    "ui-button": {
+                        "visualFeedbackEnabled": false
+                    }
+                },
+                {
+                    "type": "texture-selector-interactible",
+                    "texture-selector-interactible": {
+                        "textureInfoObject": "bff3bf15-2993-4f17-8900-bebe7d280247"
+                    }
+                },
+                {
+                    "type": "collision",
+                    "collision": {
+                        "collider": "box",
+                        "box": {
+                            "extents": [
+                                0.025,
+                                0.025,
+                                0.001
+                            ]
+                        }
                     }
                 }
             ]
@@ -4177,6 +4380,31 @@
                     "mesh": {
                         "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
                     }
+                },
+                {
+                    "type": "ui-button",
+                    "ui-button": {
+                        "visualFeedbackEnabled": false
+                    }
+                },
+                {
+                    "type": "texture-selector-interactible",
+                    "texture-selector-interactible": {
+                        "textureInfoObject": "1191cc96-8541-438b-8d02-174512c9ee13"
+                    }
+                },
+                {
+                    "type": "collision",
+                    "collision": {
+                        "collider": "box",
+                        "box": {
+                            "extents": [
+                                0.025,
+                                0.025,
+                                0.001
+                            ]
+                        }
+                    }
                 }
             ]
         },
@@ -4190,6 +4418,31 @@
                 {
                     "mesh": {
                         "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
+                    }
+                },
+                {
+                    "type": "ui-button",
+                    "ui-button": {
+                        "visualFeedbackEnabled": false
+                    }
+                },
+                {
+                    "type": "texture-selector-interactible",
+                    "texture-selector-interactible": {
+                        "textureInfoObject": "988a6406-f307-4861-a29d-88deff2a3a0c"
+                    }
+                },
+                {
+                    "type": "collision",
+                    "collision": {
+                        "collider": "box",
+                        "box": {
+                            "extents": [
+                                0.025,
+                                0.025,
+                                0.001
+                            ]
+                        }
                     }
                 }
             ]
@@ -4205,6 +4458,31 @@
                     "mesh": {
                         "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
                     }
+                },
+                {
+                    "type": "ui-button",
+                    "ui-button": {
+                        "visualFeedbackEnabled": false
+                    }
+                },
+                {
+                    "type": "texture-selector-interactible",
+                    "texture-selector-interactible": {
+                        "textureInfoObject": "76bd8fbd-33d8-4f3e-bfbd-4ffe7b305cc8"
+                    }
+                },
+                {
+                    "type": "collision",
+                    "collision": {
+                        "collider": "box",
+                        "box": {
+                            "extents": [
+                                0.025,
+                                0.025,
+                                0.001
+                            ]
+                        }
+                    }
                 }
             ]
         },
@@ -4218,6 +4496,31 @@
                 {
                     "mesh": {
                         "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
+                    }
+                },
+                {
+                    "type": "ui-button",
+                    "ui-button": {
+                        "visualFeedbackEnabled": false
+                    }
+                },
+                {
+                    "type": "texture-selector-interactible",
+                    "texture-selector-interactible": {
+                        "textureInfoObject": "2850a444-2a76-4ffa-b06e-c41c11594ab1"
+                    }
+                },
+                {
+                    "type": "collision",
+                    "collision": {
+                        "collider": "box",
+                        "box": {
+                            "extents": [
+                                0.025,
+                                0.025,
+                                0.001
+                            ]
+                        }
                     }
                 }
             ]
@@ -4233,6 +4536,31 @@
                     "mesh": {
                         "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
                     }
+                },
+                {
+                    "type": "ui-button",
+                    "ui-button": {
+                        "visualFeedbackEnabled": false
+                    }
+                },
+                {
+                    "type": "texture-selector-interactible",
+                    "texture-selector-interactible": {
+                        "textureInfoObject": "737f10ab-746b-4180-9e86-03962a53e1b7"
+                    }
+                },
+                {
+                    "type": "collision",
+                    "collision": {
+                        "collider": "box",
+                        "box": {
+                            "extents": [
+                                0.025,
+                                0.025,
+                                0.001
+                            ]
+                        }
+                    }
                 }
             ]
         },
@@ -4246,6 +4574,31 @@
                 {
                     "mesh": {
                         "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
+                    }
+                },
+                {
+                    "type": "ui-button",
+                    "ui-button": {
+                        "visualFeedbackEnabled": false
+                    }
+                },
+                {
+                    "type": "texture-selector-interactible",
+                    "texture-selector-interactible": {
+                        "textureInfoObject": "a623d3df-3b00-4f98-91dc-e439b2932832"
+                    }
+                },
+                {
+                    "type": "collision",
+                    "collision": {
+                        "collider": "box",
+                        "box": {
+                            "extents": [
+                                0.025,
+                                0.025,
+                                0.001
+                            ]
+                        }
                     }
                 }
             ]
@@ -4261,6 +4614,31 @@
                     "mesh": {
                         "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
                     }
+                },
+                {
+                    "type": "ui-button",
+                    "ui-button": {
+                        "visualFeedbackEnabled": false
+                    }
+                },
+                {
+                    "type": "texture-selector-interactible",
+                    "texture-selector-interactible": {
+                        "textureInfoObject": "5f00c885-aa07-42ac-8312-c35b165de808"
+                    }
+                },
+                {
+                    "type": "collision",
+                    "collision": {
+                        "collider": "box",
+                        "box": {
+                            "extents": [
+                                0.025,
+                                0.025,
+                                0.001
+                            ]
+                        }
+                    }
                 }
             ]
         },
@@ -4274,6 +4652,31 @@
                 {
                     "mesh": {
                         "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
+                    }
+                },
+                {
+                    "type": "ui-button",
+                    "ui-button": {
+                        "visualFeedbackEnabled": false
+                    }
+                },
+                {
+                    "type": "texture-selector-interactible",
+                    "texture-selector-interactible": {
+                        "textureInfoObject": "7c28abb1-df5a-41b1-a68e-b8d78467c5d9"
+                    }
+                },
+                {
+                    "type": "collision",
+                    "collision": {
+                        "collider": "box",
+                        "box": {
+                            "extents": [
+                                0.025,
+                                0.025,
+                                0.001
+                            ]
+                        }
                     }
                 }
             ]
@@ -4289,6 +4692,31 @@
                     "mesh": {
                         "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
                     }
+                },
+                {
+                    "type": "ui-button",
+                    "ui-button": {
+                        "visualFeedbackEnabled": false
+                    }
+                },
+                {
+                    "type": "texture-selector-interactible",
+                    "texture-selector-interactible": {
+                        "textureInfoObject": "6b595494-bb82-419c-86d7-b31774c27626"
+                    }
+                },
+                {
+                    "type": "collision",
+                    "collision": {
+                        "collider": "box",
+                        "box": {
+                            "extents": [
+                                0.025,
+                                0.025,
+                                0.001
+                            ]
+                        }
+                    }
                 }
             ]
         },
@@ -4302,6 +4730,31 @@
                 {
                     "mesh": {
                         "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
+                    }
+                },
+                {
+                    "type": "ui-button",
+                    "ui-button": {
+                        "visualFeedbackEnabled": false
+                    }
+                },
+                {
+                    "type": "texture-selector-interactible",
+                    "texture-selector-interactible": {
+                        "textureInfoObject": "70c10d2e-a48e-436c-bfc8-125f9dccbb32"
+                    }
+                },
+                {
+                    "type": "collision",
+                    "collision": {
+                        "collider": "box",
+                        "box": {
+                            "extents": [
+                                0.025,
+                                0.025,
+                                0.001
+                            ]
+                        }
                     }
                 }
             ]
@@ -4317,6 +4770,31 @@
                     "mesh": {
                         "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
                     }
+                },
+                {
+                    "type": "ui-button",
+                    "ui-button": {
+                        "visualFeedbackEnabled": false
+                    }
+                },
+                {
+                    "type": "texture-selector-interactible",
+                    "texture-selector-interactible": {
+                        "textureInfoObject": "d501f4d0-5b9d-4317-b1da-57e26832874a"
+                    }
+                },
+                {
+                    "type": "collision",
+                    "collision": {
+                        "collider": "box",
+                        "box": {
+                            "extents": [
+                                0.025,
+                                0.025,
+                                0.001
+                            ]
+                        }
+                    }
                 }
             ]
         },
@@ -4330,6 +4808,31 @@
                 {
                     "mesh": {
                         "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
+                    }
+                },
+                {
+                    "type": "ui-button",
+                    "ui-button": {
+                        "visualFeedbackEnabled": false
+                    }
+                },
+                {
+                    "type": "texture-selector-interactible",
+                    "texture-selector-interactible": {
+                        "textureInfoObject": "6b1452d9-d46d-4d56-99cb-36519cc016dc"
+                    }
+                },
+                {
+                    "type": "collision",
+                    "collision": {
+                        "collider": "box",
+                        "box": {
+                            "extents": [
+                                0.025,
+                                0.025,
+                                0.001
+                            ]
+                        }
                     }
                 }
             ]
@@ -4345,6 +4848,31 @@
                     "mesh": {
                         "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
                     }
+                },
+                {
+                    "type": "ui-button",
+                    "ui-button": {
+                        "visualFeedbackEnabled": false
+                    }
+                },
+                {
+                    "type": "texture-selector-interactible",
+                    "texture-selector-interactible": {
+                        "textureInfoObject": "828f55e1-a722-494e-b9d2-e144c2dd29a7"
+                    }
+                },
+                {
+                    "type": "collision",
+                    "collision": {
+                        "collider": "box",
+                        "box": {
+                            "extents": [
+                                0.025,
+                                0.025,
+                                0.001
+                            ]
+                        }
+                    }
                 }
             ]
         },
@@ -4358,6 +4886,31 @@
                 {
                     "mesh": {
                         "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
+                    }
+                },
+                {
+                    "type": "ui-button",
+                    "ui-button": {
+                        "visualFeedbackEnabled": false
+                    }
+                },
+                {
+                    "type": "texture-selector-interactible",
+                    "texture-selector-interactible": {
+                        "textureInfoObject": "11dfd304-1b5b-4ba9-bdd5-5e5f351b3afa"
+                    }
+                },
+                {
+                    "type": "collision",
+                    "collision": {
+                        "collider": "box",
+                        "box": {
+                            "extents": [
+                                0.025,
+                                0.025,
+                                0.001
+                            ]
+                        }
                     }
                 }
             ]
