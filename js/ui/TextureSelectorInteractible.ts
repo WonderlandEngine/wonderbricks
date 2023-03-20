@@ -53,5 +53,6 @@ export class TextureSelectorInteractible extends Component
     private onInteractHandler(): void
     {
         BuildController.setTexture(this._texture);
+        this._parent.notifyInteraction(this);
     }
 }

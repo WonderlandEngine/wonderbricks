@@ -3956,7 +3956,10 @@
                     }
                 },
                 {
-                    "type": "texture-selector-interactible"
+                    "type": "texture-selector-interactible",
+                    "texture-selector-interactible": {
+                        "textureInfoObject": "fce83a2c-4595-4bbf-86e2-930106d1590d"
+                    }
                 },
                 {
                     "type": "collision",
@@ -3984,6 +3987,31 @@
                     "mesh": {
                         "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
                     }
+                },
+                {
+                    "type": "ui-button",
+                    "ui-button": {
+                        "visualFeedbackEnabled": false
+                    }
+                },
+                {
+                    "type": "texture-selector-interactible",
+                    "texture-selector-interactible": {
+                        "textureInfoObject": "ef5698eb-6514-47f5-a3dc-368063c4cc98"
+                    }
+                },
+                {
+                    "type": "collision",
+                    "collision": {
+                        "collider": "box",
+                        "box": {
+                            "extents": [
+                                0.025,
+                                0.025,
+                                0.001
+                            ]
+                        }
+                    }
                 }
             ]
         },
@@ -3997,6 +4025,31 @@
                 {
                     "mesh": {
                         "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
+                    }
+                },
+                {
+                    "type": "ui-button",
+                    "ui-button": {
+                        "visualFeedbackEnabled": false
+                    }
+                },
+                {
+                    "type": "texture-selector-interactible",
+                    "texture-selector-interactible": {
+                        "textureInfoObject": "ae639982-4475-4c4c-9c01-a3562c6b4f21"
+                    }
+                },
+                {
+                    "type": "collision",
+                    "collision": {
+                        "collider": "box",
+                        "box": {
+                            "extents": [
+                                0.025,
+                                0.025,
+                                0.001
+                            ]
+                        }
                     }
                 }
             ]

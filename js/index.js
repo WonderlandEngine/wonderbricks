@@ -91,4 +91,5 @@ import { MenuSelectionButton } from './ui/armMenu/MenuSelectionButton.ts';
 WL.registerComponent(MenuSelectionButton);
 import { TextureSelectionPanel } from './ui/armMenu/TextureSelectionPanel.ts';
 WL.registerComponent(TextureSelectionPanel);
+import './utils/materials/Color.ts';
 /* wle:auto-imports:end */

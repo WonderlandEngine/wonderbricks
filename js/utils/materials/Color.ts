@@ -10,7 +10,7 @@ export class Color
     public static readonly COLOR_ACTIVE = vec4.fromValues(255.0/255.0, 162.0/255.0, 56.0/255.0, 1.0);
 
     public static readonly COLOR_TINT_NORMAL = vec4.fromValues(1.0, 1.0, 1.0, 1.0);
-    public static readonly COLOR_TINT_ACTIVE = vec4.fromValues(0.8, 0.8, 0.8, 1.0);
+    public static readonly COLOR_TINT_ACTIVE = vec4.fromValues(0.7, 0.7, 0.7, 1.0);
 
     private _value: vec4;
 
