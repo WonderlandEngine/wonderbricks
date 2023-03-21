@@ -109,6 +109,9 @@ export class SavePanel extends Component
     private onSaveButtonPressed(): void
     {
         this._currentBuildData.blocks = BuildController.getCurrentBuildData();
+        console.log('Build data from container are: ');
+        console.log(this._currentBuildData);
+
         SerializationUtils.createOrUpdateSaveEntry(this._currentBuildData);
         SerializationUtils.flushSaves();
 

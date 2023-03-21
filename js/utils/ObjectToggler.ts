@@ -25,7 +25,6 @@ export class ObjectToggler extends Component
     {
         for (let i = 0; i < this._components.length; i++)
         {
-            console.log(`setActive ${active} component ${this._components[i].type}`);
             this._components[i].active = active;
         }
     }
@@ -40,7 +39,6 @@ export class ObjectToggler extends Component
     private fetchAllComponents(object: Object): void
     {
         const objComponents = object.getComponents(null).filter((e) =>  e.type !== ArmPanel.TypeName);
-        console.log(`fetch ${objComponents.length} components for object ${object.name}`);
 
         this._components = this._components.concat(objComponents);
 

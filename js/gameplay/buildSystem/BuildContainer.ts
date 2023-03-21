@@ -2,8 +2,9 @@ import {Component} from "@wonderlandengine/api";
 import BuildController from "./BuildController";
 import { BlockData } from "../serialization/SarielizationData";
 import PrefabsRegistry from "../prefabs/PrefabsRegistry";
-import {vec3, vec4} from "gl-matrix";
+import {quat, vec3, vec4} from "gl-matrix";
 import PrefabBase from "../prefabs/PrefabBase";
+import TextureInformationRegistry from "../../utils/textures/TextureInformationRegistry";
 
 
 export class BuildContainer extends Component
@@ -25,18 +26,12 @@ export class BuildContainer extends Component
         for (const child of children)
         {
             let visual = child.children[0];
-
-            let meshComponent = visual.getComponent('mesh');
             let position: vec3 = vec3.create();
             child.getTranslationWorld(position);
 
-            // Create a new element to prevent reference passing
-            let color = meshComponent.material['diffuseColor'];
-            let finalColor = vec4.fromValues(color[0], color[1], color[2], color[3]);
-
             data.push({
                 type: child[PrefabsRegistry.PREFAB_UNAME_KEY],
-                color: finalColor,
+                texture: child[PrefabsRegistry.PREFAB_TNAME_KEY],
                 position: position,
                 rotation: visual.rotationWorld
             });
@@ -53,11 +48,14 @@ export class BuildContainer extends Component
         for (const block of data)
         {
             currentPrefab = PrefabsRegistry.getPrefabByName(block.type);
-            currentPrefab.setPrevisRotation(block.rotation);
+
+            const rot = block.rotation;
+            currentPrefab.setPrevisRotation(quat.fromValues(rot[0], rot[1], rot[2], rot[3]));
 
             BuildController.setPrefab(currentPrefab);
-            const color = new Float32Array([block.color[0], block.color[1], block.color[2], block.color[3]]);
-            BuildController.setColor(color);
+
+            const currentTexture = TextureInformationRegistry.getTextureInformation(block.texture);
+            BuildController.setTexture(currentTexture);
 
             BuildController.instanciatePrefabAt(block.position);
         }

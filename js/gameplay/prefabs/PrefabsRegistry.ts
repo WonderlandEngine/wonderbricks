@@ -6,6 +6,7 @@ class PrefabsRegistry
     private _prefabs: Map<string, PrefabBase>;
 
     public readonly PREFAB_UNAME_KEY = 'pun';
+    public readonly PREFAB_TNAME_KEY = 'texName';
 
     public constructor()
     {

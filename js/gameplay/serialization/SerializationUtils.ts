@@ -61,6 +61,7 @@ class SerializationUtils
             if(saves[i].name == saveData.name)
             {
                 saves[i] = saveData;
+                this._saveData.saves = saves;
                 return;
             }
         }
@@ -86,6 +87,7 @@ class SerializationUtils
     public flushSaves(): void
     {
         this._localStorage.setItem(SAVE_ITEM_KEY, JSON.stringify(this._saveData));
+        this.processExistingSaveData();
     }
 }
 

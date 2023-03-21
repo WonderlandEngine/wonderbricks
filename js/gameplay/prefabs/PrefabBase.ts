@@ -71,13 +71,15 @@ export default abstract class PrefabBase extends Component
     {
         let newBlock = this._scene.addObject(container);
         newBlock[PrefabsRegistry.PREFAB_UNAME_KEY] = this.getPrefabUniqueName();
-        newBlock.translateWorld(position);
+        newBlock[PrefabsRegistry.PREFAB_TNAME_KEY] = texInfo.uniqueID;
 
+        newBlock.translateWorld(position);
+ 
         // Create visual object
         let finalVisual = this._scene.addObject(newBlock);
-        finalVisual.resetRotation();
+        finalVisual.resetTransform();
         finalVisual.translateObject([0, this._cellSize / 2.0, 0]);
-        finalVisual.rotate(this._previsObject.rotationWorld);
+        finalVisual.rotationWorld = this._previsObject.rotationWorld;
 
         // Setup Material
         let mat: PhysicalMaterial = this.finalMat.clone() as PhysicalMaterial;

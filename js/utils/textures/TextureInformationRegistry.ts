@@ -29,9 +29,9 @@ class TextureInformationRegistry
         return true;
     }
 
-    public getTextureInformation(uniqueID: string): TextureInformation | null
+    public getTextureInformation(uniqueID: string): TextureInformation
     {
-        return this._texturesInformation.get(uniqueID) ?? null;
+        return this._texturesInformation.get(uniqueID);
     }
 }
 
