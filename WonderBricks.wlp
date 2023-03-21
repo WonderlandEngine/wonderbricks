@@ -5259,6 +5259,31 @@
                     "mesh": {
                         "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
                     }
+                },
+                {
+                    "type": "ui-button",
+                    "ui-button": {
+                        "visualFeedbackEnabled": false
+                    }
+                },
+                {
+                    "type": "block-selector-interactible",
+                    "block-selector-interactible": {
+                        "prefab": "256"
+                    }
+                },
+                {
+                    "type": "collision",
+                    "collision": {
+                        "collider": "box",
+                        "box": {
+                            "extents": [
+                                0.025,
+                                0.025,
+                                0.001
+                            ]
+                        }
+                    }
                 }
             ]
         },
@@ -5272,6 +5297,31 @@
                 {
                     "mesh": {
                         "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
+                    }
+                },
+                {
+                    "type": "ui-button",
+                    "ui-button": {
+                        "visualFeedbackEnabled": false
+                    }
+                },
+                {
+                    "type": "block-selector-interactible",
+                    "block-selector-interactible": {
+                        "prefab": "277"
+                    }
+                },
+                {
+                    "type": "collision",
+                    "collision": {
+                        "collider": "box",
+                        "box": {
+                            "extents": [
+                                0.025,
+                                0.025,
+                                0.001
+                            ]
+                        }
                     }
                 }
             ]
@@ -5287,6 +5337,31 @@
                     "mesh": {
                         "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
                     }
+                },
+                {
+                    "type": "ui-button",
+                    "ui-button": {
+                        "visualFeedbackEnabled": false
+                    }
+                },
+                {
+                    "type": "block-selector-interactible",
+                    "block-selector-interactible": {
+                        "prefab": "276"
+                    }
+                },
+                {
+                    "type": "collision",
+                    "collision": {
+                        "collider": "box",
+                        "box": {
+                            "extents": [
+                                0.025,
+                                0.025,
+                                0.001
+                            ]
+                        }
+                    }
                 }
             ]
         },
@@ -5300,6 +5375,31 @@
                 {
                     "mesh": {
                         "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
+                    }
+                },
+                {
+                    "type": "ui-button",
+                    "ui-button": {
+                        "visualFeedbackEnabled": false
+                    }
+                },
+                {
+                    "type": "block-selector-interactible",
+                    "block-selector-interactible": {
+                        "prefab": "67c29a9c-fc60-4f76-ac58-8110509e961c"
+                    }
+                },
+                {
+                    "type": "collision",
+                    "collision": {
+                        "collider": "box",
+                        "box": {
+                            "extents": [
+                                0.025,
+                                0.025,
+                                0.001
+                            ]
+                        }
                     }
                 }
             ]
@@ -5315,6 +5415,31 @@
                     "mesh": {
                         "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
                     }
+                },
+                {
+                    "type": "ui-button",
+                    "ui-button": {
+                        "visualFeedbackEnabled": false
+                    }
+                },
+                {
+                    "type": "block-selector-interactible",
+                    "block-selector-interactible": {
+                        "prefab": "719dbfc9-f600-46cd-bdb7-6efc0e15550a"
+                    }
+                },
+                {
+                    "type": "collision",
+                    "collision": {
+                        "collider": "box",
+                        "box": {
+                            "extents": [
+                                0.025,
+                                0.025,
+                                0.001
+                            ]
+                        }
+                    }
                 }
             ]
         },
@@ -5328,6 +5453,31 @@
                 {
                     "mesh": {
                         "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
+                    }
+                },
+                {
+                    "type": "ui-button",
+                    "ui-button": {
+                        "visualFeedbackEnabled": false
+                    }
+                },
+                {
+                    "type": "block-selector-interactible",
+                    "block-selector-interactible": {
+                        "prefab": "ad6e2dcd-a19c-4ac6-8caa-629be620772f"
+                    }
+                },
+                {
+                    "type": "collision",
+                    "collision": {
+                        "collider": "box",
+                        "box": {
+                            "extents": [
+                                0.025,
+                                0.025,
+                                0.001
+                            ]
+                        }
                     }
                 }
             ]
@@ -5343,6 +5493,31 @@
                     "mesh": {
                         "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
                     }
+                },
+                {
+                    "type": "ui-button",
+                    "ui-button": {
+                        "visualFeedbackEnabled": false
+                    }
+                },
+                {
+                    "type": "block-selector-interactible",
+                    "block-selector-interactible": {
+                        "prefab": "2c9ab035-b184-493b-bb7a-406b532fbe28"
+                    }
+                },
+                {
+                    "type": "collision",
+                    "collision": {
+                        "collider": "box",
+                        "box": {
+                            "extents": [
+                                0.025,
+                                0.025,
+                                0.001
+                            ]
+                        }
+                    }
                 }
             ]
         },
@@ -5356,6 +5531,31 @@
                 {
                     "mesh": {
                         "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
+                    }
+                },
+                {
+                    "type": "ui-button",
+                    "ui-button": {
+                        "visualFeedbackEnabled": false
+                    }
+                },
+                {
+                    "type": "block-selector-interactible",
+                    "block-selector-interactible": {
+                        "prefab": "8d58de0e-5c57-44eb-86ad-220c0226b72c"
+                    }
+                },
+                {
+                    "type": "collision",
+                    "collision": {
+                        "collider": "box",
+                        "box": {
+                            "extents": [
+                                0.025,
+                                0.025,
+                                0.001
+                            ]
+                        }
                     }
                 }
             ]
@@ -5371,6 +5571,31 @@
                     "mesh": {
                         "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
                     }
+                },
+                {
+                    "type": "ui-button",
+                    "ui-button": {
+                        "visualFeedbackEnabled": false
+                    }
+                },
+                {
+                    "type": "block-selector-interactible",
+                    "block-selector-interactible": {
+                        "prefab": "8baf4641-b0ac-4ad8-8bf3-6c5bfd5e92e9"
+                    }
+                },
+                {
+                    "type": "collision",
+                    "collision": {
+                        "collider": "box",
+                        "box": {
+                            "extents": [
+                                0.025,
+                                0.025,
+                                0.001
+                            ]
+                        }
+                    }
                 }
             ]
         },
@@ -5384,6 +5609,31 @@
                 {
                     "mesh": {
                         "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
+                    }
+                },
+                {
+                    "type": "ui-button",
+                    "ui-button": {
+                        "visualFeedbackEnabled": false
+                    }
+                },
+                {
+                    "type": "block-selector-interactible",
+                    "block-selector-interactible": {
+                        "prefab": "6150e8a0-e550-4a67-a564-52eb2bda591d"
+                    }
+                },
+                {
+                    "type": "collision",
+                    "collision": {
+                        "collider": "box",
+                        "box": {
+                            "extents": [
+                                0.025,
+                                0.025,
+                                0.001
+                            ]
+                        }
                     }
                 }
             ]
