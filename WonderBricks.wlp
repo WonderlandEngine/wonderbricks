@@ -5800,7 +5800,8 @@
                         "spatial": false,
                         "loop": true,
                         "autoplay": true,
-                        "src": "amb_wonderbrick_loop.wav"
+                        "src": "/music/amb_wonderbrick_loop.wav",
+                        "volume": 0.2
                     }
                 }
             ]
