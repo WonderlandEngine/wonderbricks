@@ -1306,7 +1306,7 @@
                     "type": "block-slope-prefab",
                     "block-slope-prefab": {
                         "finalMesh": "433",
-                        "previsMesh": "274",
+                        "previsMesh": "aed015bc-b4f8-4e5e-92e3-26f21b2effd8",
                         "finalMat": "348",
                         "previsMat": "22"
                     }
@@ -1337,7 +1337,7 @@
                     "type": "block-stair-prefab",
                     "block-stair-prefab": {
                         "finalMesh": "3dff8522-a3dc-4443-a153-a7ee63aeedf0",
-                        "previsMesh": "269",
+                        "previsMesh": "906df516-0447-4ab1-883d-e006bfdd48ce",
                         "finalMat": "348",
                         "previsMat": "22"
                     }
@@ -5482,6 +5482,34 @@
                 1.0,
                 1.0
             ]
+        },
+        "d129eb7c-1c9f-414e-a2b7-708d45c1f01a": {
+            "name": "Mesh",
+            "components": [
+                {
+                    "type": "mesh",
+                    "mesh": {
+                        "material": "22",
+                        "mesh": "906df516-0447-4ab1-883d-e006bfdd48ce"
+                    }
+                }
+            ],
+            "translation": [
+                0.0,
+                0.2254436,
+                0.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                1.0,
+                1.0,
+                1.0
+            ]
         }
     },
     "meshes": {
@@ -6230,6 +6258,42 @@
             "link": {
                 "name": "Buttons.098",
                 "file": "models\\UI\\panel.glb"
+            }
+        },
+        "b28a756f-241f-422b-8439-771249e42331": {
+            "link": {
+                "name": "Cube.019",
+                "file": "models\\Bricks\\CubeVert_Wireframe.glb"
+            }
+        },
+        "ba329454-1d1a-4e4e-8749-57745e810bee": {
+            "link": {
+                "name": "Cylinder.003",
+                "file": "models\\Bricks\\Cylinder_1_0.5_Wireframe.glb"
+            }
+        },
+        "13c6f2f6-6d48-4832-b4b6-205c1f768b21": {
+            "link": {
+                "name": "Cylinder.002",
+                "file": "models\\Bricks\\Cylinder_1_1_Wireframe.glb"
+            }
+        },
+        "aed015bc-b4f8-4e5e-92e3-26f21b2effd8": {
+            "link": {
+                "name": "Cube.017",
+                "file": "models\\Bricks\\Slope_Wireframe.glb"
+            }
+        },
+        "4b2d5651-4b19-4f2b-8b9c-c3c214173190": {
+            "link": {
+                "name": "Cube.021",
+                "file": "models\\Bricks\\Tile_0.25_0.25_0.25_Wireframe.glb"
+            }
+        },
+        "906df516-0447-4ab1-883d-e006bfdd48ce": {
+            "link": {
+                "name": "Cube.015",
+                "file": "models\\Bricks\\Stairs_Wireframe.glb"
             }
         }
     },
@@ -8174,7 +8238,13 @@
         "textures/00_UI/UIAtlas.png",
         "models/UI/TextureButtons.glb",
         "textures/Wood/Vol_41_3_Tiles_Base_Color.png",
-        "textures/Wood/Vol_41_3_Tiles_Normal.png"
+        "textures/Wood/Vol_41_3_Tiles_Normal.png",
+        "models/Bricks/CubeVert_Wireframe.glb",
+        "models/Bricks/Cylinder_1_0.5_Wireframe.glb",
+        "models/Bricks/Cylinder_1_1_Wireframe.glb",
+        "models/Bricks/Slope_Wireframe.glb",
+        "models/Bricks/Tile_0.25_0.25_0.25_Wireframe.glb",
+        "models/Bricks/Stairs_Wireframe.glb"
     ],
     "fonts": {
         "230": {
