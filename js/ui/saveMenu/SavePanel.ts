@@ -109,8 +109,6 @@ export class SavePanel extends Component
     private onSaveButtonPressed(): void
     {
         this._currentBuildData.blocks = BuildController.getCurrentBuildData();
-        console.log('Build data from container are: ');
-        console.log(this._currentBuildData);
 
         SerializationUtils.createOrUpdateSaveEntry(this._currentBuildData);
         SerializationUtils.flushSaves();
@@ -118,7 +116,7 @@ export class SavePanel extends Component
         this._saveEntries = SerializationUtils.getSavesEntries();
         this._currentSaveIndex = this._currentSaveIndex < 0 ? 0 : this._currentSaveIndex;
 
-        this._saveCount.text = 'Saves: ' + this._saveEntries.length;
+        this._saveCount.text = 'Saves count: ' + this._saveEntries.length;
         this._saveName.text = this._currentSaveIndex < 0 ?
             "No save available":
             this._saveEntries[this._currentSaveIndex].name;

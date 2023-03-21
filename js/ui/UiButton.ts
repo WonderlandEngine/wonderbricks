@@ -2,6 +2,7 @@ import {Material, MeshComponent, Object, TextComponent, Type} from "@wonderlande
 import {TagComponent} from "../utils/TagComponent";
 import {Tag} from "../utils/Tag";
 import {UiElementBase} from "./UiElementBase";
+import { Color } from "../utils/materials/Color";
 
 
 export class UiButton extends UiElementBase
@@ -18,15 +19,13 @@ export class UiButton extends UiElementBase
 
     // Class fields
     private _meshComponent: MeshComponent;
-    private _meshMaterial: Material;
     private _textComponent: TextComponent;
 
     public start(): void
     {
         // Create a copy of the material instance
         this._meshComponent = this.object.getComponent('mesh');
-        this._meshMaterial = this._meshComponent.material.clone();
-        this._meshComponent.material = this._meshMaterial;
+        this._meshComponent.material = this._meshComponent.material.clone();
 
         // Get the text component
         if(this.textObject != null)
@@ -51,9 +50,9 @@ export class UiButton extends UiElementBase
 
     private processVisualFeedback(): void
     {
-        this._meshMaterial['color'] = [0.635, 0.730, 1, 1];
+        this._meshComponent.material['color'] = Color.COLOR_TINT_ACTIVE;
         setTimeout(() => {
-            this._meshMaterial['color'] = [1, 1, 1, 1];
+            this._meshComponent.material['color'] = Color.COLOR_TINT_NORMAL;
         }, 100);
     }
 }
