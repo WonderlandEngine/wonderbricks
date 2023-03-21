@@ -5789,6 +5789,21 @@
                 0.25,
                 0.9999758
             ]
+        },
+        "54a9ceb6-1f90-4390-9c6b-71dc784dbe19": {
+            "name": "AmbiantMusic",
+            "parent": "339",
+            "components": [
+                {
+                    "type": "howler-audio-source",
+                    "howler-audio-source": {
+                        "spatial": false,
+                        "loop": true,
+                        "autoplay": true,
+                        "src": "amb_wonderbrick_loop.wav"
+                    }
+                }
+            ]
         }
     },
     "meshes": {
