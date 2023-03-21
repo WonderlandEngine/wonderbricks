@@ -3,9 +3,9 @@ import PrefabBase from "./PrefabBase";
 import PrefabsRegistry from "./PrefabsRegistry";
 
 
-export class BlockPrefab extends PrefabBase
+export class SlabPrefab extends PrefabBase
 {
-    static TypeName = 'block-prefab';
+    static TypeName = 'slab-prefab';
     static Properties = {
         finalMesh: {type: Type.Mesh},
         previsMesh: {type: Type.Mesh},
@@ -14,7 +14,7 @@ export class BlockPrefab extends PrefabBase
         previsMat: {type: Type.Material},
     };
 
-    public override getPrefabUniqueName(): string { return BlockPrefab.TypeName; }
+    public override getPrefabUniqueName(): string { return SlabPrefab.TypeName; }
 
     public override start()
     {
