@@ -5754,7 +5754,7 @@
                 {
                     "type": "cone-prefab",
                     "cone-prefab": {
-                        "finalMesh": "a023ab2e-003b-4ce3-b26e-d635bff7b5b2",
+                        "finalMesh": "675bcac6-bc8d-40ce-8759-13303c0bfda7",
                         "previsMesh": "3b2995de-552f-4663-a7e2-c022c9876704",
                         "finalMat": "348",
                         "previsMat": "22"
@@ -5847,7 +5847,7 @@
                 {
                     "type": "slab-prefab",
                     "slab-prefab": {
-                        "finalMesh": "fdffe6cf-0776-4ace-9f94-9a2484440bb5",
+                        "finalMesh": "e0d0f950-f732-4679-a678-74ebab8b71fe",
                         "previsMesh": "700fe7cd-f95b-4b92-ba92-3e09870c6d8f",
                         "finalMat": "348",
                         "previsMat": "22"
@@ -6734,6 +6734,12 @@
             "link": {
                 "name": "Cube.014",
                 "file": "models\\Bricks\\Cube_1_0.5_Wireframe.glb"
+            }
+        },
+        "e0d0f950-f732-4679-a678-74ebab8b71fe": {
+            "link": {
+                "name": "Cube.001",
+                "file": "models\\Bricks\\Cube_1_0.5.glb"
             }
         }
     },
@@ -8690,7 +8696,8 @@
         "models/Bricks/ConeCut_Wireframe.glb",
         "models/Bricks/PyramidCut.glb",
         "models/Bricks/PyramidCut_Wireframe.glb",
-        "models/Bricks/Cube_1_0.5_Wireframe.glb"
+        "models/Bricks/Cube_1_0.5_Wireframe.glb",
+        "models/Bricks/Cube_1_0.5.glb"
     ],
     "fonts": {
         "230": {
