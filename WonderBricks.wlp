@@ -23,22 +23,14 @@
             "name": "FloorPlane",
             "components": [
                 {
-                    "type": "mesh",
-                    "mesh": {
-                        "mesh": "305",
-                        "material": "358"
-                    },
-                    "active": true
-                },
-                {
                     "type": "collision",
                     "collision": {
                         "collider": "aabb",
                         "aabb": {
                             "extents": [
-                                4.0,
+                                20.0,
                                 0.0024999,
-                                4.0
+                                20.0
                             ]
                         },
                         "groups": 5
@@ -52,7 +44,7 @@
                 }
             ],
             "translation": [
-                0.0,
+                1.1108736,
                 0.0,
                 1.1920928955078125e-7
             ],
@@ -118,7 +110,10 @@
             "parent": "205",
             "components": [
                 {
-                    "type": "view"
+                    "type": "view",
+                    "view": {
+                        "far": 1000.0
+                    }
                 },
                 {
                     "type": "mouse-look"
@@ -153,7 +148,10 @@
             "parent": "205",
             "components": [
                 {
-                    "type": "view"
+                    "type": "view",
+                    "view": {
+                        "far": 1000.0
+                    }
                 },
                 {
                     "type": "input",
@@ -187,7 +185,10 @@
             "parent": "205",
             "components": [
                 {
-                    "type": "view"
+                    "type": "view",
+                    "view": {
+                        "far": 1000.0
+                    }
                 },
                 {
                     "type": "input",
@@ -5805,6 +5806,1034 @@
                     }
                 }
             ]
+        },
+        "4b6a1421-6301-49bd-8c06-f6497ddb52bb": {
+            "name": "EnvironmentNew"
+        },
+        "94b8d76e-b3a7-4766-a958-7f71755c051e": {
+            "link": {
+                "name": "Cube.002",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb"
+        },
+        "14ba183f-4ad5-427f-89c7-adf59c8f37d5": {
+            "link": {
+                "name": "Plane",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb"
+        },
+        "ee9d7f3b-09dd-481c-aede-784a92517759": {
+            "link": {
+                "name": "Cube.003",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb",
+            "translation": [
+                -19.544485,
+                -1.287809,
+                25.7744445
+            ],
+            "rotation": [
+                0.0,
+                0.3496803,
+                0.0,
+                0.936869
+            ],
+            "scaling": [
+                0.9999998,
+                1.0,
+                0.9999998
+            ]
+        },
+        "2097146c-97a2-496b-bb6a-0f2308a7f1a2": {
+            "link": {
+                "name": "Cube.004",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb",
+            "translation": [
+                -14.7630147,
+                -1.2878134,
+                25.4467067
+            ],
+            "rotation": [
+                0.0,
+                0.9999967,
+                0.0,
+                0.0025408
+            ],
+            "scaling": [
+                0.9999977,
+                1.0,
+                0.9999977
+            ]
+        },
+        "e4930185-c26d-4586-829c-42632666debc": {
+            "link": {
+                "name": "Cube.005",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb",
+            "translation": [
+                -9.6060485,
+                -1.2878082,
+                25.8511962
+            ],
+            "rotation": [
+                0.0,
+                0.5534908,
+                0.0,
+                0.8328552
+            ],
+            "scaling": [
+                0.9999992,
+                1.0,
+                0.9999992
+            ]
+        },
+        "89b7fba4-183a-4162-a7a9-7ddf43e13c8f": {
+            "link": {
+                "name": "Cube.010",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb"
+        },
+        "bb93fa71-ca15-4bbe-8633-dc93511e12b7": {
+            "link": {
+                "name": "Cube.011",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb",
+            "translation": [
+                17.9503517,
+                -1.287809,
+                26.4050788
+            ],
+            "rotation": [
+                0.0,
+                0.9968372,
+                0.0,
+                0.0794702
+            ],
+            "scaling": [
+                0.9999948,
+                1.0,
+                0.9999948
+            ]
+        },
+        "68f84bee-b851-4f85-bba1-b6c618fa07f1": {
+            "link": {
+                "name": "Cube.012",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb",
+            "translation": [
+                22.4637355,
+                -0.2985237,
+                24.7926311
+            ],
+            "rotation": [
+                0.0,
+                0.9972723,
+                0.0,
+                -0.07381
+            ],
+            "scaling": [
+                0.9999992,
+                1.0,
+                0.9999992
+            ]
+        },
+        "76d71611-f531-4b28-8de8-22047b12d5c7": {
+            "link": {
+                "name": "Cube.014",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb",
+            "translation": [
+                9.1581697,
+                1.3036332,
+                26.0987243
+            ],
+            "rotation": [
+                0.0,
+                -0.7417272,
+                0.0,
+                0.6707016
+            ],
+            "scaling": [
+                1.0000016,
+                1.0,
+                1.0000016
+            ]
+        },
+        "f119a7af-dd98-4b04-b4bb-e67f19d3d628": {
+            "link": {
+                "name": "Cube.015",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb",
+            "translation": [
+                4.3168015,
+                -1.2878086,
+                25.3816757
+            ],
+            "rotation": [
+                0.0,
+                -0.2506864,
+                0.0,
+                0.9680683
+            ],
+            "scaling": [
+                0.9999997,
+                1.0,
+                0.9999997
+            ]
+        },
+        "09593dc5-a68c-403b-a6fa-dd497ad69c28": {
+            "link": {
+                "name": "Cube.016",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb"
+        },
+        "90d2278c-44dd-40b7-af75-b440683e0bd0": {
+            "link": {
+                "name": "Cube.017",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb"
+        },
+        "e1c5beda-893d-496a-a03d-6d186587b881": {
+            "link": {
+                "name": "Cube.006",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb"
+        },
+        "b574222e-4145-4727-a3e6-a3c578ccbc41": {
+            "link": {
+                "name": "Cube.007",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb"
+        },
+        "f14b8fd2-925c-47a7-ad4b-7c27d63f6487": {
+            "link": {
+                "name": "Cube.008",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb"
+        },
+        "a731791c-4173-4944-92a9-111bf039054c": {
+            "link": {
+                "name": "Cube.009",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb"
+        },
+        "e7d152bc-b911-416a-8119-7bbed60d7866": {
+            "link": {
+                "name": "Cube.013",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb"
+        },
+        "cf4a5b14-6039-4c6a-9060-90d27e605bc4": {
+            "link": {
+                "name": "Cube.018",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb"
+        },
+        "4d1d31c4-6847-48a2-b6ef-1d92170cbac6": {
+            "link": {
+                "name": "Cube.019",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb",
+            "translation": [
+                23.5558433,
+                -0.6967528,
+                -27.0192985
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        "8ed5b94c-fcac-4c58-ac36-3523cdc92ce1": {
+            "link": {
+                "name": "Cube.020",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb"
+        },
+        "aa96a6e8-edea-4e0f-aac6-2795960cd217": {
+            "link": {
+                "name": "Cube.021",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb",
+            "translation": [
+                5.4088602,
+                -1.2878096,
+                -26.4301986
+            ],
+            "rotation": [
+                0.0,
+                0.6130052,
+                0.0,
+                0.7900788
+            ],
+            "scaling": [
+                0.9999991,
+                1.0,
+                0.9999991
+            ]
+        },
+        "4e71129e-cc8e-4f56-a461-5ff7389f1dd1": {
+            "link": {
+                "name": "Cube.022",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb",
+            "translation": [
+                0.2512865,
+                -1.2878062,
+                -24.7715892
+            ],
+            "rotation": [
+                0.0,
+                0.9669401,
+                0.0,
+                0.2550036
+            ],
+            "scaling": [
+                0.9999994,
+                1.0,
+                0.9999994
+            ]
+        },
+        "8a0765f1-59ef-47b2-b4b6-271f9521ecc4": {
+            "link": {
+                "name": "Cube.023",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb",
+            "translation": [
+                -4.5941405,
+                -1.2878084,
+                -25.2856082
+            ],
+            "rotation": [
+                0.0,
+                0.183011,
+                0.0,
+                0.9831108
+            ],
+            "scaling": [
+                0.9999995,
+                1.0,
+                0.9999995
+            ]
+        },
+        "c5e3323b-f928-4b14-a285-50b1803ef791": {
+            "link": {
+                "name": "Cube.024",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb"
+        },
+        "a696f205-711c-413d-b022-be73dc1e0d2d": {
+            "link": {
+                "name": "Cube.025",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb"
+        },
+        "0a3ffd59-ea18-4e2d-bcf7-d5949d9498f0": {
+            "link": {
+                "name": "Cube.026",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb",
+            "translation": [
+                25.8327636,
+                -1.2878102,
+                13.7630376
+            ],
+            "rotation": [
+                0.0,
+                0.9999065,
+                0.0,
+                0.0136701
+            ],
+            "scaling": [
+                0.9999986,
+                1.0,
+                0.9999986
+            ]
+        },
+        "bca9da14-ac54-43a6-b611-0028b7b8686c": {
+            "link": {
+                "name": "Cube.027",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb",
+            "translation": [
+                26.2371788,
+                -1.2878098,
+                8.606121
+            ],
+            "rotation": [
+                0.0,
+                0.5746771,
+                0.0,
+                0.8183802
+            ],
+            "scaling": [
+                0.9999997,
+                1.0,
+                0.9999997
+            ]
+        },
+        "f3c396d1-3358-4348-92da-ae945a6ce79d": {
+            "link": {
+                "name": "Cube.028",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb"
+        },
+        "a4249e36-61a9-44a9-aac0-8431c86b4134": {
+            "link": {
+                "name": "Cube.029",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb",
+            "translation": [
+                26.7910537,
+                -1.2878105,
+                -18.9503784
+            ],
+            "rotation": [
+                0.0,
+                0.3209034,
+                0.0,
+                0.9471119
+            ],
+            "scaling": [
+                0.9999998,
+                1.0,
+                0.9999998
+            ]
+        },
+        "e895a91f-e3f5-4507-a17c-49df7b88412f": {
+            "link": {
+                "name": "Cube.030",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb",
+            "translation": [
+                25.1785831,
+                -1.2878092,
+                -23.4636955
+            ],
+            "rotation": [
+                0.0,
+                -0.7836408,
+                0.0,
+                0.6212142
+            ],
+            "scaling": [
+                0.9999985,
+                1.0,
+                0.9999985
+            ]
+        },
+        "1c70ba64-c4ec-4e45-af7e-80f71c186754": {
+            "link": {
+                "name": "Cube.031",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb",
+            "translation": [
+                26.3631916,
+                1.3036332,
+                -9.5082836
+            ],
+            "rotation": [
+                0.0,
+                0.8898472,
+                0.0,
+                -0.4562586
+            ],
+            "scaling": [
+                1.0000005,
+                1.0,
+                1.0000005
+            ]
+        },
+        "a3ffaba5-ed98-4cb6-8c75-78ea3a7baff2": {
+            "link": {
+                "name": "Cube.032",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb",
+            "translation": [
+                25.7676925,
+                -1.28781,
+                -5.3167138
+            ],
+            "rotation": [
+                0.0,
+                -0.2570804,
+                0.0,
+                0.96639
+            ],
+            "scaling": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        "c43559c6-3d3f-4923-87e0-88c09a40832b": {
+            "link": {
+                "name": "Cube.033",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb"
+        },
+        "b118fcab-1ae7-4273-9f13-cfe126b2a67e": {
+            "link": {
+                "name": "Cube.034",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb"
+        },
+        "490055d3-c770-4b6d-8834-650be9c3314d": {
+            "link": {
+                "name": "Cube.035",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb"
+        },
+        "1bbb6153-bc32-4d25-bac2-ad4c9ca77f26": {
+            "link": {
+                "name": "Cube.036",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb"
+        },
+        "981fdab7-2db3-4858-94da-f551aa828bcf": {
+            "link": {
+                "name": "Cube.037",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb"
+        },
+        "a62287b8-43ba-4e7b-8b6d-bd33fbd2d7db": {
+            "link": {
+                "name": "Cube.038",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb"
+        },
+        "b1dd3b55-132d-48bb-a87b-6c3ba22dd785": {
+            "link": {
+                "name": "Cube.039",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb",
+            "translation": [
+                -23.604618,
+                -1.2878134,
+                -14.458496
+            ],
+            "rotation": [
+                0.0,
+                -0.7744875,
+                0.0,
+                0.6325891
+            ],
+            "scaling": [
+                1.0000025,
+                1.0,
+                1.0000025
+            ]
+        },
+        "2373b25c-15e3-494f-b1f5-fec308806f05": {
+            "link": {
+                "name": "Cube.040",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb",
+            "translation": [
+                -23.9288349,
+                -1.2878088,
+                -19.7997226
+            ],
+            "rotation": [
+                0.0,
+                -0.2490398,
+                0.0,
+                0.9684932
+            ],
+            "scaling": [
+                0.9999997,
+                1.0,
+                0.9999997
+            ]
+        },
+        "0e86ae9b-6114-43c4-b5af-a6d458d0bd6d": {
+            "link": {
+                "name": "Cube.041",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb"
+        },
+        "2a236f21-d743-4489-9b6a-fae2dee5f90b": {
+            "link": {
+                "name": "Cube.042",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb"
+        },
+        "072354a6-6411-4150-a1b9-da2e7b0e3ba8": {
+            "link": {
+                "name": "Cube.043",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb",
+            "translation": [
+                -24.9521522,
+                -1.2878094,
+                -6.1660814
+            ],
+            "rotation": [
+                0.0,
+                0.9999917,
+                0.0,
+                0.0040621
+            ],
+            "scaling": [
+                0.9999971,
+                1.0,
+                0.9999971
+            ]
+        },
+        "298fd6d7-9bdb-4cf4-9f41-7c7b74ebf7a4": {
+            "link": {
+                "name": "Cube.044",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb",
+            "translation": [
+                -24.4489459,
+                -1.5115483,
+                -0.9586104
+            ],
+            "rotation": [
+                0.0,
+                0.9999655,
+                0.0,
+                -0.0082974
+            ],
+            "scaling": [
+                0.9999997,
+                1.0,
+                0.9999997
+            ]
+        },
+        "fab2122c-0345-45f0-9842-ef675d275deb": {
+            "link": {
+                "name": "Cube.045",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb",
+            "translation": [
+                -24.3592376,
+                -1.2878084,
+                4.0301923
+            ],
+            "rotation": [
+                0.0,
+                0.2886356,
+                0.0,
+                0.957439
+            ],
+            "scaling": [
+                0.9999998,
+                1.0,
+                0.9999998
+            ]
+        },
+        "b69a6666-e9f5-43b5-a710-91b22a82087e": {
+            "link": {
+                "name": "Cube.047",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb"
+        },
+        "a07406b3-42d0-43ba-898a-0bb9b0d357a2": {
+            "link": {
+                "name": "Cube.048",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb"
+        },
+        "27579441-8cb7-4d83-b2e5-b8841367c39a": {
+            "link": {
+                "name": "Cube.065",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb"
+        },
+        "c1d58d44-c961-46aa-84e2-68a085e0ee50": {
+            "link": {
+                "name": "Cube.066",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb"
+        },
+        "b935207b-494c-4ec3-9dd1-194f7f0dbe87": {
+            "link": {
+                "name": "Cube.067",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb"
+        },
+        "f8599932-7645-411d-b538-17bd8af45894": {
+            "link": {
+                "name": "Cube.068",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb"
+        },
+        "141467e3-78c8-421f-a9a1-b8b7f1b5498c": {
+            "link": {
+                "name": "Cube.069",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb"
+        },
+        "aa5b7216-5dfa-469d-b284-6b2efd636257": {
+            "link": {
+                "name": "Cube.070",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb"
+        },
+        "30d1fc2f-6a29-4d25-939a-90f4515d8bee": {
+            "link": {
+                "name": "Cube.071",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb"
+        },
+        "4e52782d-a93d-4dfc-8cfb-1e56ad3e78ee": {
+            "link": {
+                "name": "Cube.072",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb"
+        },
+        "90aeb6f5-65c5-48ec-9ce5-e52559eeb947": {
+            "link": {
+                "name": "Cube.073",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb"
+        },
+        "671a9e23-6fd9-428f-aa9c-21252e8991cd": {
+            "link": {
+                "name": "Cube.074",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb"
+        },
+        "c0e88bbe-f609-4c83-a87e-b57e55108e90": {
+            "link": {
+                "name": "Cube.075",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb"
+        },
+        "8ab6d74a-5763-451c-89c9-1292e0afabb7": {
+            "link": {
+                "name": "Cube.076",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb"
+        },
+        "8d6ae1e2-5677-40c4-b523-02032c8a41db": {
+            "link": {
+                "name": "Cube.077",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb"
+        },
+        "30bcccf6-b6f6-420a-b992-52160ba2fbd7": {
+            "link": {
+                "name": "Cube.078",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb"
+        },
+        "3824f823-2c75-4823-a333-311b242d0c45": {
+            "link": {
+                "name": "BezierCurve.001",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb"
+        },
+        "e6617289-6cfc-49ad-81a7-9401f674c8f7": {
+            "link": {
+                "name": "Cube.079",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb"
+        },
+        "44db9a38-107b-470f-b0e0-ca65cd8e2c6e": {
+            "link": {
+                "name": "Cylinder.004",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb"
+        },
+        "7668be1b-3c1f-480b-93fd-40fde8f46911": {
+            "link": {
+                "name": "Cylinder.005",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb"
+        },
+        "7b8ed471-ece2-44dd-b03f-982f755bf0a8": {
+            "link": {
+                "name": "Cylinder.006",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb"
+        },
+        "ba7156ca-87cc-4aa3-b121-d013feececcc": {
+            "link": {
+                "name": "Cylinder.007",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb"
+        },
+        "0e50a00a-e420-4c55-b5a6-4782a31ddc43": {
+            "link": {
+                "name": "Cube.080",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb",
+            "translation": [
+                -89.3784484,
+                7.1484117,
+                -4.7881584
+            ],
+            "rotation": [
+                1.1776214847714073e-7,
+                0.1553436,
+                5.881723197376232e-8,
+                0.9878605
+            ],
+            "scaling": [
+                1.4629468,
+                1.4629464,
+                1.4629468
+            ]
+        },
+        "d6cb0cae-0d6e-4776-ba29-4a0287fe519b": {
+            "link": {
+                "name": "Cube.081",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb",
+            "translation": [
+                -89.3784484,
+                7.1484117,
+                -4.7881584
+            ],
+            "rotation": [
+                1.1776214847714073e-7,
+                0.1553436,
+                5.881723197376232e-8,
+                0.9878605
+            ],
+            "scaling": [
+                1.4629468,
+                1.4629464,
+                1.4629468
+            ]
+        },
+        "a5426eee-3539-4bf0-bc7c-e336155a752d": {
+            "link": {
+                "name": "Cube.082",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb"
+        },
+        "1dba8bd1-a3e8-48f6-8227-372dc8a7f257": {
+            "link": {
+                "name": "Cube.083",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb"
+        },
+        "d10c595b-45b5-480e-aa2a-b1ae976218cc": {
+            "link": {
+                "name": "Cube.084",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb",
+            "translation": [
+                -113.0752487,
+                5.7121319,
+                -100.5162124
+            ],
+            "rotation": [
+                0.0,
+                -0.2497744,
+                0.0,
+                0.968304
+            ],
+            "scaling": [
+                1.0000004,
+                1.0,
+                1.0000004
+            ]
+        },
+        "91753523-f236-45d0-a55b-b7de9bcfcf44": {
+            "link": {
+                "name": "Cube.085",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb",
+            "translation": [
+                -113.0752487,
+                5.7121319,
+                -100.5162124
+            ],
+            "rotation": [
+                0.0,
+                -0.2497744,
+                0.0,
+                0.968304
+            ],
+            "scaling": [
+                1.0000004,
+                1.0,
+                1.0000004
+            ]
+        },
+        "eabb500a-a763-4ae5-8eff-cda4337e4932": {
+            "link": {
+                "name": "Cube.086",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb"
+        },
+        "737af3e4-0f91-411e-b001-bb49872d2411": {
+            "link": {
+                "name": "Cube.087",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb"
+        },
+        "44c3273f-c907-4a00-986e-241a50e975f3": {
+            "link": {
+                "name": "Cube.088",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb"
+        },
+        "77b31778-634e-49cb-b528-487c037d17f6": {
+            "link": {
+                "name": "Cube.089",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb"
+        },
+        "a871c660-3c5b-4c1c-a36f-abe71a1f9e39": {
+            "link": {
+                "name": "Cube.090",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb"
+        },
+        "34f05d63-12d7-4ff1-ba0b-686ccbe4db48": {
+            "link": {
+                "name": "Cube.091",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb"
+        },
+        "ac49e18e-c454-4ee4-81e2-cf927b2d4499": {
+            "link": {
+                "name": "Cube.092",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb"
+        },
+        "ddedb218-2824-44d7-be01-aa750b923d6f": {
+            "link": {
+                "name": "Cube.093",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb"
+        },
+        "fbbe4476-676b-46ea-acd2-41ac021a3bbf": {
+            "link": {
+                "name": "BezierCurve.002",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb"
+        },
+        "9f84dfca-ed92-40d6-8dcd-0e18c5e0c527": {
+            "link": {
+                "name": "Cube.094",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb"
+        },
+        "473f0945-23d0-40ce-a543-c415573a2641": {
+            "link": {
+                "name": "Cylinder.008",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb"
+        },
+        "5a7ca6d7-474c-4e08-8d48-debb77d17193": {
+            "link": {
+                "name": "Cylinder.009",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb"
+        },
+        "869b9481-7b84-47e3-b094-439724e49d5f": {
+            "link": {
+                "name": "Cylinder.010",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb"
+        },
+        "0c6ab980-116e-464f-acd4-aa355d186273": {
+            "link": {
+                "name": "Cylinder.011",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb"
         }
     },
     "meshes": {
@@ -6722,6 +7751,396 @@
                 "name": "PanelTitle.009",
                 "file": "models\\UI\\MainMenuButtons.glb"
             }
+        },
+        "6b0259d2-e553-415b-90f5-2102cfd6931d": {
+            "link": {
+                "name": "cloud",
+                "file": "models\\terrain\\Environment.glb"
+            }
+        },
+        "c3ecc658-d47b-42e0-84db-24621ee9963f": {
+            "link": {
+                "name": "Cube.002",
+                "file": "models\\terrain\\Environment.glb"
+            }
+        },
+        "b3fe3487-f5ef-4da9-9beb-3c67118c04e2": {
+            "link": {
+                "name": "Plane",
+                "file": "models\\terrain\\Environment.glb"
+            }
+        },
+        "e4564b8a-fa98-40c9-8fd5-30191012d0ff": {
+            "link": {
+                "name": "Cube.003",
+                "file": "models\\terrain\\Environment.glb"
+            }
+        },
+        "1b46af7b-a0e2-4d61-8d28-edda148e0127": {
+            "link": {
+                "name": "Cube.004",
+                "file": "models\\terrain\\Environment.glb"
+            }
+        },
+        "14533d54-4784-4f14-9aaa-1dd9c0a67e08": {
+            "link": {
+                "name": "Cube.005",
+                "file": "models\\terrain\\Environment.glb"
+            }
+        },
+        "ab9c8552-f79d-42dd-b61d-08e2a732bde7": {
+            "link": {
+                "name": "Cube.010",
+                "file": "models\\terrain\\Environment.glb"
+            }
+        },
+        "7bb1caf3-f27a-45ab-8572-0ae07f7ba456": {
+            "link": {
+                "name": "Cube.011",
+                "file": "models\\terrain\\Environment.glb"
+            }
+        },
+        "ccac47cc-5712-4602-98c3-4b3578a3f71d": {
+            "link": {
+                "name": "Cube.012",
+                "file": "models\\terrain\\Environment.glb"
+            }
+        },
+        "b2c0a12c-c77c-4a99-8ef1-d8371902436f": {
+            "link": {
+                "name": "Cube.014",
+                "file": "models\\terrain\\Environment.glb"
+            }
+        },
+        "feb997bf-b301-4cf2-a5d7-7c24702a2270": {
+            "link": {
+                "name": "Cube.015",
+                "file": "models\\terrain\\Environment.glb"
+            }
+        },
+        "7b6d5415-af67-441b-b140-88ab5ccea2ea": {
+            "link": {
+                "name": "Cube.016",
+                "file": "models\\terrain\\Environment.glb"
+            }
+        },
+        "2bb9fdff-cee4-4dd6-aed3-213e46021ddc": {
+            "link": {
+                "name": "Cube.017",
+                "file": "models\\terrain\\Environment.glb"
+            }
+        },
+        "fb0e0f60-8473-4c27-b6c1-c446a5ea4004": {
+            "link": {
+                "name": "Cube.018",
+                "file": "models\\terrain\\Environment.glb"
+            }
+        },
+        "81bbae69-a073-4e58-b819-a08fd61fb3f2": {
+            "link": {
+                "name": "Cube.019",
+                "file": "models\\terrain\\Environment.glb"
+            }
+        },
+        "a9514c1d-f8cb-409b-b14a-f444ff41bd8f": {
+            "link": {
+                "name": "Cube.020",
+                "file": "models\\terrain\\Environment.glb"
+            }
+        },
+        "4266610e-4d91-4f22-9ad6-3174d2815fd4": {
+            "link": {
+                "name": "Cube.021",
+                "file": "models\\terrain\\Environment.glb"
+            }
+        },
+        "f026a617-81d0-4fdb-9599-1125765aff21": {
+            "link": {
+                "name": "Cube.022",
+                "file": "models\\terrain\\Environment.glb"
+            }
+        },
+        "bf979d6e-2aa7-4354-8a81-14f1554aa4d3": {
+            "link": {
+                "name": "Cube.023",
+                "file": "models\\terrain\\Environment.glb"
+            }
+        },
+        "27a4206d-0386-4624-bd6f-4cf480fe4937": {
+            "link": {
+                "name": "Cube.024",
+                "file": "models\\terrain\\Environment.glb"
+            }
+        },
+        "9ca6a7f3-c8e4-4032-9662-34e6067142c3": {
+            "link": {
+                "name": "Cube.025",
+                "file": "models\\terrain\\Environment.glb"
+            }
+        },
+        "9959d017-01cf-42b0-b781-0c5b2b667627": {
+            "link": {
+                "name": "Cube.026",
+                "file": "models\\terrain\\Environment.glb"
+            }
+        },
+        "43dec335-112c-4841-94d2-d24a79a0d27d": {
+            "link": {
+                "name": "Cube.027",
+                "file": "models\\terrain\\Environment.glb"
+            }
+        },
+        "83f05bae-b0b1-44a7-b858-13e93584d3d1": {
+            "link": {
+                "name": "Cube.028",
+                "file": "models\\terrain\\Environment.glb"
+            }
+        },
+        "4e7e96cd-5670-42c2-8047-264ed22e4f2a": {
+            "link": {
+                "name": "Cube.029",
+                "file": "models\\terrain\\Environment.glb"
+            }
+        },
+        "d0bb6676-1f28-48a2-b099-d4a967d2d6ed": {
+            "link": {
+                "name": "Cube.030",
+                "file": "models\\terrain\\Environment.glb"
+            }
+        },
+        "5f612938-dda6-4274-82af-9580ccf0c99b": {
+            "link": {
+                "name": "Cube.031",
+                "file": "models\\terrain\\Environment.glb"
+            }
+        },
+        "e8770a86-b920-4f1d-bd41-1d7c56ac1100": {
+            "link": {
+                "name": "Cube.032",
+                "file": "models\\terrain\\Environment.glb"
+            }
+        },
+        "9ade803b-2964-4914-9cda-788c520a65c6": {
+            "link": {
+                "name": "Cube.033",
+                "file": "models\\terrain\\Environment.glb"
+            }
+        },
+        "f672d926-758e-45d8-a50d-5b542ad3c91f": {
+            "link": {
+                "name": "Cube.034",
+                "file": "models\\terrain\\Environment.glb"
+            }
+        },
+        "df92c45c-7769-4411-9a89-6799b3bf9b8d": {
+            "link": {
+                "name": "Cube.035",
+                "file": "models\\terrain\\Environment.glb"
+            }
+        },
+        "1b75f291-5048-42d4-a1a2-feecb3b42d82": {
+            "link": {
+                "name": "Cube.036",
+                "file": "models\\terrain\\Environment.glb"
+            }
+        },
+        "a9e492ed-e297-4137-9cb7-6162348763f1": {
+            "link": {
+                "name": "Cube.037",
+                "file": "models\\terrain\\Environment.glb"
+            }
+        },
+        "9ce655bb-7fa9-424e-9eff-2ef71b523f31": {
+            "link": {
+                "name": "Cube.038",
+                "file": "models\\terrain\\Environment.glb"
+            }
+        },
+        "f9654de7-ec0a-4947-afab-d8bee0f7d9d2": {
+            "link": {
+                "name": "Cube.039",
+                "file": "models\\terrain\\Environment.glb"
+            }
+        },
+        "d9a58df9-1580-44b4-8874-734f7e4febdf": {
+            "link": {
+                "name": "Cube.040",
+                "file": "models\\terrain\\Environment.glb"
+            }
+        },
+        "66f6ab25-00df-47f0-a7e4-15ef1cc7d331": {
+            "link": {
+                "name": "Cube.041",
+                "file": "models\\terrain\\Environment.glb"
+            }
+        },
+        "3f5e8233-349a-447b-86d3-3cf241b96ec0": {
+            "link": {
+                "name": "Cube.042",
+                "file": "models\\terrain\\Environment.glb"
+            }
+        },
+        "9d715d6a-0a1a-43a3-9b68-8e0c4129cd46": {
+            "link": {
+                "name": "Cube.043",
+                "file": "models\\terrain\\Environment.glb"
+            }
+        },
+        "5a020186-9d0c-4ac9-b3b8-37cdb7bba6bd": {
+            "link": {
+                "name": "Cube.044",
+                "file": "models\\terrain\\Environment.glb"
+            }
+        },
+        "4b5ec41b-f57e-4050-8290-5ff48578dd23": {
+            "link": {
+                "name": "Cube.045",
+                "file": "models\\terrain\\Environment.glb"
+            }
+        },
+        "19d143d8-09b3-4685-b16d-dba8875fca40": {
+            "link": {
+                "name": "Cube.046",
+                "file": "models\\terrain\\Environment.glb"
+            }
+        },
+        "bcd65220-a528-4dd9-81e1-8db569642fca": {
+            "link": {
+                "name": "Cube.047",
+                "file": "models\\terrain\\Environment.glb"
+            }
+        },
+        "df6fb736-1382-43b0-b7ed-fccb7f81946a": {
+            "link": {
+                "name": "Cube.048",
+                "file": "models\\terrain\\Environment.glb"
+            }
+        },
+        "c19d4acc-a835-40ed-803b-2d5e6dda2c02": {
+            "link": {
+                "name": "Cube.049",
+                "file": "models\\terrain\\Environment.glb"
+            }
+        },
+        "44f1e499-c157-4963-a67b-a2590265db05": {
+            "link": {
+                "name": "Cube.050",
+                "file": "models\\terrain\\Environment.glb"
+            }
+        },
+        "50d312e7-eb4b-4f19-9c2f-4df0776cb820": {
+            "link": {
+                "name": "Cube.052",
+                "file": "models\\terrain\\Environment.glb"
+            }
+        },
+        "3631ec10-3fdb-4796-97c4-49a84135340a": {
+            "link": {
+                "name": "Cube.053",
+                "file": "models\\terrain\\Environment.glb"
+            }
+        },
+        "962dafbb-e673-44c0-ad6b-3a421061f967": {
+            "link": {
+                "name": "Cube.055",
+                "file": "models\\terrain\\Environment.glb"
+            }
+        },
+        "b83a6c98-ddff-43e0-a015-05f2d71adc7b": {
+            "link": {
+                "name": "Cube.056",
+                "file": "models\\terrain\\Environment.glb"
+            }
+        },
+        "292c35e6-57ae-41f4-9d76-2a2f315f5639": {
+            "link": {
+                "name": "Cube.057",
+                "file": "models\\terrain\\Environment.glb"
+            }
+        },
+        "c28902cb-692d-42f2-aab4-3cfb25bc8b15": {
+            "link": {
+                "name": "Cube.058",
+                "file": "models\\terrain\\Environment.glb"
+            }
+        },
+        "1d4062b8-b769-4782-b0dc-7638f2346ce6": {
+            "link": {
+                "name": "Cube.061",
+                "file": "models\\terrain\\Environment.glb"
+            }
+        },
+        "4116ee1e-b53b-42e7-9cca-c0ce5ee77168": {
+            "link": {
+                "name": "Cube.062",
+                "file": "models\\terrain\\Environment.glb"
+            }
+        },
+        "07cd1481-0e73-44e8-9437-729732e749b9": {
+            "link": {
+                "name": "Cube.059",
+                "file": "models\\terrain\\Environment.glb"
+            }
+        },
+        "c330e9cd-7c99-4147-b0ce-7a735f196613": {
+            "link": {
+                "name": "Cube.060",
+                "file": "models\\terrain\\Environment.glb"
+            }
+        },
+        "9cd86389-4a81-489b-a73d-b86801536232": {
+            "link": {
+                "name": "Cube.072",
+                "file": "models\\terrain\\Environment.glb"
+            }
+        },
+        "5cfcbdcc-cec9-4146-a879-0535e9f8d47e": {
+            "link": {
+                "name": "Cube.073",
+                "file": "models\\terrain\\Environment.glb"
+            }
+        },
+        "88a100e7-3cfa-4177-97ba-2d6a961d75ce": {
+            "link": {
+                "name": "Cube.074",
+                "file": "models\\terrain\\Environment.glb"
+            }
+        },
+        "27ac5af7-da0d-4ced-bd43-5efda5079714": {
+            "link": {
+                "name": "Cube.075",
+                "file": "models\\terrain\\Environment.glb"
+            }
+        },
+        "4dc9420c-56b5-4c7e-ab2f-0878fd957748": {
+            "link": {
+                "name": "Cube.076",
+                "file": "models\\terrain\\Environment.glb"
+            }
+        },
+        "891d9a57-d53f-4a3d-b231-2ed751368820": {
+            "link": {
+                "name": "Cylinder.004",
+                "file": "models\\terrain\\Environment.glb"
+            }
+        },
+        "40dbc1cf-aee7-493c-80b8-4e73e88039dc": {
+            "link": {
+                "name": "Cylinder.005",
+                "file": "models\\terrain\\Environment.glb"
+            }
+        },
+        "c48e646c-0847-40e4-a9ac-807b2b2e57ca": {
+            "link": {
+                "name": "Cylinder.006",
+                "file": "models\\terrain\\Environment.glb"
+            }
+        },
+        "a07bc19a-fcc4-41d5-af1e-83fae4593c08": {
+            "link": {
+                "name": "Cylinder.007",
+                "file": "models\\terrain\\Environment.glb"
+            }
         }
     },
     "textures": {
@@ -7138,6 +8557,42 @@
             "link": {
                 "name": "Vol_41_3_Tiles_Normal.png",
                 "file": "textures\\Wood\\Vol_41_3_Tiles_Normal.png"
+            }
+        },
+        "77b89305-58ed-44fd-9bb2-7f09874040f5": {
+            "link": {
+                "name": "texture_0",
+                "file": "models\\terrain\\Environment.glb"
+            }
+        },
+        "c586e522-3adb-4ce3-ba05-02293307e900": {
+            "link": {
+                "name": "texture_1",
+                "file": "models\\terrain\\Environment.glb"
+            }
+        },
+        "d5fa0ac1-b732-479f-b46e-f8bb270b2f7e": {
+            "link": {
+                "name": "texture_2",
+                "file": "models\\terrain\\Environment.glb"
+            }
+        },
+        "9dab3ac8-9b4e-4733-af60-8e595f720dbf": {
+            "link": {
+                "name": "texture_3",
+                "file": "models\\terrain\\Environment.glb"
+            }
+        },
+        "04dc9271-ba33-4349-9d57-d8c522eaf289": {
+            "link": {
+                "name": "texture_4",
+                "file": "models\\terrain\\Environment.glb"
+            }
+        },
+        "fecef6ad-0990-44e7-9c39-fbaa5db74c36": {
+            "link": {
+                "name": "texture_5",
+                "file": "models\\terrain\\Environment.glb"
             }
         }
     },
@@ -7774,6 +9229,42 @@
                 "name": "Vol_41_3_Tiles_Normal.png",
                 "file": "textures\\Wood\\Vol_41_3_Tiles_Normal.png"
             }
+        },
+        "074e1f00-e2c8-4bfb-995e-7932cc956689": {
+            "link": {
+                "name": "Vol_52_2_Stone_Normal",
+                "file": "models\\terrain\\Environment.glb"
+            }
+        },
+        "7f1b31e7-1fda-4c73-9a95-44ba86c0c628": {
+            "link": {
+                "name": "Vol_52_2_Stone_Base_Color",
+                "file": "models\\terrain\\Environment.glb"
+            }
+        },
+        "f0f4de72-ee6c-41d7-909a-e8b49b978baf": {
+            "link": {
+                "name": "Vol_59_2_Nature_Base_Color",
+                "file": "models\\terrain\\Environment.glb"
+            }
+        },
+        "9eed815a-5850-4924-ac90-9d532847f4e6": {
+            "link": {
+                "name": "vol_2_2_Wood_Normal",
+                "file": "models\\terrain\\Environment.glb"
+            }
+        },
+        "2d7ceed2-9c60-437f-881b-9109636f0557": {
+            "link": {
+                "name": "vol_2_2_Wood_Base_Color",
+                "file": "models\\terrain\\Environment.glb"
+            }
+        },
+        "2f8fd166-8358-4691-ac57-ea42bd4bc9a4": {
+            "link": {
+                "name": "Vol_59_2_Nature_Normal",
+                "file": "models\\terrain\\Environment.glb"
+            }
         }
     },
     "materials": {
@@ -7992,11 +9483,12 @@
             "pipeline": "34",
             "Flat": {
                 "color": [
-                    0.8392156,
-                    0.8392072,
-                    0.8392072,
+                    0.7847533,
+                    0.7847533,
+                    0.7847533,
                     1.0
-                ]
+                ],
+                "alphaMaskThreshold": 0.5
             }
         },
         "279": {
@@ -8145,6 +9637,70 @@
                 ]
             },
             "name": "UI-New"
+        },
+        "d1603976-99e5-4371-ac43-2bf6d659534d": {
+            "link": {
+                "name": "Cloud",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "Flat": {
+                "flatTexture": "114b23b6-ad70-4c46-8a02-d61fc5423a25"
+            }
+        },
+        "30c45614-7b5d-405b-ab31-4009d5045730": {
+            "link": {
+                "name": "Stone",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "pipeline": "223",
+            "Physical": {
+                "irradianceProbeTexture": "364-specular-tex",
+                "specularProbeTexture": "364-probe-tex",
+                "albedoTexture": "2acd8481-606a-41a1-ae0d-a447fa659175",
+                "normalTexture": "ea719192-540c-4552-ae83-0d95f24f58c5",
+                "albedoColor": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                ],
+                "roughnessFactor": 1.0
+            }
+        },
+        "315f7a72-ec35-4c91-88dd-064d9e21b757": {
+            "link": {
+                "name": "Terrain",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "pipeline": "223",
+            "Physical": {
+                "normalTexture": "b80d8a08-da2a-4cf1-b9ad-638947f9d332",
+                "irradianceProbeTexture": "364-specular-tex",
+                "specularProbeTexture": "364-probe-tex",
+                "albedoColor": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                ],
+                "roughnessFactor": 1.0,
+                "occlusionFactor": 1.0,
+                "albedoTexture": "1cb5e014-5968-4693-bc41-596407820ee3"
+            }
+        },
+        "fe83c471-fdfd-40d6-aab3-4db9c723411f": {
+            "link": {
+                "name": "Wood",
+                "file": "models\\terrain\\Environment.glb"
+            },
+            "pipeline": "223",
+            "Physical": {
+                "irradianceProbeTexture": "364-specular-tex",
+                "specularProbeTexture": "364-probe-tex",
+                "albedoTexture": "b5ed0eef-d5ed-4169-bf02-3f17393fdcb7",
+                "normalTexture": "1e4ce675-3834-4462-81f5-f5327d60a279",
+                "roughnessFactor": 1.0
+            }
         }
     },
     "shaders": {
@@ -8679,7 +10235,8 @@
         "models/Bricks/PyramidCut_Wireframe.glb",
         "models/Bricks/Cube_1_0.5_Wireframe.glb",
         "models/Bricks/Cube_1_0.5.glb",
-        "models/UI/MainMenuButtons.glb"
+        "models/UI/MainMenuButtons.glb",
+        "models/terrain/Environment.glb"
     ],
     "fonts": {
         "230": {
