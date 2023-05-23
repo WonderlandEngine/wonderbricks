@@ -1,4 +1,3747 @@
-(()=>{var vi=Object.create;var xt=Object.defineProperty;var bi=Object.getOwnPropertyDescriptor;var yi=Object.getOwnPropertyNames;var xi=Object.getPrototypeOf,wi=Object.prototype.hasOwnProperty;var Mi=(t,e,n)=>e in t?xt(t,e,{enumerable:!0,configurable:!0,writable:!0,value:n}):t[e]=n;var Ti=(t,e)=>()=>(e||t((e={exports:{}}).exports,e),e.exports),lt=(t,e)=>{for(var n in e)xt(t,n,{get:e[n],enumerable:!0})},Ai=(t,e,n,i)=>{if(e&&typeof e=="object"||typeof e=="function")for(let s of yi(e))!wi.call(t,s)&&s!==n&&xt(t,s,{get:()=>e[s],enumerable:!(i=bi(e,s))||i.enumerable});return t};var Sn=(t,e,n)=>(n=t!=null?vi(xi(t)):{},Ai(e||!t||!t.__esModule?xt(n,"default",{value:t,enumerable:!0}):n,t));var M=(t,e,n)=>(Mi(t,typeof e!="symbol"?e+"":e,n),n);var Cn=(t,e,n)=>new Promise((i,s)=>{var o=h=>{try{c(n.next(h))}catch(p){s(p)}},l=h=>{try{c(n.throw(h))}catch(p){s(p)}},c=h=>h.done?i(h.value):Promise.resolve(h.value).then(o,l);c((n=n.apply(t,e)).next())});var on=Ti(Ft=>{(function(){"use strict";var t=function(){this.init()};t.prototype={init:function(){var r=this||e;return r._counter=1e3,r._html5AudioPool=[],r.html5PoolSize=10,r._codecs={},r._howls=[],r._muted=!1,r._volume=1,r._canPlayEvent="canplaythrough",r._navigator=typeof window<"u"&&window.navigator?window.navigator:null,r.masterGain=null,r.noAudio=!1,r.usingWebAudio=!0,r.autoSuspend=!0,r.ctx=null,r.autoUnlock=!0,r._setup(),r},volume:function(r){var a=this||e;if(r=parseFloat(r),a.ctx||p(),typeof r<"u"&&r>=0&&r<=1){if(a._volume=r,a._muted)return a;a.usingWebAudio&&a.masterGain.gain.setValueAtTime(r,e.ctx.currentTime);for(var _=0;_<a._howls.length;_++)if(!a._howls[_]._webAudio)for(var m=a._howls[_]._getSoundIds(),u=0;u<m.length;u++){var f=a._howls[_]._soundById(m[u]);f&&f._node&&(f._node.volume=f._volume*r)}return a}return a._volume},mute:function(r){var a=this||e;a.ctx||p(),a._muted=r,a.usingWebAudio&&a.masterGain.gain.setValueAtTime(r?0:a._volume,e.ctx.currentTime);for(var _=0;_<a._howls.length;_++)if(!a._howls[_]._webAudio)for(var m=a._howls[_]._getSoundIds(),u=0;u<m.length;u++){var f=a._howls[_]._soundById(m[u]);f&&f._node&&(f._node.muted=r?!0:f._muted)}return a},stop:function(){for(var r=this||e,a=0;a<r._howls.length;a++)r._howls[a].stop();return r},unload:function(){for(var r=this||e,a=r._howls.length-1;a>=0;a--)r._howls[a].unload();return r.usingWebAudio&&r.ctx&&typeof r.ctx.close<"u"&&(r.ctx.close(),r.ctx=null,p()),r},codecs:function(r){return(this||e)._codecs[r.replace(/^x-/,"")]},_setup:function(){var r=this||e;if(r.state=r.ctx&&r.ctx.state||"suspended",r._autoSuspend(),!r.usingWebAudio)if(typeof Audio<"u")try{var a=new Audio;typeof a.oncanplaythrough>"u"&&(r._canPlayEvent="canplay")}catch{r.noAudio=!0}else r.noAudio=!0;try{var a=new Audio;a.muted&&(r.noAudio=!0)}catch{}return r.noAudio||r._setupCodecs(),r},_setupCodecs:function(){var r=this||e,a=null;try{a=typeof Audio<"u"?new Audio:null}catch{return r}if(!a||typeof a.canPlayType!="function")return r;var _=a.canPlayType("audio/mpeg;").replace(/^no$/,""),m=r._navigator?r._navigator.userAgent:"",u=m.match(/OPR\/([0-6].)/g),f=u&&parseInt(u[0].split("/")[1],10)<33,d=m.indexOf("Safari")!==-1&&m.indexOf("Chrome")===-1,b=m.match(/Version\/(.*?) /),x=d&&b&&parseInt(b[1],10)<15;return r._codecs={mp3:!!(!f&&(_||a.canPlayType("audio/mp3;").replace(/^no$/,""))),mpeg:!!_,opus:!!a.canPlayType('audio/ogg; codecs="opus"').replace(/^no$/,""),ogg:!!a.canPlayType('audio/ogg; codecs="vorbis"').replace(/^no$/,""),oga:!!a.canPlayType('audio/ogg; codecs="vorbis"').replace(/^no$/,""),wav:!!(a.canPlayType('audio/wav; codecs="1"')||a.canPlayType("audio/wav")).replace(/^no$/,""),aac:!!a.canPlayType("audio/aac;").replace(/^no$/,""),caf:!!a.canPlayType("audio/x-caf;").replace(/^no$/,""),m4a:!!(a.canPlayType("audio/x-m4a;")||a.canPlayType("audio/m4a;")||a.canPlayType("audio/aac;")).replace(/^no$/,""),m4b:!!(a.canPlayType("audio/x-m4b;")||a.canPlayType("audio/m4b;")||a.canPlayType("audio/aac;")).replace(/^no$/,""),mp4:!!(a.canPlayType("audio/x-mp4;")||a.canPlayType("audio/mp4;")||a.canPlayType("audio/aac;")).replace(/^no$/,""),weba:!!(!x&&a.canPlayType('audio/webm; codecs="vorbis"').replace(/^no$/,"")),webm:!!(!x&&a.canPlayType('audio/webm; codecs="vorbis"').replace(/^no$/,"")),dolby:!!a.canPlayType('audio/mp4; codecs="ec-3"').replace(/^no$/,""),flac:!!(a.canPlayType("audio/x-flac;")||a.canPlayType("audio/flac;")).replace(/^no$/,"")},r},_unlockAudio:function(){var r=this||e;if(!(r._audioUnlocked||!r.ctx)){r._audioUnlocked=!1,r.autoUnlock=!1,!r._mobileUnloaded&&r.ctx.sampleRate!==44100&&(r._mobileUnloaded=!0,r.unload()),r._scratchBuffer=r.ctx.createBuffer(1,1,22050);var a=function(_){for(;r._html5AudioPool.length<r.html5PoolSize;)try{var m=new Audio;m._unlocked=!0,r._releaseHtml5Audio(m)}catch{r.noAudio=!0;break}for(var u=0;u<r._howls.length;u++)if(!r._howls[u]._webAudio)for(var f=r._howls[u]._getSoundIds(),d=0;d<f.length;d++){var b=r._howls[u]._soundById(f[d]);b&&b._node&&!b._node._unlocked&&(b._node._unlocked=!0,b._node.load())}r._autoResume();var x=r.ctx.createBufferSource();x.buffer=r._scratchBuffer,x.connect(r.ctx.destination),typeof x.start>"u"?x.noteOn(0):x.start(0),typeof r.ctx.resume=="function"&&r.ctx.resume(),x.onended=function(){x.disconnect(0),r._audioUnlocked=!0,document.removeEventListener("touchstart",a,!0),document.removeEventListener("touchend",a,!0),document.removeEventListener("click",a,!0),document.removeEventListener("keydown",a,!0);for(var w=0;w<r._howls.length;w++)r._howls[w]._emit("unlock")}};return document.addEventListener("touchstart",a,!0),document.addEventListener("touchend",a,!0),document.addEventListener("click",a,!0),document.addEventListener("keydown",a,!0),r}},_obtainHtml5Audio:function(){var r=this||e;if(r._html5AudioPool.length)return r._html5AudioPool.pop();var a=new Audio().play();return a&&typeof Promise<"u"&&(a instanceof Promise||typeof a.then=="function")&&a.catch(function(){console.warn("HTML5 Audio pool exhausted, returning potentially locked audio object.")}),new Audio},_releaseHtml5Audio:function(r){var a=this||e;return r._unlocked&&a._html5AudioPool.push(r),a},_autoSuspend:function(){var r=this;if(!(!r.autoSuspend||!r.ctx||typeof r.ctx.suspend>"u"||!e.usingWebAudio)){for(var a=0;a<r._howls.length;a++)if(r._howls[a]._webAudio){for(var _=0;_<r._howls[a]._sounds.length;_++)if(!r._howls[a]._sounds[_]._paused)return r}return r._suspendTimer&&clearTimeout(r._suspendTimer),r._suspendTimer=setTimeout(function(){if(r.autoSuspend){r._suspendTimer=null,r.state="suspending";var m=function(){r.state="suspended",r._resumeAfterSuspend&&(delete r._resumeAfterSuspend,r._autoResume())};r.ctx.suspend().then(m,m)}},3e4),r}},_autoResume:function(){var r=this;if(!(!r.ctx||typeof r.ctx.resume>"u"||!e.usingWebAudio))return r.state==="running"&&r.ctx.state!=="interrupted"&&r._suspendTimer?(clearTimeout(r._suspendTimer),r._suspendTimer=null):r.state==="suspended"||r.state==="running"&&r.ctx.state==="interrupted"?(r.ctx.resume().then(function(){r.state="running";for(var a=0;a<r._howls.length;a++)r._howls[a]._emit("resume")}),r._suspendTimer&&(clearTimeout(r._suspendTimer),r._suspendTimer=null)):r.state==="suspending"&&(r._resumeAfterSuspend=!0),r}};var e=new t,n=function(r){var a=this;if(!r.src||r.src.length===0){console.error("An array of source files must be passed with any new Howl.");return}a.init(r)};n.prototype={init:function(r){var a=this;return e.ctx||p(),a._autoplay=r.autoplay||!1,a._format=typeof r.format!="string"?r.format:[r.format],a._html5=r.html5||!1,a._muted=r.mute||!1,a._loop=r.loop||!1,a._pool=r.pool||5,a._preload=typeof r.preload=="boolean"||r.preload==="metadata"?r.preload:!0,a._rate=r.rate||1,a._sprite=r.sprite||{},a._src=typeof r.src!="string"?r.src:[r.src],a._volume=r.volume!==void 0?r.volume:1,a._xhr={method:r.xhr&&r.xhr.method?r.xhr.method:"GET",headers:r.xhr&&r.xhr.headers?r.xhr.headers:null,withCredentials:r.xhr&&r.xhr.withCredentials?r.xhr.withCredentials:!1},a._duration=0,a._state="unloaded",a._sounds=[],a._endTimers={},a._queue=[],a._playLock=!1,a._onend=r.onend?[{fn:r.onend}]:[],a._onfade=r.onfade?[{fn:r.onfade}]:[],a._onload=r.onload?[{fn:r.onload}]:[],a._onloaderror=r.onloaderror?[{fn:r.onloaderror}]:[],a._onplayerror=r.onplayerror?[{fn:r.onplayerror}]:[],a._onpause=r.onpause?[{fn:r.onpause}]:[],a._onplay=r.onplay?[{fn:r.onplay}]:[],a._onstop=r.onstop?[{fn:r.onstop}]:[],a._onmute=r.onmute?[{fn:r.onmute}]:[],a._onvolume=r.onvolume?[{fn:r.onvolume}]:[],a._onrate=r.onrate?[{fn:r.onrate}]:[],a._onseek=r.onseek?[{fn:r.onseek}]:[],a._onunlock=r.onunlock?[{fn:r.onunlock}]:[],a._onresume=[],a._webAudio=e.usingWebAudio&&!a._html5,typeof e.ctx<"u"&&e.ctx&&e.autoUnlock&&e._unlockAudio(),e._howls.push(a),a._autoplay&&a._queue.push({event:"play",action:function(){a.play()}}),a._preload&&a._preload!=="none"&&a.load(),a},load:function(){var r=this,a=null;if(e.noAudio){r._emit("loaderror",null,"No audio support.");return}typeof r._src=="string"&&(r._src=[r._src]);for(var _=0;_<r._src.length;_++){var m,u;if(r._format&&r._format[_])m=r._format[_];else{if(u=r._src[_],typeof u!="string"){r._emit("loaderror",null,"Non-string found in selected audio sources - ignoring.");continue}m=/^data:audio\/([^;,]+);/i.exec(u),m||(m=/\.([^.]+)$/.exec(u.split("?",1)[0])),m&&(m=m[1].toLowerCase())}if(m||console.warn('No file extension was found. Consider using the "format" property or specify an extension.'),m&&e.codecs(m)){a=r._src[_];break}}if(!a){r._emit("loaderror",null,"No codec support for selected audio sources.");return}return r._src=a,r._state="loading",window.location.protocol==="https:"&&a.slice(0,5)==="http:"&&(r._html5=!0,r._webAudio=!1),new i(r),r._webAudio&&o(r),r},play:function(r,a){var _=this,m=null;if(typeof r=="number")m=r,r=null;else{if(typeof r=="string"&&_._state==="loaded"&&!_._sprite[r])return null;if(typeof r>"u"&&(r="__default",!_._playLock)){for(var u=0,f=0;f<_._sounds.length;f++)_._sounds[f]._paused&&!_._sounds[f]._ended&&(u++,m=_._sounds[f]._id);u===1?r=null:m=null}}var d=m?_._soundById(m):_._inactiveSound();if(!d)return null;if(m&&!r&&(r=d._sprite||"__default"),_._state!=="loaded"){d._sprite=r,d._ended=!1;var b=d._id;return _._queue.push({event:"play",action:function(){_.play(b)}}),b}if(m&&!d._paused)return a||_._loadQueue("play"),d._id;_._webAudio&&e._autoResume();var x=Math.max(0,d._seek>0?d._seek:_._sprite[r][0]/1e3),w=Math.max(0,(_._sprite[r][0]+_._sprite[r][1])/1e3-x),A=w*1e3/Math.abs(d._rate),T=_._sprite[r][0]/1e3,S=(_._sprite[r][0]+_._sprite[r][1])/1e3;d._sprite=r,d._ended=!1;var E=function(){d._paused=!1,d._seek=x,d._start=T,d._stop=S,d._loop=!!(d._loop||_._sprite[r][2])};if(x>=S){_._ended(d);return}var C=d._node;if(_._webAudio){var F=function(){_._playLock=!1,E(),_._refreshBuffer(d);var k=d._muted||_._muted?0:d._volume;C.gain.setValueAtTime(k,e.ctx.currentTime),d._playStart=e.ctx.currentTime,typeof C.bufferSource.start>"u"?d._loop?C.bufferSource.noteGrainOn(0,x,86400):C.bufferSource.noteGrainOn(0,x,w):d._loop?C.bufferSource.start(0,x,86400):C.bufferSource.start(0,x,w),A!==1/0&&(_._endTimers[d._id]=setTimeout(_._ended.bind(_,d),A)),a||setTimeout(function(){_._emit("play",d._id),_._loadQueue()},0)};e.state==="running"&&e.ctx.state!=="interrupted"?F():(_._playLock=!0,_.once("resume",F),_._clearTimer(d._id))}else{var B=function(){C.currentTime=x,C.muted=d._muted||_._muted||e._muted||C.muted,C.volume=d._volume*e.volume(),C.playbackRate=d._rate;try{var k=C.play();if(k&&typeof Promise<"u"&&(k instanceof Promise||typeof k.then=="function")?(_._playLock=!0,E(),k.then(function(){_._playLock=!1,C._unlocked=!0,a?_._loadQueue():_._emit("play",d._id)}).catch(function(){_._playLock=!1,_._emit("playerror",d._id,"Playback was unable to start. This is most commonly an issue on mobile devices and Chrome where playback was not within a user interaction."),d._ended=!0,d._paused=!0})):a||(_._playLock=!1,E(),_._emit("play",d._id)),C.playbackRate=d._rate,C.paused){_._emit("playerror",d._id,"Playback was unable to start. This is most commonly an issue on mobile devices and Chrome where playback was not within a user interaction.");return}r!=="__default"||d._loop?_._endTimers[d._id]=setTimeout(_._ended.bind(_,d),A):(_._endTimers[d._id]=function(){_._ended(d),C.removeEventListener("ended",_._endTimers[d._id],!1)},C.addEventListener("ended",_._endTimers[d._id],!1))}catch(I){_._emit("playerror",d._id,I)}};C.src==="data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEARKwAAIhYAQACABAAAABkYXRhAgAAAAEA"&&(C.src=_._src,C.load());var N=window&&window.ejecta||!C.readyState&&e._navigator.isCocoonJS;if(C.readyState>=3||N)B();else{_._playLock=!0,_._state="loading";var D=function(){_._state="loaded",B(),C.removeEventListener(e._canPlayEvent,D,!1)};C.addEventListener(e._canPlayEvent,D,!1),_._clearTimer(d._id)}}return d._id},pause:function(r){var a=this;if(a._state!=="loaded"||a._playLock)return a._queue.push({event:"pause",action:function(){a.pause(r)}}),a;for(var _=a._getSoundIds(r),m=0;m<_.length;m++){a._clearTimer(_[m]);var u=a._soundById(_[m]);if(u&&!u._paused&&(u._seek=a.seek(_[m]),u._rateSeek=0,u._paused=!0,a._stopFade(_[m]),u._node))if(a._webAudio){if(!u._node.bufferSource)continue;typeof u._node.bufferSource.stop>"u"?u._node.bufferSource.noteOff(0):u._node.bufferSource.stop(0),a._cleanBuffer(u._node)}else(!isNaN(u._node.duration)||u._node.duration===1/0)&&u._node.pause();arguments[1]||a._emit("pause",u?u._id:null)}return a},stop:function(r,a){var _=this;if(_._state!=="loaded"||_._playLock)return _._queue.push({event:"stop",action:function(){_.stop(r)}}),_;for(var m=_._getSoundIds(r),u=0;u<m.length;u++){_._clearTimer(m[u]);var f=_._soundById(m[u]);f&&(f._seek=f._start||0,f._rateSeek=0,f._paused=!0,f._ended=!0,_._stopFade(m[u]),f._node&&(_._webAudio?f._node.bufferSource&&(typeof f._node.bufferSource.stop>"u"?f._node.bufferSource.noteOff(0):f._node.bufferSource.stop(0),_._cleanBuffer(f._node)):(!isNaN(f._node.duration)||f._node.duration===1/0)&&(f._node.currentTime=f._start||0,f._node.pause(),f._node.duration===1/0&&_._clearSound(f._node))),a||_._emit("stop",f._id))}return _},mute:function(r,a){var _=this;if(_._state!=="loaded"||_._playLock)return _._queue.push({event:"mute",action:function(){_.mute(r,a)}}),_;if(typeof a>"u")if(typeof r=="boolean")_._muted=r;else return _._muted;for(var m=_._getSoundIds(a),u=0;u<m.length;u++){var f=_._soundById(m[u]);f&&(f._muted=r,f._interval&&_._stopFade(f._id),_._webAudio&&f._node?f._node.gain.setValueAtTime(r?0:f._volume,e.ctx.currentTime):f._node&&(f._node.muted=e._muted?!0:r),_._emit("mute",f._id))}return _},volume:function(){var r=this,a=arguments,_,m;if(a.length===0)return r._volume;if(a.length===1||a.length===2&&typeof a[1]>"u"){var u=r._getSoundIds(),f=u.indexOf(a[0]);f>=0?m=parseInt(a[0],10):_=parseFloat(a[0])}else a.length>=2&&(_=parseFloat(a[0]),m=parseInt(a[1],10));var d;if(typeof _<"u"&&_>=0&&_<=1){if(r._state!=="loaded"||r._playLock)return r._queue.push({event:"volume",action:function(){r.volume.apply(r,a)}}),r;typeof m>"u"&&(r._volume=_),m=r._getSoundIds(m);for(var b=0;b<m.length;b++)d=r._soundById(m[b]),d&&(d._volume=_,a[2]||r._stopFade(m[b]),r._webAudio&&d._node&&!d._muted?d._node.gain.setValueAtTime(_,e.ctx.currentTime):d._node&&!d._muted&&(d._node.volume=_*e.volume()),r._emit("volume",d._id))}else return d=m?r._soundById(m):r._sounds[0],d?d._volume:0;return r},fade:function(r,a,_,m){var u=this;if(u._state!=="loaded"||u._playLock)return u._queue.push({event:"fade",action:function(){u.fade(r,a,_,m)}}),u;r=Math.min(Math.max(0,parseFloat(r)),1),a=Math.min(Math.max(0,parseFloat(a)),1),_=parseFloat(_),u.volume(r,m);for(var f=u._getSoundIds(m),d=0;d<f.length;d++){var b=u._soundById(f[d]);if(b){if(m||u._stopFade(f[d]),u._webAudio&&!b._muted){var x=e.ctx.currentTime,w=x+_/1e3;b._volume=r,b._node.gain.setValueAtTime(r,x),b._node.gain.linearRampToValueAtTime(a,w)}u._startFadeInterval(b,r,a,_,f[d],typeof m>"u")}}return u},_startFadeInterval:function(r,a,_,m,u,f){var d=this,b=a,x=_-a,w=Math.abs(x/.01),A=Math.max(4,w>0?m/w:m),T=Date.now();r._fadeTo=_,r._interval=setInterval(function(){var S=(Date.now()-T)/m;T=Date.now(),b+=x*S,b=Math.round(b*100)/100,x<0?b=Math.max(_,b):b=Math.min(_,b),d._webAudio?r._volume=b:d.volume(b,r._id,!0),f&&(d._volume=b),(_<a&&b<=_||_>a&&b>=_)&&(clearInterval(r._interval),r._interval=null,r._fadeTo=null,d.volume(_,r._id),d._emit("fade",r._id))},A)},_stopFade:function(r){var a=this,_=a._soundById(r);return _&&_._interval&&(a._webAudio&&_._node.gain.cancelScheduledValues(e.ctx.currentTime),clearInterval(_._interval),_._interval=null,a.volume(_._fadeTo,r),_._fadeTo=null,a._emit("fade",r)),a},loop:function(){var r=this,a=arguments,_,m,u;if(a.length===0)return r._loop;if(a.length===1)if(typeof a[0]=="boolean")_=a[0],r._loop=_;else return u=r._soundById(parseInt(a[0],10)),u?u._loop:!1;else a.length===2&&(_=a[0],m=parseInt(a[1],10));for(var f=r._getSoundIds(m),d=0;d<f.length;d++)u=r._soundById(f[d]),u&&(u._loop=_,r._webAudio&&u._node&&u._node.bufferSource&&(u._node.bufferSource.loop=_,_&&(u._node.bufferSource.loopStart=u._start||0,u._node.bufferSource.loopEnd=u._stop,r.playing(f[d])&&(r.pause(f[d],!0),r.play(f[d],!0)))));return r},rate:function(){var r=this,a=arguments,_,m;if(a.length===0)m=r._sounds[0]._id;else if(a.length===1){var u=r._getSoundIds(),f=u.indexOf(a[0]);f>=0?m=parseInt(a[0],10):_=parseFloat(a[0])}else a.length===2&&(_=parseFloat(a[0]),m=parseInt(a[1],10));var d;if(typeof _=="number"){if(r._state!=="loaded"||r._playLock)return r._queue.push({event:"rate",action:function(){r.rate.apply(r,a)}}),r;typeof m>"u"&&(r._rate=_),m=r._getSoundIds(m);for(var b=0;b<m.length;b++)if(d=r._soundById(m[b]),d){r.playing(m[b])&&(d._rateSeek=r.seek(m[b]),d._playStart=r._webAudio?e.ctx.currentTime:d._playStart),d._rate=_,r._webAudio&&d._node&&d._node.bufferSource?d._node.bufferSource.playbackRate.setValueAtTime(_,e.ctx.currentTime):d._node&&(d._node.playbackRate=_);var x=r.seek(m[b]),w=(r._sprite[d._sprite][0]+r._sprite[d._sprite][1])/1e3-x,A=w*1e3/Math.abs(d._rate);(r._endTimers[m[b]]||!d._paused)&&(r._clearTimer(m[b]),r._endTimers[m[b]]=setTimeout(r._ended.bind(r,d),A)),r._emit("rate",d._id)}}else return d=r._soundById(m),d?d._rate:r._rate;return r},seek:function(){var r=this,a=arguments,_,m;if(a.length===0)r._sounds.length&&(m=r._sounds[0]._id);else if(a.length===1){var u=r._getSoundIds(),f=u.indexOf(a[0]);f>=0?m=parseInt(a[0],10):r._sounds.length&&(m=r._sounds[0]._id,_=parseFloat(a[0]))}else a.length===2&&(_=parseFloat(a[0]),m=parseInt(a[1],10));if(typeof m>"u")return 0;if(typeof _=="number"&&(r._state!=="loaded"||r._playLock))return r._queue.push({event:"seek",action:function(){r.seek.apply(r,a)}}),r;var d=r._soundById(m);if(d)if(typeof _=="number"&&_>=0){var b=r.playing(m);b&&r.pause(m,!0),d._seek=_,d._ended=!1,r._clearTimer(m),!r._webAudio&&d._node&&!isNaN(d._node.duration)&&(d._node.currentTime=_);var x=function(){b&&r.play(m,!0),r._emit("seek",m)};if(b&&!r._webAudio){var w=function(){r._playLock?setTimeout(w,0):x()};setTimeout(w,0)}else x()}else if(r._webAudio){var A=r.playing(m)?e.ctx.currentTime-d._playStart:0,T=d._rateSeek?d._rateSeek-d._seek:0;return d._seek+(T+A*Math.abs(d._rate))}else return d._node.currentTime;return r},playing:function(r){var a=this;if(typeof r=="number"){var _=a._soundById(r);return _?!_._paused:!1}for(var m=0;m<a._sounds.length;m++)if(!a._sounds[m]._paused)return!0;return!1},duration:function(r){var a=this,_=a._duration,m=a._soundById(r);return m&&(_=a._sprite[m._sprite][1]/1e3),_},state:function(){return this._state},unload:function(){for(var r=this,a=r._sounds,_=0;_<a.length;_++)a[_]._paused||r.stop(a[_]._id),r._webAudio||(r._clearSound(a[_]._node),a[_]._node.removeEventListener("error",a[_]._errorFn,!1),a[_]._node.removeEventListener(e._canPlayEvent,a[_]._loadFn,!1),a[_]._node.removeEventListener("ended",a[_]._endFn,!1),e._releaseHtml5Audio(a[_]._node)),delete a[_]._node,r._clearTimer(a[_]._id);var m=e._howls.indexOf(r);m>=0&&e._howls.splice(m,1);var u=!0;for(_=0;_<e._howls.length;_++)if(e._howls[_]._src===r._src||r._src.indexOf(e._howls[_]._src)>=0){u=!1;break}return s&&u&&delete s[r._src],e.noAudio=!1,r._state="unloaded",r._sounds=[],r=null,null},on:function(r,a,_,m){var u=this,f=u["_on"+r];return typeof a=="function"&&f.push(m?{id:_,fn:a,once:m}:{id:_,fn:a}),u},off:function(r,a,_){var m=this,u=m["_on"+r],f=0;if(typeof a=="number"&&(_=a,a=null),a||_)for(f=0;f<u.length;f++){var d=_===u[f].id;if(a===u[f].fn&&d||!a&&d){u.splice(f,1);break}}else if(r)m["_on"+r]=[];else{var b=Object.keys(m);for(f=0;f<b.length;f++)b[f].indexOf("_on")===0&&Array.isArray(m[b[f]])&&(m[b[f]]=[])}return m},once:function(r,a,_){var m=this;return m.on(r,a,_,1),m},_emit:function(r,a,_){for(var m=this,u=m["_on"+r],f=u.length-1;f>=0;f--)(!u[f].id||u[f].id===a||r==="load")&&(setTimeout(function(d){d.call(this,a,_)}.bind(m,u[f].fn),0),u[f].once&&m.off(r,u[f].fn,u[f].id));return m._loadQueue(r),m},_loadQueue:function(r){var a=this;if(a._queue.length>0){var _=a._queue[0];_.event===r&&(a._queue.shift(),a._loadQueue()),r||_.action()}return a},_ended:function(r){var a=this,_=r._sprite;if(!a._webAudio&&r._node&&!r._node.paused&&!r._node.ended&&r._node.currentTime<r._stop)return setTimeout(a._ended.bind(a,r),100),a;var m=!!(r._loop||a._sprite[_][2]);if(a._emit("end",r._id),!a._webAudio&&m&&a.stop(r._id,!0).play(r._id),a._webAudio&&m){a._emit("play",r._id),r._seek=r._start||0,r._rateSeek=0,r._playStart=e.ctx.currentTime;var u=(r._stop-r._start)*1e3/Math.abs(r._rate);a._endTimers[r._id]=setTimeout(a._ended.bind(a,r),u)}return a._webAudio&&!m&&(r._paused=!0,r._ended=!0,r._seek=r._start||0,r._rateSeek=0,a._clearTimer(r._id),a._cleanBuffer(r._node),e._autoSuspend()),!a._webAudio&&!m&&a.stop(r._id,!0),a},_clearTimer:function(r){var a=this;if(a._endTimers[r]){if(typeof a._endTimers[r]!="function")clearTimeout(a._endTimers[r]);else{var _=a._soundById(r);_&&_._node&&_._node.removeEventListener("ended",a._endTimers[r],!1)}delete a._endTimers[r]}return a},_soundById:function(r){for(var a=this,_=0;_<a._sounds.length;_++)if(r===a._sounds[_]._id)return a._sounds[_];return null},_inactiveSound:function(){var r=this;r._drain();for(var a=0;a<r._sounds.length;a++)if(r._sounds[a]._ended)return r._sounds[a].reset();return new i(r)},_drain:function(){var r=this,a=r._pool,_=0,m=0;if(!(r._sounds.length<a)){for(m=0;m<r._sounds.length;m++)r._sounds[m]._ended&&_++;for(m=r._sounds.length-1;m>=0;m--){if(_<=a)return;r._sounds[m]._ended&&(r._webAudio&&r._sounds[m]._node&&r._sounds[m]._node.disconnect(0),r._sounds.splice(m,1),_--)}}},_getSoundIds:function(r){var a=this;if(typeof r>"u"){for(var _=[],m=0;m<a._sounds.length;m++)_.push(a._sounds[m]._id);return _}else return[r]},_refreshBuffer:function(r){var a=this;return r._node.bufferSource=e.ctx.createBufferSource(),r._node.bufferSource.buffer=s[a._src],r._panner?r._node.bufferSource.connect(r._panner):r._node.bufferSource.connect(r._node),r._node.bufferSource.loop=r._loop,r._loop&&(r._node.bufferSource.loopStart=r._start||0,r._node.bufferSource.loopEnd=r._stop||0),r._node.bufferSource.playbackRate.setValueAtTime(r._rate,e.ctx.currentTime),a},_cleanBuffer:function(r){var a=this,_=e._navigator&&e._navigator.vendor.indexOf("Apple")>=0;if(e._scratchBuffer&&r.bufferSource&&(r.bufferSource.onended=null,r.bufferSource.disconnect(0),_))try{r.bufferSource.buffer=e._scratchBuffer}catch{}return r.bufferSource=null,a},_clearSound:function(r){var a=/MSIE |Trident\//.test(e._navigator&&e._navigator.userAgent);a||(r.src="data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEARKwAAIhYAQACABAAAABkYXRhAgAAAAEA")}};var i=function(r){this._parent=r,this.init()};i.prototype={init:function(){var r=this,a=r._parent;return r._muted=a._muted,r._loop=a._loop,r._volume=a._volume,r._rate=a._rate,r._seek=0,r._paused=!0,r._ended=!0,r._sprite="__default",r._id=++e._counter,a._sounds.push(r),r.create(),r},create:function(){var r=this,a=r._parent,_=e._muted||r._muted||r._parent._muted?0:r._volume;return a._webAudio?(r._node=typeof e.ctx.createGain>"u"?e.ctx.createGainNode():e.ctx.createGain(),r._node.gain.setValueAtTime(_,e.ctx.currentTime),r._node.paused=!0,r._node.connect(e.masterGain)):e.noAudio||(r._node=e._obtainHtml5Audio(),r._errorFn=r._errorListener.bind(r),r._node.addEventListener("error",r._errorFn,!1),r._loadFn=r._loadListener.bind(r),r._node.addEventListener(e._canPlayEvent,r._loadFn,!1),r._endFn=r._endListener.bind(r),r._node.addEventListener("ended",r._endFn,!1),r._node.src=a._src,r._node.preload=a._preload===!0?"auto":a._preload,r._node.volume=_*e.volume(),r._node.load()),r},reset:function(){var r=this,a=r._parent;return r._muted=a._muted,r._loop=a._loop,r._volume=a._volume,r._rate=a._rate,r._seek=0,r._rateSeek=0,r._paused=!0,r._ended=!0,r._sprite="__default",r._id=++e._counter,r},_errorListener:function(){var r=this;r._parent._emit("loaderror",r._id,r._node.error?r._node.error.code:0),r._node.removeEventListener("error",r._errorFn,!1)},_loadListener:function(){var r=this,a=r._parent;a._duration=Math.ceil(r._node.duration*10)/10,Object.keys(a._sprite).length===0&&(a._sprite={__default:[0,a._duration*1e3]}),a._state!=="loaded"&&(a._state="loaded",a._emit("load"),a._loadQueue()),r._node.removeEventListener(e._canPlayEvent,r._loadFn,!1)},_endListener:function(){var r=this,a=r._parent;a._duration===1/0&&(a._duration=Math.ceil(r._node.duration*10)/10,a._sprite.__default[1]===1/0&&(a._sprite.__default[1]=a._duration*1e3),a._ended(r)),r._node.removeEventListener("ended",r._endFn,!1)}};var s={},o=function(r){var a=r._src;if(s[a]){r._duration=s[a].duration,h(r);return}if(/^data:[^;]+;base64,/.test(a)){for(var _=atob(a.split(",")[1]),m=new Uint8Array(_.length),u=0;u<_.length;++u)m[u]=_.charCodeAt(u);c(m.buffer,r)}else{var f=new XMLHttpRequest;f.open(r._xhr.method,a,!0),f.withCredentials=r._xhr.withCredentials,f.responseType="arraybuffer",r._xhr.headers&&Object.keys(r._xhr.headers).forEach(function(d){f.setRequestHeader(d,r._xhr.headers[d])}),f.onload=function(){var d=(f.status+"")[0];if(d!=="0"&&d!=="2"&&d!=="3"){r._emit("loaderror",null,"Failed loading audio file with status: "+f.status+".");return}c(f.response,r)},f.onerror=function(){r._webAudio&&(r._html5=!0,r._webAudio=!1,r._sounds=[],delete s[a],r.load())},l(f)}},l=function(r){try{r.send()}catch{r.onerror()}},c=function(r,a){var _=function(){a._emit("loaderror",null,"Decoding audio data failed.")},m=function(u){u&&a._sounds.length>0?(s[a._src]=u,h(a,u)):_()};typeof Promise<"u"&&e.ctx.decodeAudioData.length===1?e.ctx.decodeAudioData(r).then(m).catch(_):e.ctx.decodeAudioData(r,m,_)},h=function(r,a){a&&!r._duration&&(r._duration=a.duration),Object.keys(r._sprite).length===0&&(r._sprite={__default:[0,r._duration*1e3]}),r._state!=="loaded"&&(r._state="loaded",r._emit("load"),r._loadQueue())},p=function(){if(e.usingWebAudio){try{typeof AudioContext<"u"?e.ctx=new AudioContext:typeof webkitAudioContext<"u"?e.ctx=new webkitAudioContext:e.usingWebAudio=!1}catch{e.usingWebAudio=!1}e.ctx||(e.usingWebAudio=!1);var r=/iP(hone|od|ad)/.test(e._navigator&&e._navigator.platform),a=e._navigator&&e._navigator.appVersion.match(/OS (\d+)_(\d+)_?(\d+)?/),_=a?parseInt(a[1],10):null;if(r&&_&&_<9){var m=/safari/.test(e._navigator&&e._navigator.userAgent.toLowerCase());e._navigator&&!m&&(e.usingWebAudio=!1)}e.usingWebAudio&&(e.masterGain=typeof e.ctx.createGain>"u"?e.ctx.createGainNode():e.ctx.createGain(),e.masterGain.gain.setValueAtTime(e._muted?0:e._volume,e.ctx.currentTime),e.masterGain.connect(e.ctx.destination)),e._setup()}};typeof define=="function"&&define.amd&&define([],function(){return{Howler:e,Howl:n}}),typeof Ft<"u"&&(Ft.Howler=e,Ft.Howl=n),typeof global<"u"?(global.HowlerGlobal=t,global.Howler=e,global.Howl=n,global.Sound=i):typeof window<"u"&&(window.HowlerGlobal=t,window.Howler=e,window.Howl=n,window.Sound=i)})();(function(){"use strict";HowlerGlobal.prototype._pos=[0,0,0],HowlerGlobal.prototype._orientation=[0,0,-1,0,1,0],HowlerGlobal.prototype.stereo=function(e){var n=this;if(!n.ctx||!n.ctx.listener)return n;for(var i=n._howls.length-1;i>=0;i--)n._howls[i].stereo(e);return n},HowlerGlobal.prototype.pos=function(e,n,i){var s=this;if(!s.ctx||!s.ctx.listener)return s;if(n=typeof n!="number"?s._pos[1]:n,i=typeof i!="number"?s._pos[2]:i,typeof e=="number")s._pos=[e,n,i],typeof s.ctx.listener.positionX<"u"?(s.ctx.listener.positionX.setTargetAtTime(s._pos[0],Howler.ctx.currentTime,.1),s.ctx.listener.positionY.setTargetAtTime(s._pos[1],Howler.ctx.currentTime,.1),s.ctx.listener.positionZ.setTargetAtTime(s._pos[2],Howler.ctx.currentTime,.1)):s.ctx.listener.setPosition(s._pos[0],s._pos[1],s._pos[2]);else return s._pos;return s},HowlerGlobal.prototype.orientation=function(e,n,i,s,o,l){var c=this;if(!c.ctx||!c.ctx.listener)return c;var h=c._orientation;if(n=typeof n!="number"?h[1]:n,i=typeof i!="number"?h[2]:i,s=typeof s!="number"?h[3]:s,o=typeof o!="number"?h[4]:o,l=typeof l!="number"?h[5]:l,typeof e=="number")c._orientation=[e,n,i,s,o,l],typeof c.ctx.listener.forwardX<"u"?(c.ctx.listener.forwardX.setTargetAtTime(e,Howler.ctx.currentTime,.1),c.ctx.listener.forwardY.setTargetAtTime(n,Howler.ctx.currentTime,.1),c.ctx.listener.forwardZ.setTargetAtTime(i,Howler.ctx.currentTime,.1),c.ctx.listener.upX.setTargetAtTime(s,Howler.ctx.currentTime,.1),c.ctx.listener.upY.setTargetAtTime(o,Howler.ctx.currentTime,.1),c.ctx.listener.upZ.setTargetAtTime(l,Howler.ctx.currentTime,.1)):c.ctx.listener.setOrientation(e,n,i,s,o,l);else return h;return c},Howl.prototype.init=function(e){return function(n){var i=this;return i._orientation=n.orientation||[1,0,0],i._stereo=n.stereo||null,i._pos=n.pos||null,i._pannerAttr={coneInnerAngle:typeof n.coneInnerAngle<"u"?n.coneInnerAngle:360,coneOuterAngle:typeof n.coneOuterAngle<"u"?n.coneOuterAngle:360,coneOuterGain:typeof n.coneOuterGain<"u"?n.coneOuterGain:0,distanceModel:typeof n.distanceModel<"u"?n.distanceModel:"inverse",maxDistance:typeof n.maxDistance<"u"?n.maxDistance:1e4,panningModel:typeof n.panningModel<"u"?n.panningModel:"HRTF",refDistance:typeof n.refDistance<"u"?n.refDistance:1,rolloffFactor:typeof n.rolloffFactor<"u"?n.rolloffFactor:1},i._onstereo=n.onstereo?[{fn:n.onstereo}]:[],i._onpos=n.onpos?[{fn:n.onpos}]:[],i._onorientation=n.onorientation?[{fn:n.onorientation}]:[],e.call(this,n)}}(Howl.prototype.init),Howl.prototype.stereo=function(e,n){var i=this;if(!i._webAudio)return i;if(i._state!=="loaded")return i._queue.push({event:"stereo",action:function(){i.stereo(e,n)}}),i;var s=typeof Howler.ctx.createStereoPanner>"u"?"spatial":"stereo";if(typeof n>"u")if(typeof e=="number")i._stereo=e,i._pos=[e,0,0];else return i._stereo;for(var o=i._getSoundIds(n),l=0;l<o.length;l++){var c=i._soundById(o[l]);if(c)if(typeof e=="number")c._stereo=e,c._pos=[e,0,0],c._node&&(c._pannerAttr.panningModel="equalpower",(!c._panner||!c._panner.pan)&&t(c,s),s==="spatial"?typeof c._panner.positionX<"u"?(c._panner.positionX.setValueAtTime(e,Howler.ctx.currentTime),c._panner.positionY.setValueAtTime(0,Howler.ctx.currentTime),c._panner.positionZ.setValueAtTime(0,Howler.ctx.currentTime)):c._panner.setPosition(e,0,0):c._panner.pan.setValueAtTime(e,Howler.ctx.currentTime)),i._emit("stereo",c._id);else return c._stereo}return i},Howl.prototype.pos=function(e,n,i,s){var o=this;if(!o._webAudio)return o;if(o._state!=="loaded")return o._queue.push({event:"pos",action:function(){o.pos(e,n,i,s)}}),o;if(n=typeof n!="number"?0:n,i=typeof i!="number"?-.5:i,typeof s>"u")if(typeof e=="number")o._pos=[e,n,i];else return o._pos;for(var l=o._getSoundIds(s),c=0;c<l.length;c++){var h=o._soundById(l[c]);if(h)if(typeof e=="number")h._pos=[e,n,i],h._node&&((!h._panner||h._panner.pan)&&t(h,"spatial"),typeof h._panner.positionX<"u"?(h._panner.positionX.setValueAtTime(e,Howler.ctx.currentTime),h._panner.positionY.setValueAtTime(n,Howler.ctx.currentTime),h._panner.positionZ.setValueAtTime(i,Howler.ctx.currentTime)):h._panner.setPosition(e,n,i)),o._emit("pos",h._id);else return h._pos}return o},Howl.prototype.orientation=function(e,n,i,s){var o=this;if(!o._webAudio)return o;if(o._state!=="loaded")return o._queue.push({event:"orientation",action:function(){o.orientation(e,n,i,s)}}),o;if(n=typeof n!="number"?o._orientation[1]:n,i=typeof i!="number"?o._orientation[2]:i,typeof s>"u")if(typeof e=="number")o._orientation=[e,n,i];else return o._orientation;for(var l=o._getSoundIds(s),c=0;c<l.length;c++){var h=o._soundById(l[c]);if(h)if(typeof e=="number")h._orientation=[e,n,i],h._node&&(h._panner||(h._pos||(h._pos=o._pos||[0,0,-.5]),t(h,"spatial")),typeof h._panner.orientationX<"u"?(h._panner.orientationX.setValueAtTime(e,Howler.ctx.currentTime),h._panner.orientationY.setValueAtTime(n,Howler.ctx.currentTime),h._panner.orientationZ.setValueAtTime(i,Howler.ctx.currentTime)):h._panner.setOrientation(e,n,i)),o._emit("orientation",h._id);else return h._orientation}return o},Howl.prototype.pannerAttr=function(){var e=this,n=arguments,i,s,o;if(!e._webAudio)return e;if(n.length===0)return e._pannerAttr;if(n.length===1)if(typeof n[0]=="object")i=n[0],typeof s>"u"&&(i.pannerAttr||(i.pannerAttr={coneInnerAngle:i.coneInnerAngle,coneOuterAngle:i.coneOuterAngle,coneOuterGain:i.coneOuterGain,distanceModel:i.distanceModel,maxDistance:i.maxDistance,refDistance:i.refDistance,rolloffFactor:i.rolloffFactor,panningModel:i.panningModel}),e._pannerAttr={coneInnerAngle:typeof i.pannerAttr.coneInnerAngle<"u"?i.pannerAttr.coneInnerAngle:e._coneInnerAngle,coneOuterAngle:typeof i.pannerAttr.coneOuterAngle<"u"?i.pannerAttr.coneOuterAngle:e._coneOuterAngle,coneOuterGain:typeof i.pannerAttr.coneOuterGain<"u"?i.pannerAttr.coneOuterGain:e._coneOuterGain,distanceModel:typeof i.pannerAttr.distanceModel<"u"?i.pannerAttr.distanceModel:e._distanceModel,maxDistance:typeof i.pannerAttr.maxDistance<"u"?i.pannerAttr.maxDistance:e._maxDistance,refDistance:typeof i.pannerAttr.refDistance<"u"?i.pannerAttr.refDistance:e._refDistance,rolloffFactor:typeof i.pannerAttr.rolloffFactor<"u"?i.pannerAttr.rolloffFactor:e._rolloffFactor,panningModel:typeof i.pannerAttr.panningModel<"u"?i.pannerAttr.panningModel:e._panningModel});else return o=e._soundById(parseInt(n[0],10)),o?o._pannerAttr:e._pannerAttr;else n.length===2&&(i=n[0],s=parseInt(n[1],10));for(var l=e._getSoundIds(s),c=0;c<l.length;c++)if(o=e._soundById(l[c]),o){var h=o._pannerAttr;h={coneInnerAngle:typeof i.coneInnerAngle<"u"?i.coneInnerAngle:h.coneInnerAngle,coneOuterAngle:typeof i.coneOuterAngle<"u"?i.coneOuterAngle:h.coneOuterAngle,coneOuterGain:typeof i.coneOuterGain<"u"?i.coneOuterGain:h.coneOuterGain,distanceModel:typeof i.distanceModel<"u"?i.distanceModel:h.distanceModel,maxDistance:typeof i.maxDistance<"u"?i.maxDistance:h.maxDistance,refDistance:typeof i.refDistance<"u"?i.refDistance:h.refDistance,rolloffFactor:typeof i.rolloffFactor<"u"?i.rolloffFactor:h.rolloffFactor,panningModel:typeof i.panningModel<"u"?i.panningModel:h.panningModel};var p=o._panner;p?(p.coneInnerAngle=h.coneInnerAngle,p.coneOuterAngle=h.coneOuterAngle,p.coneOuterGain=h.coneOuterGain,p.distanceModel=h.distanceModel,p.maxDistance=h.maxDistance,p.refDistance=h.refDistance,p.rolloffFactor=h.rolloffFactor,p.panningModel=h.panningModel):(o._pos||(o._pos=e._pos||[0,0,-.5]),t(o,"spatial"))}return e},Sound.prototype.init=function(e){return function(){var n=this,i=n._parent;n._orientation=i._orientation,n._stereo=i._stereo,n._pos=i._pos,n._pannerAttr=i._pannerAttr,e.call(this),n._stereo?i.stereo(n._stereo):n._pos&&i.pos(n._pos[0],n._pos[1],n._pos[2],n._id)}}(Sound.prototype.init),Sound.prototype.reset=function(e){return function(){var n=this,i=n._parent;return n._orientation=i._orientation,n._stereo=i._stereo,n._pos=i._pos,n._pannerAttr=i._pannerAttr,n._stereo?i.stereo(n._stereo):n._pos?i.pos(n._pos[0],n._pos[1],n._pos[2],n._id):n._panner&&(n._panner.disconnect(0),n._panner=void 0,i._refreshBuffer(n)),e.call(this)}}(Sound.prototype.reset);var t=function(e,n){n=n||"spatial",n==="spatial"?(e._panner=Howler.ctx.createPanner(),e._panner.coneInnerAngle=e._pannerAttr.coneInnerAngle,e._panner.coneOuterAngle=e._pannerAttr.coneOuterAngle,e._panner.coneOuterGain=e._pannerAttr.coneOuterGain,e._panner.distanceModel=e._pannerAttr.distanceModel,e._panner.maxDistance=e._pannerAttr.maxDistance,e._panner.refDistance=e._pannerAttr.refDistance,e._panner.rolloffFactor=e._pannerAttr.rolloffFactor,e._panner.panningModel=e._pannerAttr.panningModel,typeof e._panner.positionX<"u"?(e._panner.positionX.setValueAtTime(e._pos[0],Howler.ctx.currentTime),e._panner.positionY.setValueAtTime(e._pos[1],Howler.ctx.currentTime),e._panner.positionZ.setValueAtTime(e._pos[2],Howler.ctx.currentTime)):e._panner.setPosition(e._pos[0],e._pos[1],e._pos[2]),typeof e._panner.orientationX<"u"?(e._panner.orientationX.setValueAtTime(e._orientation[0],Howler.ctx.currentTime),e._panner.orientationY.setValueAtTime(e._orientation[1],Howler.ctx.currentTime),e._panner.orientationZ.setValueAtTime(e._orientation[2],Howler.ctx.currentTime)):e._panner.setOrientation(e._orientation[0],e._orientation[1],e._orientation[2])):(e._panner=Howler.ctx.createStereoPanner(),e._panner.pan.setValueAtTime(e._stereo,Howler.ctx.currentTime)),e._panner.connect(e._node),e._paused||e._parent.pause(e._id,!0).play(e._id,!0)}})()});var g;(function(t){t[t.Bool=2]="Bool",t[t.Int=4]="Int",t[t.Float=8]="Float",t[t.String=16]="String",t[t.Enum=32]="Enum",t[t.Object=64]="Object",t[t.Mesh=128]="Mesh",t[t.Texture=256]="Texture",t[t.Material=512]="Material",t[t.Animation=1024]="Animation",t[t.Skin=2048]="Skin",t[t.Color=4096]="Color"})(g||(g={}));var wt;(function(t){t[t.Sphere=0]="Sphere",t[t.AxisAlignedBox=1]="AxisAlignedBox",t[t.Box=2]="Box"})(wt||(wt={}));var Pn;(function(t){t[t.Left=1]="Left",t[t.Center=2]="Center",t[t.Right=3]="Right"})(Pn||(Pn={}));var On;(function(t){t[t.Line=1]="Line",t[t.Middle=2]="Middle",t[t.Top=3]="Top",t[t.Bottom=4]="Bottom"})(On||(On={}));var In;(function(t){t[t.None=0]="None",t[t.Outline=1]="Outline"})(In||(In={}));var En;(function(t){t[t.Head=0]="Head",t[t.EyeLeft=1]="EyeLeft",t[t.EyeRight=2]="EyeRight",t[t.ControllerLeft=3]="ControllerLeft",t[t.ControllerRight=4]="ControllerRight",t[t.RayLeft=5]="RayLeft",t[t.RayRight=6]="RayRight"})(En||(En={}));var Rn;(function(t){t[t.Point=1]="Point",t[t.Spot=2]="Spot",t[t.Sun=3]="Sun"})(Rn||(Rn={}));var kn;(function(t){t[t.Playing=1]="Playing",t[t.Paused=2]="Paused",t[t.Stopped=3]="Stopped"})(kn||(kn={}));var Mt;(function(t){t[t.Force=0]="Force",t[t.Impulse=1]="Impulse",t[t.VelocityChange=2]="VelocityChange",t[t.Acceleration=3]="Acceleration"})(Mt||(Mt={}));var Fn;(function(t){t[t.Touch=0]="Touch",t[t.TouchLost=1]="TouchLost",t[t.TriggerTouch=2]="TriggerTouch",t[t.TriggerTouchLost=3]="TriggerTouchLost"})(Fn||(Fn={}));var fe;(function(t){t[t.None=0]="None",t[t.Sphere=1]="Sphere",t[t.Capsule=2]="Capsule",t[t.Box=3]="Box",t[t.Plane=4]="Plane",t[t.ConvexMesh=5]="ConvexMesh",t[t.TriangleMesh=6]="TriangleMesh"})(fe||(fe={}));var V;(function(t){t[t.Position=0]="Position",t[t.Tangent=1]="Tangent",t[t.Normal=2]="Normal",t[t.TextureCoordinate=3]="TextureCoordinate",t[t.Color=4]="Color",t[t.JointId=5]="JointId",t[t.JointWeight=6]="JointWeight",t[t.SecondaryJointId=7]="SecondaryJointId",t[t.SecondaryJointWeight=8]="SecondaryJointWeight"})(V||(V={}));var Bn;(function(t){t[t.UnsignedInt=0]="UnsignedInt",t[t.Int=1]="Int",t[t.Float=2]="Float",t[t.Sampler=3]="Sampler",t[t.Font=4]="Font"})(Bn||(Bn={}));var y=class{_manager;_id;_object;_type;_engine;constructor(e,n=-1,i=-1){this._engine=e,this._manager=n,this._id=i,this._object=null,this._type=null}get engine(){return this._engine}get type(){return this._type||this._engine.wasm._typeNameFor(this._manager)}get object(){if(!this._object){let e=this._engine.wasm._wl_component_get_object(this._manager,this._id);this._object=this._engine.wrapObject(e)}return this._object}set active(e){this._engine.wasm._wl_component_setActive(this._manager,this._id,e)}get active(){return this._engine.wasm._wl_component_isActive(this._manager,this._id)!=0}destroy(){this._engine.wasm._wl_component_remove(this._manager,this._id),this._manager=void 0,this._id=void 0}equals(e){return e?this._manager==e._manager&&this._id==e._id:!1}};M(y,"TypeName"),M(y,"Properties");var Ln;(function(t){t[t.None=0]="None",t[t.X=1]="X",t[t.Y=2]="Y",t[t.Z=4]="Z"})(Ln||(Ln={}));var ct=class extends y{set static(e){this._engine.wasm._wl_physx_component_set_static(this._id,e)}get static(){return!!this._engine.wasm._wl_physx_component_get_static(this._id)}set kinematic(e){this._engine.wasm._wl_physx_component_set_kinematic(this._id,e)}get kinematic(){return!!this._engine.wasm._wl_physx_component_get_kinematic(this._id)}set gravity(e){this._engine.wasm._wl_physx_component_set_gravity(this._id,e)}get gravity(){return!!this._engine.wasm._wl_physx_component_get_gravity(this._id)}set simulate(e){this._engine.wasm._wl_physx_component_set_simulate(this._id,e)}get simulate(){return!!this._engine.wasm._wl_physx_component_get_simulate(this._id)}set allowSimulation(e){this._engine.wasm._wl_physx_component_set_allowSimulation(this._id,e)}get allowSimulation(){return!!this._engine.wasm._wl_physx_component_get_allowSimulation(this._id)}set allowQuery(e){this._engine.wasm._wl_physx_component_set_allowQuery(this._id,e)}get allowQuery(){return!!this._engine.wasm._wl_physx_component_get_allowQuery(this._id)}set trigger(e){this._engine.wasm._wl_physx_component_set_trigger(this._id,e)}get trigger(){return!!this._engine.wasm._wl_physx_component_get_trigger(this._id)}set shape(e){this._engine.wasm._wl_physx_component_set_shape(this._id,e)}get shape(){return this._engine.wasm._wl_physx_component_get_shape(this._id)}set shapeData(e){e==null||![fe.TriangleMesh,fe.ConvexMesh].includes(this.shape)||this._engine.wasm._wl_physx_component_set_shape_data(this._id,e.index)}get shapeData(){return[fe.TriangleMesh,fe.ConvexMesh].includes(this.shape)?{index:this._engine.wasm._wl_physx_component_get_shape_data(this._id)}:null}set extents(e){this.extents.set(e)}get extents(){let e=this._engine.wasm,n=e._wl_physx_component_get_extents(this._id);return new Float32Array(e.HEAPF32.buffer,n,3)}get staticFriction(){return this._engine.wasm._wl_physx_component_get_staticFriction(this._id)}set staticFriction(e){this._engine.wasm._wl_physx_component_set_staticFriction(this._id,e)}get dynamicFriction(){return this._engine.wasm._wl_physx_component_get_dynamicFriction(this._id)}set dynamicFriction(e){this._engine.wasm._wl_physx_component_set_dynamicFriction(this._id,e)}get bounciness(){return this._engine.wasm._wl_physx_component_get_bounciness(this._id)}set bounciness(e){this._engine.wasm._wl_physx_component_set_bounciness(this._id,e)}get linearDamping(){return this._engine.wasm._wl_physx_component_get_linearDamping(this._id)}set linearDamping(e){this._engine.wasm._wl_physx_component_set_linearDamping(this._id,e)}get angularDamping(){return this._engine.wasm._wl_physx_component_get_angularDamping(this._id)}set angularDamping(e){this._engine.wasm._wl_physx_component_set_angularDamping(this._id,e)}set linearVelocity(e){this._engine.wasm._wl_physx_component_set_linearVelocity(this._id,e[0],e[1],e[2])}get linearVelocity(){let e=this._engine.wasm;return e._wl_physx_component_get_linearVelocity(this._id,e._tempMem),new Float32Array(e.HEAPF32.buffer,e._tempMem,3)}set angularVelocity(e){this._engine.wasm._wl_physx_component_set_angularVelocity(this._id,e[0],e[1],e[2])}get angularVelocity(){let e=this._engine.wasm;return e._wl_physx_component_get_angularVelocity(this._id,e._tempMem),new Float32Array(e.HEAPF32.buffer,e._tempMem,3)}set groupsMask(e){this._engine.wasm._wl_physx_component_set_groupsMask(this._id,e)}get groupsMask(){return this._engine.wasm._wl_physx_component_get_groupsMask(this._id)}set blocksMask(e){this._engine.wasm._wl_physx_component_set_blocksMask(this._id,e)}get blocksMask(){return this._engine.wasm._wl_physx_component_get_blocksMask(this._id)}set linearLockAxis(e){this._engine.wasm._wl_physx_component_set_linearLockAxis(this._id,e)}get linearLockAxis(){return this._engine.wasm._wl_physx_component_get_linearLockAxis(this._id)}set angularLockAxis(e){this._engine.wasm._wl_physx_component_set_angularLockAxis(this._id,e)}get angularLockAxis(){return this._engine.wasm._wl_physx_component_get_angularLockAxis(this._id)}set mass(e){this._engine.wasm._wl_physx_component_set_mass(this._id,e)}get mass(){return this._engine.wasm._wl_physx_component_get_mass(this._id)}set massSpaceInteriaTensor(e){this._engine.wasm._wl_physx_component_set_massSpaceInertiaTensor(this._id,e[0],e[1],e[2])}addForce(e,n,i,s,o){n=n||Mt.Force,s?this._engine.wasm._wl_physx_component_addForceAt(this._id,e[0],e[1],e[2],n,!!i,s[0],s[1],s[2],!!o):this._engine.wasm._wl_physx_component_addForce(this._id,e[0],e[1],e[2],n,!!i)}addTorque(e,n=Mt.Force){this._engine.wasm._wl_physx_component_addTorque(this._id,e[0],e[1],e[2],n)}onCollision(e){return this.onCollisionWith(this,e)}onCollisionWith(e,n){let i=this._engine.physics;return i._callbacks[this._id]=i._callbacks[this._id]||[],i._callbacks[this._id].push(n),this._engine.wasm._wl_physx_component_addCallback(this._id,e._id||this._id)}removeCollisionCallback(e){let n=this._engine.physics,i=this._engine.wasm._wl_physx_component_removeCallback(this._id,e);i&&n._callbacks[this._id].splice(-i)}};M(ct,"TypeName","physx");for(let t of["static","extents","staticFriction","dynamicFriction","bounciness","linearDamping","angularDamping","shape","shapeData","kinematic","linearVelocity","angularVelocity","mass"])Object.defineProperty(ct.prototype,t,{enumerable:!0});var $;(function(t){t[t.UnsignedByte=1]="UnsignedByte",t[t.UnsignedShort=2]="UnsignedShort",t[t.UnsignedInt=4]="UnsignedInt"})($||($={}));var te=class{static get VERTEX_FLOAT_SIZE(){return 3+3+2}static get VERTEX_SIZE(){return this.VERTEX_FLOAT_SIZE*4}static get POS(){return{X:0,Y:1,Z:2}}static get TEXCOORD(){return{U:3,V:4}}static get NORMAL(){return{X:5,Y:6,Z:7}}_index;_engine;constructor(e,n){if(this._engine=e??WL,typeof n=="object"){if(!n.vertexCount&&n.vertexData&&(n.vertexCount=n.vertexData.length/te.VERTEX_FLOAT_SIZE),!n.vertexCount)throw new Error("Missing parameter 'vertexCount'");let i=this._engine.wasm,s=0,o=0,l=0;if(n.indexData)switch(o=n.indexType||$.UnsignedShort,l=n.indexData.length*o,s=i._malloc(l),o){case $.UnsignedByte:i.HEAPU8.set(n.indexData,s);break;case $.UnsignedShort:i.HEAPU16.set(n.indexData,s>>1);break;case $.UnsignedInt:i.HEAPU32.set(n.indexData,s>>2);break}let{skinned:c=!1}=n;if(this._index=i._wl_mesh_create(s,l,o,n.vertexCount,c),n.vertexData){let h=this.attribute(V.Position),p=this.attribute(V.Normal),r=this.attribute(V.TextureCoordinate);for(let a=0;a<n.vertexCount;++a){let _=a*te.VERTEX_FLOAT_SIZE;h.set(a,n.vertexData.subarray(_,_+3)),r?.set(a,n.vertexData.subarray(_+3,_+5)),p?.set(a,n.vertexData.subarray(_+5,_+8))}}}else this._index=n}get vertexData(){let e=this._engine.wasm,n=e._wl_mesh_get_vertexData(this._index,this._engine.wasm._tempMem);return new Float32Array(e.HEAPF32.buffer,n,te.VERTEX_FLOAT_SIZE*e.HEAPU32[this._engine.wasm._tempMem/4])}get vertexCount(){return this._engine.wasm._wl_mesh_get_vertexCount(this._index)}get indexData(){let e=this._engine.wasm,n=e._tempMem,i=e._wl_mesh_get_indexData(this._index,n,n+4);if(i===null)return null;let s=e.HEAPU32[n/4];switch(e.HEAPU32[n/4+1]){case $.UnsignedByte:return new Uint8Array(e.HEAPU8.buffer,i,s);case $.UnsignedShort:return new Uint16Array(e.HEAPU16.buffer,i,s);case $.UnsignedInt:return new Uint32Array(e.HEAPU32.buffer,i,s)}return null}update(){this._engine.wasm._wl_mesh_update(this._index)}getBoundingSphere(e=new Float32Array(4)){let n=this._engine.wasm._tempMemFloat;return this._engine.wasm._wl_mesh_get_boundingSphere(this._index,this._engine.wasm._tempMem),e[0]=n[0],e[1]=n[1],e[2]=n[2],e[3]=n[3],e}attribute(e){if(typeof e!="number")throw new TypeError("Expected number, but got "+typeof e);let n=this._engine.wasm._tempMemUint32;if(this._engine.wasm._wl_mesh_get_attribute(this._index,e,this._engine.wasm._tempMem),n[0]==255)return null;let i=new Nt(this._engine,e);i._attribute=n[0],i._offset=n[1],i._stride=n[2],i._formatSize=n[3],i._componentCount=n[4];let s=n[5];return i._arraySize=s||1,i.length=this.vertexCount,i}destroy(){this._engine.wasm._wl_mesh_destroy(this._index)}},Nt=class{_attribute=-1;_offset=0;_stride=0;_formatSize=0;_componentCount=0;_arraySize=1;length=0;_engine;_bufferType;_tempBufferGetter;constructor(e,n=V.Position){this._engine=e;let i=this._engine.wasm;switch(n){case V.Position:case V.Normal:case V.TextureCoordinate:case V.Tangent:case V.Color:case V.JointWeight:this._bufferType=Float32Array,this._tempBufferGetter=i.getTempBufferF32.bind(i);break;case V.JointId:this._bufferType=Uint16Array,this._tempBufferGetter=i.getTempBufferU16.bind(i);break;case V.SecondaryJointWeight:case V.SecondaryJointId:console.error(`Deprecated attribute accessor type: ${n}`);default:throw new Error(`Invalid attribute accessor type: ${n}`)}}createArray(e=1){return e=e>this.length?this.length:e,new this._bufferType(e*this._componentCount*this._arraySize)}get(e,n=this.createArray()){if(n.length%this._componentCount!==0)throw new Error(`out.length, ${n.length} is not a multiple of the attribute vector components, ${this._componentCount}`);let i=this._tempBufferGetter(n.length),s=this._bufferType.BYTES_PER_ELEMENT,o=s*n.length,l=this._formatSize*this._arraySize,c=this._componentCount*s*this._arraySize;this._engine.wasm._wl_mesh_get_attribute_values(this._attribute,l,this._offset+e*this._stride,this._stride,c,i.byteOffset,o);for(let h=0;h<n.length;++h)n[h]=i[h];return n}set(e,n){if(n.length%this._componentCount!==0)throw new Error(`out.length, ${n.length} is not a multiple of the attribute vector components, ${this._componentCount}`);let i=this._bufferType.BYTES_PER_ELEMENT,s=i*n.length,o=this._componentCount*i*this._arraySize,l=this._formatSize*this._arraySize,c=this._engine.wasm;if(n.buffer!=c.HEAPU8.buffer){let h=this._tempBufferGetter(n.length);h.set(n),n=h}return c._wl_mesh_set_attribute_values(this._attribute,o,n.byteOffset,s,l,this._offset+e*this._stride,this._stride),this}};var ue=null,ge=class{_engine;_id=0;_imageIndex=void 0;constructor(e,n){this._engine=e??WL;let i=e.wasm;if(n instanceof HTMLImageElement||n instanceof HTMLVideoElement||n instanceof HTMLCanvasElement){let s=i._images.length;i._images.push(n),this._imageIndex=s,this._id=this._engine.wasm._wl_renderer_addImage(s)}else this._id=n;this._engine.textures[this._id]=this}get valid(){return this._id>=0}get id(){return this._id}update(){this.valid&&this._engine.wasm._wl_renderer_updateImage(this._id,this._imageIndex)}get width(){return this._engine.wasm._wl_texture_width(this._id)}get height(){return this._engine.wasm._wl_texture_height(this._id)}updateSubImage(e,n,i,s){if(!this.valid)return;ue||(ue=document.createElement("canvas"));let o=this._engine.wasm,l=o._images[this._imageIndex];if(l){ue.width=i,ue.height=s,ue.getContext("2d")?.drawImage(l,e,n,i,s,0,0,i,s),o._images[this._imageIndex]=ue;try{o._wl_renderer_updateImage(this._id,this._imageIndex,e,(l.videoHeight||l.height)-n-s)}finally{o._images[this._imageIndex]=l}}}destroy(){this._engine.wasm._wl_texture_destroy(this._id),this._imageIndex&&(this._engine.wasm._images[this._imageIndex]=null,this._imageIndex=void 0)}};var Qo=new Map([[g.Bool,!1],[g.Int,0],[g.Float,0],[g.String,""],[g.Enum,void 0],[g.Object,null],[g.Mesh,null],[g.Texture,null],[g.Material,null],[g.Animation,null],[g.Skin,null],[g.Color,[0,0,0,1]]]);var ve=class extends y{name="wonderland-engine-8thwall-camera";started=!1;view=null;position=[0,0,0];rotation=[0,0,0,-1];glTextureRenderer=null;promptForDeviceMotion(){return new Promise(async(e,n)=>{window.dispatchEvent(new Event("8thwall-request-user-interaction")),window.addEventListener("8thwall-safe-to-request-permissions",async()=>{try{let i=await DeviceMotionEvent.requestPermission();e(i)}catch(i){n(i)}})})}async getPermissions(){if(DeviceMotionEvent&&DeviceMotionEvent.requestPermission)try{if(await DeviceMotionEvent.requestPermission()!=="granted")throw new Error("MotionEvent")}catch(e){if(e.name==="NotAllowedError"){if(await this.promptForDeviceMotion()!=="granted")throw new Error("MotionEvent")}else throw new Error("MotionEvent")}try{(await navigator.mediaDevices.getUserMedia({video:!0,audio:!0})).getTracks().forEach(n=>{n.stop()})}catch{throw new Error("Camera")}}init(){this.view=this.object.getComponent("view"),this.onUpdate=this.onUpdate.bind(this),this.onAttach=this.onAttach.bind(this),this.onException=this.onException.bind(this),this.onCameraStatusChange=this.onCameraStatusChange.bind(this)}async start(){this.view=this.object.getComponent("view"),this.useCustomUIOverlays||Ci.init();try{await this.getPermissions()}catch(n){window.dispatchEvent(new CustomEvent("8thwall-permission-fail",{detail:n}));return}await this.waitForXR8(),XR8.XrController.configure({disableWorldTracking:!1}),this.glTextureRenderer=XR8.GlTextureRenderer.pipelineModule(),XR8.addCameraPipelineModules([this.glTextureRenderer,XR8.XrController.pipelineModule(),this]);let e={cameraConfig:{direction:XR8.XrConfig.camera().BACK},canvas:Module.canvas,allowedDevices:XR8.XrConfig.device().ANY,ownRunLoop:!1};XR8.run(e)}onAttach(e){this.started=!0,this.engine.scene.colorClearEnabled=!1;let n=Module.ctx,i=this.object.rotationWorld,s=this.object.getTranslationWorld([]);this.position=Array.from(s),this.rotation=Array.from(i),XR8.XrController.updateCameraProjectionMatrix({origin:{x:s[0],y:s[1],z:s[2]},facing:{x:i[0],y:i[1],z:i[2],w:i[3]},cam:{pixelRectWidth:Module.canvas.width,pixelRectHeight:Module.canvas.height,nearClipPlane:this.view.near,farClipPlane:this.view.far}}),this.engine.scene.onPreRender.push(()=>{n.bindFramebuffer(n.DRAW_FRAMEBUFFER,null),XR8.runPreRender(Date.now()),XR8.runRender()}),this.engine.scene.onPostRender.push(()=>{XR8.runPostRender(Date.now())})}onCameraStatusChange(e){e&&e.status==="failed"&&this.onException(new Error(`Camera failed with status: ${e.status}`))}onUpdate(e){if(!e.processCpuResult.reality)return;let{rotation:n,position:i,intrinsics:s}=e.processCpuResult.reality;if(this.rotation[0]=n.x,this.rotation[1]=n.y,this.rotation[2]=n.z,this.rotation[3]=n.w,this.position[0]=i.x,this.position[1]=i.y,this.position[2]=i.z,s){let o=this.view.projectionMatrix;for(let l=0;l<16;l++)Number.isFinite(s[l])&&(o[l]=s[l])}i&&n&&(this.object.rotationWorld=this.rotation,this.object.setTranslationWorld(this.position))}onException(e){console.error("8thwall exception:",e),window.dispatchEvent(new CustomEvent("8thwall-error",{detail:e}))}waitForXR8(){return new Promise((e,n)=>{window.XR8?e():window.addEventListener("xrloaded",()=>e())})}};M(ve,"TypeName","8thwall-camera"),M(ve,"Properties",{useCustomUIOverlays:{type:g.Bool,default:!1}});var Ci={init:function(){this.handleRequestUserInteraction=this.handleRequestUserInteraction.bind(this),this.handlePermissionFail=this.handlePermissionFail.bind(this),this.handleError=this.handleError.bind(this),window.addEventListener("8thwall-request-user-interaction",this.handleRequestUserInteraction),window.addEventListener("8thwall-permission-fail",this.handlePermissionFail),window.addEventListener("8thwall-error",this.handleError)},handleRequestUserInteraction:function(){let t=this.showOverlay(Pi);window.addEventListener("8thwall-safe-to-request-permissions",()=>{t.remove()})},handlePermissionFail:function(t){this.showOverlay(Oi)},handleError:function(t){this.showOverlay(Ii)},showOverlay:function(t){let e=document.createElement("div");return e.innerHTML=t,document.body.appendChild(e),e}},Pi=`
+var __create = Object.create;
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+var __commonJS = (cb, mod) => function __require() {
+  return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+};
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
+};
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+  }
+  return to;
+};
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
+var __publicField = (obj, key, value) => {
+  __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
+  return value;
+};
+var __async = (__this, __arguments, generator) => {
+  return new Promise((resolve, reject) => {
+    var fulfilled = (value) => {
+      try {
+        step(generator.next(value));
+      } catch (e) {
+        reject(e);
+      }
+    };
+    var rejected = (value) => {
+      try {
+        step(generator.throw(value));
+      } catch (e) {
+        reject(e);
+      }
+    };
+    var step = (x) => x.done ? resolve(x.value) : Promise.resolve(x.value).then(fulfilled, rejected);
+    step((generator = generator.apply(__this, __arguments)).next());
+  });
+};
+
+// node_modules/howler/dist/howler.js
+var require_howler = __commonJS({
+  "node_modules/howler/dist/howler.js"(exports) {
+    (function() {
+      "use strict";
+      var HowlerGlobal2 = function() {
+        this.init();
+      };
+      HowlerGlobal2.prototype = {
+        /**
+         * Initialize the global Howler object.
+         * @return {Howler}
+         */
+        init: function() {
+          var self2 = this || Howler2;
+          self2._counter = 1e3;
+          self2._html5AudioPool = [];
+          self2.html5PoolSize = 10;
+          self2._codecs = {};
+          self2._howls = [];
+          self2._muted = false;
+          self2._volume = 1;
+          self2._canPlayEvent = "canplaythrough";
+          self2._navigator = typeof window !== "undefined" && window.navigator ? window.navigator : null;
+          self2.masterGain = null;
+          self2.noAudio = false;
+          self2.usingWebAudio = true;
+          self2.autoSuspend = true;
+          self2.ctx = null;
+          self2.autoUnlock = true;
+          self2._setup();
+          return self2;
+        },
+        /**
+         * Get/set the global volume for all sounds.
+         * @param  {Float} vol Volume from 0.0 to 1.0.
+         * @return {Howler/Float}     Returns self or current volume.
+         */
+        volume: function(vol) {
+          var self2 = this || Howler2;
+          vol = parseFloat(vol);
+          if (!self2.ctx) {
+            setupAudioContext();
+          }
+          if (typeof vol !== "undefined" && vol >= 0 && vol <= 1) {
+            self2._volume = vol;
+            if (self2._muted) {
+              return self2;
+            }
+            if (self2.usingWebAudio) {
+              self2.masterGain.gain.setValueAtTime(vol, Howler2.ctx.currentTime);
+            }
+            for (var i = 0; i < self2._howls.length; i++) {
+              if (!self2._howls[i]._webAudio) {
+                var ids = self2._howls[i]._getSoundIds();
+                for (var j = 0; j < ids.length; j++) {
+                  var sound = self2._howls[i]._soundById(ids[j]);
+                  if (sound && sound._node) {
+                    sound._node.volume = sound._volume * vol;
+                  }
+                }
+              }
+            }
+            return self2;
+          }
+          return self2._volume;
+        },
+        /**
+         * Handle muting and unmuting globally.
+         * @param  {Boolean} muted Is muted or not.
+         */
+        mute: function(muted) {
+          var self2 = this || Howler2;
+          if (!self2.ctx) {
+            setupAudioContext();
+          }
+          self2._muted = muted;
+          if (self2.usingWebAudio) {
+            self2.masterGain.gain.setValueAtTime(muted ? 0 : self2._volume, Howler2.ctx.currentTime);
+          }
+          for (var i = 0; i < self2._howls.length; i++) {
+            if (!self2._howls[i]._webAudio) {
+              var ids = self2._howls[i]._getSoundIds();
+              for (var j = 0; j < ids.length; j++) {
+                var sound = self2._howls[i]._soundById(ids[j]);
+                if (sound && sound._node) {
+                  sound._node.muted = muted ? true : sound._muted;
+                }
+              }
+            }
+          }
+          return self2;
+        },
+        /**
+         * Handle stopping all sounds globally.
+         */
+        stop: function() {
+          var self2 = this || Howler2;
+          for (var i = 0; i < self2._howls.length; i++) {
+            self2._howls[i].stop();
+          }
+          return self2;
+        },
+        /**
+         * Unload and destroy all currently loaded Howl objects.
+         * @return {Howler}
+         */
+        unload: function() {
+          var self2 = this || Howler2;
+          for (var i = self2._howls.length - 1; i >= 0; i--) {
+            self2._howls[i].unload();
+          }
+          if (self2.usingWebAudio && self2.ctx && typeof self2.ctx.close !== "undefined") {
+            self2.ctx.close();
+            self2.ctx = null;
+            setupAudioContext();
+          }
+          return self2;
+        },
+        /**
+         * Check for codec support of specific extension.
+         * @param  {String} ext Audio file extention.
+         * @return {Boolean}
+         */
+        codecs: function(ext) {
+          return (this || Howler2)._codecs[ext.replace(/^x-/, "")];
+        },
+        /**
+         * Setup various state values for global tracking.
+         * @return {Howler}
+         */
+        _setup: function() {
+          var self2 = this || Howler2;
+          self2.state = self2.ctx ? self2.ctx.state || "suspended" : "suspended";
+          self2._autoSuspend();
+          if (!self2.usingWebAudio) {
+            if (typeof Audio !== "undefined") {
+              try {
+                var test = new Audio();
+                if (typeof test.oncanplaythrough === "undefined") {
+                  self2._canPlayEvent = "canplay";
+                }
+              } catch (e) {
+                self2.noAudio = true;
+              }
+            } else {
+              self2.noAudio = true;
+            }
+          }
+          try {
+            var test = new Audio();
+            if (test.muted) {
+              self2.noAudio = true;
+            }
+          } catch (e) {
+          }
+          if (!self2.noAudio) {
+            self2._setupCodecs();
+          }
+          return self2;
+        },
+        /**
+         * Check for browser support for various codecs and cache the results.
+         * @return {Howler}
+         */
+        _setupCodecs: function() {
+          var self2 = this || Howler2;
+          var audioTest = null;
+          try {
+            audioTest = typeof Audio !== "undefined" ? new Audio() : null;
+          } catch (err) {
+            return self2;
+          }
+          if (!audioTest || typeof audioTest.canPlayType !== "function") {
+            return self2;
+          }
+          var mpegTest = audioTest.canPlayType("audio/mpeg;").replace(/^no$/, "");
+          var ua = self2._navigator ? self2._navigator.userAgent : "";
+          var checkOpera = ua.match(/OPR\/([0-6].)/g);
+          var isOldOpera = checkOpera && parseInt(checkOpera[0].split("/")[1], 10) < 33;
+          var checkSafari = ua.indexOf("Safari") !== -1 && ua.indexOf("Chrome") === -1;
+          var safariVersion = ua.match(/Version\/(.*?) /);
+          var isOldSafari = checkSafari && safariVersion && parseInt(safariVersion[1], 10) < 15;
+          self2._codecs = {
+            mp3: !!(!isOldOpera && (mpegTest || audioTest.canPlayType("audio/mp3;").replace(/^no$/, ""))),
+            mpeg: !!mpegTest,
+            opus: !!audioTest.canPlayType('audio/ogg; codecs="opus"').replace(/^no$/, ""),
+            ogg: !!audioTest.canPlayType('audio/ogg; codecs="vorbis"').replace(/^no$/, ""),
+            oga: !!audioTest.canPlayType('audio/ogg; codecs="vorbis"').replace(/^no$/, ""),
+            wav: !!(audioTest.canPlayType('audio/wav; codecs="1"') || audioTest.canPlayType("audio/wav")).replace(/^no$/, ""),
+            aac: !!audioTest.canPlayType("audio/aac;").replace(/^no$/, ""),
+            caf: !!audioTest.canPlayType("audio/x-caf;").replace(/^no$/, ""),
+            m4a: !!(audioTest.canPlayType("audio/x-m4a;") || audioTest.canPlayType("audio/m4a;") || audioTest.canPlayType("audio/aac;")).replace(/^no$/, ""),
+            m4b: !!(audioTest.canPlayType("audio/x-m4b;") || audioTest.canPlayType("audio/m4b;") || audioTest.canPlayType("audio/aac;")).replace(/^no$/, ""),
+            mp4: !!(audioTest.canPlayType("audio/x-mp4;") || audioTest.canPlayType("audio/mp4;") || audioTest.canPlayType("audio/aac;")).replace(/^no$/, ""),
+            weba: !!(!isOldSafari && audioTest.canPlayType('audio/webm; codecs="vorbis"').replace(/^no$/, "")),
+            webm: !!(!isOldSafari && audioTest.canPlayType('audio/webm; codecs="vorbis"').replace(/^no$/, "")),
+            dolby: !!audioTest.canPlayType('audio/mp4; codecs="ec-3"').replace(/^no$/, ""),
+            flac: !!(audioTest.canPlayType("audio/x-flac;") || audioTest.canPlayType("audio/flac;")).replace(/^no$/, "")
+          };
+          return self2;
+        },
+        /**
+         * Some browsers/devices will only allow audio to be played after a user interaction.
+         * Attempt to automatically unlock audio on the first user interaction.
+         * Concept from: http://paulbakaus.com/tutorials/html5/web-audio-on-ios/
+         * @return {Howler}
+         */
+        _unlockAudio: function() {
+          var self2 = this || Howler2;
+          if (self2._audioUnlocked || !self2.ctx) {
+            return;
+          }
+          self2._audioUnlocked = false;
+          self2.autoUnlock = false;
+          if (!self2._mobileUnloaded && self2.ctx.sampleRate !== 44100) {
+            self2._mobileUnloaded = true;
+            self2.unload();
+          }
+          self2._scratchBuffer = self2.ctx.createBuffer(1, 1, 22050);
+          var unlock = function(e) {
+            while (self2._html5AudioPool.length < self2.html5PoolSize) {
+              try {
+                var audioNode = new Audio();
+                audioNode._unlocked = true;
+                self2._releaseHtml5Audio(audioNode);
+              } catch (e2) {
+                self2.noAudio = true;
+                break;
+              }
+            }
+            for (var i = 0; i < self2._howls.length; i++) {
+              if (!self2._howls[i]._webAudio) {
+                var ids = self2._howls[i]._getSoundIds();
+                for (var j = 0; j < ids.length; j++) {
+                  var sound = self2._howls[i]._soundById(ids[j]);
+                  if (sound && sound._node && !sound._node._unlocked) {
+                    sound._node._unlocked = true;
+                    sound._node.load();
+                  }
+                }
+              }
+            }
+            self2._autoResume();
+            var source = self2.ctx.createBufferSource();
+            source.buffer = self2._scratchBuffer;
+            source.connect(self2.ctx.destination);
+            if (typeof source.start === "undefined") {
+              source.noteOn(0);
+            } else {
+              source.start(0);
+            }
+            if (typeof self2.ctx.resume === "function") {
+              self2.ctx.resume();
+            }
+            source.onended = function() {
+              source.disconnect(0);
+              self2._audioUnlocked = true;
+              document.removeEventListener("touchstart", unlock, true);
+              document.removeEventListener("touchend", unlock, true);
+              document.removeEventListener("click", unlock, true);
+              document.removeEventListener("keydown", unlock, true);
+              for (var i2 = 0; i2 < self2._howls.length; i2++) {
+                self2._howls[i2]._emit("unlock");
+              }
+            };
+          };
+          document.addEventListener("touchstart", unlock, true);
+          document.addEventListener("touchend", unlock, true);
+          document.addEventListener("click", unlock, true);
+          document.addEventListener("keydown", unlock, true);
+          return self2;
+        },
+        /**
+         * Get an unlocked HTML5 Audio object from the pool. If none are left,
+         * return a new Audio object and throw a warning.
+         * @return {Audio} HTML5 Audio object.
+         */
+        _obtainHtml5Audio: function() {
+          var self2 = this || Howler2;
+          if (self2._html5AudioPool.length) {
+            return self2._html5AudioPool.pop();
+          }
+          var testPlay = new Audio().play();
+          if (testPlay && typeof Promise !== "undefined" && (testPlay instanceof Promise || typeof testPlay.then === "function")) {
+            testPlay.catch(function() {
+              console.warn("HTML5 Audio pool exhausted, returning potentially locked audio object.");
+            });
+          }
+          return new Audio();
+        },
+        /**
+         * Return an activated HTML5 Audio object to the pool.
+         * @return {Howler}
+         */
+        _releaseHtml5Audio: function(audio) {
+          var self2 = this || Howler2;
+          if (audio._unlocked) {
+            self2._html5AudioPool.push(audio);
+          }
+          return self2;
+        },
+        /**
+         * Automatically suspend the Web Audio AudioContext after no sound has played for 30 seconds.
+         * This saves processing/energy and fixes various browser-specific bugs with audio getting stuck.
+         * @return {Howler}
+         */
+        _autoSuspend: function() {
+          var self2 = this;
+          if (!self2.autoSuspend || !self2.ctx || typeof self2.ctx.suspend === "undefined" || !Howler2.usingWebAudio) {
+            return;
+          }
+          for (var i = 0; i < self2._howls.length; i++) {
+            if (self2._howls[i]._webAudio) {
+              for (var j = 0; j < self2._howls[i]._sounds.length; j++) {
+                if (!self2._howls[i]._sounds[j]._paused) {
+                  return self2;
+                }
+              }
+            }
+          }
+          if (self2._suspendTimer) {
+            clearTimeout(self2._suspendTimer);
+          }
+          self2._suspendTimer = setTimeout(function() {
+            if (!self2.autoSuspend) {
+              return;
+            }
+            self2._suspendTimer = null;
+            self2.state = "suspending";
+            var handleSuspension = function() {
+              self2.state = "suspended";
+              if (self2._resumeAfterSuspend) {
+                delete self2._resumeAfterSuspend;
+                self2._autoResume();
+              }
+            };
+            self2.ctx.suspend().then(handleSuspension, handleSuspension);
+          }, 3e4);
+          return self2;
+        },
+        /**
+         * Automatically resume the Web Audio AudioContext when a new sound is played.
+         * @return {Howler}
+         */
+        _autoResume: function() {
+          var self2 = this;
+          if (!self2.ctx || typeof self2.ctx.resume === "undefined" || !Howler2.usingWebAudio) {
+            return;
+          }
+          if (self2.state === "running" && self2.ctx.state !== "interrupted" && self2._suspendTimer) {
+            clearTimeout(self2._suspendTimer);
+            self2._suspendTimer = null;
+          } else if (self2.state === "suspended" || self2.state === "running" && self2.ctx.state === "interrupted") {
+            self2.ctx.resume().then(function() {
+              self2.state = "running";
+              for (var i = 0; i < self2._howls.length; i++) {
+                self2._howls[i]._emit("resume");
+              }
+            });
+            if (self2._suspendTimer) {
+              clearTimeout(self2._suspendTimer);
+              self2._suspendTimer = null;
+            }
+          } else if (self2.state === "suspending") {
+            self2._resumeAfterSuspend = true;
+          }
+          return self2;
+        }
+      };
+      var Howler2 = new HowlerGlobal2();
+      var Howl3 = function(o) {
+        var self2 = this;
+        if (!o.src || o.src.length === 0) {
+          console.error("An array of source files must be passed with any new Howl.");
+          return;
+        }
+        self2.init(o);
+      };
+      Howl3.prototype = {
+        /**
+         * Initialize a new Howl group object.
+         * @param  {Object} o Passed in properties for this group.
+         * @return {Howl}
+         */
+        init: function(o) {
+          var self2 = this;
+          if (!Howler2.ctx) {
+            setupAudioContext();
+          }
+          self2._autoplay = o.autoplay || false;
+          self2._format = typeof o.format !== "string" ? o.format : [o.format];
+          self2._html5 = o.html5 || false;
+          self2._muted = o.mute || false;
+          self2._loop = o.loop || false;
+          self2._pool = o.pool || 5;
+          self2._preload = typeof o.preload === "boolean" || o.preload === "metadata" ? o.preload : true;
+          self2._rate = o.rate || 1;
+          self2._sprite = o.sprite || {};
+          self2._src = typeof o.src !== "string" ? o.src : [o.src];
+          self2._volume = o.volume !== void 0 ? o.volume : 1;
+          self2._xhr = {
+            method: o.xhr && o.xhr.method ? o.xhr.method : "GET",
+            headers: o.xhr && o.xhr.headers ? o.xhr.headers : null,
+            withCredentials: o.xhr && o.xhr.withCredentials ? o.xhr.withCredentials : false
+          };
+          self2._duration = 0;
+          self2._state = "unloaded";
+          self2._sounds = [];
+          self2._endTimers = {};
+          self2._queue = [];
+          self2._playLock = false;
+          self2._onend = o.onend ? [{ fn: o.onend }] : [];
+          self2._onfade = o.onfade ? [{ fn: o.onfade }] : [];
+          self2._onload = o.onload ? [{ fn: o.onload }] : [];
+          self2._onloaderror = o.onloaderror ? [{ fn: o.onloaderror }] : [];
+          self2._onplayerror = o.onplayerror ? [{ fn: o.onplayerror }] : [];
+          self2._onpause = o.onpause ? [{ fn: o.onpause }] : [];
+          self2._onplay = o.onplay ? [{ fn: o.onplay }] : [];
+          self2._onstop = o.onstop ? [{ fn: o.onstop }] : [];
+          self2._onmute = o.onmute ? [{ fn: o.onmute }] : [];
+          self2._onvolume = o.onvolume ? [{ fn: o.onvolume }] : [];
+          self2._onrate = o.onrate ? [{ fn: o.onrate }] : [];
+          self2._onseek = o.onseek ? [{ fn: o.onseek }] : [];
+          self2._onunlock = o.onunlock ? [{ fn: o.onunlock }] : [];
+          self2._onresume = [];
+          self2._webAudio = Howler2.usingWebAudio && !self2._html5;
+          if (typeof Howler2.ctx !== "undefined" && Howler2.ctx && Howler2.autoUnlock) {
+            Howler2._unlockAudio();
+          }
+          Howler2._howls.push(self2);
+          if (self2._autoplay) {
+            self2._queue.push({
+              event: "play",
+              action: function() {
+                self2.play();
+              }
+            });
+          }
+          if (self2._preload && self2._preload !== "none") {
+            self2.load();
+          }
+          return self2;
+        },
+        /**
+         * Load the audio file.
+         * @return {Howler}
+         */
+        load: function() {
+          var self2 = this;
+          var url = null;
+          if (Howler2.noAudio) {
+            self2._emit("loaderror", null, "No audio support.");
+            return;
+          }
+          if (typeof self2._src === "string") {
+            self2._src = [self2._src];
+          }
+          for (var i = 0; i < self2._src.length; i++) {
+            var ext, str6;
+            if (self2._format && self2._format[i]) {
+              ext = self2._format[i];
+            } else {
+              str6 = self2._src[i];
+              if (typeof str6 !== "string") {
+                self2._emit("loaderror", null, "Non-string found in selected audio sources - ignoring.");
+                continue;
+              }
+              ext = /^data:audio\/([^;,]+);/i.exec(str6);
+              if (!ext) {
+                ext = /\.([^.]+)$/.exec(str6.split("?", 1)[0]);
+              }
+              if (ext) {
+                ext = ext[1].toLowerCase();
+              }
+            }
+            if (!ext) {
+              console.warn('No file extension was found. Consider using the "format" property or specify an extension.');
+            }
+            if (ext && Howler2.codecs(ext)) {
+              url = self2._src[i];
+              break;
+            }
+          }
+          if (!url) {
+            self2._emit("loaderror", null, "No codec support for selected audio sources.");
+            return;
+          }
+          self2._src = url;
+          self2._state = "loading";
+          if (window.location.protocol === "https:" && url.slice(0, 5) === "http:") {
+            self2._html5 = true;
+            self2._webAudio = false;
+          }
+          new Sound2(self2);
+          if (self2._webAudio) {
+            loadBuffer(self2);
+          }
+          return self2;
+        },
+        /**
+         * Play a sound or resume previous playback.
+         * @param  {String/Number} sprite   Sprite name for sprite playback or sound id to continue previous.
+         * @param  {Boolean} internal Internal Use: true prevents event firing.
+         * @return {Number}          Sound ID.
+         */
+        play: function(sprite, internal) {
+          var self2 = this;
+          var id = null;
+          if (typeof sprite === "number") {
+            id = sprite;
+            sprite = null;
+          } else if (typeof sprite === "string" && self2._state === "loaded" && !self2._sprite[sprite]) {
+            return null;
+          } else if (typeof sprite === "undefined") {
+            sprite = "__default";
+            if (!self2._playLock) {
+              var num = 0;
+              for (var i = 0; i < self2._sounds.length; i++) {
+                if (self2._sounds[i]._paused && !self2._sounds[i]._ended) {
+                  num++;
+                  id = self2._sounds[i]._id;
+                }
+              }
+              if (num === 1) {
+                sprite = null;
+              } else {
+                id = null;
+              }
+            }
+          }
+          var sound = id ? self2._soundById(id) : self2._inactiveSound();
+          if (!sound) {
+            return null;
+          }
+          if (id && !sprite) {
+            sprite = sound._sprite || "__default";
+          }
+          if (self2._state !== "loaded") {
+            sound._sprite = sprite;
+            sound._ended = false;
+            var soundId = sound._id;
+            self2._queue.push({
+              event: "play",
+              action: function() {
+                self2.play(soundId);
+              }
+            });
+            return soundId;
+          }
+          if (id && !sound._paused) {
+            if (!internal) {
+              self2._loadQueue("play");
+            }
+            return sound._id;
+          }
+          if (self2._webAudio) {
+            Howler2._autoResume();
+          }
+          var seek = Math.max(0, sound._seek > 0 ? sound._seek : self2._sprite[sprite][0] / 1e3);
+          var duration = Math.max(0, (self2._sprite[sprite][0] + self2._sprite[sprite][1]) / 1e3 - seek);
+          var timeout = duration * 1e3 / Math.abs(sound._rate);
+          var start = self2._sprite[sprite][0] / 1e3;
+          var stop = (self2._sprite[sprite][0] + self2._sprite[sprite][1]) / 1e3;
+          sound._sprite = sprite;
+          sound._ended = false;
+          var setParams = function() {
+            sound._paused = false;
+            sound._seek = seek;
+            sound._start = start;
+            sound._stop = stop;
+            sound._loop = !!(sound._loop || self2._sprite[sprite][2]);
+          };
+          if (seek >= stop) {
+            self2._ended(sound);
+            return;
+          }
+          var node = sound._node;
+          if (self2._webAudio) {
+            var playWebAudio = function() {
+              self2._playLock = false;
+              setParams();
+              self2._refreshBuffer(sound);
+              var vol = sound._muted || self2._muted ? 0 : sound._volume;
+              node.gain.setValueAtTime(vol, Howler2.ctx.currentTime);
+              sound._playStart = Howler2.ctx.currentTime;
+              if (typeof node.bufferSource.start === "undefined") {
+                sound._loop ? node.bufferSource.noteGrainOn(0, seek, 86400) : node.bufferSource.noteGrainOn(0, seek, duration);
+              } else {
+                sound._loop ? node.bufferSource.start(0, seek, 86400) : node.bufferSource.start(0, seek, duration);
+              }
+              if (timeout !== Infinity) {
+                self2._endTimers[sound._id] = setTimeout(self2._ended.bind(self2, sound), timeout);
+              }
+              if (!internal) {
+                setTimeout(function() {
+                  self2._emit("play", sound._id);
+                  self2._loadQueue();
+                }, 0);
+              }
+            };
+            if (Howler2.state === "running" && Howler2.ctx.state !== "interrupted") {
+              playWebAudio();
+            } else {
+              self2._playLock = true;
+              self2.once("resume", playWebAudio);
+              self2._clearTimer(sound._id);
+            }
+          } else {
+            var playHtml5 = function() {
+              node.currentTime = seek;
+              node.muted = sound._muted || self2._muted || Howler2._muted || node.muted;
+              node.volume = sound._volume * Howler2.volume();
+              node.playbackRate = sound._rate;
+              try {
+                var play = node.play();
+                if (play && typeof Promise !== "undefined" && (play instanceof Promise || typeof play.then === "function")) {
+                  self2._playLock = true;
+                  setParams();
+                  play.then(function() {
+                    self2._playLock = false;
+                    node._unlocked = true;
+                    if (!internal) {
+                      self2._emit("play", sound._id);
+                    } else {
+                      self2._loadQueue();
+                    }
+                  }).catch(function() {
+                    self2._playLock = false;
+                    self2._emit("playerror", sound._id, "Playback was unable to start. This is most commonly an issue on mobile devices and Chrome where playback was not within a user interaction.");
+                    sound._ended = true;
+                    sound._paused = true;
+                  });
+                } else if (!internal) {
+                  self2._playLock = false;
+                  setParams();
+                  self2._emit("play", sound._id);
+                }
+                node.playbackRate = sound._rate;
+                if (node.paused) {
+                  self2._emit("playerror", sound._id, "Playback was unable to start. This is most commonly an issue on mobile devices and Chrome where playback was not within a user interaction.");
+                  return;
+                }
+                if (sprite !== "__default" || sound._loop) {
+                  self2._endTimers[sound._id] = setTimeout(self2._ended.bind(self2, sound), timeout);
+                } else {
+                  self2._endTimers[sound._id] = function() {
+                    self2._ended(sound);
+                    node.removeEventListener("ended", self2._endTimers[sound._id], false);
+                  };
+                  node.addEventListener("ended", self2._endTimers[sound._id], false);
+                }
+              } catch (err) {
+                self2._emit("playerror", sound._id, err);
+              }
+            };
+            if (node.src === "data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEARKwAAIhYAQACABAAAABkYXRhAgAAAAEA") {
+              node.src = self2._src;
+              node.load();
+            }
+            var loadedNoReadyState = window && window.ejecta || !node.readyState && Howler2._navigator.isCocoonJS;
+            if (node.readyState >= 3 || loadedNoReadyState) {
+              playHtml5();
+            } else {
+              self2._playLock = true;
+              self2._state = "loading";
+              var listener = function() {
+                self2._state = "loaded";
+                playHtml5();
+                node.removeEventListener(Howler2._canPlayEvent, listener, false);
+              };
+              node.addEventListener(Howler2._canPlayEvent, listener, false);
+              self2._clearTimer(sound._id);
+            }
+          }
+          return sound._id;
+        },
+        /**
+         * Pause playback and save current position.
+         * @param  {Number} id The sound ID (empty to pause all in group).
+         * @return {Howl}
+         */
+        pause: function(id) {
+          var self2 = this;
+          if (self2._state !== "loaded" || self2._playLock) {
+            self2._queue.push({
+              event: "pause",
+              action: function() {
+                self2.pause(id);
+              }
+            });
+            return self2;
+          }
+          var ids = self2._getSoundIds(id);
+          for (var i = 0; i < ids.length; i++) {
+            self2._clearTimer(ids[i]);
+            var sound = self2._soundById(ids[i]);
+            if (sound && !sound._paused) {
+              sound._seek = self2.seek(ids[i]);
+              sound._rateSeek = 0;
+              sound._paused = true;
+              self2._stopFade(ids[i]);
+              if (sound._node) {
+                if (self2._webAudio) {
+                  if (!sound._node.bufferSource) {
+                    continue;
+                  }
+                  if (typeof sound._node.bufferSource.stop === "undefined") {
+                    sound._node.bufferSource.noteOff(0);
+                  } else {
+                    sound._node.bufferSource.stop(0);
+                  }
+                  self2._cleanBuffer(sound._node);
+                } else if (!isNaN(sound._node.duration) || sound._node.duration === Infinity) {
+                  sound._node.pause();
+                }
+              }
+            }
+            if (!arguments[1]) {
+              self2._emit("pause", sound ? sound._id : null);
+            }
+          }
+          return self2;
+        },
+        /**
+         * Stop playback and reset to start.
+         * @param  {Number} id The sound ID (empty to stop all in group).
+         * @param  {Boolean} internal Internal Use: true prevents event firing.
+         * @return {Howl}
+         */
+        stop: function(id, internal) {
+          var self2 = this;
+          if (self2._state !== "loaded" || self2._playLock) {
+            self2._queue.push({
+              event: "stop",
+              action: function() {
+                self2.stop(id);
+              }
+            });
+            return self2;
+          }
+          var ids = self2._getSoundIds(id);
+          for (var i = 0; i < ids.length; i++) {
+            self2._clearTimer(ids[i]);
+            var sound = self2._soundById(ids[i]);
+            if (sound) {
+              sound._seek = sound._start || 0;
+              sound._rateSeek = 0;
+              sound._paused = true;
+              sound._ended = true;
+              self2._stopFade(ids[i]);
+              if (sound._node) {
+                if (self2._webAudio) {
+                  if (sound._node.bufferSource) {
+                    if (typeof sound._node.bufferSource.stop === "undefined") {
+                      sound._node.bufferSource.noteOff(0);
+                    } else {
+                      sound._node.bufferSource.stop(0);
+                    }
+                    self2._cleanBuffer(sound._node);
+                  }
+                } else if (!isNaN(sound._node.duration) || sound._node.duration === Infinity) {
+                  sound._node.currentTime = sound._start || 0;
+                  sound._node.pause();
+                  if (sound._node.duration === Infinity) {
+                    self2._clearSound(sound._node);
+                  }
+                }
+              }
+              if (!internal) {
+                self2._emit("stop", sound._id);
+              }
+            }
+          }
+          return self2;
+        },
+        /**
+         * Mute/unmute a single sound or all sounds in this Howl group.
+         * @param  {Boolean} muted Set to true to mute and false to unmute.
+         * @param  {Number} id    The sound ID to update (omit to mute/unmute all).
+         * @return {Howl}
+         */
+        mute: function(muted, id) {
+          var self2 = this;
+          if (self2._state !== "loaded" || self2._playLock) {
+            self2._queue.push({
+              event: "mute",
+              action: function() {
+                self2.mute(muted, id);
+              }
+            });
+            return self2;
+          }
+          if (typeof id === "undefined") {
+            if (typeof muted === "boolean") {
+              self2._muted = muted;
+            } else {
+              return self2._muted;
+            }
+          }
+          var ids = self2._getSoundIds(id);
+          for (var i = 0; i < ids.length; i++) {
+            var sound = self2._soundById(ids[i]);
+            if (sound) {
+              sound._muted = muted;
+              if (sound._interval) {
+                self2._stopFade(sound._id);
+              }
+              if (self2._webAudio && sound._node) {
+                sound._node.gain.setValueAtTime(muted ? 0 : sound._volume, Howler2.ctx.currentTime);
+              } else if (sound._node) {
+                sound._node.muted = Howler2._muted ? true : muted;
+              }
+              self2._emit("mute", sound._id);
+            }
+          }
+          return self2;
+        },
+        /**
+         * Get/set the volume of this sound or of the Howl group. This method can optionally take 0, 1 or 2 arguments.
+         *   volume() -> Returns the group's volume value.
+         *   volume(id) -> Returns the sound id's current volume.
+         *   volume(vol) -> Sets the volume of all sounds in this Howl group.
+         *   volume(vol, id) -> Sets the volume of passed sound id.
+         * @return {Howl/Number} Returns self or current volume.
+         */
+        volume: function() {
+          var self2 = this;
+          var args = arguments;
+          var vol, id;
+          if (args.length === 0) {
+            return self2._volume;
+          } else if (args.length === 1 || args.length === 2 && typeof args[1] === "undefined") {
+            var ids = self2._getSoundIds();
+            var index = ids.indexOf(args[0]);
+            if (index >= 0) {
+              id = parseInt(args[0], 10);
+            } else {
+              vol = parseFloat(args[0]);
+            }
+          } else if (args.length >= 2) {
+            vol = parseFloat(args[0]);
+            id = parseInt(args[1], 10);
+          }
+          var sound;
+          if (typeof vol !== "undefined" && vol >= 0 && vol <= 1) {
+            if (self2._state !== "loaded" || self2._playLock) {
+              self2._queue.push({
+                event: "volume",
+                action: function() {
+                  self2.volume.apply(self2, args);
+                }
+              });
+              return self2;
+            }
+            if (typeof id === "undefined") {
+              self2._volume = vol;
+            }
+            id = self2._getSoundIds(id);
+            for (var i = 0; i < id.length; i++) {
+              sound = self2._soundById(id[i]);
+              if (sound) {
+                sound._volume = vol;
+                if (!args[2]) {
+                  self2._stopFade(id[i]);
+                }
+                if (self2._webAudio && sound._node && !sound._muted) {
+                  sound._node.gain.setValueAtTime(vol, Howler2.ctx.currentTime);
+                } else if (sound._node && !sound._muted) {
+                  sound._node.volume = vol * Howler2.volume();
+                }
+                self2._emit("volume", sound._id);
+              }
+            }
+          } else {
+            sound = id ? self2._soundById(id) : self2._sounds[0];
+            return sound ? sound._volume : 0;
+          }
+          return self2;
+        },
+        /**
+         * Fade a currently playing sound between two volumes (if no id is passed, all sounds will fade).
+         * @param  {Number} from The value to fade from (0.0 to 1.0).
+         * @param  {Number} to   The volume to fade to (0.0 to 1.0).
+         * @param  {Number} len  Time in milliseconds to fade.
+         * @param  {Number} id   The sound id (omit to fade all sounds).
+         * @return {Howl}
+         */
+        fade: function(from, to, len5, id) {
+          var self2 = this;
+          if (self2._state !== "loaded" || self2._playLock) {
+            self2._queue.push({
+              event: "fade",
+              action: function() {
+                self2.fade(from, to, len5, id);
+              }
+            });
+            return self2;
+          }
+          from = Math.min(Math.max(0, parseFloat(from)), 1);
+          to = Math.min(Math.max(0, parseFloat(to)), 1);
+          len5 = parseFloat(len5);
+          self2.volume(from, id);
+          var ids = self2._getSoundIds(id);
+          for (var i = 0; i < ids.length; i++) {
+            var sound = self2._soundById(ids[i]);
+            if (sound) {
+              if (!id) {
+                self2._stopFade(ids[i]);
+              }
+              if (self2._webAudio && !sound._muted) {
+                var currentTime = Howler2.ctx.currentTime;
+                var end = currentTime + len5 / 1e3;
+                sound._volume = from;
+                sound._node.gain.setValueAtTime(from, currentTime);
+                sound._node.gain.linearRampToValueAtTime(to, end);
+              }
+              self2._startFadeInterval(sound, from, to, len5, ids[i], typeof id === "undefined");
+            }
+          }
+          return self2;
+        },
+        /**
+         * Starts the internal interval to fade a sound.
+         * @param  {Object} sound Reference to sound to fade.
+         * @param  {Number} from The value to fade from (0.0 to 1.0).
+         * @param  {Number} to   The volume to fade to (0.0 to 1.0).
+         * @param  {Number} len  Time in milliseconds to fade.
+         * @param  {Number} id   The sound id to fade.
+         * @param  {Boolean} isGroup   If true, set the volume on the group.
+         */
+        _startFadeInterval: function(sound, from, to, len5, id, isGroup) {
+          var self2 = this;
+          var vol = from;
+          var diff = to - from;
+          var steps = Math.abs(diff / 0.01);
+          var stepLen = Math.max(4, steps > 0 ? len5 / steps : len5);
+          var lastTick = Date.now();
+          sound._fadeTo = to;
+          sound._interval = setInterval(function() {
+            var tick = (Date.now() - lastTick) / len5;
+            lastTick = Date.now();
+            vol += diff * tick;
+            vol = Math.round(vol * 100) / 100;
+            if (diff < 0) {
+              vol = Math.max(to, vol);
+            } else {
+              vol = Math.min(to, vol);
+            }
+            if (self2._webAudio) {
+              sound._volume = vol;
+            } else {
+              self2.volume(vol, sound._id, true);
+            }
+            if (isGroup) {
+              self2._volume = vol;
+            }
+            if (to < from && vol <= to || to > from && vol >= to) {
+              clearInterval(sound._interval);
+              sound._interval = null;
+              sound._fadeTo = null;
+              self2.volume(to, sound._id);
+              self2._emit("fade", sound._id);
+            }
+          }, stepLen);
+        },
+        /**
+         * Internal method that stops the currently playing fade when
+         * a new fade starts, volume is changed or the sound is stopped.
+         * @param  {Number} id The sound id.
+         * @return {Howl}
+         */
+        _stopFade: function(id) {
+          var self2 = this;
+          var sound = self2._soundById(id);
+          if (sound && sound._interval) {
+            if (self2._webAudio) {
+              sound._node.gain.cancelScheduledValues(Howler2.ctx.currentTime);
+            }
+            clearInterval(sound._interval);
+            sound._interval = null;
+            self2.volume(sound._fadeTo, id);
+            sound._fadeTo = null;
+            self2._emit("fade", id);
+          }
+          return self2;
+        },
+        /**
+         * Get/set the loop parameter on a sound. This method can optionally take 0, 1 or 2 arguments.
+         *   loop() -> Returns the group's loop value.
+         *   loop(id) -> Returns the sound id's loop value.
+         *   loop(loop) -> Sets the loop value for all sounds in this Howl group.
+         *   loop(loop, id) -> Sets the loop value of passed sound id.
+         * @return {Howl/Boolean} Returns self or current loop value.
+         */
+        loop: function() {
+          var self2 = this;
+          var args = arguments;
+          var loop, id, sound;
+          if (args.length === 0) {
+            return self2._loop;
+          } else if (args.length === 1) {
+            if (typeof args[0] === "boolean") {
+              loop = args[0];
+              self2._loop = loop;
+            } else {
+              sound = self2._soundById(parseInt(args[0], 10));
+              return sound ? sound._loop : false;
+            }
+          } else if (args.length === 2) {
+            loop = args[0];
+            id = parseInt(args[1], 10);
+          }
+          var ids = self2._getSoundIds(id);
+          for (var i = 0; i < ids.length; i++) {
+            sound = self2._soundById(ids[i]);
+            if (sound) {
+              sound._loop = loop;
+              if (self2._webAudio && sound._node && sound._node.bufferSource) {
+                sound._node.bufferSource.loop = loop;
+                if (loop) {
+                  sound._node.bufferSource.loopStart = sound._start || 0;
+                  sound._node.bufferSource.loopEnd = sound._stop;
+                  if (self2.playing(ids[i])) {
+                    self2.pause(ids[i], true);
+                    self2.play(ids[i], true);
+                  }
+                }
+              }
+            }
+          }
+          return self2;
+        },
+        /**
+         * Get/set the playback rate of a sound. This method can optionally take 0, 1 or 2 arguments.
+         *   rate() -> Returns the first sound node's current playback rate.
+         *   rate(id) -> Returns the sound id's current playback rate.
+         *   rate(rate) -> Sets the playback rate of all sounds in this Howl group.
+         *   rate(rate, id) -> Sets the playback rate of passed sound id.
+         * @return {Howl/Number} Returns self or the current playback rate.
+         */
+        rate: function() {
+          var self2 = this;
+          var args = arguments;
+          var rate, id;
+          if (args.length === 0) {
+            id = self2._sounds[0]._id;
+          } else if (args.length === 1) {
+            var ids = self2._getSoundIds();
+            var index = ids.indexOf(args[0]);
+            if (index >= 0) {
+              id = parseInt(args[0], 10);
+            } else {
+              rate = parseFloat(args[0]);
+            }
+          } else if (args.length === 2) {
+            rate = parseFloat(args[0]);
+            id = parseInt(args[1], 10);
+          }
+          var sound;
+          if (typeof rate === "number") {
+            if (self2._state !== "loaded" || self2._playLock) {
+              self2._queue.push({
+                event: "rate",
+                action: function() {
+                  self2.rate.apply(self2, args);
+                }
+              });
+              return self2;
+            }
+            if (typeof id === "undefined") {
+              self2._rate = rate;
+            }
+            id = self2._getSoundIds(id);
+            for (var i = 0; i < id.length; i++) {
+              sound = self2._soundById(id[i]);
+              if (sound) {
+                if (self2.playing(id[i])) {
+                  sound._rateSeek = self2.seek(id[i]);
+                  sound._playStart = self2._webAudio ? Howler2.ctx.currentTime : sound._playStart;
+                }
+                sound._rate = rate;
+                if (self2._webAudio && sound._node && sound._node.bufferSource) {
+                  sound._node.bufferSource.playbackRate.setValueAtTime(rate, Howler2.ctx.currentTime);
+                } else if (sound._node) {
+                  sound._node.playbackRate = rate;
+                }
+                var seek = self2.seek(id[i]);
+                var duration = (self2._sprite[sound._sprite][0] + self2._sprite[sound._sprite][1]) / 1e3 - seek;
+                var timeout = duration * 1e3 / Math.abs(sound._rate);
+                if (self2._endTimers[id[i]] || !sound._paused) {
+                  self2._clearTimer(id[i]);
+                  self2._endTimers[id[i]] = setTimeout(self2._ended.bind(self2, sound), timeout);
+                }
+                self2._emit("rate", sound._id);
+              }
+            }
+          } else {
+            sound = self2._soundById(id);
+            return sound ? sound._rate : self2._rate;
+          }
+          return self2;
+        },
+        /**
+         * Get/set the seek position of a sound. This method can optionally take 0, 1 or 2 arguments.
+         *   seek() -> Returns the first sound node's current seek position.
+         *   seek(id) -> Returns the sound id's current seek position.
+         *   seek(seek) -> Sets the seek position of the first sound node.
+         *   seek(seek, id) -> Sets the seek position of passed sound id.
+         * @return {Howl/Number} Returns self or the current seek position.
+         */
+        seek: function() {
+          var self2 = this;
+          var args = arguments;
+          var seek, id;
+          if (args.length === 0) {
+            if (self2._sounds.length) {
+              id = self2._sounds[0]._id;
+            }
+          } else if (args.length === 1) {
+            var ids = self2._getSoundIds();
+            var index = ids.indexOf(args[0]);
+            if (index >= 0) {
+              id = parseInt(args[0], 10);
+            } else if (self2._sounds.length) {
+              id = self2._sounds[0]._id;
+              seek = parseFloat(args[0]);
+            }
+          } else if (args.length === 2) {
+            seek = parseFloat(args[0]);
+            id = parseInt(args[1], 10);
+          }
+          if (typeof id === "undefined") {
+            return 0;
+          }
+          if (typeof seek === "number" && (self2._state !== "loaded" || self2._playLock)) {
+            self2._queue.push({
+              event: "seek",
+              action: function() {
+                self2.seek.apply(self2, args);
+              }
+            });
+            return self2;
+          }
+          var sound = self2._soundById(id);
+          if (sound) {
+            if (typeof seek === "number" && seek >= 0) {
+              var playing = self2.playing(id);
+              if (playing) {
+                self2.pause(id, true);
+              }
+              sound._seek = seek;
+              sound._ended = false;
+              self2._clearTimer(id);
+              if (!self2._webAudio && sound._node && !isNaN(sound._node.duration)) {
+                sound._node.currentTime = seek;
+              }
+              var seekAndEmit = function() {
+                if (playing) {
+                  self2.play(id, true);
+                }
+                self2._emit("seek", id);
+              };
+              if (playing && !self2._webAudio) {
+                var emitSeek = function() {
+                  if (!self2._playLock) {
+                    seekAndEmit();
+                  } else {
+                    setTimeout(emitSeek, 0);
+                  }
+                };
+                setTimeout(emitSeek, 0);
+              } else {
+                seekAndEmit();
+              }
+            } else {
+              if (self2._webAudio) {
+                var realTime = self2.playing(id) ? Howler2.ctx.currentTime - sound._playStart : 0;
+                var rateSeek = sound._rateSeek ? sound._rateSeek - sound._seek : 0;
+                return sound._seek + (rateSeek + realTime * Math.abs(sound._rate));
+              } else {
+                return sound._node.currentTime;
+              }
+            }
+          }
+          return self2;
+        },
+        /**
+         * Check if a specific sound is currently playing or not (if id is provided), or check if at least one of the sounds in the group is playing or not.
+         * @param  {Number}  id The sound id to check. If none is passed, the whole sound group is checked.
+         * @return {Boolean} True if playing and false if not.
+         */
+        playing: function(id) {
+          var self2 = this;
+          if (typeof id === "number") {
+            var sound = self2._soundById(id);
+            return sound ? !sound._paused : false;
+          }
+          for (var i = 0; i < self2._sounds.length; i++) {
+            if (!self2._sounds[i]._paused) {
+              return true;
+            }
+          }
+          return false;
+        },
+        /**
+         * Get the duration of this sound. Passing a sound id will return the sprite duration.
+         * @param  {Number} id The sound id to check. If none is passed, return full source duration.
+         * @return {Number} Audio duration in seconds.
+         */
+        duration: function(id) {
+          var self2 = this;
+          var duration = self2._duration;
+          var sound = self2._soundById(id);
+          if (sound) {
+            duration = self2._sprite[sound._sprite][1] / 1e3;
+          }
+          return duration;
+        },
+        /**
+         * Returns the current loaded state of this Howl.
+         * @return {String} 'unloaded', 'loading', 'loaded'
+         */
+        state: function() {
+          return this._state;
+        },
+        /**
+         * Unload and destroy the current Howl object.
+         * This will immediately stop all sound instances attached to this group.
+         */
+        unload: function() {
+          var self2 = this;
+          var sounds = self2._sounds;
+          for (var i = 0; i < sounds.length; i++) {
+            if (!sounds[i]._paused) {
+              self2.stop(sounds[i]._id);
+            }
+            if (!self2._webAudio) {
+              self2._clearSound(sounds[i]._node);
+              sounds[i]._node.removeEventListener("error", sounds[i]._errorFn, false);
+              sounds[i]._node.removeEventListener(Howler2._canPlayEvent, sounds[i]._loadFn, false);
+              sounds[i]._node.removeEventListener("ended", sounds[i]._endFn, false);
+              Howler2._releaseHtml5Audio(sounds[i]._node);
+            }
+            delete sounds[i]._node;
+            self2._clearTimer(sounds[i]._id);
+          }
+          var index = Howler2._howls.indexOf(self2);
+          if (index >= 0) {
+            Howler2._howls.splice(index, 1);
+          }
+          var remCache = true;
+          for (i = 0; i < Howler2._howls.length; i++) {
+            if (Howler2._howls[i]._src === self2._src || self2._src.indexOf(Howler2._howls[i]._src) >= 0) {
+              remCache = false;
+              break;
+            }
+          }
+          if (cache && remCache) {
+            delete cache[self2._src];
+          }
+          Howler2.noAudio = false;
+          self2._state = "unloaded";
+          self2._sounds = [];
+          self2 = null;
+          return null;
+        },
+        /**
+         * Listen to a custom event.
+         * @param  {String}   event Event name.
+         * @param  {Function} fn    Listener to call.
+         * @param  {Number}   id    (optional) Only listen to events for this sound.
+         * @param  {Number}   once  (INTERNAL) Marks event to fire only once.
+         * @return {Howl}
+         */
+        on: function(event, fn, id, once) {
+          var self2 = this;
+          var events = self2["_on" + event];
+          if (typeof fn === "function") {
+            events.push(once ? { id, fn, once } : { id, fn });
+          }
+          return self2;
+        },
+        /**
+         * Remove a custom event. Call without parameters to remove all events.
+         * @param  {String}   event Event name.
+         * @param  {Function} fn    Listener to remove. Leave empty to remove all.
+         * @param  {Number}   id    (optional) Only remove events for this sound.
+         * @return {Howl}
+         */
+        off: function(event, fn, id) {
+          var self2 = this;
+          var events = self2["_on" + event];
+          var i = 0;
+          if (typeof fn === "number") {
+            id = fn;
+            fn = null;
+          }
+          if (fn || id) {
+            for (i = 0; i < events.length; i++) {
+              var isId = id === events[i].id;
+              if (fn === events[i].fn && isId || !fn && isId) {
+                events.splice(i, 1);
+                break;
+              }
+            }
+          } else if (event) {
+            self2["_on" + event] = [];
+          } else {
+            var keys = Object.keys(self2);
+            for (i = 0; i < keys.length; i++) {
+              if (keys[i].indexOf("_on") === 0 && Array.isArray(self2[keys[i]])) {
+                self2[keys[i]] = [];
+              }
+            }
+          }
+          return self2;
+        },
+        /**
+         * Listen to a custom event and remove it once fired.
+         * @param  {String}   event Event name.
+         * @param  {Function} fn    Listener to call.
+         * @param  {Number}   id    (optional) Only listen to events for this sound.
+         * @return {Howl}
+         */
+        once: function(event, fn, id) {
+          var self2 = this;
+          self2.on(event, fn, id, 1);
+          return self2;
+        },
+        /**
+         * Emit all events of a specific type and pass the sound id.
+         * @param  {String} event Event name.
+         * @param  {Number} id    Sound ID.
+         * @param  {Number} msg   Message to go with event.
+         * @return {Howl}
+         */
+        _emit: function(event, id, msg) {
+          var self2 = this;
+          var events = self2["_on" + event];
+          for (var i = events.length - 1; i >= 0; i--) {
+            if (!events[i].id || events[i].id === id || event === "load") {
+              setTimeout(function(fn) {
+                fn.call(this, id, msg);
+              }.bind(self2, events[i].fn), 0);
+              if (events[i].once) {
+                self2.off(event, events[i].fn, events[i].id);
+              }
+            }
+          }
+          self2._loadQueue(event);
+          return self2;
+        },
+        /**
+         * Queue of actions initiated before the sound has loaded.
+         * These will be called in sequence, with the next only firing
+         * after the previous has finished executing (even if async like play).
+         * @return {Howl}
+         */
+        _loadQueue: function(event) {
+          var self2 = this;
+          if (self2._queue.length > 0) {
+            var task = self2._queue[0];
+            if (task.event === event) {
+              self2._queue.shift();
+              self2._loadQueue();
+            }
+            if (!event) {
+              task.action();
+            }
+          }
+          return self2;
+        },
+        /**
+         * Fired when playback ends at the end of the duration.
+         * @param  {Sound} sound The sound object to work with.
+         * @return {Howl}
+         */
+        _ended: function(sound) {
+          var self2 = this;
+          var sprite = sound._sprite;
+          if (!self2._webAudio && sound._node && !sound._node.paused && !sound._node.ended && sound._node.currentTime < sound._stop) {
+            setTimeout(self2._ended.bind(self2, sound), 100);
+            return self2;
+          }
+          var loop = !!(sound._loop || self2._sprite[sprite][2]);
+          self2._emit("end", sound._id);
+          if (!self2._webAudio && loop) {
+            self2.stop(sound._id, true).play(sound._id);
+          }
+          if (self2._webAudio && loop) {
+            self2._emit("play", sound._id);
+            sound._seek = sound._start || 0;
+            sound._rateSeek = 0;
+            sound._playStart = Howler2.ctx.currentTime;
+            var timeout = (sound._stop - sound._start) * 1e3 / Math.abs(sound._rate);
+            self2._endTimers[sound._id] = setTimeout(self2._ended.bind(self2, sound), timeout);
+          }
+          if (self2._webAudio && !loop) {
+            sound._paused = true;
+            sound._ended = true;
+            sound._seek = sound._start || 0;
+            sound._rateSeek = 0;
+            self2._clearTimer(sound._id);
+            self2._cleanBuffer(sound._node);
+            Howler2._autoSuspend();
+          }
+          if (!self2._webAudio && !loop) {
+            self2.stop(sound._id, true);
+          }
+          return self2;
+        },
+        /**
+         * Clear the end timer for a sound playback.
+         * @param  {Number} id The sound ID.
+         * @return {Howl}
+         */
+        _clearTimer: function(id) {
+          var self2 = this;
+          if (self2._endTimers[id]) {
+            if (typeof self2._endTimers[id] !== "function") {
+              clearTimeout(self2._endTimers[id]);
+            } else {
+              var sound = self2._soundById(id);
+              if (sound && sound._node) {
+                sound._node.removeEventListener("ended", self2._endTimers[id], false);
+              }
+            }
+            delete self2._endTimers[id];
+          }
+          return self2;
+        },
+        /**
+         * Return the sound identified by this ID, or return null.
+         * @param  {Number} id Sound ID
+         * @return {Object}    Sound object or null.
+         */
+        _soundById: function(id) {
+          var self2 = this;
+          for (var i = 0; i < self2._sounds.length; i++) {
+            if (id === self2._sounds[i]._id) {
+              return self2._sounds[i];
+            }
+          }
+          return null;
+        },
+        /**
+         * Return an inactive sound from the pool or create a new one.
+         * @return {Sound} Sound playback object.
+         */
+        _inactiveSound: function() {
+          var self2 = this;
+          self2._drain();
+          for (var i = 0; i < self2._sounds.length; i++) {
+            if (self2._sounds[i]._ended) {
+              return self2._sounds[i].reset();
+            }
+          }
+          return new Sound2(self2);
+        },
+        /**
+         * Drain excess inactive sounds from the pool.
+         */
+        _drain: function() {
+          var self2 = this;
+          var limit = self2._pool;
+          var cnt = 0;
+          var i = 0;
+          if (self2._sounds.length < limit) {
+            return;
+          }
+          for (i = 0; i < self2._sounds.length; i++) {
+            if (self2._sounds[i]._ended) {
+              cnt++;
+            }
+          }
+          for (i = self2._sounds.length - 1; i >= 0; i--) {
+            if (cnt <= limit) {
+              return;
+            }
+            if (self2._sounds[i]._ended) {
+              if (self2._webAudio && self2._sounds[i]._node) {
+                self2._sounds[i]._node.disconnect(0);
+              }
+              self2._sounds.splice(i, 1);
+              cnt--;
+            }
+          }
+        },
+        /**
+         * Get all ID's from the sounds pool.
+         * @param  {Number} id Only return one ID if one is passed.
+         * @return {Array}    Array of IDs.
+         */
+        _getSoundIds: function(id) {
+          var self2 = this;
+          if (typeof id === "undefined") {
+            var ids = [];
+            for (var i = 0; i < self2._sounds.length; i++) {
+              ids.push(self2._sounds[i]._id);
+            }
+            return ids;
+          } else {
+            return [id];
+          }
+        },
+        /**
+         * Load the sound back into the buffer source.
+         * @param  {Sound} sound The sound object to work with.
+         * @return {Howl}
+         */
+        _refreshBuffer: function(sound) {
+          var self2 = this;
+          sound._node.bufferSource = Howler2.ctx.createBufferSource();
+          sound._node.bufferSource.buffer = cache[self2._src];
+          if (sound._panner) {
+            sound._node.bufferSource.connect(sound._panner);
+          } else {
+            sound._node.bufferSource.connect(sound._node);
+          }
+          sound._node.bufferSource.loop = sound._loop;
+          if (sound._loop) {
+            sound._node.bufferSource.loopStart = sound._start || 0;
+            sound._node.bufferSource.loopEnd = sound._stop || 0;
+          }
+          sound._node.bufferSource.playbackRate.setValueAtTime(sound._rate, Howler2.ctx.currentTime);
+          return self2;
+        },
+        /**
+         * Prevent memory leaks by cleaning up the buffer source after playback.
+         * @param  {Object} node Sound's audio node containing the buffer source.
+         * @return {Howl}
+         */
+        _cleanBuffer: function(node) {
+          var self2 = this;
+          var isIOS = Howler2._navigator && Howler2._navigator.vendor.indexOf("Apple") >= 0;
+          if (Howler2._scratchBuffer && node.bufferSource) {
+            node.bufferSource.onended = null;
+            node.bufferSource.disconnect(0);
+            if (isIOS) {
+              try {
+                node.bufferSource.buffer = Howler2._scratchBuffer;
+              } catch (e) {
+              }
+            }
+          }
+          node.bufferSource = null;
+          return self2;
+        },
+        /**
+         * Set the source to a 0-second silence to stop any downloading (except in IE).
+         * @param  {Object} node Audio node to clear.
+         */
+        _clearSound: function(node) {
+          var checkIE = /MSIE |Trident\//.test(Howler2._navigator && Howler2._navigator.userAgent);
+          if (!checkIE) {
+            node.src = "data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEARKwAAIhYAQACABAAAABkYXRhAgAAAAEA";
+          }
+        }
+      };
+      var Sound2 = function(howl) {
+        this._parent = howl;
+        this.init();
+      };
+      Sound2.prototype = {
+        /**
+         * Initialize a new Sound object.
+         * @return {Sound}
+         */
+        init: function() {
+          var self2 = this;
+          var parent = self2._parent;
+          self2._muted = parent._muted;
+          self2._loop = parent._loop;
+          self2._volume = parent._volume;
+          self2._rate = parent._rate;
+          self2._seek = 0;
+          self2._paused = true;
+          self2._ended = true;
+          self2._sprite = "__default";
+          self2._id = ++Howler2._counter;
+          parent._sounds.push(self2);
+          self2.create();
+          return self2;
+        },
+        /**
+         * Create and setup a new sound object, whether HTML5 Audio or Web Audio.
+         * @return {Sound}
+         */
+        create: function() {
+          var self2 = this;
+          var parent = self2._parent;
+          var volume = Howler2._muted || self2._muted || self2._parent._muted ? 0 : self2._volume;
+          if (parent._webAudio) {
+            self2._node = typeof Howler2.ctx.createGain === "undefined" ? Howler2.ctx.createGainNode() : Howler2.ctx.createGain();
+            self2._node.gain.setValueAtTime(volume, Howler2.ctx.currentTime);
+            self2._node.paused = true;
+            self2._node.connect(Howler2.masterGain);
+          } else if (!Howler2.noAudio) {
+            self2._node = Howler2._obtainHtml5Audio();
+            self2._errorFn = self2._errorListener.bind(self2);
+            self2._node.addEventListener("error", self2._errorFn, false);
+            self2._loadFn = self2._loadListener.bind(self2);
+            self2._node.addEventListener(Howler2._canPlayEvent, self2._loadFn, false);
+            self2._endFn = self2._endListener.bind(self2);
+            self2._node.addEventListener("ended", self2._endFn, false);
+            self2._node.src = parent._src;
+            self2._node.preload = parent._preload === true ? "auto" : parent._preload;
+            self2._node.volume = volume * Howler2.volume();
+            self2._node.load();
+          }
+          return self2;
+        },
+        /**
+         * Reset the parameters of this sound to the original state (for recycle).
+         * @return {Sound}
+         */
+        reset: function() {
+          var self2 = this;
+          var parent = self2._parent;
+          self2._muted = parent._muted;
+          self2._loop = parent._loop;
+          self2._volume = parent._volume;
+          self2._rate = parent._rate;
+          self2._seek = 0;
+          self2._rateSeek = 0;
+          self2._paused = true;
+          self2._ended = true;
+          self2._sprite = "__default";
+          self2._id = ++Howler2._counter;
+          return self2;
+        },
+        /**
+         * HTML5 Audio error listener callback.
+         */
+        _errorListener: function() {
+          var self2 = this;
+          self2._parent._emit("loaderror", self2._id, self2._node.error ? self2._node.error.code : 0);
+          self2._node.removeEventListener("error", self2._errorFn, false);
+        },
+        /**
+         * HTML5 Audio canplaythrough listener callback.
+         */
+        _loadListener: function() {
+          var self2 = this;
+          var parent = self2._parent;
+          parent._duration = Math.ceil(self2._node.duration * 10) / 10;
+          if (Object.keys(parent._sprite).length === 0) {
+            parent._sprite = { __default: [0, parent._duration * 1e3] };
+          }
+          if (parent._state !== "loaded") {
+            parent._state = "loaded";
+            parent._emit("load");
+            parent._loadQueue();
+          }
+          self2._node.removeEventListener(Howler2._canPlayEvent, self2._loadFn, false);
+        },
+        /**
+         * HTML5 Audio ended listener callback.
+         */
+        _endListener: function() {
+          var self2 = this;
+          var parent = self2._parent;
+          if (parent._duration === Infinity) {
+            parent._duration = Math.ceil(self2._node.duration * 10) / 10;
+            if (parent._sprite.__default[1] === Infinity) {
+              parent._sprite.__default[1] = parent._duration * 1e3;
+            }
+            parent._ended(self2);
+          }
+          self2._node.removeEventListener("ended", self2._endFn, false);
+        }
+      };
+      var cache = {};
+      var loadBuffer = function(self2) {
+        var url = self2._src;
+        if (cache[url]) {
+          self2._duration = cache[url].duration;
+          loadSound(self2);
+          return;
+        }
+        if (/^data:[^;]+;base64,/.test(url)) {
+          var data = atob(url.split(",")[1]);
+          var dataView = new Uint8Array(data.length);
+          for (var i = 0; i < data.length; ++i) {
+            dataView[i] = data.charCodeAt(i);
+          }
+          decodeAudioData(dataView.buffer, self2);
+        } else {
+          var xhr = new XMLHttpRequest();
+          xhr.open(self2._xhr.method, url, true);
+          xhr.withCredentials = self2._xhr.withCredentials;
+          xhr.responseType = "arraybuffer";
+          if (self2._xhr.headers) {
+            Object.keys(self2._xhr.headers).forEach(function(key) {
+              xhr.setRequestHeader(key, self2._xhr.headers[key]);
+            });
+          }
+          xhr.onload = function() {
+            var code = (xhr.status + "")[0];
+            if (code !== "0" && code !== "2" && code !== "3") {
+              self2._emit("loaderror", null, "Failed loading audio file with status: " + xhr.status + ".");
+              return;
+            }
+            decodeAudioData(xhr.response, self2);
+          };
+          xhr.onerror = function() {
+            if (self2._webAudio) {
+              self2._html5 = true;
+              self2._webAudio = false;
+              self2._sounds = [];
+              delete cache[url];
+              self2.load();
+            }
+          };
+          safeXhrSend(xhr);
+        }
+      };
+      var safeXhrSend = function(xhr) {
+        try {
+          xhr.send();
+        } catch (e) {
+          xhr.onerror();
+        }
+      };
+      var decodeAudioData = function(arraybuffer, self2) {
+        var error = function() {
+          self2._emit("loaderror", null, "Decoding audio data failed.");
+        };
+        var success = function(buffer) {
+          if (buffer && self2._sounds.length > 0) {
+            cache[self2._src] = buffer;
+            loadSound(self2, buffer);
+          } else {
+            error();
+          }
+        };
+        if (typeof Promise !== "undefined" && Howler2.ctx.decodeAudioData.length === 1) {
+          Howler2.ctx.decodeAudioData(arraybuffer).then(success).catch(error);
+        } else {
+          Howler2.ctx.decodeAudioData(arraybuffer, success, error);
+        }
+      };
+      var loadSound = function(self2, buffer) {
+        if (buffer && !self2._duration) {
+          self2._duration = buffer.duration;
+        }
+        if (Object.keys(self2._sprite).length === 0) {
+          self2._sprite = { __default: [0, self2._duration * 1e3] };
+        }
+        if (self2._state !== "loaded") {
+          self2._state = "loaded";
+          self2._emit("load");
+          self2._loadQueue();
+        }
+      };
+      var setupAudioContext = function() {
+        if (!Howler2.usingWebAudio) {
+          return;
+        }
+        try {
+          if (typeof AudioContext !== "undefined") {
+            Howler2.ctx = new AudioContext();
+          } else if (typeof webkitAudioContext !== "undefined") {
+            Howler2.ctx = new webkitAudioContext();
+          } else {
+            Howler2.usingWebAudio = false;
+          }
+        } catch (e) {
+          Howler2.usingWebAudio = false;
+        }
+        if (!Howler2.ctx) {
+          Howler2.usingWebAudio = false;
+        }
+        var iOS = /iP(hone|od|ad)/.test(Howler2._navigator && Howler2._navigator.platform);
+        var appVersion = Howler2._navigator && Howler2._navigator.appVersion.match(/OS (\d+)_(\d+)_?(\d+)?/);
+        var version = appVersion ? parseInt(appVersion[1], 10) : null;
+        if (iOS && version && version < 9) {
+          var safari = /safari/.test(Howler2._navigator && Howler2._navigator.userAgent.toLowerCase());
+          if (Howler2._navigator && !safari) {
+            Howler2.usingWebAudio = false;
+          }
+        }
+        if (Howler2.usingWebAudio) {
+          Howler2.masterGain = typeof Howler2.ctx.createGain === "undefined" ? Howler2.ctx.createGainNode() : Howler2.ctx.createGain();
+          Howler2.masterGain.gain.setValueAtTime(Howler2._muted ? 0 : Howler2._volume, Howler2.ctx.currentTime);
+          Howler2.masterGain.connect(Howler2.ctx.destination);
+        }
+        Howler2._setup();
+      };
+      if (typeof define === "function" && define.amd) {
+        define([], function() {
+          return {
+            Howler: Howler2,
+            Howl: Howl3
+          };
+        });
+      }
+      if (typeof exports !== "undefined") {
+        exports.Howler = Howler2;
+        exports.Howl = Howl3;
+      }
+      if (typeof global !== "undefined") {
+        global.HowlerGlobal = HowlerGlobal2;
+        global.Howler = Howler2;
+        global.Howl = Howl3;
+        global.Sound = Sound2;
+      } else if (typeof window !== "undefined") {
+        window.HowlerGlobal = HowlerGlobal2;
+        window.Howler = Howler2;
+        window.Howl = Howl3;
+        window.Sound = Sound2;
+      }
+    })();
+    (function() {
+      "use strict";
+      HowlerGlobal.prototype._pos = [0, 0, 0];
+      HowlerGlobal.prototype._orientation = [0, 0, -1, 0, 1, 0];
+      HowlerGlobal.prototype.stereo = function(pan) {
+        var self2 = this;
+        if (!self2.ctx || !self2.ctx.listener) {
+          return self2;
+        }
+        for (var i = self2._howls.length - 1; i >= 0; i--) {
+          self2._howls[i].stereo(pan);
+        }
+        return self2;
+      };
+      HowlerGlobal.prototype.pos = function(x, y, z) {
+        var self2 = this;
+        if (!self2.ctx || !self2.ctx.listener) {
+          return self2;
+        }
+        y = typeof y !== "number" ? self2._pos[1] : y;
+        z = typeof z !== "number" ? self2._pos[2] : z;
+        if (typeof x === "number") {
+          self2._pos = [x, y, z];
+          if (typeof self2.ctx.listener.positionX !== "undefined") {
+            self2.ctx.listener.positionX.setTargetAtTime(self2._pos[0], Howler.ctx.currentTime, 0.1);
+            self2.ctx.listener.positionY.setTargetAtTime(self2._pos[1], Howler.ctx.currentTime, 0.1);
+            self2.ctx.listener.positionZ.setTargetAtTime(self2._pos[2], Howler.ctx.currentTime, 0.1);
+          } else {
+            self2.ctx.listener.setPosition(self2._pos[0], self2._pos[1], self2._pos[2]);
+          }
+        } else {
+          return self2._pos;
+        }
+        return self2;
+      };
+      HowlerGlobal.prototype.orientation = function(x, y, z, xUp, yUp, zUp) {
+        var self2 = this;
+        if (!self2.ctx || !self2.ctx.listener) {
+          return self2;
+        }
+        var or = self2._orientation;
+        y = typeof y !== "number" ? or[1] : y;
+        z = typeof z !== "number" ? or[2] : z;
+        xUp = typeof xUp !== "number" ? or[3] : xUp;
+        yUp = typeof yUp !== "number" ? or[4] : yUp;
+        zUp = typeof zUp !== "number" ? or[5] : zUp;
+        if (typeof x === "number") {
+          self2._orientation = [x, y, z, xUp, yUp, zUp];
+          if (typeof self2.ctx.listener.forwardX !== "undefined") {
+            self2.ctx.listener.forwardX.setTargetAtTime(x, Howler.ctx.currentTime, 0.1);
+            self2.ctx.listener.forwardY.setTargetAtTime(y, Howler.ctx.currentTime, 0.1);
+            self2.ctx.listener.forwardZ.setTargetAtTime(z, Howler.ctx.currentTime, 0.1);
+            self2.ctx.listener.upX.setTargetAtTime(xUp, Howler.ctx.currentTime, 0.1);
+            self2.ctx.listener.upY.setTargetAtTime(yUp, Howler.ctx.currentTime, 0.1);
+            self2.ctx.listener.upZ.setTargetAtTime(zUp, Howler.ctx.currentTime, 0.1);
+          } else {
+            self2.ctx.listener.setOrientation(x, y, z, xUp, yUp, zUp);
+          }
+        } else {
+          return or;
+        }
+        return self2;
+      };
+      Howl.prototype.init = function(_super) {
+        return function(o) {
+          var self2 = this;
+          self2._orientation = o.orientation || [1, 0, 0];
+          self2._stereo = o.stereo || null;
+          self2._pos = o.pos || null;
+          self2._pannerAttr = {
+            coneInnerAngle: typeof o.coneInnerAngle !== "undefined" ? o.coneInnerAngle : 360,
+            coneOuterAngle: typeof o.coneOuterAngle !== "undefined" ? o.coneOuterAngle : 360,
+            coneOuterGain: typeof o.coneOuterGain !== "undefined" ? o.coneOuterGain : 0,
+            distanceModel: typeof o.distanceModel !== "undefined" ? o.distanceModel : "inverse",
+            maxDistance: typeof o.maxDistance !== "undefined" ? o.maxDistance : 1e4,
+            panningModel: typeof o.panningModel !== "undefined" ? o.panningModel : "HRTF",
+            refDistance: typeof o.refDistance !== "undefined" ? o.refDistance : 1,
+            rolloffFactor: typeof o.rolloffFactor !== "undefined" ? o.rolloffFactor : 1
+          };
+          self2._onstereo = o.onstereo ? [{ fn: o.onstereo }] : [];
+          self2._onpos = o.onpos ? [{ fn: o.onpos }] : [];
+          self2._onorientation = o.onorientation ? [{ fn: o.onorientation }] : [];
+          return _super.call(this, o);
+        };
+      }(Howl.prototype.init);
+      Howl.prototype.stereo = function(pan, id) {
+        var self2 = this;
+        if (!self2._webAudio) {
+          return self2;
+        }
+        if (self2._state !== "loaded") {
+          self2._queue.push({
+            event: "stereo",
+            action: function() {
+              self2.stereo(pan, id);
+            }
+          });
+          return self2;
+        }
+        var pannerType = typeof Howler.ctx.createStereoPanner === "undefined" ? "spatial" : "stereo";
+        if (typeof id === "undefined") {
+          if (typeof pan === "number") {
+            self2._stereo = pan;
+            self2._pos = [pan, 0, 0];
+          } else {
+            return self2._stereo;
+          }
+        }
+        var ids = self2._getSoundIds(id);
+        for (var i = 0; i < ids.length; i++) {
+          var sound = self2._soundById(ids[i]);
+          if (sound) {
+            if (typeof pan === "number") {
+              sound._stereo = pan;
+              sound._pos = [pan, 0, 0];
+              if (sound._node) {
+                sound._pannerAttr.panningModel = "equalpower";
+                if (!sound._panner || !sound._panner.pan) {
+                  setupPanner(sound, pannerType);
+                }
+                if (pannerType === "spatial") {
+                  if (typeof sound._panner.positionX !== "undefined") {
+                    sound._panner.positionX.setValueAtTime(pan, Howler.ctx.currentTime);
+                    sound._panner.positionY.setValueAtTime(0, Howler.ctx.currentTime);
+                    sound._panner.positionZ.setValueAtTime(0, Howler.ctx.currentTime);
+                  } else {
+                    sound._panner.setPosition(pan, 0, 0);
+                  }
+                } else {
+                  sound._panner.pan.setValueAtTime(pan, Howler.ctx.currentTime);
+                }
+              }
+              self2._emit("stereo", sound._id);
+            } else {
+              return sound._stereo;
+            }
+          }
+        }
+        return self2;
+      };
+      Howl.prototype.pos = function(x, y, z, id) {
+        var self2 = this;
+        if (!self2._webAudio) {
+          return self2;
+        }
+        if (self2._state !== "loaded") {
+          self2._queue.push({
+            event: "pos",
+            action: function() {
+              self2.pos(x, y, z, id);
+            }
+          });
+          return self2;
+        }
+        y = typeof y !== "number" ? 0 : y;
+        z = typeof z !== "number" ? -0.5 : z;
+        if (typeof id === "undefined") {
+          if (typeof x === "number") {
+            self2._pos = [x, y, z];
+          } else {
+            return self2._pos;
+          }
+        }
+        var ids = self2._getSoundIds(id);
+        for (var i = 0; i < ids.length; i++) {
+          var sound = self2._soundById(ids[i]);
+          if (sound) {
+            if (typeof x === "number") {
+              sound._pos = [x, y, z];
+              if (sound._node) {
+                if (!sound._panner || sound._panner.pan) {
+                  setupPanner(sound, "spatial");
+                }
+                if (typeof sound._panner.positionX !== "undefined") {
+                  sound._panner.positionX.setValueAtTime(x, Howler.ctx.currentTime);
+                  sound._panner.positionY.setValueAtTime(y, Howler.ctx.currentTime);
+                  sound._panner.positionZ.setValueAtTime(z, Howler.ctx.currentTime);
+                } else {
+                  sound._panner.setPosition(x, y, z);
+                }
+              }
+              self2._emit("pos", sound._id);
+            } else {
+              return sound._pos;
+            }
+          }
+        }
+        return self2;
+      };
+      Howl.prototype.orientation = function(x, y, z, id) {
+        var self2 = this;
+        if (!self2._webAudio) {
+          return self2;
+        }
+        if (self2._state !== "loaded") {
+          self2._queue.push({
+            event: "orientation",
+            action: function() {
+              self2.orientation(x, y, z, id);
+            }
+          });
+          return self2;
+        }
+        y = typeof y !== "number" ? self2._orientation[1] : y;
+        z = typeof z !== "number" ? self2._orientation[2] : z;
+        if (typeof id === "undefined") {
+          if (typeof x === "number") {
+            self2._orientation = [x, y, z];
+          } else {
+            return self2._orientation;
+          }
+        }
+        var ids = self2._getSoundIds(id);
+        for (var i = 0; i < ids.length; i++) {
+          var sound = self2._soundById(ids[i]);
+          if (sound) {
+            if (typeof x === "number") {
+              sound._orientation = [x, y, z];
+              if (sound._node) {
+                if (!sound._panner) {
+                  if (!sound._pos) {
+                    sound._pos = self2._pos || [0, 0, -0.5];
+                  }
+                  setupPanner(sound, "spatial");
+                }
+                if (typeof sound._panner.orientationX !== "undefined") {
+                  sound._panner.orientationX.setValueAtTime(x, Howler.ctx.currentTime);
+                  sound._panner.orientationY.setValueAtTime(y, Howler.ctx.currentTime);
+                  sound._panner.orientationZ.setValueAtTime(z, Howler.ctx.currentTime);
+                } else {
+                  sound._panner.setOrientation(x, y, z);
+                }
+              }
+              self2._emit("orientation", sound._id);
+            } else {
+              return sound._orientation;
+            }
+          }
+        }
+        return self2;
+      };
+      Howl.prototype.pannerAttr = function() {
+        var self2 = this;
+        var args = arguments;
+        var o, id, sound;
+        if (!self2._webAudio) {
+          return self2;
+        }
+        if (args.length === 0) {
+          return self2._pannerAttr;
+        } else if (args.length === 1) {
+          if (typeof args[0] === "object") {
+            o = args[0];
+            if (typeof id === "undefined") {
+              if (!o.pannerAttr) {
+                o.pannerAttr = {
+                  coneInnerAngle: o.coneInnerAngle,
+                  coneOuterAngle: o.coneOuterAngle,
+                  coneOuterGain: o.coneOuterGain,
+                  distanceModel: o.distanceModel,
+                  maxDistance: o.maxDistance,
+                  refDistance: o.refDistance,
+                  rolloffFactor: o.rolloffFactor,
+                  panningModel: o.panningModel
+                };
+              }
+              self2._pannerAttr = {
+                coneInnerAngle: typeof o.pannerAttr.coneInnerAngle !== "undefined" ? o.pannerAttr.coneInnerAngle : self2._coneInnerAngle,
+                coneOuterAngle: typeof o.pannerAttr.coneOuterAngle !== "undefined" ? o.pannerAttr.coneOuterAngle : self2._coneOuterAngle,
+                coneOuterGain: typeof o.pannerAttr.coneOuterGain !== "undefined" ? o.pannerAttr.coneOuterGain : self2._coneOuterGain,
+                distanceModel: typeof o.pannerAttr.distanceModel !== "undefined" ? o.pannerAttr.distanceModel : self2._distanceModel,
+                maxDistance: typeof o.pannerAttr.maxDistance !== "undefined" ? o.pannerAttr.maxDistance : self2._maxDistance,
+                refDistance: typeof o.pannerAttr.refDistance !== "undefined" ? o.pannerAttr.refDistance : self2._refDistance,
+                rolloffFactor: typeof o.pannerAttr.rolloffFactor !== "undefined" ? o.pannerAttr.rolloffFactor : self2._rolloffFactor,
+                panningModel: typeof o.pannerAttr.panningModel !== "undefined" ? o.pannerAttr.panningModel : self2._panningModel
+              };
+            }
+          } else {
+            sound = self2._soundById(parseInt(args[0], 10));
+            return sound ? sound._pannerAttr : self2._pannerAttr;
+          }
+        } else if (args.length === 2) {
+          o = args[0];
+          id = parseInt(args[1], 10);
+        }
+        var ids = self2._getSoundIds(id);
+        for (var i = 0; i < ids.length; i++) {
+          sound = self2._soundById(ids[i]);
+          if (sound) {
+            var pa = sound._pannerAttr;
+            pa = {
+              coneInnerAngle: typeof o.coneInnerAngle !== "undefined" ? o.coneInnerAngle : pa.coneInnerAngle,
+              coneOuterAngle: typeof o.coneOuterAngle !== "undefined" ? o.coneOuterAngle : pa.coneOuterAngle,
+              coneOuterGain: typeof o.coneOuterGain !== "undefined" ? o.coneOuterGain : pa.coneOuterGain,
+              distanceModel: typeof o.distanceModel !== "undefined" ? o.distanceModel : pa.distanceModel,
+              maxDistance: typeof o.maxDistance !== "undefined" ? o.maxDistance : pa.maxDistance,
+              refDistance: typeof o.refDistance !== "undefined" ? o.refDistance : pa.refDistance,
+              rolloffFactor: typeof o.rolloffFactor !== "undefined" ? o.rolloffFactor : pa.rolloffFactor,
+              panningModel: typeof o.panningModel !== "undefined" ? o.panningModel : pa.panningModel
+            };
+            var panner = sound._panner;
+            if (panner) {
+              panner.coneInnerAngle = pa.coneInnerAngle;
+              panner.coneOuterAngle = pa.coneOuterAngle;
+              panner.coneOuterGain = pa.coneOuterGain;
+              panner.distanceModel = pa.distanceModel;
+              panner.maxDistance = pa.maxDistance;
+              panner.refDistance = pa.refDistance;
+              panner.rolloffFactor = pa.rolloffFactor;
+              panner.panningModel = pa.panningModel;
+            } else {
+              if (!sound._pos) {
+                sound._pos = self2._pos || [0, 0, -0.5];
+              }
+              setupPanner(sound, "spatial");
+            }
+          }
+        }
+        return self2;
+      };
+      Sound.prototype.init = function(_super) {
+        return function() {
+          var self2 = this;
+          var parent = self2._parent;
+          self2._orientation = parent._orientation;
+          self2._stereo = parent._stereo;
+          self2._pos = parent._pos;
+          self2._pannerAttr = parent._pannerAttr;
+          _super.call(this);
+          if (self2._stereo) {
+            parent.stereo(self2._stereo);
+          } else if (self2._pos) {
+            parent.pos(self2._pos[0], self2._pos[1], self2._pos[2], self2._id);
+          }
+        };
+      }(Sound.prototype.init);
+      Sound.prototype.reset = function(_super) {
+        return function() {
+          var self2 = this;
+          var parent = self2._parent;
+          self2._orientation = parent._orientation;
+          self2._stereo = parent._stereo;
+          self2._pos = parent._pos;
+          self2._pannerAttr = parent._pannerAttr;
+          if (self2._stereo) {
+            parent.stereo(self2._stereo);
+          } else if (self2._pos) {
+            parent.pos(self2._pos[0], self2._pos[1], self2._pos[2], self2._id);
+          } else if (self2._panner) {
+            self2._panner.disconnect(0);
+            self2._panner = void 0;
+            parent._refreshBuffer(self2);
+          }
+          return _super.call(this);
+        };
+      }(Sound.prototype.reset);
+      var setupPanner = function(sound, type) {
+        type = type || "spatial";
+        if (type === "spatial") {
+          sound._panner = Howler.ctx.createPanner();
+          sound._panner.coneInnerAngle = sound._pannerAttr.coneInnerAngle;
+          sound._panner.coneOuterAngle = sound._pannerAttr.coneOuterAngle;
+          sound._panner.coneOuterGain = sound._pannerAttr.coneOuterGain;
+          sound._panner.distanceModel = sound._pannerAttr.distanceModel;
+          sound._panner.maxDistance = sound._pannerAttr.maxDistance;
+          sound._panner.refDistance = sound._pannerAttr.refDistance;
+          sound._panner.rolloffFactor = sound._pannerAttr.rolloffFactor;
+          sound._panner.panningModel = sound._pannerAttr.panningModel;
+          if (typeof sound._panner.positionX !== "undefined") {
+            sound._panner.positionX.setValueAtTime(sound._pos[0], Howler.ctx.currentTime);
+            sound._panner.positionY.setValueAtTime(sound._pos[1], Howler.ctx.currentTime);
+            sound._panner.positionZ.setValueAtTime(sound._pos[2], Howler.ctx.currentTime);
+          } else {
+            sound._panner.setPosition(sound._pos[0], sound._pos[1], sound._pos[2]);
+          }
+          if (typeof sound._panner.orientationX !== "undefined") {
+            sound._panner.orientationX.setValueAtTime(sound._orientation[0], Howler.ctx.currentTime);
+            sound._panner.orientationY.setValueAtTime(sound._orientation[1], Howler.ctx.currentTime);
+            sound._panner.orientationZ.setValueAtTime(sound._orientation[2], Howler.ctx.currentTime);
+          } else {
+            sound._panner.setOrientation(sound._orientation[0], sound._orientation[1], sound._orientation[2]);
+          }
+        } else {
+          sound._panner = Howler.ctx.createStereoPanner();
+          sound._panner.pan.setValueAtTime(sound._stereo, Howler.ctx.currentTime);
+        }
+        sound._panner.connect(sound._node);
+        if (!sound._paused) {
+          sound._parent.pause(sound._id, true).play(sound._id, true);
+        }
+      };
+    })();
+  }
+});
+
+// node_modules/@wonderlandengine/api/wonderland.js
+var Type;
+(function(Type2) {
+  Type2[Type2["Bool"] = 2] = "Bool";
+  Type2[Type2["Int"] = 4] = "Int";
+  Type2[Type2["Float"] = 8] = "Float";
+  Type2[Type2["String"] = 16] = "String";
+  Type2[Type2["Enum"] = 32] = "Enum";
+  Type2[Type2["Object"] = 64] = "Object";
+  Type2[Type2["Mesh"] = 128] = "Mesh";
+  Type2[Type2["Texture"] = 256] = "Texture";
+  Type2[Type2["Material"] = 512] = "Material";
+  Type2[Type2["Animation"] = 1024] = "Animation";
+  Type2[Type2["Skin"] = 2048] = "Skin";
+  Type2[Type2["Color"] = 4096] = "Color";
+})(Type || (Type = {}));
+var Collider;
+(function(Collider2) {
+  Collider2[Collider2["Sphere"] = 0] = "Sphere";
+  Collider2[Collider2["AxisAlignedBox"] = 1] = "AxisAlignedBox";
+  Collider2[Collider2["Box"] = 2] = "Box";
+})(Collider || (Collider = {}));
+var Alignment;
+(function(Alignment2) {
+  Alignment2[Alignment2["Left"] = 1] = "Left";
+  Alignment2[Alignment2["Center"] = 2] = "Center";
+  Alignment2[Alignment2["Right"] = 3] = "Right";
+})(Alignment || (Alignment = {}));
+var Justification;
+(function(Justification2) {
+  Justification2[Justification2["Line"] = 1] = "Line";
+  Justification2[Justification2["Middle"] = 2] = "Middle";
+  Justification2[Justification2["Top"] = 3] = "Top";
+  Justification2[Justification2["Bottom"] = 4] = "Bottom";
+})(Justification || (Justification = {}));
+var TextEffect;
+(function(TextEffect2) {
+  TextEffect2[TextEffect2["None"] = 0] = "None";
+  TextEffect2[TextEffect2["Outline"] = 1] = "Outline";
+})(TextEffect || (TextEffect = {}));
+var InputType;
+(function(InputType2) {
+  InputType2[InputType2["Head"] = 0] = "Head";
+  InputType2[InputType2["EyeLeft"] = 1] = "EyeLeft";
+  InputType2[InputType2["EyeRight"] = 2] = "EyeRight";
+  InputType2[InputType2["ControllerLeft"] = 3] = "ControllerLeft";
+  InputType2[InputType2["ControllerRight"] = 4] = "ControllerRight";
+  InputType2[InputType2["RayLeft"] = 5] = "RayLeft";
+  InputType2[InputType2["RayRight"] = 6] = "RayRight";
+})(InputType || (InputType = {}));
+var LightType;
+(function(LightType2) {
+  LightType2[LightType2["Point"] = 1] = "Point";
+  LightType2[LightType2["Spot"] = 2] = "Spot";
+  LightType2[LightType2["Sun"] = 3] = "Sun";
+})(LightType || (LightType = {}));
+var AnimationState;
+(function(AnimationState2) {
+  AnimationState2[AnimationState2["Playing"] = 1] = "Playing";
+  AnimationState2[AnimationState2["Paused"] = 2] = "Paused";
+  AnimationState2[AnimationState2["Stopped"] = 3] = "Stopped";
+})(AnimationState || (AnimationState = {}));
+var ForceMode;
+(function(ForceMode2) {
+  ForceMode2[ForceMode2["Force"] = 0] = "Force";
+  ForceMode2[ForceMode2["Impulse"] = 1] = "Impulse";
+  ForceMode2[ForceMode2["VelocityChange"] = 2] = "VelocityChange";
+  ForceMode2[ForceMode2["Acceleration"] = 3] = "Acceleration";
+})(ForceMode || (ForceMode = {}));
+var CollisionEventType;
+(function(CollisionEventType2) {
+  CollisionEventType2[CollisionEventType2["Touch"] = 0] = "Touch";
+  CollisionEventType2[CollisionEventType2["TouchLost"] = 1] = "TouchLost";
+  CollisionEventType2[CollisionEventType2["TriggerTouch"] = 2] = "TriggerTouch";
+  CollisionEventType2[CollisionEventType2["TriggerTouchLost"] = 3] = "TriggerTouchLost";
+})(CollisionEventType || (CollisionEventType = {}));
+var Shape;
+(function(Shape2) {
+  Shape2[Shape2["None"] = 0] = "None";
+  Shape2[Shape2["Sphere"] = 1] = "Sphere";
+  Shape2[Shape2["Capsule"] = 2] = "Capsule";
+  Shape2[Shape2["Box"] = 3] = "Box";
+  Shape2[Shape2["Plane"] = 4] = "Plane";
+  Shape2[Shape2["ConvexMesh"] = 5] = "ConvexMesh";
+  Shape2[Shape2["TriangleMesh"] = 6] = "TriangleMesh";
+})(Shape || (Shape = {}));
+var MeshAttribute;
+(function(MeshAttribute2) {
+  MeshAttribute2[MeshAttribute2["Position"] = 0] = "Position";
+  MeshAttribute2[MeshAttribute2["Tangent"] = 1] = "Tangent";
+  MeshAttribute2[MeshAttribute2["Normal"] = 2] = "Normal";
+  MeshAttribute2[MeshAttribute2["TextureCoordinate"] = 3] = "TextureCoordinate";
+  MeshAttribute2[MeshAttribute2["Color"] = 4] = "Color";
+  MeshAttribute2[MeshAttribute2["JointId"] = 5] = "JointId";
+  MeshAttribute2[MeshAttribute2["JointWeight"] = 6] = "JointWeight";
+  MeshAttribute2[MeshAttribute2["SecondaryJointId"] = 7] = "SecondaryJointId";
+  MeshAttribute2[MeshAttribute2["SecondaryJointWeight"] = 8] = "SecondaryJointWeight";
+})(MeshAttribute || (MeshAttribute = {}));
+var MaterialParamType;
+(function(MaterialParamType2) {
+  MaterialParamType2[MaterialParamType2["UnsignedInt"] = 0] = "UnsignedInt";
+  MaterialParamType2[MaterialParamType2["Int"] = 1] = "Int";
+  MaterialParamType2[MaterialParamType2["Float"] = 2] = "Float";
+  MaterialParamType2[MaterialParamType2["Sampler"] = 3] = "Sampler";
+  MaterialParamType2[MaterialParamType2["Font"] = 4] = "Font";
+})(MaterialParamType || (MaterialParamType = {}));
+var Component = class {
+  /** Manager index. @hidden */
+  _manager;
+  /** Instance index. @hidden */
+  _id;
+  /**
+   * Object containing this object.
+   *
+   * **Note**: This is cached for faster retrieval.
+   *
+   * @hidden
+   */
+  _object;
+  /**
+   * Component's typename, e.g., 'my-component'.
+   *
+   * @todo: Should be deprecated. Constructor should be looked up instead.
+   *
+   * @hidden
+   */
+  _type;
+  /** Wonderland Engine instance */
+  _engine;
+  /**
+   * Create a new instance
+   *
+   * @param engine The engine instance.
+   * @param manager Index of the manager.
+   * @param id WASM component instance index.
+   *
+   * @hidden
+   */
+  constructor(engine, manager = -1, id = -1) {
+    this._engine = engine;
+    this._manager = manager;
+    this._id = id;
+    this._object = null;
+    this._type = null;
+  }
+  /** Engine's instance. */
+  get engine() {
+    return this._engine;
+  }
+  /** The name of this component's type */
+  get type() {
+    return this._type || this._engine.wasm._typeNameFor(this._manager);
+  }
+  /** The object this component is attached to. */
+  get object() {
+    if (!this._object) {
+      const objectId = this._engine.wasm._wl_component_get_object(this._manager, this._id);
+      this._object = this._engine.wrapObject(objectId);
+    }
+    return this._object;
+  }
+  /**
+   * Set whether this component is active.
+   *
+   * Activating/deactivating a component comes at a small cost of reordering
+   * components in the respective component manager. This function therefore
+   * is not a trivial assignment.
+   *
+   * Does nothing if the component is already activated/deactivated.
+   *
+   * @param active New active state.
+   */
+  set active(active) {
+    this._engine.wasm._wl_component_setActive(this._manager, this._id, active);
+  }
+  /**
+   * Whether this component is active
+   */
+  get active() {
+    return this._engine.wasm._wl_component_isActive(this._manager, this._id) != 0;
+  }
+  /**
+   * Remove this component from its objects and destroy it.
+   *
+   * It is best practice to set the component to `null` after,
+   * to ensure it does not get used later.
+   *
+   * ```js
+   *    c.destroy();
+   *    c = null;
+   * ```
+   * @since 0.9.0
+   */
+  destroy() {
+    this._engine.wasm._wl_component_remove(this._manager, this._id);
+    this._manager = void 0;
+    this._id = void 0;
+  }
+  /**
+   * Checks equality by comparing whether the wrapped native component ids
+   * and component manager types are equal.
+   *
+   * @param otherComponent Component to check equality with.
+   * @returns Whether this component equals the given component.
+   */
+  equals(otherComponent) {
+    if (!otherComponent)
+      return false;
+    return this._manager == otherComponent._manager && this._id == otherComponent._id;
+  }
+};
+/**
+ * Unique identifier for this component class.
+ *
+ * This is used to register, add, and retrieve component of a given type.
+ */
+__publicField(Component, "TypeName");
+/**
+ * Properties of this component class.
+ *
+ * Properties are public attributes that can be configured via the
+ * Wonderland Editor.
+ *
+ * Example:
+ *
+ * ```js
+ * import { Component, Type } from '@wonderlandengine/api';
+ * class MyComponent extends Component {
+ *     static TypeName = 'my-component';
+ *     static Properties = {
+ *         myBoolean: { type: Type.Boolean, default: false },
+ *         myFloat: { type: Type.Float, default: false },
+ *         myTexture: { type: Type.Texture, default: null },
+ *     };
+ * }
+ * ```
+ *
+ * Properties are automatically added to each component instance, and are
+ * accessible like any JS attribute:
+ *
+ * ```js
+ * // Creates a new component and set each properties value:
+ * const myComponent = object.addComponent(MyComponent, {
+ *     myBoolean: true,
+ *     myFloat: 42.0,
+ *     myTexture: null
+ * });
+ *
+ * // You can also override the properties on the instance:
+ * myComponent.myBoolean = false;
+ * myComponent.myFloat = -42.0;
+ * ```
+ */
+__publicField(Component, "Properties");
+var LockAxis;
+(function(LockAxis2) {
+  LockAxis2[LockAxis2["None"] = 0] = "None";
+  LockAxis2[LockAxis2["X"] = 1] = "X";
+  LockAxis2[LockAxis2["Y"] = 2] = "Y";
+  LockAxis2[LockAxis2["Z"] = 4] = "Z";
+})(LockAxis || (LockAxis = {}));
+var PhysXComponent = class extends Component {
+  /**
+   * Set whether this rigid body is static.
+   *
+   * Setting this property only takes effect once the component
+   * switches from inactive to active.
+   *
+   * @param b Whether the rigid body should be static.
+   */
+  set static(b) {
+    this._engine.wasm._wl_physx_component_set_static(this._id, b);
+  }
+  /**
+   * Whether this rigid body is static.
+   *
+   * This property returns whether the rigid body is *effectively*
+   * static. If static property was set while the rigid body was
+   * active, it will not take effect until the rigid body is set
+   * inactive and active again. Until the component is set inactive,
+   * this getter will return whether the rigid body is actually
+   * static.
+   */
+  get static() {
+    return !!this._engine.wasm._wl_physx_component_get_static(this._id);
+  }
+  /**
+   * Set whether this rigid body is kinematic.
+   *
+   * @param b Whether the rigid body should be kinematic.
+   */
+  set kinematic(b) {
+    this._engine.wasm._wl_physx_component_set_kinematic(this._id, b);
+  }
+  /**
+   * Whether this rigid body is kinematic.
+   */
+  get kinematic() {
+    return !!this._engine.wasm._wl_physx_component_get_kinematic(this._id);
+  }
+  /**
+   * Set whether this rigid body's gravity is enabled.
+   *
+   * @param b Whether the rigid body's gravity should be enabled.
+   */
+  set gravity(b) {
+    this._engine.wasm._wl_physx_component_set_gravity(this._id, b);
+  }
+  /**
+   * Whether this rigid body's gravity flag is enabled.
+   */
+  get gravity() {
+    return !!this._engine.wasm._wl_physx_component_get_gravity(this._id);
+  }
+  /**
+   * Set whether this rigid body's simulate flag is enabled.
+   *
+   * @param b Whether the rigid body's simulate flag should be enabled.
+   */
+  set simulate(b) {
+    this._engine.wasm._wl_physx_component_set_simulate(this._id, b);
+  }
+  /**
+   * Whether this rigid body's simulate flag is enabled.
+   */
+  get simulate() {
+    return !!this._engine.wasm._wl_physx_component_get_simulate(this._id);
+  }
+  /**
+   * Set whether this rigid body's allowSimulation flag is enabled.
+   * AllowSimulation and trigger can not be enabled at the same time.
+   * Enabling allowSimulation while trigger is enabled,
+   * will disable trigger.
+   *
+   * @param b Whether the rigid body's allowSimulation flag should be enabled.
+   */
+  set allowSimulation(b) {
+    this._engine.wasm._wl_physx_component_set_allowSimulation(this._id, b);
+  }
+  /**
+   * Whether this rigid body's allowSimulation flag is enabled.
+   */
+  get allowSimulation() {
+    return !!this._engine.wasm._wl_physx_component_get_allowSimulation(this._id);
+  }
+  /**
+   * Set whether this rigid body's allowQuery flag is enabled.
+   *
+   * @param b Whether the rigid body's allowQuery flag should be enabled.
+   */
+  set allowQuery(b) {
+    this._engine.wasm._wl_physx_component_set_allowQuery(this._id, b);
+  }
+  /**
+   * Whether this rigid body's allowQuery flag is enabled.
+   */
+  get allowQuery() {
+    return !!this._engine.wasm._wl_physx_component_get_allowQuery(this._id);
+  }
+  /**
+   * Set whether this rigid body's trigger flag is enabled.
+   * AllowSimulation and trigger can not be enabled at the same time.
+   * Enabling trigger while allowSimulation is enabled,
+   * will disable allowSimulation.
+   *
+   * @param b Whether the rigid body's trigger flag should be enabled.
+   */
+  set trigger(b) {
+    this._engine.wasm._wl_physx_component_set_trigger(this._id, b);
+  }
+  /**
+   * Whether this rigid body's trigger flag is enabled.
+   */
+  get trigger() {
+    return !!this._engine.wasm._wl_physx_component_get_trigger(this._id);
+  }
+  /**
+   * Set the shape for collision detection.
+   *
+   * @param s New shape.
+   * @since 0.8.5
+   */
+  set shape(s) {
+    this._engine.wasm._wl_physx_component_set_shape(this._id, s);
+  }
+  /** The shape for collision detection. */
+  get shape() {
+    return this._engine.wasm._wl_physx_component_get_shape(this._id);
+  }
+  /**
+   * Set additional data for the shape.
+   *
+   * Retrieved only from {@link PhysXComponent#shapeData}.
+   * @since 0.8.10
+   */
+  set shapeData(d) {
+    if (d == null || ![Shape.TriangleMesh, Shape.ConvexMesh].includes(this.shape))
+      return;
+    this._engine.wasm._wl_physx_component_set_shape_data(this._id, d.index);
+  }
+  /**
+   * Additional data for the shape.
+   *
+   * `null` for {@link Shape} values: `None`, `Sphere`, `Capsule`, `Box`, `Plane`.
+   * `{index: n}` for `TriangleMesh` and `ConvexHull`.
+   *
+   * This data is currently only for passing onto or creating other {@link PhysXComponent}.
+   * @since 0.8.10
+   */
+  get shapeData() {
+    if (![Shape.TriangleMesh, Shape.ConvexMesh].includes(this.shape))
+      return null;
+    return { index: this._engine.wasm._wl_physx_component_get_shape_data(this._id) };
+  }
+  /**
+   * Set the shape extents for collision detection.
+   *
+   * @param e New extents for the shape.
+   * @since 0.8.5
+   */
+  set extents(e) {
+    this.extents.set(e);
+  }
+  /**
+   * The shape extents for collision detection.
+   */
+  get extents() {
+    const wasm = this._engine.wasm;
+    const ptr = wasm._wl_physx_component_get_extents(this._id);
+    return new Float32Array(wasm.HEAPF32.buffer, ptr, 3);
+  }
+  /**
+   * Get staticFriction.
+   */
+  get staticFriction() {
+    return this._engine.wasm._wl_physx_component_get_staticFriction(this._id);
+  }
+  /**
+   * Set staticFriction.
+   * @param v New staticFriction.
+   */
+  set staticFriction(v) {
+    this._engine.wasm._wl_physx_component_set_staticFriction(this._id, v);
+  }
+  /**
+   * Get dynamicFriction.
+   */
+  get dynamicFriction() {
+    return this._engine.wasm._wl_physx_component_get_dynamicFriction(this._id);
+  }
+  /**
+   * Set dynamicFriction
+   * @param v New dynamicDamping.
+   */
+  set dynamicFriction(v) {
+    this._engine.wasm._wl_physx_component_set_dynamicFriction(this._id, v);
+  }
+  /**
+   * Get bounciness.
+   * @since 0.9.0
+   */
+  get bounciness() {
+    return this._engine.wasm._wl_physx_component_get_bounciness(this._id);
+  }
+  /**
+   * Set bounciness.
+   * @param v New bounciness.
+   * @since 0.9.0
+   */
+  set bounciness(v) {
+    this._engine.wasm._wl_physx_component_set_bounciness(this._id, v);
+  }
+  /**
+   * Get linearDamping/
+   */
+  get linearDamping() {
+    return this._engine.wasm._wl_physx_component_get_linearDamping(this._id);
+  }
+  /**
+   * Set linearDamping.
+   * @param v New linearDamping.
+   */
+  set linearDamping(v) {
+    this._engine.wasm._wl_physx_component_set_linearDamping(this._id, v);
+  }
+  /** Get angularDamping. */
+  get angularDamping() {
+    return this._engine.wasm._wl_physx_component_get_angularDamping(this._id);
+  }
+  /**
+   * Set angularDamping.
+   * @param v New angularDamping.
+   */
+  set angularDamping(v) {
+    this._engine.wasm._wl_physx_component_set_angularDamping(this._id, v);
+  }
+  /**
+   * Set linear velocity.
+   *
+   * [PhysX Manual - "Velocity"](https://gameworksdocs.nvidia.com/PhysX/4.1/documentation/physxguide/Manual/RigidBodyDynamics.html#velocity)
+   *
+   * Has no effect, if the component is not active.
+   *
+   * @param v New linear velocity.
+   */
+  set linearVelocity(v) {
+    this._engine.wasm._wl_physx_component_set_linearVelocity(this._id, v[0], v[1], v[2]);
+  }
+  /** Linear velocity or `[0, 0, 0]` if the component is not active. */
+  get linearVelocity() {
+    const wasm = this._engine.wasm;
+    wasm._wl_physx_component_get_linearVelocity(this._id, wasm._tempMem);
+    return new Float32Array(wasm.HEAPF32.buffer, wasm._tempMem, 3);
+  }
+  /**
+   * Set angular velocity
+   *
+   * [PhysX Manual - "Velocity"](https://gameworksdocs.nvidia.com/PhysX/4.1/documentation/physxguide/Manual/RigidBodyDynamics.html#velocity)
+   *
+   * Has no effect, if the component is not active.
+   *
+   * @param v New angular velocity
+   */
+  set angularVelocity(v) {
+    this._engine.wasm._wl_physx_component_set_angularVelocity(this._id, v[0], v[1], v[2]);
+  }
+  /** Angular velocity or `[0, 0, 0]` if the component is not active. */
+  get angularVelocity() {
+    const wasm = this._engine.wasm;
+    wasm._wl_physx_component_get_angularVelocity(this._id, wasm._tempMem);
+    return new Float32Array(wasm.HEAPF32.buffer, wasm._tempMem, 3);
+  }
+  /**
+   * Set the components groups mask.
+   *
+   * @param flags New flags that need to be set.
+   */
+  set groupsMask(flags) {
+    this._engine.wasm._wl_physx_component_set_groupsMask(this._id, flags);
+  }
+  /**
+   * Get the components groups mask flags.
+   *
+   * Each bit represents membership to group, see example.
+   *
+   * ```js
+   * // Assign c to group 2
+   * c.groupsMask = (1 << 2);
+   *
+   * // Assign c to group 0
+   * c.groupsMask  = (1 << 0);
+   *
+   * // Assign c to group 0 and 2
+   * c.groupsMask = (1 << 0) | (1 << 2);
+   *
+   * (c.groupsMask & (1 << 2)) != 0; // true
+   * (c.groupsMask & (1 << 7)) != 0; // false
+   * ```
+   */
+  get groupsMask() {
+    return this._engine.wasm._wl_physx_component_get_groupsMask(this._id);
+  }
+  /**
+   * Set the components blocks mask.
+   *
+   * @param flags New flags that need to be set.
+   */
+  set blocksMask(flags) {
+    this._engine.wasm._wl_physx_component_set_blocksMask(this._id, flags);
+  }
+  /**
+   * Get the components blocks mask flags.
+   *
+   * Each bit represents membership to the block, see example.
+   *
+   * ```js
+   * // Block overlap with any objects in group 2
+   * c.blocksMask = (1 << 2);
+   *
+   * // Block overlap with any objects in group 0
+   * c.blocksMask  = (1 << 0)
+   *
+   * // Block overlap with any objects in group 0 and 2
+   * c.blocksMask = (1 << 0) | (1 << 2);
+   *
+   * (c.blocksMask & (1 << 2)) != 0; // true
+   * (c.blocksMask & (1 << 7)) != 0; // false
+   * ```
+   */
+  get blocksMask() {
+    return this._engine.wasm._wl_physx_component_get_blocksMask(this._id);
+  }
+  /**
+   * Set axes to lock for linear velocity.
+   *
+   * @param lock The Axis that needs to be set.
+   *
+   * Combine flags with Bitwise OR.
+   * ```js
+   * body.linearLockAxis = LockAxis.X | LockAxis.Y; // x and y set
+   * body.linearLockAxis = LockAxis.X; // y unset
+   * ```
+   *
+   * @note This has no effect if the component is static.
+   */
+  set linearLockAxis(lock) {
+    this._engine.wasm._wl_physx_component_set_linearLockAxis(this._id, lock);
+  }
+  /**
+   * Get the linear lock axes flags.
+   *
+   * To get the state of a specific flag, Bitwise AND with the LockAxis needed.
+   *
+   * ```js
+   * if(body.linearLockAxis & LockAxis.Y) {
+   *     console.log("The Y flag was set!");
+   * }
+   * ```
+   *
+   * @return axes that are currently locked for linear movement.
+   */
+  get linearLockAxis() {
+    return this._engine.wasm._wl_physx_component_get_linearLockAxis(this._id);
+  }
+  /**
+   * Set axes to lock for angular velocity.
+   *
+   * @param lock The Axis that needs to be set.
+   *
+   * ```js
+   * body.angularLockAxis = LockAxis.X | LockAxis.Y; // x and y set
+   * body.angularLockAxis = LockAxis.X; // y unset
+   * ```
+   *
+   * @note This has no effect if the component is static.
+   */
+  set angularLockAxis(lock) {
+    this._engine.wasm._wl_physx_component_set_angularLockAxis(this._id, lock);
+  }
+  /**
+   * Get the angular lock axes flags.
+   *
+   * To get the state of a specific flag, Bitwise AND with the LockAxis needed.
+   *
+   * ```js
+   * if(body.angularLockAxis & LockAxis.Y) {
+   *     console.log("The Y flag was set!");
+   * }
+   * ```
+   *
+   * @return axes that are currently locked for angular movement.
+   */
+  get angularLockAxis() {
+    return this._engine.wasm._wl_physx_component_get_angularLockAxis(this._id);
+  }
+  /**
+   * Set mass.
+   *
+   * [PhysX Manual - "Mass Properties"](https://gameworksdocs.nvidia.com/PhysX/4.1/documentation/physxguide/Manual/RigidBodyDynamics.html#mass-properties)
+   *
+   * @param m New mass.
+   */
+  set mass(m) {
+    this._engine.wasm._wl_physx_component_set_mass(this._id, m);
+  }
+  /** Mass */
+  get mass() {
+    return this._engine.wasm._wl_physx_component_get_mass(this._id);
+  }
+  /**
+   * Set mass space interia tensor.
+   *
+   * [PhysX Manual - "Mass Properties"](https://gameworksdocs.nvidia.com/PhysX/4.1/documentation/physxguide/Manual/RigidBodyDynamics.html#mass-properties)
+   *
+   * Has no effect, if the component is not active.
+   *
+   * @param v New mass space interatia tensor.
+   */
+  set massSpaceInteriaTensor(v) {
+    this._engine.wasm._wl_physx_component_set_massSpaceInertiaTensor(this._id, v[0], v[1], v[2]);
+  }
+  /**
+   * Apply a force.
+   *
+   * [PhysX Manual - "Applying Forces and Torques"](https://gameworksdocs.nvidia.com/PhysX/4.1/documentation/physxguide/Manual/RigidBodyDynamics.html#applying-forces-and-torques)
+   *
+   * Has no effect, if the component is not active.
+   *
+   * @param f Force vector.
+   * @param m Force mode, see {@link ForceMode}, default `Force`.
+   * @param localForce Whether the force vector is in local space, default `false`.
+   * @param p Position to apply force at, default is center of mass.
+   * @param local Whether position is in local space, default `false`.
+   */
+  addForce(f, m, localForce, p, local) {
+    m = m || ForceMode.Force;
+    if (!p) {
+      this._engine.wasm._wl_physx_component_addForce(this._id, f[0], f[1], f[2], m, !!localForce);
+    } else {
+      this._engine.wasm._wl_physx_component_addForceAt(this._id, f[0], f[1], f[2], m, !!localForce, p[0], p[1], p[2], !!local);
+    }
+  }
+  /**
+   * Apply torque.
+   *
+   * [PhysX Manual - "Applying Forces and Torques"](https://gameworksdocs.nvidia.com/PhysX/4.1/documentation/physxguide/Manual/RigidBodyDynamics.html#applying-forces-and-torques)
+   *
+   * Has no effect, if the component is not active.
+   *
+   * @param f Force vector.
+   * @param m Force mode, see {@link ForceMode}, default `Force`.
+   */
+  addTorque(f, m = ForceMode.Force) {
+    this._engine.wasm._wl_physx_component_addTorque(this._id, f[0], f[1], f[2], m);
+  }
+  /**
+   * Add on collision callback.
+   *
+   * @param callback Function to call when this rigid body (un)collides with any other.
+   *
+   * ```js
+   *  let rigidBody = this.object.getComponent('physx');
+   *  rigidBody.onCollision(function(type, other) {
+   *      // Ignore uncollides
+   *      if(type == CollisionEventType.TouchLost) return;
+   *
+   *      // Take damage on collision with enemies
+   *      if(other.object.name.startsWith('enemy-')) {
+   *          this.applyDamage(10);
+   *      }
+   *  }.bind(this));
+   * ```
+   *
+   * @returns Id of the new callback for use with {@link PhysXComponent#removeCollisionCallback}.
+   */
+  onCollision(callback) {
+    return this.onCollisionWith(this, callback);
+  }
+  /**
+   * Add filtered on collision callback.
+   *
+   * @param otherComp Component for which callbacks will
+   *        be triggered. If you pass this component, the method is equivalent to.
+   *        {@link PhysXComponent#onCollision}.
+   * @param callback Function to call when this rigid body
+   *        (un)collides with `otherComp`.
+   * @returns Id of the new callback for use with {@link PhysXComponent#removeCollisionCallback}.
+   */
+  onCollisionWith(otherComp, callback) {
+    const physics = this._engine.physics;
+    physics._callbacks[this._id] = physics._callbacks[this._id] || [];
+    physics._callbacks[this._id].push(callback);
+    return this._engine.wasm._wl_physx_component_addCallback(this._id, otherComp._id || this._id);
+  }
+  /**
+   * Remove a collision callback added with {@link PhysXComponent#onCollision} or {@link PhysXComponent#onCollisionWith}.
+   *
+   * @param callbackId Callback id as returned by {@link PhysXComponent#onCollision} or {@link PhysXComponent#onCollisionWith}.
+   * @throws When the callback does not belong to the component.
+   * @throws When the callback does not exist.
+   */
+  removeCollisionCallback(callbackId) {
+    const physics = this._engine.physics;
+    const r = this._engine.wasm._wl_physx_component_removeCallback(this._id, callbackId);
+    if (r)
+      physics._callbacks[this._id].splice(-r);
+  }
+};
+/** @override */
+__publicField(PhysXComponent, "TypeName", "physx");
+for (const prop of [
+  "static",
+  "extents",
+  "staticFriction",
+  "dynamicFriction",
+  "bounciness",
+  "linearDamping",
+  "angularDamping",
+  "shape",
+  "shapeData",
+  "kinematic",
+  "linearVelocity",
+  "angularVelocity",
+  "mass"
+]) {
+  Object.defineProperty(PhysXComponent.prototype, prop, { enumerable: true });
+}
+var MeshIndexType;
+(function(MeshIndexType2) {
+  MeshIndexType2[MeshIndexType2["UnsignedByte"] = 1] = "UnsignedByte";
+  MeshIndexType2[MeshIndexType2["UnsignedShort"] = 2] = "UnsignedShort";
+  MeshIndexType2[MeshIndexType2["UnsignedInt"] = 4] = "UnsignedInt";
+})(MeshIndexType || (MeshIndexType = {}));
+var Mesh = class {
+  /**
+   * Size of a vertex in float elements.
+   * @deprecated Replaced with {@link Mesh#attribute} and {@link MeshAttributeAccessor}
+   */
+  static get VERTEX_FLOAT_SIZE() {
+    return 3 + 3 + 2;
+  }
+  /**
+   * Size of a vertex in bytes.
+   * @deprecated Replaced with {@link Mesh#attribute} and {@link MeshAttributeAccessor}
+   */
+  static get VERTEX_SIZE() {
+    return this.VERTEX_FLOAT_SIZE * 4;
+  }
+  /**
+   * Position attribute offsets in float elements.
+   * @deprecated Replaced with {@link Mesh#attribute} and {@link MeshAttribute#Position}
+   */
+  static get POS() {
+    return { X: 0, Y: 1, Z: 2 };
+  }
+  /**
+   * Texture coordinate attribute offsets in float elements.
+   * @deprecated Replaced with {@link Mesh#attribute} and {@link MeshAttribute#TextureCoordinate}
+   */
+  static get TEXCOORD() {
+    return { U: 3, V: 4 };
+  }
+  /**
+   * Normal attribute offsets in float elements.
+   * @deprecated Replaced with {@link Mesh#attribute} and {@link MeshAttribute#Normal}
+   */
+  static get NORMAL() {
+    return { X: 5, Y: 6, Z: 7 };
+  }
+  /**
+   * Index of the mesh in the manager.
+   *
+   * @hidden
+   */
+  _index;
+  /** Wonderland Engine instance. @hidden */
+  _engine;
+  /**
+   * Create a new instance.
+   *
+   * @param params Either a mesh index to wrap or set of parameters to create a new mesh.
+   *    For more information, please have a look at the {@link MeshParameters} interface.
+   */
+  constructor(engine, params) {
+    this._engine = engine ?? WL;
+    if (typeof params === "object") {
+      if (!params.vertexCount && params.vertexData) {
+        params.vertexCount = params.vertexData.length / Mesh.VERTEX_FLOAT_SIZE;
+      }
+      if (!params.vertexCount)
+        throw new Error("Missing parameter 'vertexCount'");
+      const wasm = this._engine.wasm;
+      let indexData = 0;
+      let indexType = 0;
+      let indexDataSize = 0;
+      if (params.indexData) {
+        indexType = params.indexType || MeshIndexType.UnsignedShort;
+        indexDataSize = params.indexData.length * indexType;
+        indexData = wasm._malloc(indexDataSize);
+        switch (indexType) {
+          case MeshIndexType.UnsignedByte:
+            wasm.HEAPU8.set(params.indexData, indexData);
+            break;
+          case MeshIndexType.UnsignedShort:
+            wasm.HEAPU16.set(params.indexData, indexData >> 1);
+            break;
+          case MeshIndexType.UnsignedInt:
+            wasm.HEAPU32.set(params.indexData, indexData >> 2);
+            break;
+        }
+      }
+      const { skinned = false } = params;
+      this._index = wasm._wl_mesh_create(indexData, indexDataSize, indexType, params.vertexCount, skinned);
+      if (params.vertexData) {
+        const positions = this.attribute(MeshAttribute.Position);
+        const normals = this.attribute(MeshAttribute.Normal);
+        const textureCoordinates = this.attribute(MeshAttribute.TextureCoordinate);
+        for (let i = 0; i < params.vertexCount; ++i) {
+          const start = i * Mesh.VERTEX_FLOAT_SIZE;
+          positions.set(i, params.vertexData.subarray(start, start + 3));
+          textureCoordinates?.set(i, params.vertexData.subarray(start + 3, start + 5));
+          normals?.set(i, params.vertexData.subarray(start + 5, start + 8));
+        }
+      }
+    } else {
+      this._index = params;
+    }
+  }
+  /**
+   * Vertex data (read-only).
+   *
+   * @deprecated Replaced with {@link attribute}
+   */
+  get vertexData() {
+    const wasm = this._engine.wasm;
+    const ptr = wasm._wl_mesh_get_vertexData(this._index, this._engine.wasm._tempMem);
+    return new Float32Array(wasm.HEAPF32.buffer, ptr, Mesh.VERTEX_FLOAT_SIZE * wasm.HEAPU32[this._engine.wasm._tempMem / 4]);
+  }
+  /** Number of vertices in this mesh. */
+  get vertexCount() {
+    return this._engine.wasm._wl_mesh_get_vertexCount(this._index);
+  }
+  /** Index data (read-only) or `null` if the mesh is not indexed. */
+  get indexData() {
+    const wasm = this._engine.wasm;
+    const tempMem = wasm._tempMem;
+    const ptr = wasm._wl_mesh_get_indexData(this._index, tempMem, tempMem + 4);
+    if (ptr === null)
+      return null;
+    const indexCount = wasm.HEAPU32[tempMem / 4];
+    const indexSize = wasm.HEAPU32[tempMem / 4 + 1];
+    switch (indexSize) {
+      case MeshIndexType.UnsignedByte:
+        return new Uint8Array(wasm.HEAPU8.buffer, ptr, indexCount);
+      case MeshIndexType.UnsignedShort:
+        return new Uint16Array(wasm.HEAPU16.buffer, ptr, indexCount);
+      case MeshIndexType.UnsignedInt:
+        return new Uint32Array(wasm.HEAPU32.buffer, ptr, indexCount);
+    }
+    return null;
+  }
+  /**
+   * Apply changes to {@link attribute | vertex attributes}.
+   *
+   * Uploads the updated vertex attributes to the GPU and updates the bounding
+   * sphere to match the new vertex positions.
+   *
+   * Since this is an expensive operation, call it only once you have performed
+   * all modifications on a mesh and avoid calling if you did not perform any
+   * modifications at all.
+   */
+  update() {
+    this._engine.wasm._wl_mesh_update(this._index);
+  }
+  /**
+   * Mesh bounding sphere.
+   *
+   * @param out Preallocated array to write into, to avoid garbage,
+   *     otherwise will allocate a new {@link Float32Array}.
+   *
+   * ```js
+   *  const sphere = new Float32Array(4);
+   *  for(...) {
+   *      mesh.getBoundingSphere(sphere);
+   *      ...
+   *  }
+   * ```
+   *
+   * If the position data is changed, call {@link Mesh#update} to update the
+   * bounding sphere.
+   *
+   * @returns Bounding sphere, 0-2 sphere origin, 3 radius.
+   */
+  getBoundingSphere(out = new Float32Array(4)) {
+    const tempMemFloat = this._engine.wasm._tempMemFloat;
+    this._engine.wasm._wl_mesh_get_boundingSphere(this._index, this._engine.wasm._tempMem);
+    out[0] = tempMemFloat[0];
+    out[1] = tempMemFloat[1];
+    out[2] = tempMemFloat[2];
+    out[3] = tempMemFloat[3];
+    return out;
+  }
+  /**
+   * Get an attribute accessor to retrieve or modify data of give attribute.
+   *
+   * @param attr Attribute to get access to
+   * @returns Attribute to get access to or `null`, if mesh does not have this attribute.
+   *
+   * Call {@link update} for changes to vertex attributes to take effect.
+   *
+   * If there are no shaders in the scene that use `TextureCoordinate` for example,
+   * no meshes will have the `TextureCoordinate` attribute.
+   *
+   * For flexible reusable components, take this into account that only `Position`
+   * is guaranteed to be present at all time.
+   */
+  attribute(attr) {
+    if (typeof attr != "number")
+      throw new TypeError("Expected number, but got " + typeof attr);
+    const tempMemUint32 = this._engine.wasm._tempMemUint32;
+    this._engine.wasm._wl_mesh_get_attribute(this._index, attr, this._engine.wasm._tempMem);
+    if (tempMemUint32[0] == 255)
+      return null;
+    const a = new MeshAttributeAccessor(this._engine, attr);
+    a._attribute = tempMemUint32[0];
+    a._offset = tempMemUint32[1];
+    a._stride = tempMemUint32[2];
+    a._formatSize = tempMemUint32[3];
+    a._componentCount = tempMemUint32[4];
+    const arraySize = tempMemUint32[5];
+    a._arraySize = arraySize ? arraySize : 1;
+    a.length = this.vertexCount;
+    return a;
+  }
+  /**
+   * Destroy and free the meshes memory.
+   *
+   * It is best practice to set the mesh variable to `null` after calling
+   * destroy to prevent accidental use:
+   *
+   * ```js
+   *   mesh.destroy();
+   *   mesh = null;
+   * ```
+   *
+   * Accessing the mesh after destruction behaves like accessing an empty
+   * mesh.
+   *
+   * @since 0.9.0
+   */
+  destroy() {
+    this._engine.wasm._wl_mesh_destroy(this._index);
+  }
+};
+var MeshAttributeAccessor = class {
+  /** Attribute index. @hidden */
+  _attribute = -1;
+  /** Attribute offset. @hidden */
+  _offset = 0;
+  /** Attribute stride. @hidden */
+  _stride = 0;
+  /** Format size native enum. @hidden */
+  _formatSize = 0;
+  /** Number of components per vertex. @hidden */
+  _componentCount = 0;
+  /** Number of values per vertex. @hidden */
+  _arraySize = 1;
+  /** Max number of elements. */
+  length = 0;
+  /** Wonderland Engine instance. @hidden */
+  _engine;
+  /**
+   * Class to instantiate an ArrayBuffer to get/set values.
+   */
+  _bufferType;
+  /**
+   * Function to allocate temporary WASM memory. This is cached to avoid
+   * any conditional during get/set.
+   */
+  _tempBufferGetter;
+  /**
+   * Create a new instance.
+   *
+   * @param type The type of data this accessor is wrapping.
+   * @note Do not use this constructor. Instead, please use the {@link Mesh.attribute} method.
+   *
+   * @hidden
+   */
+  constructor(engine, type = MeshAttribute.Position) {
+    this._engine = engine;
+    const wasm = this._engine.wasm;
+    switch (type) {
+      case MeshAttribute.Position:
+      case MeshAttribute.Normal:
+      case MeshAttribute.TextureCoordinate:
+      case MeshAttribute.Tangent:
+      case MeshAttribute.Color:
+      case MeshAttribute.JointWeight:
+        this._bufferType = Float32Array;
+        this._tempBufferGetter = wasm.getTempBufferF32.bind(wasm);
+        break;
+      case MeshAttribute.JointId:
+        this._bufferType = Uint16Array;
+        this._tempBufferGetter = wasm.getTempBufferU16.bind(wasm);
+        break;
+      case MeshAttribute.SecondaryJointWeight:
+      case MeshAttribute.SecondaryJointId:
+        console.error(`Deprecated attribute accessor type: ${type}`);
+      default:
+        throw new Error(`Invalid attribute accessor type: ${type}`);
+    }
+  }
+  /**
+   * Create a new TypedArray to hold this attribute values.
+   *
+   * This method is useful to create a view to hold the data to
+   * pass to {@link MeshAttributeAccessor.get} and {@link MeshAttributeAccessor.set}
+   *
+   * Example:
+   *
+   * ```js
+   * const vertexCount = 4;
+   * const positionAttribute = mesh.attribute(MeshAttributes.Position);
+   *
+   * // A position has 3 floats per vertex. Thus, positions has length 3 * 4.
+   * const positions = positionAttribute.createArray(vertexCount);
+   * ```
+   *
+   * @param count The number of **vertices** expected.
+   * @returns A TypedArray with the appropriate format to access the data
+   */
+  createArray(count = 1) {
+    count = count > this.length ? this.length : count;
+    return new this._bufferType(count * this._componentCount * this._arraySize);
+  }
+  /**
+   * Get attribute element.
+   *
+   * @param index Index
+   * @param out Preallocated array to write into,
+   *      to avoid garbage, otherwise will allocate a new TypedArray.
+   *
+   * `out.length` needs to be a multiple of the attributes component count, see
+   * {@link MeshAttribute}. If `out.length` is more than one multiple, it will be
+   * filled with the next n attribute elements, which can reduce overhead
+   * of this call.
+   *
+   * @returns The `out` parameter
+   */
+  get(index, out = this.createArray()) {
+    if (out.length % this._componentCount !== 0)
+      throw new Error(`out.length, ${out.length} is not a multiple of the attribute vector components, ${this._componentCount}`);
+    const dest = this._tempBufferGetter(out.length);
+    const elementSize = this._bufferType.BYTES_PER_ELEMENT;
+    const destSize = elementSize * out.length;
+    const srcFormatSize = this._formatSize * this._arraySize;
+    const destFormatSize = this._componentCount * elementSize * this._arraySize;
+    this._engine.wasm._wl_mesh_get_attribute_values(this._attribute, srcFormatSize, this._offset + index * this._stride, this._stride, destFormatSize, dest.byteOffset, destSize);
+    for (let i = 0; i < out.length; ++i)
+      out[i] = dest[i];
+    return out;
+  }
+  /**
+   * Set attribute element.
+   *
+   * @param i Index
+   * @param v Value to set the element to
+   *
+   * `v.length` needs to be a multiple of the attributes component count, see
+   * {@link MeshAttribute}. If `v.length` is more than one multiple, it will be
+   * filled with the next n attribute elements, which can reduce overhead
+   * of this call.
+   *
+   * @returns Reference to self (for method chaining)
+   */
+  set(i, v) {
+    if (v.length % this._componentCount !== 0)
+      throw new Error(`out.length, ${v.length} is not a multiple of the attribute vector components, ${this._componentCount}`);
+    const elementSize = this._bufferType.BYTES_PER_ELEMENT;
+    const srcSize = elementSize * v.length;
+    const srcFormatSize = this._componentCount * elementSize * this._arraySize;
+    const destFormatSize = this._formatSize * this._arraySize;
+    const wasm = this._engine.wasm;
+    if (v.buffer != wasm.HEAPU8.buffer) {
+      const dest = this._tempBufferGetter(v.length);
+      dest.set(v);
+      v = dest;
+    }
+    wasm._wl_mesh_set_attribute_values(this._attribute, srcFormatSize, v.byteOffset, srcSize, destFormatSize, this._offset + i * this._stride, this._stride);
+    return this;
+  }
+};
+var tempCanvas = null;
+var Texture = class {
+  /** Wonderland Engine instance. @hidden */
+  _engine;
+  /** Index in the manager. @hidden */
+  _id = 0;
+  /** HTML image index. @hidden */
+  _imageIndex = void 0;
+  /* @todo: Remove undefined */
+  /**
+   * @param engine The engine instance
+   * @param param HTML media element to create texture from or texture id to wrap.
+   */
+  constructor(engine, param) {
+    this._engine = engine ?? WL;
+    const wasm = engine.wasm;
+    if (param instanceof HTMLImageElement || param instanceof HTMLVideoElement || param instanceof HTMLCanvasElement) {
+      const index = wasm._images.length;
+      wasm._images.push(param);
+      this._imageIndex = index;
+      this._id = this._engine.wasm._wl_renderer_addImage(index);
+    } else {
+      this._id = param;
+    }
+    this._engine.textures[this._id] = this;
+  }
+  /** Whether this texture is valid. */
+  get valid() {
+    return this._id >= 0;
+  }
+  /** Index in this manager. */
+  get id() {
+    return this._id;
+  }
+  /** Update the texture to match the HTML element (e.g. reflect the current frame of a video). */
+  update() {
+    if (!this.valid)
+      return;
+    this._engine.wasm._wl_renderer_updateImage(this._id, this._imageIndex);
+  }
+  /** Width of the texture. */
+  get width() {
+    return this._engine.wasm._wl_texture_width(this._id);
+  }
+  /** Height of the texture. */
+  get height() {
+    return this._engine.wasm._wl_texture_height(this._id);
+  }
+  /**
+   * Update a subrange on the texture to match the HTML element (e.g. reflect the current frame of a video).
+   *
+   * Usage:
+   *
+   * ```js
+   * // Copies rectangle of pixel starting from (10, 20)
+   * texture.updateSubImage(10, 20, 600, 400);
+   * ```
+   *
+   * @param x x offset
+   * @param y y offset
+   * @param w width
+   * @param h height
+   */
+  updateSubImage(x, y, w, h) {
+    if (!this.valid)
+      return;
+    if (!tempCanvas)
+      tempCanvas = document.createElement("canvas");
+    const wasm = this._engine.wasm;
+    const img = wasm._images[this._imageIndex];
+    if (!img)
+      return;
+    tempCanvas.width = w;
+    tempCanvas.height = h;
+    tempCanvas.getContext("2d")?.drawImage(img, x, y, w, h, 0, 0, w, h);
+    wasm._images[this._imageIndex] = tempCanvas;
+    try {
+      wasm._wl_renderer_updateImage(this._id, this._imageIndex, x, (img.videoHeight || img.height) - y - h);
+    } finally {
+      wasm._images[this._imageIndex] = img;
+    }
+  }
+  /**
+   * Destroy and free the texture's texture altas space and memory.
+   *
+   * It is best practice to set the texture variable to `null` after calling
+   * destroy to prevent accidental use of the invalid texture:
+   *
+   * ```js
+   *   texture.destroy();
+   *   texture = null;
+   * ```
+   *
+   * @since 0.9.0
+   */
+  destroy() {
+    this._engine.wasm._wl_texture_destroy(this._id);
+    if (this._imageIndex) {
+      this._engine.wasm._images[this._imageIndex] = null;
+      this._imageIndex = void 0;
+    }
+  }
+};
+
+// node_modules/@wonderlandengine/api/engine.js
+var _componentDefaults = /* @__PURE__ */ new Map([
+  [Type.Bool, false],
+  [Type.Int, 0],
+  [Type.Float, 0],
+  [Type.String, ""],
+  [Type.Enum, void 0],
+  [Type.Object, null],
+  [Type.Mesh, null],
+  [Type.Texture, null],
+  [Type.Material, null],
+  [Type.Animation, null],
+  [Type.Skin, null],
+  [Type.Color, [0, 0, 0, 1]]
+]);
+
+// node_modules/@wonderlandengine/components/8thwall-camera.js
+var ARCamera8thwall = class extends Component {
+  /* 8thwall camera pipeline module name */
+  name = "wonderland-engine-8thwall-camera";
+  started = false;
+  view = null;
+  // cache camera
+  position = [0, 0, 0];
+  // cache 8thwall cam position
+  rotation = [0, 0, 0, -1];
+  // cache 8thwall cam rotation
+  glTextureRenderer = null;
+  // cache XR8.GlTextureRenderer.pipelineModule
+  promptForDeviceMotion() {
+    return new Promise(async (resolve, reject) => {
+      window.dispatchEvent(new Event("8thwall-request-user-interaction"));
+      window.addEventListener("8thwall-safe-to-request-permissions", async () => {
+        try {
+          const motionEvent = await DeviceMotionEvent.requestPermission();
+          resolve(motionEvent);
+        } catch (exception) {
+          reject(exception);
+        }
+      });
+    });
+  }
+  async getPermissions() {
+    if (DeviceMotionEvent && DeviceMotionEvent.requestPermission) {
+      try {
+        const result = await DeviceMotionEvent.requestPermission();
+        if (result !== "granted") {
+          throw new Error("MotionEvent");
+        }
+      } catch (exception) {
+        if (exception.name === "NotAllowedError") {
+          const motionEvent = await this.promptForDeviceMotion();
+          if (motionEvent !== "granted") {
+            throw new Error("MotionEvent");
+          }
+        } else {
+          throw new Error("MotionEvent");
+        }
+      }
+    }
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+      stream.getTracks().forEach((track) => {
+        track.stop();
+      });
+    } catch (exception) {
+      throw new Error("Camera");
+    }
+  }
+  init() {
+    this.view = this.object.getComponent("view");
+    this.onUpdate = this.onUpdate.bind(this);
+    this.onAttach = this.onAttach.bind(this);
+    this.onException = this.onException.bind(this);
+    this.onCameraStatusChange = this.onCameraStatusChange.bind(this);
+  }
+  async start() {
+    this.view = this.object.getComponent("view");
+    if (!this.useCustomUIOverlays) {
+      OverlaysHandler.init();
+    }
+    try {
+      await this.getPermissions();
+    } catch (error) {
+      window.dispatchEvent(new CustomEvent("8thwall-permission-fail", { detail: error }));
+      return;
+    }
+    await this.waitForXR8();
+    XR8.XrController.configure({
+      disableWorldTracking: false
+    });
+    this.glTextureRenderer = XR8.GlTextureRenderer.pipelineModule();
+    XR8.addCameraPipelineModules([
+      this.glTextureRenderer,
+      // Draws the camera feed.
+      XR8.XrController.pipelineModule(),
+      // Enables SLAM tracking.
+      this
+    ]);
+    const config = {
+      cameraConfig: {
+        direction: XR8.XrConfig.camera().BACK
+      },
+      canvas: Module.canvas,
+      allowedDevices: XR8.XrConfig.device().ANY,
+      ownRunLoop: false
+    };
+    XR8.run(config);
+  }
+  /**
+   * @private
+   * 8thwall pipeline function
+   */
+  onAttach(params) {
+    this.started = true;
+    this.engine.scene.colorClearEnabled = false;
+    const gl = Module.ctx;
+    const rot = this.object.rotationWorld;
+    const pos = this.object.getTranslationWorld([]);
+    this.position = Array.from(pos);
+    this.rotation = Array.from(rot);
+    XR8.XrController.updateCameraProjectionMatrix({
+      origin: { x: pos[0], y: pos[1], z: pos[2] },
+      facing: { x: rot[0], y: rot[1], z: rot[2], w: rot[3] },
+      cam: { pixelRectWidth: Module.canvas.width, pixelRectHeight: Module.canvas.height, nearClipPlane: this.view.near, farClipPlane: this.view.far }
+    });
+    this.engine.scene.onPreRender.push(() => {
+      gl.bindFramebuffer(gl.DRAW_FRAMEBUFFER, null);
+      XR8.runPreRender(Date.now());
+      XR8.runRender();
+    });
+    this.engine.scene.onPostRender.push(() => {
+      XR8.runPostRender(Date.now());
+    });
+  }
+  /**
+   * @private
+   * 8thwall pipeline function
+   */
+  onCameraStatusChange(e) {
+    if (e && e.status === "failed") {
+      this.onException(new Error(`Camera failed with status: ${e.status}`));
+    }
+  }
+  /**
+  * @private
+  * 8thwall pipeline function
+  */
+  onUpdate(e) {
+    if (!e.processCpuResult.reality)
+      return;
+    const { rotation, position, intrinsics } = e.processCpuResult.reality;
+    this.rotation[0] = rotation.x;
+    this.rotation[1] = rotation.y;
+    this.rotation[2] = rotation.z;
+    this.rotation[3] = rotation.w;
+    this.position[0] = position.x;
+    this.position[1] = position.y;
+    this.position[2] = position.z;
+    if (intrinsics) {
+      const projectionMatrix = this.view.projectionMatrix;
+      for (let i = 0; i < 16; i++) {
+        if (Number.isFinite(intrinsics[i])) {
+          projectionMatrix[i] = intrinsics[i];
+        }
+      }
+    }
+    if (position && rotation) {
+      this.object.rotationWorld = this.rotation;
+      this.object.setTranslationWorld(this.position);
+    }
+  }
+  /**
+   * @private
+   * 8thwall pipeline function
+   */
+  onException(error) {
+    console.error("8thwall exception:", error);
+    window.dispatchEvent(new CustomEvent("8thwall-error", { detail: error }));
+  }
+  waitForXR8() {
+    return new Promise((resolve, _rej) => {
+      if (window.XR8) {
+        resolve();
+      } else {
+        window.addEventListener("xrloaded", () => resolve());
+      }
+    });
+  }
+};
+__publicField(ARCamera8thwall, "TypeName", "8thwall-camera");
+__publicField(ARCamera8thwall, "Properties", {
+  /** Override the WL html overlays for handling camera/motion permissions and error handling */
+  useCustomUIOverlays: { type: Type.Bool, default: false }
+});
+var OverlaysHandler = {
+  init: function() {
+    this.handleRequestUserInteraction = this.handleRequestUserInteraction.bind(this);
+    this.handlePermissionFail = this.handlePermissionFail.bind(this);
+    this.handleError = this.handleError.bind(this);
+    window.addEventListener("8thwall-request-user-interaction", this.handleRequestUserInteraction);
+    window.addEventListener("8thwall-permission-fail", this.handlePermissionFail);
+    window.addEventListener("8thwall-error", this.handleError);
+  },
+  handleRequestUserInteraction: function() {
+    const overlay = this.showOverlay(requestPermissionOverlay);
+    window.addEventListener("8thwall-safe-to-request-permissions", () => {
+      overlay.remove();
+    });
+  },
+  handlePermissionFail: function(_reason) {
+    this.showOverlay(failedPermissionOverlay);
+  },
+  handleError: function(_error) {
+    this.showOverlay(runtimeErrorOverlay);
+  },
+  showOverlay: function(htmlContent) {
+    const overlay = document.createElement("div");
+    overlay.innerHTML = htmlContent;
+    document.body.appendChild(overlay);
+    return overlay;
+  }
+};
+var requestPermissionOverlay = `
 <style>
   #request-permission-overlay {
     position: absolute;
@@ -32,7 +3775,8 @@
   <div class="request-permission-overlay_title">This app requires to use your camera and motion sensors</div>
 
   <button class="request-permission-overlay_button" onclick="window.dispatchEvent(new Event('8thwall-safe-to-request-permissions'))">OK</button>
-</div>`,Oi=`
+</div>`;
+var failedPermissionOverlay = `
 <style>
   #failed-permission-overlay {
     position: absolute;
@@ -66,7 +3810,8 @@
   <div class="failed-permission-overlay_title">Failed to grant permissions. Reset the the permissions and refresh the page.</div>
 
   <button class="failed-permission-overlay_button" onclick="window.location.reload()">Refresh the page</button>
-</div>`,Ii=`
+</div>`;
+var runtimeErrorOverlay = `
 <style>
   #wall-error-overlay {
     position: absolute;
@@ -100,7 +3845,6501 @@
   <div class="wall-error-overlay_title">Error has occurred. Please reload the page</div>
 
   <button class="wall-error-overlay_button" onclick="window.location.reload()">Reload</button>
-</div>`;var be=class extends y{init(){this.hoverFunctions=[],this.unHoverFunctions=[],this.clickFunctions=[],this.moveFunctions=[],this.downFunctions=[],this.upFunctions=[]}onHover(e,n){for(let i of this.hoverFunctions)i(e,n)}onUnhover(e,n){for(let i of this.unHoverFunctions)i(e,n)}onClick(e,n){for(let i of this.clickFunctions)i(e,n)}onMove(e,n){for(let i of this.moveFunctions)i(e,n)}onDown(e,n){for(let i of this.downFunctions)i(e,n)}onUp(e,n){for(let i of this.upFunctions)i(e,n)}addHoverFunction(e){this._validateCallback(e),this.hoverFunctions.push(e)}removeHoverFunction(e){this._validateCallback(e),this._removeItemOnce(this.hoverFunctions,e)}addUnHoverFunction(e){this._validateCallback(e),this.unHoverFunctions.push(e)}removeUnHoverFunction(e){this._validateCallback(e),this._removeItemOnce(this.unHoverFunctions,e)}addClickFunction(e){this._validateCallback(e),this.clickFunctions.push(e)}removeClickFunction(e){this._validateCallback(e),this._removeItemOnce(this.clickFunctions,e)}addMoveFunction(e){this._validateCallback(e),this.moveFunctions.push(e)}removeMoveFunction(e){this._validateCallback(e),this._removeItemOnce(this.moveFunctions,e)}addDownFunction(e){this._validateCallback(e),this.downFunctions.push(e)}removeDownFunction(e){this._validateCallback(e),this._removeItemOnce(this.downFunctions,e)}addUpFunction(e){this._validateCallback(e),this.upFunctions.push(e)}removeUpFunction(e){this._validateCallback(e),this._removeItemOnce(this.upFunctions,e)}_removeItemOnce(e,n){var i=e.indexOf(n);return i>-1&&e.splice(i,1),e}_validateCallback(e){if(typeof e!="function")throw new TypeError(this.object.name+".cursor-target: Argument needs to be a function")}};M(be,"TypeName","cursor-target"),M(be,"Properties",{});var P=1e-6,R=typeof Float32Array<"u"?Float32Array:Array,q=Math.random;var ba=Math.PI/180;Math.hypot||(Math.hypot=function(){for(var t=0,e=arguments.length;e--;)t+=arguments[e]*arguments[e];return Math.sqrt(t)});function Dn(){var t=new R(9);return R!=Float32Array&&(t[1]=0,t[2]=0,t[3]=0,t[5]=0,t[6]=0,t[7]=0),t[0]=1,t[4]=1,t[8]=1,t}var re={};lt(re,{add:()=>dr,adjoint:()=>zi,clone:()=>ki,copy:()=>Fi,create:()=>Ri,determinant:()=>Ui,equals:()=>vr,exactEquals:()=>gr,frob:()=>mr,fromQuat:()=>ir,fromQuat2:()=>er,fromRotation:()=>$i,fromRotationTranslation:()=>Un,fromRotationTranslationScale:()=>tr,fromRotationTranslationScaleOrigin:()=>nr,fromScaling:()=>Qi,fromTranslation:()=>Gi,fromValues:()=>Bi,fromXRotation:()=>Zi,fromYRotation:()=>Ki,fromZRotation:()=>Ji,frustum:()=>rr,getRotation:()=>Ut,getScaling:()=>Vn,getTranslation:()=>zt,identity:()=>Nn,invert:()=>Ni,lookAt:()=>_r,mul:()=>br,multiply:()=>zn,multiplyScalar:()=>ur,multiplyScalarAndAdd:()=>fr,ortho:()=>lr,orthoNO:()=>Wn,orthoZO:()=>cr,perspective:()=>sr,perspectiveFromFieldOfView:()=>ar,perspectiveNO:()=>Hn,perspectiveZO:()=>or,rotate:()=>Wi,rotateX:()=>Xi,rotateY:()=>qi,rotateZ:()=>Yi,scale:()=>Hi,set:()=>Li,str:()=>pr,sub:()=>yr,subtract:()=>Xn,targetTo:()=>hr,translate:()=>Vi,transpose:()=>Di});function Ri(){var t=new R(16);return R!=Float32Array&&(t[1]=0,t[2]=0,t[3]=0,t[4]=0,t[6]=0,t[7]=0,t[8]=0,t[9]=0,t[11]=0,t[12]=0,t[13]=0,t[14]=0),t[0]=1,t[5]=1,t[10]=1,t[15]=1,t}function ki(t){var e=new R(16);return e[0]=t[0],e[1]=t[1],e[2]=t[2],e[3]=t[3],e[4]=t[4],e[5]=t[5],e[6]=t[6],e[7]=t[7],e[8]=t[8],e[9]=t[9],e[10]=t[10],e[11]=t[11],e[12]=t[12],e[13]=t[13],e[14]=t[14],e[15]=t[15],e}function Fi(t,e){return t[0]=e[0],t[1]=e[1],t[2]=e[2],t[3]=e[3],t[4]=e[4],t[5]=e[5],t[6]=e[6],t[7]=e[7],t[8]=e[8],t[9]=e[9],t[10]=e[10],t[11]=e[11],t[12]=e[12],t[13]=e[13],t[14]=e[14],t[15]=e[15],t}function Bi(t,e,n,i,s,o,l,c,h,p,r,a,_,m,u,f){var d=new R(16);return d[0]=t,d[1]=e,d[2]=n,d[3]=i,d[4]=s,d[5]=o,d[6]=l,d[7]=c,d[8]=h,d[9]=p,d[10]=r,d[11]=a,d[12]=_,d[13]=m,d[14]=u,d[15]=f,d}function Li(t,e,n,i,s,o,l,c,h,p,r,a,_,m,u,f,d){return t[0]=e,t[1]=n,t[2]=i,t[3]=s,t[4]=o,t[5]=l,t[6]=c,t[7]=h,t[8]=p,t[9]=r,t[10]=a,t[11]=_,t[12]=m,t[13]=u,t[14]=f,t[15]=d,t}function Nn(t){return t[0]=1,t[1]=0,t[2]=0,t[3]=0,t[4]=0,t[5]=1,t[6]=0,t[7]=0,t[8]=0,t[9]=0,t[10]=1,t[11]=0,t[12]=0,t[13]=0,t[14]=0,t[15]=1,t}function Di(t,e){if(t===e){var n=e[1],i=e[2],s=e[3],o=e[6],l=e[7],c=e[11];t[1]=e[4],t[2]=e[8],t[3]=e[12],t[4]=n,t[6]=e[9],t[7]=e[13],t[8]=i,t[9]=o,t[11]=e[14],t[12]=s,t[13]=l,t[14]=c}else t[0]=e[0],t[1]=e[4],t[2]=e[8],t[3]=e[12],t[4]=e[1],t[5]=e[5],t[6]=e[9],t[7]=e[13],t[8]=e[2],t[9]=e[6],t[10]=e[10],t[11]=e[14],t[12]=e[3],t[13]=e[7],t[14]=e[11],t[15]=e[15];return t}function Ni(t,e){var n=e[0],i=e[1],s=e[2],o=e[3],l=e[4],c=e[5],h=e[6],p=e[7],r=e[8],a=e[9],_=e[10],m=e[11],u=e[12],f=e[13],d=e[14],b=e[15],x=n*c-i*l,w=n*h-s*l,A=n*p-o*l,T=i*h-s*c,S=i*p-o*c,E=s*p-o*h,C=r*f-a*u,F=r*d-_*u,B=r*b-m*u,N=a*d-_*f,D=a*b-m*f,k=_*b-m*d,I=x*k-w*D+A*N+T*B-S*F+E*C;return I?(I=1/I,t[0]=(c*k-h*D+p*N)*I,t[1]=(s*D-i*k-o*N)*I,t[2]=(f*E-d*S+b*T)*I,t[3]=(_*S-a*E-m*T)*I,t[4]=(h*B-l*k-p*F)*I,t[5]=(n*k-s*B+o*F)*I,t[6]=(d*A-u*E-b*w)*I,t[7]=(r*E-_*A+m*w)*I,t[8]=(l*D-c*B+p*C)*I,t[9]=(i*B-n*D-o*C)*I,t[10]=(u*S-f*A+b*x)*I,t[11]=(a*A-r*S-m*x)*I,t[12]=(c*F-l*N-h*C)*I,t[13]=(n*N-i*F+s*C)*I,t[14]=(f*w-u*T-d*x)*I,t[15]=(r*T-a*w+_*x)*I,t):null}function zi(t,e){var n=e[0],i=e[1],s=e[2],o=e[3],l=e[4],c=e[5],h=e[6],p=e[7],r=e[8],a=e[9],_=e[10],m=e[11],u=e[12],f=e[13],d=e[14],b=e[15];return t[0]=c*(_*b-m*d)-a*(h*b-p*d)+f*(h*m-p*_),t[1]=-(i*(_*b-m*d)-a*(s*b-o*d)+f*(s*m-o*_)),t[2]=i*(h*b-p*d)-c*(s*b-o*d)+f*(s*p-o*h),t[3]=-(i*(h*m-p*_)-c*(s*m-o*_)+a*(s*p-o*h)),t[4]=-(l*(_*b-m*d)-r*(h*b-p*d)+u*(h*m-p*_)),t[5]=n*(_*b-m*d)-r*(s*b-o*d)+u*(s*m-o*_),t[6]=-(n*(h*b-p*d)-l*(s*b-o*d)+u*(s*p-o*h)),t[7]=n*(h*m-p*_)-l*(s*m-o*_)+r*(s*p-o*h),t[8]=l*(a*b-m*f)-r*(c*b-p*f)+u*(c*m-p*a),t[9]=-(n*(a*b-m*f)-r*(i*b-o*f)+u*(i*m-o*a)),t[10]=n*(c*b-p*f)-l*(i*b-o*f)+u*(i*p-o*c),t[11]=-(n*(c*m-p*a)-l*(i*m-o*a)+r*(i*p-o*c)),t[12]=-(l*(a*d-_*f)-r*(c*d-h*f)+u*(c*_-h*a)),t[13]=n*(a*d-_*f)-r*(i*d-s*f)+u*(i*_-s*a),t[14]=-(n*(c*d-h*f)-l*(i*d-s*f)+u*(i*h-s*c)),t[15]=n*(c*_-h*a)-l*(i*_-s*a)+r*(i*h-s*c),t}function Ui(t){var e=t[0],n=t[1],i=t[2],s=t[3],o=t[4],l=t[5],c=t[6],h=t[7],p=t[8],r=t[9],a=t[10],_=t[11],m=t[12],u=t[13],f=t[14],d=t[15],b=e*l-n*o,x=e*c-i*o,w=e*h-s*o,A=n*c-i*l,T=n*h-s*l,S=i*h-s*c,E=p*u-r*m,C=p*f-a*m,F=p*d-_*m,B=r*f-a*u,N=r*d-_*u,D=a*d-_*f;return b*D-x*N+w*B+A*F-T*C+S*E}function zn(t,e,n){var i=e[0],s=e[1],o=e[2],l=e[3],c=e[4],h=e[5],p=e[6],r=e[7],a=e[8],_=e[9],m=e[10],u=e[11],f=e[12],d=e[13],b=e[14],x=e[15],w=n[0],A=n[1],T=n[2],S=n[3];return t[0]=w*i+A*c+T*a+S*f,t[1]=w*s+A*h+T*_+S*d,t[2]=w*o+A*p+T*m+S*b,t[3]=w*l+A*r+T*u+S*x,w=n[4],A=n[5],T=n[6],S=n[7],t[4]=w*i+A*c+T*a+S*f,t[5]=w*s+A*h+T*_+S*d,t[6]=w*o+A*p+T*m+S*b,t[7]=w*l+A*r+T*u+S*x,w=n[8],A=n[9],T=n[10],S=n[11],t[8]=w*i+A*c+T*a+S*f,t[9]=w*s+A*h+T*_+S*d,t[10]=w*o+A*p+T*m+S*b,t[11]=w*l+A*r+T*u+S*x,w=n[12],A=n[13],T=n[14],S=n[15],t[12]=w*i+A*c+T*a+S*f,t[13]=w*s+A*h+T*_+S*d,t[14]=w*o+A*p+T*m+S*b,t[15]=w*l+A*r+T*u+S*x,t}function Vi(t,e,n){var i=n[0],s=n[1],o=n[2],l,c,h,p,r,a,_,m,u,f,d,b;return e===t?(t[12]=e[0]*i+e[4]*s+e[8]*o+e[12],t[13]=e[1]*i+e[5]*s+e[9]*o+e[13],t[14]=e[2]*i+e[6]*s+e[10]*o+e[14],t[15]=e[3]*i+e[7]*s+e[11]*o+e[15]):(l=e[0],c=e[1],h=e[2],p=e[3],r=e[4],a=e[5],_=e[6],m=e[7],u=e[8],f=e[9],d=e[10],b=e[11],t[0]=l,t[1]=c,t[2]=h,t[3]=p,t[4]=r,t[5]=a,t[6]=_,t[7]=m,t[8]=u,t[9]=f,t[10]=d,t[11]=b,t[12]=l*i+r*s+u*o+e[12],t[13]=c*i+a*s+f*o+e[13],t[14]=h*i+_*s+d*o+e[14],t[15]=p*i+m*s+b*o+e[15]),t}function Hi(t,e,n){var i=n[0],s=n[1],o=n[2];return t[0]=e[0]*i,t[1]=e[1]*i,t[2]=e[2]*i,t[3]=e[3]*i,t[4]=e[4]*s,t[5]=e[5]*s,t[6]=e[6]*s,t[7]=e[7]*s,t[8]=e[8]*o,t[9]=e[9]*o,t[10]=e[10]*o,t[11]=e[11]*o,t[12]=e[12],t[13]=e[13],t[14]=e[14],t[15]=e[15],t}function Wi(t,e,n,i){var s=i[0],o=i[1],l=i[2],c=Math.hypot(s,o,l),h,p,r,a,_,m,u,f,d,b,x,w,A,T,S,E,C,F,B,N,D,k,I,Q;return c<P?null:(c=1/c,s*=c,o*=c,l*=c,h=Math.sin(n),p=Math.cos(n),r=1-p,a=e[0],_=e[1],m=e[2],u=e[3],f=e[4],d=e[5],b=e[6],x=e[7],w=e[8],A=e[9],T=e[10],S=e[11],E=s*s*r+p,C=o*s*r+l*h,F=l*s*r-o*h,B=s*o*r-l*h,N=o*o*r+p,D=l*o*r+s*h,k=s*l*r+o*h,I=o*l*r-s*h,Q=l*l*r+p,t[0]=a*E+f*C+w*F,t[1]=_*E+d*C+A*F,t[2]=m*E+b*C+T*F,t[3]=u*E+x*C+S*F,t[4]=a*B+f*N+w*D,t[5]=_*B+d*N+A*D,t[6]=m*B+b*N+T*D,t[7]=u*B+x*N+S*D,t[8]=a*k+f*I+w*Q,t[9]=_*k+d*I+A*Q,t[10]=m*k+b*I+T*Q,t[11]=u*k+x*I+S*Q,e!==t&&(t[12]=e[12],t[13]=e[13],t[14]=e[14],t[15]=e[15]),t)}function Xi(t,e,n){var i=Math.sin(n),s=Math.cos(n),o=e[4],l=e[5],c=e[6],h=e[7],p=e[8],r=e[9],a=e[10],_=e[11];return e!==t&&(t[0]=e[0],t[1]=e[1],t[2]=e[2],t[3]=e[3],t[12]=e[12],t[13]=e[13],t[14]=e[14],t[15]=e[15]),t[4]=o*s+p*i,t[5]=l*s+r*i,t[6]=c*s+a*i,t[7]=h*s+_*i,t[8]=p*s-o*i,t[9]=r*s-l*i,t[10]=a*s-c*i,t[11]=_*s-h*i,t}function qi(t,e,n){var i=Math.sin(n),s=Math.cos(n),o=e[0],l=e[1],c=e[2],h=e[3],p=e[8],r=e[9],a=e[10],_=e[11];return e!==t&&(t[4]=e[4],t[5]=e[5],t[6]=e[6],t[7]=e[7],t[12]=e[12],t[13]=e[13],t[14]=e[14],t[15]=e[15]),t[0]=o*s-p*i,t[1]=l*s-r*i,t[2]=c*s-a*i,t[3]=h*s-_*i,t[8]=o*i+p*s,t[9]=l*i+r*s,t[10]=c*i+a*s,t[11]=h*i+_*s,t}function Yi(t,e,n){var i=Math.sin(n),s=Math.cos(n),o=e[0],l=e[1],c=e[2],h=e[3],p=e[4],r=e[5],a=e[6],_=e[7];return e!==t&&(t[8]=e[8],t[9]=e[9],t[10]=e[10],t[11]=e[11],t[12]=e[12],t[13]=e[13],t[14]=e[14],t[15]=e[15]),t[0]=o*s+p*i,t[1]=l*s+r*i,t[2]=c*s+a*i,t[3]=h*s+_*i,t[4]=p*s-o*i,t[5]=r*s-l*i,t[6]=a*s-c*i,t[7]=_*s-h*i,t}function Gi(t,e){return t[0]=1,t[1]=0,t[2]=0,t[3]=0,t[4]=0,t[5]=1,t[6]=0,t[7]=0,t[8]=0,t[9]=0,t[10]=1,t[11]=0,t[12]=e[0],t[13]=e[1],t[14]=e[2],t[15]=1,t}function Qi(t,e){return t[0]=e[0],t[1]=0,t[2]=0,t[3]=0,t[4]=0,t[5]=e[1],t[6]=0,t[7]=0,t[8]=0,t[9]=0,t[10]=e[2],t[11]=0,t[12]=0,t[13]=0,t[14]=0,t[15]=1,t}function $i(t,e,n){var i=n[0],s=n[1],o=n[2],l=Math.hypot(i,s,o),c,h,p;return l<P?null:(l=1/l,i*=l,s*=l,o*=l,c=Math.sin(e),h=Math.cos(e),p=1-h,t[0]=i*i*p+h,t[1]=s*i*p+o*c,t[2]=o*i*p-s*c,t[3]=0,t[4]=i*s*p-o*c,t[5]=s*s*p+h,t[6]=o*s*p+i*c,t[7]=0,t[8]=i*o*p+s*c,t[9]=s*o*p-i*c,t[10]=o*o*p+h,t[11]=0,t[12]=0,t[13]=0,t[14]=0,t[15]=1,t)}function Zi(t,e){var n=Math.sin(e),i=Math.cos(e);return t[0]=1,t[1]=0,t[2]=0,t[3]=0,t[4]=0,t[5]=i,t[6]=n,t[7]=0,t[8]=0,t[9]=-n,t[10]=i,t[11]=0,t[12]=0,t[13]=0,t[14]=0,t[15]=1,t}function Ki(t,e){var n=Math.sin(e),i=Math.cos(e);return t[0]=i,t[1]=0,t[2]=-n,t[3]=0,t[4]=0,t[5]=1,t[6]=0,t[7]=0,t[8]=n,t[9]=0,t[10]=i,t[11]=0,t[12]=0,t[13]=0,t[14]=0,t[15]=1,t}function Ji(t,e){var n=Math.sin(e),i=Math.cos(e);return t[0]=i,t[1]=n,t[2]=0,t[3]=0,t[4]=-n,t[5]=i,t[6]=0,t[7]=0,t[8]=0,t[9]=0,t[10]=1,t[11]=0,t[12]=0,t[13]=0,t[14]=0,t[15]=1,t}function Un(t,e,n){var i=e[0],s=e[1],o=e[2],l=e[3],c=i+i,h=s+s,p=o+o,r=i*c,a=i*h,_=i*p,m=s*h,u=s*p,f=o*p,d=l*c,b=l*h,x=l*p;return t[0]=1-(m+f),t[1]=a+x,t[2]=_-b,t[3]=0,t[4]=a-x,t[5]=1-(r+f),t[6]=u+d,t[7]=0,t[8]=_+b,t[9]=u-d,t[10]=1-(r+m),t[11]=0,t[12]=n[0],t[13]=n[1],t[14]=n[2],t[15]=1,t}function er(t,e){var n=new R(3),i=-e[0],s=-e[1],o=-e[2],l=e[3],c=e[4],h=e[5],p=e[6],r=e[7],a=i*i+s*s+o*o+l*l;return a>0?(n[0]=(c*l+r*i+h*o-p*s)*2/a,n[1]=(h*l+r*s+p*i-c*o)*2/a,n[2]=(p*l+r*o+c*s-h*i)*2/a):(n[0]=(c*l+r*i+h*o-p*s)*2,n[1]=(h*l+r*s+p*i-c*o)*2,n[2]=(p*l+r*o+c*s-h*i)*2),Un(t,e,n),t}function zt(t,e){return t[0]=e[12],t[1]=e[13],t[2]=e[14],t}function Vn(t,e){var n=e[0],i=e[1],s=e[2],o=e[4],l=e[5],c=e[6],h=e[8],p=e[9],r=e[10];return t[0]=Math.hypot(n,i,s),t[1]=Math.hypot(o,l,c),t[2]=Math.hypot(h,p,r),t}function Ut(t,e){var n=new R(3);Vn(n,e);var i=1/n[0],s=1/n[1],o=1/n[2],l=e[0]*i,c=e[1]*s,h=e[2]*o,p=e[4]*i,r=e[5]*s,a=e[6]*o,_=e[8]*i,m=e[9]*s,u=e[10]*o,f=l+r+u,d=0;return f>0?(d=Math.sqrt(f+1)*2,t[3]=.25*d,t[0]=(a-m)/d,t[1]=(_-h)/d,t[2]=(c-p)/d):l>r&&l>u?(d=Math.sqrt(1+l-r-u)*2,t[3]=(a-m)/d,t[0]=.25*d,t[1]=(c+p)/d,t[2]=(_+h)/d):r>u?(d=Math.sqrt(1+r-l-u)*2,t[3]=(_-h)/d,t[0]=(c+p)/d,t[1]=.25*d,t[2]=(a+m)/d):(d=Math.sqrt(1+u-l-r)*2,t[3]=(c-p)/d,t[0]=(_+h)/d,t[1]=(a+m)/d,t[2]=.25*d),t}function tr(t,e,n,i){var s=e[0],o=e[1],l=e[2],c=e[3],h=s+s,p=o+o,r=l+l,a=s*h,_=s*p,m=s*r,u=o*p,f=o*r,d=l*r,b=c*h,x=c*p,w=c*r,A=i[0],T=i[1],S=i[2];return t[0]=(1-(u+d))*A,t[1]=(_+w)*A,t[2]=(m-x)*A,t[3]=0,t[4]=(_-w)*T,t[5]=(1-(a+d))*T,t[6]=(f+b)*T,t[7]=0,t[8]=(m+x)*S,t[9]=(f-b)*S,t[10]=(1-(a+u))*S,t[11]=0,t[12]=n[0],t[13]=n[1],t[14]=n[2],t[15]=1,t}function nr(t,e,n,i,s){var o=e[0],l=e[1],c=e[2],h=e[3],p=o+o,r=l+l,a=c+c,_=o*p,m=o*r,u=o*a,f=l*r,d=l*a,b=c*a,x=h*p,w=h*r,A=h*a,T=i[0],S=i[1],E=i[2],C=s[0],F=s[1],B=s[2],N=(1-(f+b))*T,D=(m+A)*T,k=(u-w)*T,I=(m-A)*S,Q=(1-(_+b))*S,ot=(d+x)*S,at=(u+w)*E,An=(d-x)*E,jn=(1-(_+f))*E;return t[0]=N,t[1]=D,t[2]=k,t[3]=0,t[4]=I,t[5]=Q,t[6]=ot,t[7]=0,t[8]=at,t[9]=An,t[10]=jn,t[11]=0,t[12]=n[0]+C-(N*C+I*F+at*B),t[13]=n[1]+F-(D*C+Q*F+An*B),t[14]=n[2]+B-(k*C+ot*F+jn*B),t[15]=1,t}function ir(t,e){var n=e[0],i=e[1],s=e[2],o=e[3],l=n+n,c=i+i,h=s+s,p=n*l,r=i*l,a=i*c,_=s*l,m=s*c,u=s*h,f=o*l,d=o*c,b=o*h;return t[0]=1-a-u,t[1]=r+b,t[2]=_-d,t[3]=0,t[4]=r-b,t[5]=1-p-u,t[6]=m+f,t[7]=0,t[8]=_+d,t[9]=m-f,t[10]=1-p-a,t[11]=0,t[12]=0,t[13]=0,t[14]=0,t[15]=1,t}function rr(t,e,n,i,s,o,l){var c=1/(n-e),h=1/(s-i),p=1/(o-l);return t[0]=o*2*c,t[1]=0,t[2]=0,t[3]=0,t[4]=0,t[5]=o*2*h,t[6]=0,t[7]=0,t[8]=(n+e)*c,t[9]=(s+i)*h,t[10]=(l+o)*p,t[11]=-1,t[12]=0,t[13]=0,t[14]=l*o*2*p,t[15]=0,t}function Hn(t,e,n,i,s){var o=1/Math.tan(e/2),l;return t[0]=o/n,t[1]=0,t[2]=0,t[3]=0,t[4]=0,t[5]=o,t[6]=0,t[7]=0,t[8]=0,t[9]=0,t[11]=-1,t[12]=0,t[13]=0,t[15]=0,s!=null&&s!==1/0?(l=1/(i-s),t[10]=(s+i)*l,t[14]=2*s*i*l):(t[10]=-1,t[14]=-2*i),t}var sr=Hn;function or(t,e,n,i,s){var o=1/Math.tan(e/2),l;return t[0]=o/n,t[1]=0,t[2]=0,t[3]=0,t[4]=0,t[5]=o,t[6]=0,t[7]=0,t[8]=0,t[9]=0,t[11]=-1,t[12]=0,t[13]=0,t[15]=0,s!=null&&s!==1/0?(l=1/(i-s),t[10]=s*l,t[14]=s*i*l):(t[10]=-1,t[14]=-i),t}function ar(t,e,n,i){var s=Math.tan(e.upDegrees*Math.PI/180),o=Math.tan(e.downDegrees*Math.PI/180),l=Math.tan(e.leftDegrees*Math.PI/180),c=Math.tan(e.rightDegrees*Math.PI/180),h=2/(l+c),p=2/(s+o);return t[0]=h,t[1]=0,t[2]=0,t[3]=0,t[4]=0,t[5]=p,t[6]=0,t[7]=0,t[8]=-((l-c)*h*.5),t[9]=(s-o)*p*.5,t[10]=i/(n-i),t[11]=-1,t[12]=0,t[13]=0,t[14]=i*n/(n-i),t[15]=0,t}function Wn(t,e,n,i,s,o,l){var c=1/(e-n),h=1/(i-s),p=1/(o-l);return t[0]=-2*c,t[1]=0,t[2]=0,t[3]=0,t[4]=0,t[5]=-2*h,t[6]=0,t[7]=0,t[8]=0,t[9]=0,t[10]=2*p,t[11]=0,t[12]=(e+n)*c,t[13]=(s+i)*h,t[14]=(l+o)*p,t[15]=1,t}var lr=Wn;function cr(t,e,n,i,s,o,l){var c=1/(e-n),h=1/(i-s),p=1/(o-l);return t[0]=-2*c,t[1]=0,t[2]=0,t[3]=0,t[4]=0,t[5]=-2*h,t[6]=0,t[7]=0,t[8]=0,t[9]=0,t[10]=p,t[11]=0,t[12]=(e+n)*c,t[13]=(s+i)*h,t[14]=o*p,t[15]=1,t}function _r(t,e,n,i){var s,o,l,c,h,p,r,a,_,m,u=e[0],f=e[1],d=e[2],b=i[0],x=i[1],w=i[2],A=n[0],T=n[1],S=n[2];return Math.abs(u-A)<P&&Math.abs(f-T)<P&&Math.abs(d-S)<P?Nn(t):(r=u-A,a=f-T,_=d-S,m=1/Math.hypot(r,a,_),r*=m,a*=m,_*=m,s=x*_-w*a,o=w*r-b*_,l=b*a-x*r,m=Math.hypot(s,o,l),m?(m=1/m,s*=m,o*=m,l*=m):(s=0,o=0,l=0),c=a*l-_*o,h=_*s-r*l,p=r*o-a*s,m=Math.hypot(c,h,p),m?(m=1/m,c*=m,h*=m,p*=m):(c=0,h=0,p=0),t[0]=s,t[1]=c,t[2]=r,t[3]=0,t[4]=o,t[5]=h,t[6]=a,t[7]=0,t[8]=l,t[9]=p,t[10]=_,t[11]=0,t[12]=-(s*u+o*f+l*d),t[13]=-(c*u+h*f+p*d),t[14]=-(r*u+a*f+_*d),t[15]=1,t)}function hr(t,e,n,i){var s=e[0],o=e[1],l=e[2],c=i[0],h=i[1],p=i[2],r=s-n[0],a=o-n[1],_=l-n[2],m=r*r+a*a+_*_;m>0&&(m=1/Math.sqrt(m),r*=m,a*=m,_*=m);var u=h*_-p*a,f=p*r-c*_,d=c*a-h*r;return m=u*u+f*f+d*d,m>0&&(m=1/Math.sqrt(m),u*=m,f*=m,d*=m),t[0]=u,t[1]=f,t[2]=d,t[3]=0,t[4]=a*d-_*f,t[5]=_*u-r*d,t[6]=r*f-a*u,t[7]=0,t[8]=r,t[9]=a,t[10]=_,t[11]=0,t[12]=s,t[13]=o,t[14]=l,t[15]=1,t}function pr(t){return"mat4("+t[0]+", "+t[1]+", "+t[2]+", "+t[3]+", "+t[4]+", "+t[5]+", "+t[6]+", "+t[7]+", "+t[8]+", "+t[9]+", "+t[10]+", "+t[11]+", "+t[12]+", "+t[13]+", "+t[14]+", "+t[15]+")"}function mr(t){return Math.hypot(t[0],t[1],t[2],t[3],t[4],t[5],t[6],t[7],t[8],t[9],t[10],t[11],t[12],t[13],t[14],t[15])}function dr(t,e,n){return t[0]=e[0]+n[0],t[1]=e[1]+n[1],t[2]=e[2]+n[2],t[3]=e[3]+n[3],t[4]=e[4]+n[4],t[5]=e[5]+n[5],t[6]=e[6]+n[6],t[7]=e[7]+n[7],t[8]=e[8]+n[8],t[9]=e[9]+n[9],t[10]=e[10]+n[10],t[11]=e[11]+n[11],t[12]=e[12]+n[12],t[13]=e[13]+n[13],t[14]=e[14]+n[14],t[15]=e[15]+n[15],t}function Xn(t,e,n){return t[0]=e[0]-n[0],t[1]=e[1]-n[1],t[2]=e[2]-n[2],t[3]=e[3]-n[3],t[4]=e[4]-n[4],t[5]=e[5]-n[5],t[6]=e[6]-n[6],t[7]=e[7]-n[7],t[8]=e[8]-n[8],t[9]=e[9]-n[9],t[10]=e[10]-n[10],t[11]=e[11]-n[11],t[12]=e[12]-n[12],t[13]=e[13]-n[13],t[14]=e[14]-n[14],t[15]=e[15]-n[15],t}function ur(t,e,n){return t[0]=e[0]*n,t[1]=e[1]*n,t[2]=e[2]*n,t[3]=e[3]*n,t[4]=e[4]*n,t[5]=e[5]*n,t[6]=e[6]*n,t[7]=e[7]*n,t[8]=e[8]*n,t[9]=e[9]*n,t[10]=e[10]*n,t[11]=e[11]*n,t[12]=e[12]*n,t[13]=e[13]*n,t[14]=e[14]*n,t[15]=e[15]*n,t}function fr(t,e,n,i){return t[0]=e[0]+n[0]*i,t[1]=e[1]+n[1]*i,t[2]=e[2]+n[2]*i,t[3]=e[3]+n[3]*i,t[4]=e[4]+n[4]*i,t[5]=e[5]+n[5]*i,t[6]=e[6]+n[6]*i,t[7]=e[7]+n[7]*i,t[8]=e[8]+n[8]*i,t[9]=e[9]+n[9]*i,t[10]=e[10]+n[10]*i,t[11]=e[11]+n[11]*i,t[12]=e[12]+n[12]*i,t[13]=e[13]+n[13]*i,t[14]=e[14]+n[14]*i,t[15]=e[15]+n[15]*i,t}function gr(t,e){return t[0]===e[0]&&t[1]===e[1]&&t[2]===e[2]&&t[3]===e[3]&&t[4]===e[4]&&t[5]===e[5]&&t[6]===e[6]&&t[7]===e[7]&&t[8]===e[8]&&t[9]===e[9]&&t[10]===e[10]&&t[11]===e[11]&&t[12]===e[12]&&t[13]===e[13]&&t[14]===e[14]&&t[15]===e[15]}function vr(t,e){var n=t[0],i=t[1],s=t[2],o=t[3],l=t[4],c=t[5],h=t[6],p=t[7],r=t[8],a=t[9],_=t[10],m=t[11],u=t[12],f=t[13],d=t[14],b=t[15],x=e[0],w=e[1],A=e[2],T=e[3],S=e[4],E=e[5],C=e[6],F=e[7],B=e[8],N=e[9],D=e[10],k=e[11],I=e[12],Q=e[13],ot=e[14],at=e[15];return Math.abs(n-x)<=P*Math.max(1,Math.abs(n),Math.abs(x))&&Math.abs(i-w)<=P*Math.max(1,Math.abs(i),Math.abs(w))&&Math.abs(s-A)<=P*Math.max(1,Math.abs(s),Math.abs(A))&&Math.abs(o-T)<=P*Math.max(1,Math.abs(o),Math.abs(T))&&Math.abs(l-S)<=P*Math.max(1,Math.abs(l),Math.abs(S))&&Math.abs(c-E)<=P*Math.max(1,Math.abs(c),Math.abs(E))&&Math.abs(h-C)<=P*Math.max(1,Math.abs(h),Math.abs(C))&&Math.abs(p-F)<=P*Math.max(1,Math.abs(p),Math.abs(F))&&Math.abs(r-B)<=P*Math.max(1,Math.abs(r),Math.abs(B))&&Math.abs(a-N)<=P*Math.max(1,Math.abs(a),Math.abs(N))&&Math.abs(_-D)<=P*Math.max(1,Math.abs(_),Math.abs(D))&&Math.abs(m-k)<=P*Math.max(1,Math.abs(m),Math.abs(k))&&Math.abs(u-I)<=P*Math.max(1,Math.abs(u),Math.abs(I))&&Math.abs(f-Q)<=P*Math.max(1,Math.abs(f),Math.abs(Q))&&Math.abs(d-ot)<=P*Math.max(1,Math.abs(d),Math.abs(ot))&&Math.abs(b-at)<=P*Math.max(1,Math.abs(b),Math.abs(at))}var br=zn,yr=Xn;var j={};lt(j,{add:()=>Ls,calculateW:()=>Ss,clone:()=>ks,conjugate:()=>Is,copy:()=>Ot,create:()=>ht,dot:()=>It,equals:()=>Hs,exactEquals:()=>Vs,exp:()=>ai,fromEuler:()=>Es,fromMat3:()=>ci,fromValues:()=>Fs,getAngle:()=>js,getAxisAngle:()=>As,identity:()=>Ts,invert:()=>Os,len:()=>zs,length:()=>Et,lerp:()=>Ns,ln:()=>li,mul:()=>Ds,multiply:()=>oi,normalize:()=>sn,pow:()=>Cs,random:()=>Ps,rotateX:()=>tn,rotateY:()=>nn,rotateZ:()=>rn,rotationTo:()=>Ws,scale:()=>_i,set:()=>Bs,setAxes:()=>qs,setAxisAngle:()=>si,slerp:()=>Pt,sqlerp:()=>Xs,sqrLen:()=>Us,squaredLength:()=>Rt,str:()=>Rs});var v={};lt(v,{add:()=>Tr,angle:()=>Wr,bezier:()=>Br,ceil:()=>Ar,clone:()=>xr,copy:()=>wr,create:()=>Tt,cross:()=>_t,dist:()=>Kr,distance:()=>$n,div:()=>Zr,divide:()=>Qn,dot:()=>jt,equals:()=>Gr,exactEquals:()=>Yr,floor:()=>jr,forEach:()=>ts,fromValues:()=>At,hermite:()=>Fr,inverse:()=>Rr,len:()=>Ht,length:()=>qn,lerp:()=>kr,max:()=>Cr,min:()=>Sr,mul:()=>$r,multiply:()=>Gn,negate:()=>Er,normalize:()=>Vt,random:()=>Lr,rotateX:()=>Ur,rotateY:()=>Vr,rotateZ:()=>Hr,round:()=>Pr,scale:()=>Or,scaleAndAdd:()=>Ir,set:()=>Mr,sqrDist:()=>Jr,sqrLen:()=>es,squaredDistance:()=>Zn,squaredLength:()=>Kn,str:()=>qr,sub:()=>Qr,subtract:()=>Yn,transformMat3:()=>Nr,transformMat4:()=>Dr,transformQuat:()=>zr,zero:()=>Xr});function Tt(){var t=new R(3);return R!=Float32Array&&(t[0]=0,t[1]=0,t[2]=0),t}function xr(t){var e=new R(3);return e[0]=t[0],e[1]=t[1],e[2]=t[2],e}function qn(t){var e=t[0],n=t[1],i=t[2];return Math.hypot(e,n,i)}function At(t,e,n){var i=new R(3);return i[0]=t,i[1]=e,i[2]=n,i}function wr(t,e){return t[0]=e[0],t[1]=e[1],t[2]=e[2],t}function Mr(t,e,n,i){return t[0]=e,t[1]=n,t[2]=i,t}function Tr(t,e,n){return t[0]=e[0]+n[0],t[1]=e[1]+n[1],t[2]=e[2]+n[2],t}function Yn(t,e,n){return t[0]=e[0]-n[0],t[1]=e[1]-n[1],t[2]=e[2]-n[2],t}function Gn(t,e,n){return t[0]=e[0]*n[0],t[1]=e[1]*n[1],t[2]=e[2]*n[2],t}function Qn(t,e,n){return t[0]=e[0]/n[0],t[1]=e[1]/n[1],t[2]=e[2]/n[2],t}function Ar(t,e){return t[0]=Math.ceil(e[0]),t[1]=Math.ceil(e[1]),t[2]=Math.ceil(e[2]),t}function jr(t,e){return t[0]=Math.floor(e[0]),t[1]=Math.floor(e[1]),t[2]=Math.floor(e[2]),t}function Sr(t,e,n){return t[0]=Math.min(e[0],n[0]),t[1]=Math.min(e[1],n[1]),t[2]=Math.min(e[2],n[2]),t}function Cr(t,e,n){return t[0]=Math.max(e[0],n[0]),t[1]=Math.max(e[1],n[1]),t[2]=Math.max(e[2],n[2]),t}function Pr(t,e){return t[0]=Math.round(e[0]),t[1]=Math.round(e[1]),t[2]=Math.round(e[2]),t}function Or(t,e,n){return t[0]=e[0]*n,t[1]=e[1]*n,t[2]=e[2]*n,t}function Ir(t,e,n,i){return t[0]=e[0]+n[0]*i,t[1]=e[1]+n[1]*i,t[2]=e[2]+n[2]*i,t}function $n(t,e){var n=e[0]-t[0],i=e[1]-t[1],s=e[2]-t[2];return Math.hypot(n,i,s)}function Zn(t,e){var n=e[0]-t[0],i=e[1]-t[1],s=e[2]-t[2];return n*n+i*i+s*s}function Kn(t){var e=t[0],n=t[1],i=t[2];return e*e+n*n+i*i}function Er(t,e){return t[0]=-e[0],t[1]=-e[1],t[2]=-e[2],t}function Rr(t,e){return t[0]=1/e[0],t[1]=1/e[1],t[2]=1/e[2],t}function Vt(t,e){var n=e[0],i=e[1],s=e[2],o=n*n+i*i+s*s;return o>0&&(o=1/Math.sqrt(o)),t[0]=e[0]*o,t[1]=e[1]*o,t[2]=e[2]*o,t}function jt(t,e){return t[0]*e[0]+t[1]*e[1]+t[2]*e[2]}function _t(t,e,n){var i=e[0],s=e[1],o=e[2],l=n[0],c=n[1],h=n[2];return t[0]=s*h-o*c,t[1]=o*l-i*h,t[2]=i*c-s*l,t}function kr(t,e,n,i){var s=e[0],o=e[1],l=e[2];return t[0]=s+i*(n[0]-s),t[1]=o+i*(n[1]-o),t[2]=l+i*(n[2]-l),t}function Fr(t,e,n,i,s,o){var l=o*o,c=l*(2*o-3)+1,h=l*(o-2)+o,p=l*(o-1),r=l*(3-2*o);return t[0]=e[0]*c+n[0]*h+i[0]*p+s[0]*r,t[1]=e[1]*c+n[1]*h+i[1]*p+s[1]*r,t[2]=e[2]*c+n[2]*h+i[2]*p+s[2]*r,t}function Br(t,e,n,i,s,o){var l=1-o,c=l*l,h=o*o,p=c*l,r=3*o*c,a=3*h*l,_=h*o;return t[0]=e[0]*p+n[0]*r+i[0]*a+s[0]*_,t[1]=e[1]*p+n[1]*r+i[1]*a+s[1]*_,t[2]=e[2]*p+n[2]*r+i[2]*a+s[2]*_,t}function Lr(t,e){e=e||1;var n=q()*2*Math.PI,i=q()*2-1,s=Math.sqrt(1-i*i)*e;return t[0]=Math.cos(n)*s,t[1]=Math.sin(n)*s,t[2]=i*e,t}function Dr(t,e,n){var i=e[0],s=e[1],o=e[2],l=n[3]*i+n[7]*s+n[11]*o+n[15];return l=l||1,t[0]=(n[0]*i+n[4]*s+n[8]*o+n[12])/l,t[1]=(n[1]*i+n[5]*s+n[9]*o+n[13])/l,t[2]=(n[2]*i+n[6]*s+n[10]*o+n[14])/l,t}function Nr(t,e,n){var i=e[0],s=e[1],o=e[2];return t[0]=i*n[0]+s*n[3]+o*n[6],t[1]=i*n[1]+s*n[4]+o*n[7],t[2]=i*n[2]+s*n[5]+o*n[8],t}function zr(t,e,n){var i=n[0],s=n[1],o=n[2],l=n[3],c=e[0],h=e[1],p=e[2],r=s*p-o*h,a=o*c-i*p,_=i*h-s*c,m=s*_-o*a,u=o*r-i*_,f=i*a-s*r,d=l*2;return r*=d,a*=d,_*=d,m*=2,u*=2,f*=2,t[0]=c+r+m,t[1]=h+a+u,t[2]=p+_+f,t}function Ur(t,e,n,i){var s=[],o=[];return s[0]=e[0]-n[0],s[1]=e[1]-n[1],s[2]=e[2]-n[2],o[0]=s[0],o[1]=s[1]*Math.cos(i)-s[2]*Math.sin(i),o[2]=s[1]*Math.sin(i)+s[2]*Math.cos(i),t[0]=o[0]+n[0],t[1]=o[1]+n[1],t[2]=o[2]+n[2],t}function Vr(t,e,n,i){var s=[],o=[];return s[0]=e[0]-n[0],s[1]=e[1]-n[1],s[2]=e[2]-n[2],o[0]=s[2]*Math.sin(i)+s[0]*Math.cos(i),o[1]=s[1],o[2]=s[2]*Math.cos(i)-s[0]*Math.sin(i),t[0]=o[0]+n[0],t[1]=o[1]+n[1],t[2]=o[2]+n[2],t}function Hr(t,e,n,i){var s=[],o=[];return s[0]=e[0]-n[0],s[1]=e[1]-n[1],s[2]=e[2]-n[2],o[0]=s[0]*Math.cos(i)-s[1]*Math.sin(i),o[1]=s[0]*Math.sin(i)+s[1]*Math.cos(i),o[2]=s[2],t[0]=o[0]+n[0],t[1]=o[1]+n[1],t[2]=o[2]+n[2],t}function Wr(t,e){var n=t[0],i=t[1],s=t[2],o=e[0],l=e[1],c=e[2],h=Math.sqrt(n*n+i*i+s*s),p=Math.sqrt(o*o+l*l+c*c),r=h*p,a=r&&jt(t,e)/r;return Math.acos(Math.min(Math.max(a,-1),1))}function Xr(t){return t[0]=0,t[1]=0,t[2]=0,t}function qr(t){return"vec3("+t[0]+", "+t[1]+", "+t[2]+")"}function Yr(t,e){return t[0]===e[0]&&t[1]===e[1]&&t[2]===e[2]}function Gr(t,e){var n=t[0],i=t[1],s=t[2],o=e[0],l=e[1],c=e[2];return Math.abs(n-o)<=P*Math.max(1,Math.abs(n),Math.abs(o))&&Math.abs(i-l)<=P*Math.max(1,Math.abs(i),Math.abs(l))&&Math.abs(s-c)<=P*Math.max(1,Math.abs(s),Math.abs(c))}var Qr=Yn,$r=Gn,Zr=Qn,Kr=$n,Jr=Zn,Ht=qn,es=Kn,ts=function(){var t=Tt();return function(e,n,i,s,o,l){var c,h;for(n||(n=3),i||(i=0),s?h=Math.min(s*n+i,e.length):h=e.length,c=i;c<h;c+=n)t[0]=e[c],t[1]=e[c+1],t[2]=e[c+2],o(t,t,l),e[c]=t[0],e[c+1]=t[1],e[c+2]=t[2];return e}}();var Z={};lt(Z,{add:()=>Gt,ceil:()=>ns,clone:()=>Wt,copy:()=>qt,create:()=>Jn,cross:()=>_s,dist:()=>bs,distance:()=>ii,div:()=>vs,divide:()=>ni,dot:()=>Zt,equals:()=>en,exactEquals:()=>Jt,floor:()=>is,forEach:()=>Ms,fromValues:()=>Xt,inverse:()=>cs,len:()=>xs,length:()=>St,lerp:()=>Kt,max:()=>ss,min:()=>rs,mul:()=>gs,multiply:()=>ti,negate:()=>ls,normalize:()=>$t,random:()=>hs,round:()=>os,scale:()=>Qt,scaleAndAdd:()=>as,set:()=>Yt,sqrDist:()=>ys,sqrLen:()=>ws,squaredDistance:()=>ri,squaredLength:()=>Ct,str:()=>us,sub:()=>fs,subtract:()=>ei,transformMat4:()=>ps,transformQuat:()=>ms,zero:()=>ds});function Jn(){var t=new R(4);return R!=Float32Array&&(t[0]=0,t[1]=0,t[2]=0,t[3]=0),t}function Wt(t){var e=new R(4);return e[0]=t[0],e[1]=t[1],e[2]=t[2],e[3]=t[3],e}function Xt(t,e,n,i){var s=new R(4);return s[0]=t,s[1]=e,s[2]=n,s[3]=i,s}function qt(t,e){return t[0]=e[0],t[1]=e[1],t[2]=e[2],t[3]=e[3],t}function Yt(t,e,n,i,s){return t[0]=e,t[1]=n,t[2]=i,t[3]=s,t}function Gt(t,e,n){return t[0]=e[0]+n[0],t[1]=e[1]+n[1],t[2]=e[2]+n[2],t[3]=e[3]+n[3],t}function ei(t,e,n){return t[0]=e[0]-n[0],t[1]=e[1]-n[1],t[2]=e[2]-n[2],t[3]=e[3]-n[3],t}function ti(t,e,n){return t[0]=e[0]*n[0],t[1]=e[1]*n[1],t[2]=e[2]*n[2],t[3]=e[3]*n[3],t}function ni(t,e,n){return t[0]=e[0]/n[0],t[1]=e[1]/n[1],t[2]=e[2]/n[2],t[3]=e[3]/n[3],t}function ns(t,e){return t[0]=Math.ceil(e[0]),t[1]=Math.ceil(e[1]),t[2]=Math.ceil(e[2]),t[3]=Math.ceil(e[3]),t}function is(t,e){return t[0]=Math.floor(e[0]),t[1]=Math.floor(e[1]),t[2]=Math.floor(e[2]),t[3]=Math.floor(e[3]),t}function rs(t,e,n){return t[0]=Math.min(e[0],n[0]),t[1]=Math.min(e[1],n[1]),t[2]=Math.min(e[2],n[2]),t[3]=Math.min(e[3],n[3]),t}function ss(t,e,n){return t[0]=Math.max(e[0],n[0]),t[1]=Math.max(e[1],n[1]),t[2]=Math.max(e[2],n[2]),t[3]=Math.max(e[3],n[3]),t}function os(t,e){return t[0]=Math.round(e[0]),t[1]=Math.round(e[1]),t[2]=Math.round(e[2]),t[3]=Math.round(e[3]),t}function Qt(t,e,n){return t[0]=e[0]*n,t[1]=e[1]*n,t[2]=e[2]*n,t[3]=e[3]*n,t}function as(t,e,n,i){return t[0]=e[0]+n[0]*i,t[1]=e[1]+n[1]*i,t[2]=e[2]+n[2]*i,t[3]=e[3]+n[3]*i,t}function ii(t,e){var n=e[0]-t[0],i=e[1]-t[1],s=e[2]-t[2],o=e[3]-t[3];return Math.hypot(n,i,s,o)}function ri(t,e){var n=e[0]-t[0],i=e[1]-t[1],s=e[2]-t[2],o=e[3]-t[3];return n*n+i*i+s*s+o*o}function St(t){var e=t[0],n=t[1],i=t[2],s=t[3];return Math.hypot(e,n,i,s)}function Ct(t){var e=t[0],n=t[1],i=t[2],s=t[3];return e*e+n*n+i*i+s*s}function ls(t,e){return t[0]=-e[0],t[1]=-e[1],t[2]=-e[2],t[3]=-e[3],t}function cs(t,e){return t[0]=1/e[0],t[1]=1/e[1],t[2]=1/e[2],t[3]=1/e[3],t}function $t(t,e){var n=e[0],i=e[1],s=e[2],o=e[3],l=n*n+i*i+s*s+o*o;return l>0&&(l=1/Math.sqrt(l)),t[0]=n*l,t[1]=i*l,t[2]=s*l,t[3]=o*l,t}function Zt(t,e){return t[0]*e[0]+t[1]*e[1]+t[2]*e[2]+t[3]*e[3]}function _s(t,e,n,i){var s=n[0]*i[1]-n[1]*i[0],o=n[0]*i[2]-n[2]*i[0],l=n[0]*i[3]-n[3]*i[0],c=n[1]*i[2]-n[2]*i[1],h=n[1]*i[3]-n[3]*i[1],p=n[2]*i[3]-n[3]*i[2],r=e[0],a=e[1],_=e[2],m=e[3];return t[0]=a*p-_*h+m*c,t[1]=-(r*p)+_*l-m*o,t[2]=r*h-a*l+m*s,t[3]=-(r*c)+a*o-_*s,t}function Kt(t,e,n,i){var s=e[0],o=e[1],l=e[2],c=e[3];return t[0]=s+i*(n[0]-s),t[1]=o+i*(n[1]-o),t[2]=l+i*(n[2]-l),t[3]=c+i*(n[3]-c),t}function hs(t,e){e=e||1;var n,i,s,o,l,c;do n=q()*2-1,i=q()*2-1,l=n*n+i*i;while(l>=1);do s=q()*2-1,o=q()*2-1,c=s*s+o*o;while(c>=1);var h=Math.sqrt((1-l)/c);return t[0]=e*n,t[1]=e*i,t[2]=e*s*h,t[3]=e*o*h,t}function ps(t,e,n){var i=e[0],s=e[1],o=e[2],l=e[3];return t[0]=n[0]*i+n[4]*s+n[8]*o+n[12]*l,t[1]=n[1]*i+n[5]*s+n[9]*o+n[13]*l,t[2]=n[2]*i+n[6]*s+n[10]*o+n[14]*l,t[3]=n[3]*i+n[7]*s+n[11]*o+n[15]*l,t}function ms(t,e,n){var i=e[0],s=e[1],o=e[2],l=n[0],c=n[1],h=n[2],p=n[3],r=p*i+c*o-h*s,a=p*s+h*i-l*o,_=p*o+l*s-c*i,m=-l*i-c*s-h*o;return t[0]=r*p+m*-l+a*-h-_*-c,t[1]=a*p+m*-c+_*-l-r*-h,t[2]=_*p+m*-h+r*-c-a*-l,t[3]=e[3],t}function ds(t){return t[0]=0,t[1]=0,t[2]=0,t[3]=0,t}function us(t){return"vec4("+t[0]+", "+t[1]+", "+t[2]+", "+t[3]+")"}function Jt(t,e){return t[0]===e[0]&&t[1]===e[1]&&t[2]===e[2]&&t[3]===e[3]}function en(t,e){var n=t[0],i=t[1],s=t[2],o=t[3],l=e[0],c=e[1],h=e[2],p=e[3];return Math.abs(n-l)<=P*Math.max(1,Math.abs(n),Math.abs(l))&&Math.abs(i-c)<=P*Math.max(1,Math.abs(i),Math.abs(c))&&Math.abs(s-h)<=P*Math.max(1,Math.abs(s),Math.abs(h))&&Math.abs(o-p)<=P*Math.max(1,Math.abs(o),Math.abs(p))}var fs=ei,gs=ti,vs=ni,bs=ii,ys=ri,xs=St,ws=Ct,Ms=function(){var t=Jn();return function(e,n,i,s,o,l){var c,h;for(n||(n=4),i||(i=0),s?h=Math.min(s*n+i,e.length):h=e.length,c=i;c<h;c+=n)t[0]=e[c],t[1]=e[c+1],t[2]=e[c+2],t[3]=e[c+3],o(t,t,l),e[c]=t[0],e[c+1]=t[1],e[c+2]=t[2],e[c+3]=t[3];return e}}();function ht(){var t=new R(4);return R!=Float32Array&&(t[0]=0,t[1]=0,t[2]=0),t[3]=1,t}function Ts(t){return t[0]=0,t[1]=0,t[2]=0,t[3]=1,t}function si(t,e,n){n=n*.5;var i=Math.sin(n);return t[0]=i*e[0],t[1]=i*e[1],t[2]=i*e[2],t[3]=Math.cos(n),t}function As(t,e){var n=Math.acos(e[3])*2,i=Math.sin(n/2);return i>P?(t[0]=e[0]/i,t[1]=e[1]/i,t[2]=e[2]/i):(t[0]=1,t[1]=0,t[2]=0),n}function js(t,e){var n=It(t,e);return Math.acos(2*n*n-1)}function oi(t,e,n){var i=e[0],s=e[1],o=e[2],l=e[3],c=n[0],h=n[1],p=n[2],r=n[3];return t[0]=i*r+l*c+s*p-o*h,t[1]=s*r+l*h+o*c-i*p,t[2]=o*r+l*p+i*h-s*c,t[3]=l*r-i*c-s*h-o*p,t}function tn(t,e,n){n*=.5;var i=e[0],s=e[1],o=e[2],l=e[3],c=Math.sin(n),h=Math.cos(n);return t[0]=i*h+l*c,t[1]=s*h+o*c,t[2]=o*h-s*c,t[3]=l*h-i*c,t}function nn(t,e,n){n*=.5;var i=e[0],s=e[1],o=e[2],l=e[3],c=Math.sin(n),h=Math.cos(n);return t[0]=i*h-o*c,t[1]=s*h+l*c,t[2]=o*h+i*c,t[3]=l*h-s*c,t}function rn(t,e,n){n*=.5;var i=e[0],s=e[1],o=e[2],l=e[3],c=Math.sin(n),h=Math.cos(n);return t[0]=i*h+s*c,t[1]=s*h-i*c,t[2]=o*h+l*c,t[3]=l*h-o*c,t}function Ss(t,e){var n=e[0],i=e[1],s=e[2];return t[0]=n,t[1]=i,t[2]=s,t[3]=Math.sqrt(Math.abs(1-n*n-i*i-s*s)),t}function ai(t,e){var n=e[0],i=e[1],s=e[2],o=e[3],l=Math.sqrt(n*n+i*i+s*s),c=Math.exp(o),h=l>0?c*Math.sin(l)/l:0;return t[0]=n*h,t[1]=i*h,t[2]=s*h,t[3]=c*Math.cos(l),t}function li(t,e){var n=e[0],i=e[1],s=e[2],o=e[3],l=Math.sqrt(n*n+i*i+s*s),c=l>0?Math.atan2(l,o)/l:0;return t[0]=n*c,t[1]=i*c,t[2]=s*c,t[3]=.5*Math.log(n*n+i*i+s*s+o*o),t}function Cs(t,e,n){return li(t,e),_i(t,t,n),ai(t,t),t}function Pt(t,e,n,i){var s=e[0],o=e[1],l=e[2],c=e[3],h=n[0],p=n[1],r=n[2],a=n[3],_,m,u,f,d;return m=s*h+o*p+l*r+c*a,m<0&&(m=-m,h=-h,p=-p,r=-r,a=-a),1-m>P?(_=Math.acos(m),u=Math.sin(_),f=Math.sin((1-i)*_)/u,d=Math.sin(i*_)/u):(f=1-i,d=i),t[0]=f*s+d*h,t[1]=f*o+d*p,t[2]=f*l+d*r,t[3]=f*c+d*a,t}function Ps(t){var e=q(),n=q(),i=q(),s=Math.sqrt(1-e),o=Math.sqrt(e);return t[0]=s*Math.sin(2*Math.PI*n),t[1]=s*Math.cos(2*Math.PI*n),t[2]=o*Math.sin(2*Math.PI*i),t[3]=o*Math.cos(2*Math.PI*i),t}function Os(t,e){var n=e[0],i=e[1],s=e[2],o=e[3],l=n*n+i*i+s*s+o*o,c=l?1/l:0;return t[0]=-n*c,t[1]=-i*c,t[2]=-s*c,t[3]=o*c,t}function Is(t,e){return t[0]=-e[0],t[1]=-e[1],t[2]=-e[2],t[3]=e[3],t}function ci(t,e){var n=e[0]+e[4]+e[8],i;if(n>0)i=Math.sqrt(n+1),t[3]=.5*i,i=.5/i,t[0]=(e[5]-e[7])*i,t[1]=(e[6]-e[2])*i,t[2]=(e[1]-e[3])*i;else{var s=0;e[4]>e[0]&&(s=1),e[8]>e[s*3+s]&&(s=2);var o=(s+1)%3,l=(s+2)%3;i=Math.sqrt(e[s*3+s]-e[o*3+o]-e[l*3+l]+1),t[s]=.5*i,i=.5/i,t[3]=(e[o*3+l]-e[l*3+o])*i,t[o]=(e[o*3+s]+e[s*3+o])*i,t[l]=(e[l*3+s]+e[s*3+l])*i}return t}function Es(t,e,n,i){var s=.5*Math.PI/180;e*=s,n*=s,i*=s;var o=Math.sin(e),l=Math.cos(e),c=Math.sin(n),h=Math.cos(n),p=Math.sin(i),r=Math.cos(i);return t[0]=o*h*r-l*c*p,t[1]=l*c*r+o*h*p,t[2]=l*h*p-o*c*r,t[3]=l*h*r+o*c*p,t}function Rs(t){return"quat("+t[0]+", "+t[1]+", "+t[2]+", "+t[3]+")"}var ks=Wt,Fs=Xt,Ot=qt,Bs=Yt,Ls=Gt,Ds=oi,_i=Qt,It=Zt,Ns=Kt,Et=St,zs=Et,Rt=Ct,Us=Rt,sn=$t,Vs=Jt,Hs=en,Ws=function(){var t=Tt(),e=At(1,0,0),n=At(0,1,0);return function(i,s,o){var l=jt(s,o);return l<-.999999?(_t(t,e,s),Ht(t)<1e-6&&_t(t,n,s),Vt(t,t),si(i,t,Math.PI),i):l>.999999?(i[0]=0,i[1]=0,i[2]=0,i[3]=1,i):(_t(t,s,o),i[0]=t[0],i[1]=t[1],i[2]=t[2],i[3]=1+l,sn(i,i))}}(),Xs=function(){var t=ht(),e=ht();return function(n,i,s,o,l,c){return Pt(t,i,l,c),Pt(e,s,o,c),Pt(n,t,e,2*c*(1-c)),n}}(),qs=function(){var t=Dn();return function(e,n,i,s){return t[0]=i[0],t[3]=i[1],t[6]=i[2],t[1]=s[0],t[4]=s[1],t[7]=s[2],t[2]=-n[0],t[5]=-n[1],t[8]=-n[2],sn(e,ci(e,t))}}();var H={};lt(H,{add:()=>uo,clone:()=>Gs,conjugate:()=>yo,copy:()=>pi,create:()=>Ys,dot:()=>di,equals:()=>jo,exactEquals:()=>Ao,fromMat4:()=>Js,fromRotation:()=>Ks,fromRotationTranslation:()=>hi,fromRotationTranslationValues:()=>$s,fromTranslation:()=>Zs,fromValues:()=>Qs,getDual:()=>io,getReal:()=>no,getTranslation:()=>oo,identity:()=>eo,invert:()=>bo,len:()=>xo,length:()=>ui,lerp:()=>vo,mul:()=>fo,multiply:()=>mi,normalize:()=>Mo,rotateAroundAxis:()=>mo,rotateByQuatAppend:()=>ho,rotateByQuatPrepend:()=>po,rotateX:()=>lo,rotateY:()=>co,rotateZ:()=>_o,scale:()=>go,set:()=>to,setDual:()=>so,setReal:()=>ro,sqrLen:()=>wo,squaredLength:()=>kt,str:()=>To,translate:()=>ao});function Ys(){var t=new R(8);return R!=Float32Array&&(t[0]=0,t[1]=0,t[2]=0,t[4]=0,t[5]=0,t[6]=0,t[7]=0),t[3]=1,t}function Gs(t){var e=new R(8);return e[0]=t[0],e[1]=t[1],e[2]=t[2],e[3]=t[3],e[4]=t[4],e[5]=t[5],e[6]=t[6],e[7]=t[7],e}function Qs(t,e,n,i,s,o,l,c){var h=new R(8);return h[0]=t,h[1]=e,h[2]=n,h[3]=i,h[4]=s,h[5]=o,h[6]=l,h[7]=c,h}function $s(t,e,n,i,s,o,l){var c=new R(8);c[0]=t,c[1]=e,c[2]=n,c[3]=i;var h=s*.5,p=o*.5,r=l*.5;return c[4]=h*i+p*n-r*e,c[5]=p*i+r*t-h*n,c[6]=r*i+h*e-p*t,c[7]=-h*t-p*e-r*n,c}function hi(t,e,n){var i=n[0]*.5,s=n[1]*.5,o=n[2]*.5,l=e[0],c=e[1],h=e[2],p=e[3];return t[0]=l,t[1]=c,t[2]=h,t[3]=p,t[4]=i*p+s*h-o*c,t[5]=s*p+o*l-i*h,t[6]=o*p+i*c-s*l,t[7]=-i*l-s*c-o*h,t}function Zs(t,e){return t[0]=0,t[1]=0,t[2]=0,t[3]=1,t[4]=e[0]*.5,t[5]=e[1]*.5,t[6]=e[2]*.5,t[7]=0,t}function Ks(t,e){return t[0]=e[0],t[1]=e[1],t[2]=e[2],t[3]=e[3],t[4]=0,t[5]=0,t[6]=0,t[7]=0,t}function Js(t,e){var n=ht();Ut(n,e);var i=new R(3);return zt(i,e),hi(t,n,i),t}function pi(t,e){return t[0]=e[0],t[1]=e[1],t[2]=e[2],t[3]=e[3],t[4]=e[4],t[5]=e[5],t[6]=e[6],t[7]=e[7],t}function eo(t){return t[0]=0,t[1]=0,t[2]=0,t[3]=1,t[4]=0,t[5]=0,t[6]=0,t[7]=0,t}function to(t,e,n,i,s,o,l,c,h){return t[0]=e,t[1]=n,t[2]=i,t[3]=s,t[4]=o,t[5]=l,t[6]=c,t[7]=h,t}var no=Ot;function io(t,e){return t[0]=e[4],t[1]=e[5],t[2]=e[6],t[3]=e[7],t}var ro=Ot;function so(t,e){return t[4]=e[0],t[5]=e[1],t[6]=e[2],t[7]=e[3],t}function oo(t,e){var n=e[4],i=e[5],s=e[6],o=e[7],l=-e[0],c=-e[1],h=-e[2],p=e[3];return t[0]=(n*p+o*l+i*h-s*c)*2,t[1]=(i*p+o*c+s*l-n*h)*2,t[2]=(s*p+o*h+n*c-i*l)*2,t}function ao(t,e,n){var i=e[0],s=e[1],o=e[2],l=e[3],c=n[0]*.5,h=n[1]*.5,p=n[2]*.5,r=e[4],a=e[5],_=e[6],m=e[7];return t[0]=i,t[1]=s,t[2]=o,t[3]=l,t[4]=l*c+s*p-o*h+r,t[5]=l*h+o*c-i*p+a,t[6]=l*p+i*h-s*c+_,t[7]=-i*c-s*h-o*p+m,t}function lo(t,e,n){var i=-e[0],s=-e[1],o=-e[2],l=e[3],c=e[4],h=e[5],p=e[6],r=e[7],a=c*l+r*i+h*o-p*s,_=h*l+r*s+p*i-c*o,m=p*l+r*o+c*s-h*i,u=r*l-c*i-h*s-p*o;return tn(t,e,n),i=t[0],s=t[1],o=t[2],l=t[3],t[4]=a*l+u*i+_*o-m*s,t[5]=_*l+u*s+m*i-a*o,t[6]=m*l+u*o+a*s-_*i,t[7]=u*l-a*i-_*s-m*o,t}function co(t,e,n){var i=-e[0],s=-e[1],o=-e[2],l=e[3],c=e[4],h=e[5],p=e[6],r=e[7],a=c*l+r*i+h*o-p*s,_=h*l+r*s+p*i-c*o,m=p*l+r*o+c*s-h*i,u=r*l-c*i-h*s-p*o;return nn(t,e,n),i=t[0],s=t[1],o=t[2],l=t[3],t[4]=a*l+u*i+_*o-m*s,t[5]=_*l+u*s+m*i-a*o,t[6]=m*l+u*o+a*s-_*i,t[7]=u*l-a*i-_*s-m*o,t}function _o(t,e,n){var i=-e[0],s=-e[1],o=-e[2],l=e[3],c=e[4],h=e[5],p=e[6],r=e[7],a=c*l+r*i+h*o-p*s,_=h*l+r*s+p*i-c*o,m=p*l+r*o+c*s-h*i,u=r*l-c*i-h*s-p*o;return rn(t,e,n),i=t[0],s=t[1],o=t[2],l=t[3],t[4]=a*l+u*i+_*o-m*s,t[5]=_*l+u*s+m*i-a*o,t[6]=m*l+u*o+a*s-_*i,t[7]=u*l-a*i-_*s-m*o,t}function ho(t,e,n){var i=n[0],s=n[1],o=n[2],l=n[3],c=e[0],h=e[1],p=e[2],r=e[3];return t[0]=c*l+r*i+h*o-p*s,t[1]=h*l+r*s+p*i-c*o,t[2]=p*l+r*o+c*s-h*i,t[3]=r*l-c*i-h*s-p*o,c=e[4],h=e[5],p=e[6],r=e[7],t[4]=c*l+r*i+h*o-p*s,t[5]=h*l+r*s+p*i-c*o,t[6]=p*l+r*o+c*s-h*i,t[7]=r*l-c*i-h*s-p*o,t}function po(t,e,n){var i=e[0],s=e[1],o=e[2],l=e[3],c=n[0],h=n[1],p=n[2],r=n[3];return t[0]=i*r+l*c+s*p-o*h,t[1]=s*r+l*h+o*c-i*p,t[2]=o*r+l*p+i*h-s*c,t[3]=l*r-i*c-s*h-o*p,c=n[4],h=n[5],p=n[6],r=n[7],t[4]=i*r+l*c+s*p-o*h,t[5]=s*r+l*h+o*c-i*p,t[6]=o*r+l*p+i*h-s*c,t[7]=l*r-i*c-s*h-o*p,t}function mo(t,e,n,i){if(Math.abs(i)<P)return pi(t,e);var s=Math.hypot(n[0],n[1],n[2]);i=i*.5;var o=Math.sin(i),l=o*n[0]/s,c=o*n[1]/s,h=o*n[2]/s,p=Math.cos(i),r=e[0],a=e[1],_=e[2],m=e[3];t[0]=r*p+m*l+a*h-_*c,t[1]=a*p+m*c+_*l-r*h,t[2]=_*p+m*h+r*c-a*l,t[3]=m*p-r*l-a*c-_*h;var u=e[4],f=e[5],d=e[6],b=e[7];return t[4]=u*p+b*l+f*h-d*c,t[5]=f*p+b*c+d*l-u*h,t[6]=d*p+b*h+u*c-f*l,t[7]=b*p-u*l-f*c-d*h,t}function uo(t,e,n){return t[0]=e[0]+n[0],t[1]=e[1]+n[1],t[2]=e[2]+n[2],t[3]=e[3]+n[3],t[4]=e[4]+n[4],t[5]=e[5]+n[5],t[6]=e[6]+n[6],t[7]=e[7]+n[7],t}function mi(t,e,n){var i=e[0],s=e[1],o=e[2],l=e[3],c=n[4],h=n[5],p=n[6],r=n[7],a=e[4],_=e[5],m=e[6],u=e[7],f=n[0],d=n[1],b=n[2],x=n[3];return t[0]=i*x+l*f+s*b-o*d,t[1]=s*x+l*d+o*f-i*b,t[2]=o*x+l*b+i*d-s*f,t[3]=l*x-i*f-s*d-o*b,t[4]=i*r+l*c+s*p-o*h+a*x+u*f+_*b-m*d,t[5]=s*r+l*h+o*c-i*p+_*x+u*d+m*f-a*b,t[6]=o*r+l*p+i*h-s*c+m*x+u*b+a*d-_*f,t[7]=l*r-i*c-s*h-o*p+u*x-a*f-_*d-m*b,t}var fo=mi;function go(t,e,n){return t[0]=e[0]*n,t[1]=e[1]*n,t[2]=e[2]*n,t[3]=e[3]*n,t[4]=e[4]*n,t[5]=e[5]*n,t[6]=e[6]*n,t[7]=e[7]*n,t}var di=It;function vo(t,e,n,i){var s=1-i;return di(e,n)<0&&(i=-i),t[0]=e[0]*s+n[0]*i,t[1]=e[1]*s+n[1]*i,t[2]=e[2]*s+n[2]*i,t[3]=e[3]*s+n[3]*i,t[4]=e[4]*s+n[4]*i,t[5]=e[5]*s+n[5]*i,t[6]=e[6]*s+n[6]*i,t[7]=e[7]*s+n[7]*i,t}function bo(t,e){var n=kt(e);return t[0]=-e[0]/n,t[1]=-e[1]/n,t[2]=-e[2]/n,t[3]=e[3]/n,t[4]=-e[4]/n,t[5]=-e[5]/n,t[6]=-e[6]/n,t[7]=e[7]/n,t}function yo(t,e){return t[0]=-e[0],t[1]=-e[1],t[2]=-e[2],t[3]=e[3],t[4]=-e[4],t[5]=-e[5],t[6]=-e[6],t[7]=e[7],t}var ui=Et,xo=ui,kt=Rt,wo=kt;function Mo(t,e){var n=kt(e);if(n>0){n=Math.sqrt(n);var i=e[0]/n,s=e[1]/n,o=e[2]/n,l=e[3]/n,c=e[4],h=e[5],p=e[6],r=e[7],a=i*c+s*h+o*p+l*r;t[0]=i,t[1]=s,t[2]=o,t[3]=l,t[4]=(c-i*a)/n,t[5]=(h-s*a)/n,t[6]=(p-o*a)/n,t[7]=(r-l*a)/n}return t}function To(t){return"quat2("+t[0]+", "+t[1]+", "+t[2]+", "+t[3]+", "+t[4]+", "+t[5]+", "+t[6]+", "+t[7]+")"}function Ao(t,e){return t[0]===e[0]&&t[1]===e[1]&&t[2]===e[2]&&t[3]===e[3]&&t[4]===e[4]&&t[5]===e[5]&&t[6]===e[6]&&t[7]===e[7]}function jo(t,e){var n=t[0],i=t[1],s=t[2],o=t[3],l=t[4],c=t[5],h=t[6],p=t[7],r=e[0],a=e[1],_=e[2],m=e[3],u=e[4],f=e[5],d=e[6],b=e[7];return Math.abs(n-r)<=P*Math.max(1,Math.abs(n),Math.abs(r))&&Math.abs(i-a)<=P*Math.max(1,Math.abs(i),Math.abs(a))&&Math.abs(s-_)<=P*Math.max(1,Math.abs(s),Math.abs(_))&&Math.abs(o-m)<=P*Math.max(1,Math.abs(o),Math.abs(m))&&Math.abs(l-u)<=P*Math.max(1,Math.abs(l),Math.abs(u))&&Math.abs(c-f)<=P*Math.max(1,Math.abs(c),Math.abs(f))&&Math.abs(h-d)<=P*Math.max(1,Math.abs(h),Math.abs(d))&&Math.abs(p-b)<=P*Math.max(1,Math.abs(p),Math.abs(b))}var xe=class extends y{init(){this.session=null,this.collisionMask=1<<this.collisionGroup,this.maxDistance=100;let e=this.onDestroy.bind(this);this.engine.onSceneLoaded.push(e),this.onDestroyCallbacks=[()=>{let n=this.engine.onSceneLoaded.indexOf(e);n>=0&&this.engine.onSceneLoaded.splice(n,1)}]}start(){if(this.handedness==0){let n=this.object.getComponent("input");n?(this.handedness=n.handedness,this.input=n):console.warn("cursor component on object",this.object.name,'was configured with handedness "input component", but object has no input component.')}else this.handedness=["left","right"][this.handedness-1];if(this.globalTarget=this.object.addComponent("cursor-target"),this.origin=new Float32Array(3),this.cursorObjScale=new Float32Array(3),this.direction=[0,0,0],this.tempQuat=new Float32Array(4),this.viewComponent=this.object.getComponent("view"),this.viewComponent!=null){let n=this.onClick.bind(this);this.engine.canvas.addEventListener("click",n);let i=this.onPointerMove.bind(this);this.engine.canvas.addEventListener("pointermove",i);let s=this.onPointerDown.bind(this);this.engine.canvas.addEventListener("pointerdown",s);let o=this.onPointerUp.bind(this);this.engine.canvas.addEventListener("pointerup",o),this.projectionMatrix=new Float32Array(16),re.invert(this.projectionMatrix,this.viewComponent.projectionMatrix);let l=this.onViewportResize.bind(this);window.addEventListener("resize",l),this.onDestroyCallbacks.push(()=>{this.engine.canvas.removeEventListener("click",n),this.engine.canvas.removeEventListener("pointermove",i),this.engine.canvas.removeEventListener("pointerdown",s),this.engine.canvas.removeEventListener("pointerup",o),window.removeEventListener("resize",l)})}this.isHovering=!1,this.visible=!0,this.isDown=!1,this.lastIsDown=!1,this.cursorPos=new Float32Array(3),this.hoveringObject=null;let e=this.setupVREvents.bind(this);this.engine.onXRSessionStart.push(e),this.onDestroyCallbacks.push(()=>{let n=this.engine.onXRSessionStart.indexOf(e);n>=0&&this.engine.onXRSessionStart.splice(n,1)}),this.cursorRayObject&&(this.cursorRayScale=new Float32Array(3),this.cursorRayScale.set(this.cursorRayObject.scalingLocal),this.object.getTranslationWorld(this.origin),this.object.getForward(this.direction),this._setCursorRayTransform([this.origin[0]+this.direction[0],this.origin[1]+this.direction[1],this.origin[2]+this.direction[2]]))}onViewportResize(){this.viewComponent&&re.invert(this.projectionMatrix,this.viewComponent.projectionMatrix)}_setCursorRayTransform(e){if(!this.cursorRayObject)return;let n=v.dist(this.origin,e);this.cursorRayObject.setTranslationLocal([0,0,-n/2]),this.cursorRayScalingAxis!=4&&(this.cursorRayObject.resetScaling(),this.cursorRayScale[this.cursorRayScalingAxis]=n/2,this.cursorRayObject.scale(this.cursorRayScale))}_setCursorVisibility(e){this.visible!=e&&(this.visible=e,this.cursorObject&&(e?(this.cursorObject.resetScaling(),this.cursorObject.scale(this.cursorObjScale)):(this.cursorObjScale.set(this.cursorObject.scalingLocal),this.cursorObject.scale([0,0,0]))))}update(){this.doUpdate(!1)}doUpdate(e){if(this.session){if(this.arTouchDown&&this.input&&this.engine.xrSession.inputSources[0].handedness==="none"&&this.engine.xrSession.inputSources[0].gamepad){let i=this.engine.xrSession.inputSources[0].gamepad.axes;this.direction=[i[0],-i[1],-1],this.updateDirection()}else this.object.getTranslationWorld(this.origin),this.object.getForward(this.direction);let n=this.rayHit=this.rayCastMode==0?this.engine.scene.rayCast(this.origin,this.direction,this.collisionMask):this.engine.physics.rayCast(this.origin,this.direction,this.collisionMask,this.maxDistance);n.hitCount>0?this.cursorPos.set(n.locations[0]):this.cursorPos.fill(0),this.hoverBehaviour(n,e)}this.cursorObject&&(this.hoveringObject&&(this.cursorPos[0]!=0||this.cursorPos[1]!=0||this.cursorPos[2]!=0)?(this._setCursorVisibility(!0),this.cursorObject.setTranslationWorld(this.cursorPos),this._setCursorRayTransform(this.cursorPos)):this._setCursorVisibility(!1))}hoverBehaviour(e,n){if(e.hitCount>0){if(!this.hoveringObject||!this.hoveringObject.equals(e.objects[0])){if(this.hoveringObject){let o=this.hoveringObject.getComponent("cursor-target");o&&o.onUnhover(this.hoveringObject,this),this.globalTarget.onUnhover(this.hoveringObject,this)}this.hoveringObject=e.objects[0],this.styleCursor&&(this.engine.canvas.style.cursor="pointer");let s=this.hoveringObject.getComponent("cursor-target");s&&(this.hoveringObjectTarget=s,s.onHover(this.hoveringObject,this)),this.globalTarget.onHover(this.hoveringObject,this)}this.hoveringObjectTarget&&this.hoveringObjectTarget.onMove(this.hoveringObject,this);let i=this.hoveringObject.getComponent("cursor-target");this.isDown!==this.lastIsDown&&(this.isDown?(i&&i.onDown(this.hoveringObject,this),this.globalTarget.onDown(this.hoveringObject,this)):(i&&i.onUp(this.hoveringObject,this),this.globalTarget.onUp(this.hoveringObject,this))),n&&(i&&i.onClick(this.hoveringObject,this),this.globalTarget.onClick(this.hoveringObject,this))}else if(this.hoveringObject&&e.hitCount==0){let i=this.hoveringObject.getComponent("cursor-target");i&&i.onUnhover(this.hoveringObject,this),this.globalTarget.onUnhover(this.hoveringObject,this),this.hoveringObject=null,this.hoveringObjectTarget=null,this.styleCursor&&(this.engine.canvas.style.cursor="default")}this.lastIsDown=this.isDown}setupVREvents(e){this.session=e;let n=function(l){this.session=null}.bind(this);e.addEventListener("end",n);let i=this.onSelect.bind(this);e.addEventListener("select",i);let s=this.onSelectStart.bind(this);e.addEventListener("selectstart",s);let o=this.onSelectEnd.bind(this);e.addEventListener("selectend",o),this.onDestroyCallbacks.push(()=>{this.session&&(e.removeEventListener("end",n),e.removeEventListener("select",i),e.removeEventListener("selectstart",s),e.removeEventListener("selectend",o))}),this.onViewportResize()}onSelect(e){e.inputSource.handedness==this.handedness&&this.doUpdate(!0)}onSelectStart(e){this.arTouchDown=!0,e.inputSource.handedness==this.handedness&&(this.isDown=!0)}onSelectEnd(e){this.arTouchDown=!1,e.inputSource.handedness==this.handedness&&(this.isDown=!1)}onPointerMove(e){if(!e.isPrimary)return;let n=e.target.getBoundingClientRect(),i=this.updateMousePos(e.clientX,e.clientY,n.width,n.height);this.hoverBehaviour(i,!1)}onClick(e){let n=e.target.getBoundingClientRect(),i=this.updateMousePos(e.clientX,e.clientY,n.width,n.height);this.hoverBehaviour(i,!0)}onPointerDown(e){if(!e.isPrimary||e.button!==0)return;let n=e.target.getBoundingClientRect(),i=this.updateMousePos(e.clientX,e.clientY,n.width,n.height);this.isDown=!0,this.hoverBehaviour(i,!1)}onPointerUp(e){if(!e.isPrimary||e.button!==0)return;let n=e.target.getBoundingClientRect(),i=this.updateMousePos(e.clientX,e.clientY,n.width,n.height);this.isDown=!1,this.hoverBehaviour(i,!1)}updateMousePos(e,n,i,s){let o=e/i,l=n/s;return this.direction=[o*2-1,-l*2+1,-1],this.updateDirection()}updateDirection(){this.object.getTranslationWorld(this.origin),v.transformMat4(this.direction,this.direction,this.projectionMatrix),v.normalize(this.direction,this.direction),v.transformQuat(this.direction,this.direction,this.object.transformWorld);let e=this.rayHit=this.rayCastMode==0?this.engine.scene.rayCast(this.origin,this.direction,this.collisionMask):this.engine.physics.rayCast(this.origin,this.direction,this.collisionMask,this.maxDistance);return e.hitCount>0?this.cursorPos.set(e.locations[0]):this.cursorPos.fill(0),e}onDeactivate(){if(this._setCursorVisibility(!1),this.hoveringObject){let e=this.hoveringObject.getComponent("cursor-target");e&&e.onUnhover(this.hoveringObject,this),this.globalTarget.onUnhover(this.hoveringObject,this)}this.cursorRayObject&&this.cursorRayObject.scale([0,0,0])}onActivate(){this._setCursorVisibility(!0)}onDestroy(){for(let e of this.onDestroyCallbacks)e()}};M(xe,"TypeName","cursor"),M(xe,"Properties",{collisionGroup:{type:g.Int,default:1},cursorRayObject:{type:g.Object},cursorRayScalingAxis:{type:g.Enum,values:["x","y","z","none"],default:"z"},cursorObject:{type:g.Object},handedness:{type:g.Enum,values:["input component","left","right","none"],default:"input component"},rayCastMode:{type:g.Enum,values:["collision","physx"],default:"collision"},styleCursor:{type:g.Bool,default:!0}});var we=class extends y{start(){}init(){let e=[0,0,0];H.getTranslation(e,this.object.transformWorld),console.log("Debug Object:",this.object.name),console.log("Other object:",this.obj.name),console.log("	translation",e),console.log("	transformWorld",this.object.transformWorld),console.log("	transformLocal",this.object.transformLocal)}update(){}};M(we,"TypeName","debug-object"),M(we,"Properties",{obj:{type:g.Object}});function So(t,e,n,i){let s=Math.cos(e/2),o=Math.cos(n/2),l=Math.cos(i/2),c=Math.sin(e/2),h=Math.sin(n/2),p=Math.sin(i/2);t[0]=c*o*l+s*h*p,t[1]=s*h*l-c*o*p,t[2]=s*o*p-c*h*l,t[3]=s*o*l+c*h*p}var Me=class extends y{start(){this.rotationX=0,this.rotationY=0,this.lastClientX=-1,this.lastClientY=-1}init(){this.deviceOrientation=[0,0,0,1],this.screenOrientation=window.innerHeight>window.innerWidth?0:90,this._origin=[0,0,0],window.addEventListener("deviceorientation",function(e){let n=e.alpha||0,i=e.beta||0,s=e.gamma||0,o=Math.PI/180;So(this.deviceOrientation,i*o,n*o,-s*o)}.bind(this)),window.addEventListener("orientationchange",function(e){this.screenOrientation=window.orientation||0}.bind(this),!1)}update(){Module.webxr_session==null&&(this.object.getTranslationLocal(this._origin),this.object.resetTransform(),this.screenOrientation!=0&&this.object.rotateAxisAngleDeg([0,0,-1],this.screenOrientation),this.object.rotate([-Math.sqrt(.5),0,0,Math.sqrt(.5)]),this.object.rotate(this.deviceOrientation),this.object.translate(this._origin))}};M(Me,"TypeName","device-orientation-look"),M(Me,"Properties",{});var Te=class extends y{init(){this.lastTarget=null}start(){this.tip=this.object.getComponent("collision")}update(){let e=this.tip.queryOverlaps(),n=null;for(let i=0;i<e.length;++i){let s=e[i].object,o=s.getComponent("cursor-target");if(o){o.equals(this.lastTarget)||(o.onHover(s,this),o.onClick(s,this)),n=o;break}}if(n)this.lastTarget=n;else{this.lastTarget&&this.lastTarget.onUnhover(this.lastTarget.object,this),this.lastTarget=null;return}}};M(Te,"TypeName","finger-cursor"),M(Te,"Properties",{});var Ae=class extends y{start(){this.engine.xrSession?this.setFixedFoveation():this.engine.onXRSessionStart.push(this.setFixedFoveation.bind(this))}setFixedFoveation(){this.engine.xrBaseLayer.fixedFoveation=this.fixedFoveation}};M(Ae,"TypeName","fixed-foveation"),M(Ae,"Properties",{fixedFoveation:{type:g.Float,default:.5}});var pt=["wrist","thumb-metacarpal","thumb-phalanx-proximal","thumb-phalanx-distal","thumb-tip","index-finger-metacarpal","index-finger-phalanx-proximal","index-finger-phalanx-intermediate","index-finger-phalanx-distal","index-finger-tip","middle-finger-metacarpal","middle-finger-phalanx-proximal","middle-finger-phalanx-intermediate","middle-finger-phalanx-distal","middle-finger-tip","ring-finger-metacarpal","ring-finger-phalanx-proximal","ring-finger-phalanx-intermediate","ring-finger-phalanx-distal","ring-finger-tip","pinky-finger-metacarpal","pinky-finger-phalanx-proximal","pinky-finger-phalanx-intermediate","pinky-finger-phalanx-distal","pinky-finger-tip"],je=class extends y{init(){this.handedness=["left","right"][this.handedness]}start(){if(this.joints=[],this.session=null,this.hasPose=!1,this._childrenActive=!0,!("XRHand"in window)){console.warn("WebXR Hand Tracking not supported by this browser."),this.active=!1;return}if(this.handSkin){let n=this.handSkin.jointIds;this.joints[pt[0]]=this.engine.wrapObject(n[0]);for(let i=0;i<n.length;++i){let s=this.engine.wrapObject(n[i]);this.joints[s.name]=s}return}for(let e=0;e<=pt.length;++e){let n=this.engine.scene.addObject(this.object.parent),i=n.addComponent("mesh");i.mesh=this.jointMesh,i.material=this.jointMaterial,this.joints[pt[e]]=n}}update(e){if(this.session||this.engine.xrSession&&this.setupVREvents(this.engine.xrSession),!!this.session){if(this.hasPose=!1,this.session&&this.session.inputSources)for(let n=0;n<=this.session.inputSources.length;++n){let i=this.session.inputSources[n];if(!i||!i.hand||i.handedness!=this.handedness)continue;if(this.hasPose=!0,i.hand.get("wrist")!==null){let l=this.engine.wasm.WebXR,c=Module.webxr_frame.getJointPose(i.hand.get("wrist"),l.refSpaces[l.refSpace]);c&&(this.object.resetTranslationRotation(),this.object.transformLocal.set([c.transform.orientation.x,c.transform.orientation.y,c.transform.orientation.z,c.transform.orientation.w]),this.object.translate([c.transform.position.x,c.transform.position.y,c.transform.position.z]))}let s=new Float32Array(3),o=new Float32Array(4);j.invert(o,this.object.transformLocal),this.object.getTranslationLocal(s);for(let l=0;l<pt.length;++l){let c=pt[l],h=this.joints[c];if(h==null)continue;let p=null;if(i.hand.get(c)!==null){let r=this.engine.wasm.WebXR;p=Module.webxr_frame.getJointPose(i.hand.get(c),r.refSpaces[r.refSpace])}if(p!==null)if(this.handSkin)h.resetTranslationRotation(),h.translate([p.transform.position.x-s[0],p.transform.position.y-s[1],p.transform.position.z-s[2]]),h.rotate(o),h.rotateObject([p.transform.orientation.x,p.transform.orientation.y,p.transform.orientation.z,p.transform.orientation.w]);else{h.resetTransform(),h.transformLocal.set([p.transform.orientation.x,p.transform.orientation.y,p.transform.orientation.z,p.transform.orientation.w]),h.translate([p.transform.position.x,p.transform.position.y,p.transform.position.z]);let r=p.radius||.007;h.scale([r,r,r])}else this.handSkin||h.scale([0,0,0])}}!this.hasPose&&this._childrenActive?(this._childrenActive=!1,this.deactivateChildrenWithoutPose&&this.setChildrenActive(!1),this.controllerToDeactivate&&(this.controllerToDeactivate.active=!0,this.setChildrenActive(!0,this.controllerToDeactivate))):this.hasPose&&!this._childrenActive&&(this._childrenActive=!0,this.deactivateChildrenWithoutPose&&this.setChildrenActive(!0),this.controllerToDeactivate&&(this.controllerToDeactivate.active=!1,this.setChildrenActive(!1,this.controllerToDeactivate)))}}setChildrenActive(e,n){n=n||this.object;let i=n.children;for(let s of i)s.active=e,this.setChildrenActive(e,s)}isGrabbing(){let e=[0,0,0];H.getTranslation(e,this.joints["index-finger-tip"].transformLocal);let n=[0,0,0];return H.getTranslation(n,this.joints["thumb-tip"].transformLocal),v.sqrDist(n,e)<.001}setupVREvents(e){this.session=e}};M(je,"TypeName","hand-tracking"),M(je,"Properties",{handedness:{type:g.Enum,default:"left",values:["left","right"]},jointMesh:{type:g.Mesh,default:null},jointMaterial:{type:g.Material,default:null},handSkin:{type:g.Skin,default:null},deactivateChildrenWithoutPose:{type:g.Bool,default:!0},controllerToDeactivate:{type:g.Object}});var Se=class extends y{init(){this.engine.onXRSessionStart.push(this.xrSessionStart.bind(this)),this.engine.onXRSessionEnd.push(this.xrSessionEnd.bind(this)),this.tempScaling=new Float32Array(3),this.tempScaling.set(this.object.scalingLocal),this.visible=!1,this.object.scale([0,0,0])}update(e){let n=this.visible;if(this.xrHitTestSource){let i=this.engine.xrFrame;if(!i)return;let s=i.getHitTestResults(this.xrHitTestSource);if(s.length>0){let o=s[0].getPose(this.xrViewerSpace);this.visible=!0,H.fromMat4(this.object.transformLocal,o.transform.matrix),this.object.setDirty()}else this.visible=!1}this.visible!=n&&(this.visible?(this.object.scalingLocal.set(this.tempScaling),this.object.setDirty()):(this.tempScaling.set(this.object.scalingLocal),this.object.scale([0,0,0])))}xrSessionStart(e){e.requestReferenceSpace("viewer").then(function(n){this.xrViewerSpace=n,e.requestHitTestSource({space:this.xrViewerSpace}).then(function(i){this.xrHitTestSource=i}.bind(this)).catch(console.error)}.bind(this)).catch(console.error)}xrSessionEnd(){this.xrHitTestSource&&(this.xrHitTestSource.cancel(),this.xrHitTestSource=null)}};M(Se,"TypeName","hit-test-location"),M(Se,"Properties",{});var Ga=Sn(on());var Ce=class extends y{init(){this.origin=new Float32Array(3),this.fwd=new Float32Array(3),this.up=new Float32Array(3)}update(){this.spatial&&(this.object.getTranslationWorld(this.origin),this.object.getForward(this.fwd),this.object.getUp(this.up),Howler.pos(this.origin[0],this.origin[1],this.origin[2]),Howler.orientation(this.fwd[0],this.fwd[1],this.fwd[2],this.up[0],this.up[1],this.up[2]))}};M(Ce,"TypeName","howler-audio-listener"),M(Ce,"Properties",{spatial:{type:g.Bool,default:!0}});var fi=Sn(on());var Pe=class extends y{start(){this.audio=new fi.Howl({src:[this.src],loop:this.loop,volume:this.volume,autoplay:this.autoplay}),this.lastPlayedAudioId=null,this.origin=new Float32Array(3),this.lastOrigin=new Float32Array(3),this.spatial&&this.autoplay&&(this.updatePosition(),this.play());let e=()=>{this.stop();let n=this.engine.onSceneLoaded.indexOf(e);n>=0&&this.engine.onSceneLoaded.splice(n,1)};this.engine.onSceneLoaded.push(e)}update(){!this.spatial||!this.lastPlayedAudioId||(this.object.getTranslationWorld(this.origin),(Math.abs(this.lastOrigin[0]-this.origin[0])>.005||Math.abs(this.lastOrigin[1]-this.origin[1])>.005||Math.abs(this.lastOrigin[2]-this.origin[2])>.005)&&this.updatePosition())}updatePosition(){this.audio.pos(this.origin[0],this.origin[1],this.origin[2],this.lastPlayedAudioId),this.lastOrigin.set(this.origin)}play(){this.lastPlayedAudioId&&this.audio.stop(this.lastPlayedAudioId),this.lastPlayedAudioId=this.audio.play(),this.spatial&&this.updatePosition()}stop(){this.lastPlayedAudioId&&(this.audio.stop(this.lastPlayedAudioId),this.lastPlayedAudioId=null)}};M(Pe,"TypeName","howler-audio-source"),M(Pe,"Properties",{volume:{type:g.Float,default:1},spatial:{type:g.Bool,default:!0},loop:{type:g.Bool,default:!1},autoplay:{type:g.Bool,default:!1},src:{type:g.String,default:""}});var Oe=class extends y{start(){if(!this.material)throw Error("image-texture: material property not set");this.engine.textures.load(this.url,"anonymous").then(e=>{let n=this.material,i=n.shader;i==="Flat Opaque Textured"?n.flatTexture=e:i==="Phong Opaque Textured"||i==="Foliage"?n.diffuseTexture=e:i==="Background"?n.texture=e:i==="Physical Opaque Textured"?n.albedoTexture=e:console.error("Shader",i,"not supported by image-texture")}).catch(console.err)}};M(Oe,"TypeName","image-texture"),M(Oe,"Properties",{url:{type:g.String},material:{type:g.Material}});var Ie=class extends y{init(){this.currentRotationY=0,this.currentRotationX=0,this.origin=new Float32Array(3),this.parentOrigin=new Float32Array(3),this.rotationX=0,this.rotationY=0}start(){document.addEventListener("mousemove",n=>{if(this.active&&(this.mouseDown||!this.requireMouseDown)){this.rotationY=-this.sensitity*n.movementX/100,this.rotationX=-this.sensitity*n.movementY/100,this.currentRotationX+=this.rotationX,this.currentRotationY+=this.rotationY,this.currentRotationX=Math.min(1.507,this.currentRotationX),this.currentRotationX=Math.max(-1.507,this.currentRotationX),this.object.getTranslationWorld(this.origin);let i=this.object.parent;i!==null&&(i.getTranslationWorld(this.parentOrigin),v.sub(this.origin,this.origin,this.parentOrigin)),this.object.resetTranslationRotation(),this.object.rotateAxisAngleRad([1,0,0],this.currentRotationX),this.object.rotateAxisAngleRad([0,1,0],this.currentRotationY),this.object.translate(this.origin)}});let e=this.engine.canvas;this.pointerLockOnClick&&e.addEventListener("mousedown",()=>{e.requestPointerLock=e.requestPointerLock||e.mozRequestPointerLock||e.webkitRequestPointerLock,e.requestPointerLock()}),this.requireMouseDown&&(this.mouseButtonIndex==2&&e.addEventListener("contextmenu",n=>{n.preventDefault()},!1),e.addEventListener("mousedown",n=>{if(n.button==this.mouseButtonIndex&&(this.mouseDown=!0,document.body.style.cursor="grabbing",n.button==1))return n.preventDefault(),!1}),e.addEventListener("mouseup",n=>{n.button==this.mouseButtonIndex&&(this.mouseDown=!1,document.body.style.cursor="initial")}))}};M(Ie,"TypeName","mouse-look"),M(Ie,"Properties",{sensitity:{type:g.Float,default:.25},requireMouseDown:{type:g.Bool,default:!0},mouseButtonIndex:{type:g.Int},pointerLockOnClick:{type:g.Bool,default:!1}});var Ee=class extends y{init(){this.engine.onXRSessionStart.push(this.onXRSessionStart.bind(this)),this.engine.onXRSessionEnd.push(this.onXRSessionEnd.bind(this))}start(){this.object.resetTranslationRotation(),this.object.translate([0,this.height,0])}onXRSessionStart(){let e=this.engine.wasm.WebXR;["local","viewer"].includes(e.refSpace)||this.object.resetTranslationRotation()}onXRSessionEnd(){let e=this.engine.wasm.WebXR;["local","viewer"].includes(e.refSpace)||(this.object.resetTranslationRotation(),this.object.translate([0,this.height,0]))}};M(Ee,"TypeName","player-height"),M(Ee,"Properties",{height:{type:g.Float,default:1.75}});var Re=class extends y{start(){this.engine.xrSession?this.setTargetFramerate(this.engine.xrSession):this.engine.onXRSessionStart.push(this.setTargetFramerate.bind(this))}setTargetFramerate(e){if(e.supportedFrameRates&&e.updateTargetFrameRate){let n=this.engine.xrSession.supportedFrameRates;n.sort((i,s)=>Math.abs(i-this.framerate)-Math.abs(s-this.framerate)),this.engine.xrSession.updateTargetFrameRate(n[0])}}};M(Re,"TypeName","target-framerate"),M(Re,"Properties",{framerate:{type:g.Float,default:90}});var ke=class extends y{init(){if(this._prevThumbstickAxis=new Float32Array(2),this._tempVec=new Float32Array(3),this._tempVec0=new Float32Array(3),this._currentIndicatorRotation=0,this.input=this.object.getComponent("input"),!this.input){console.error(this.object.name,"generic-teleport-component.js: input component is required on the object");return}if(!this.teleportIndicatorMeshObject){console.error(this.object.name,"generic-teleport-component.js: Teleport indicator mesh is missing");return}if(!this.camRoot){console.error(this.object.name,"generic-teleport-component.js: camRoot not set");return}this.isIndicating=!1,this.indicatorHidden=!0,this.hitSpot=new Float32Array(3),this._hasHit=!1,this._extraRotation=0,this._currentStickAxes=new Float32Array(2)}start(){if(this.cam&&(this.isMouseIndicating=!1,canvas.addEventListener("mousedown",this.onMouseDown.bind(this)),canvas.addEventListener("mouseup",this.onMouseUp.bind(this))),this.handedness==0){let e=this.object.getComponent("input");e?(this.handedness=e.handedness,this.input=e):console.warn("teleport component on object",this.object.name,'was configured with handedness "input component", but object has no input component.')}else this.handedness=["left","right"][this.handedness-1];this.engine.onXRSessionStart.push(this.setupVREvents.bind(this)),this.teleportIndicatorMeshObject.active=!1}_getCamRotation(){return this.eyeLeft.getForward(this._tempVec),this._tempVec[1]=0,v.normalize(this._tempVec,this._tempVec),Math.atan2(this._tempVec[0],this._tempVec[2])}update(){let e=0;if(this.gamepad&&this.gamepad.axes&&(this._currentStickAxes[0]=this.gamepad.axes[2],this._currentStickAxes[1]=this.gamepad.axes[3],e=Math.abs(this._currentStickAxes[0])+Math.abs(this._currentStickAxes[1])),!this.isIndicating&&this._prevThumbstickAxis[1]>=this.thumbstickActivationThreshhold&&this._currentStickAxes[1]<this.thumbstickActivationThreshhold?this.isIndicating=!0:this.isIndicating&&e<this.thumbstickDeactivationThreshhold&&(this.isIndicating=!1,this.teleportIndicatorMeshObject.active=!1,this._hasHit&&this._teleportPlayer(this.hitSpot,this._extraRotation)),this.isIndicating&&this.teleportIndicatorMeshObject&&this.input){let n=this._tempVec0;H.getTranslation(n,this.object.transformWorld);let i=this.object.getForward(this._tempVec),s=this.rayHit=this.rayCastMode==0?this.engine.scene.rayCast(n,i,1<<this.floorGroup):this.engine.physics.rayCast(n,i,1<<this.floorGroup,this.maxDistance);s.hitCount>0?(this.indicatorHidden=!1,this._extraRotation=Math.PI+Math.atan2(this._currentStickAxes[0],this._currentStickAxes[1]),this._currentIndicatorRotation=this._getCamRotation()+(this._extraRotation-Math.PI),this.teleportIndicatorMeshObject.resetTranslationRotation(),this.teleportIndicatorMeshObject.rotateAxisAngleRad([0,1,0],this._currentIndicatorRotation),this.teleportIndicatorMeshObject.translate(s.locations[0]),this.teleportIndicatorMeshObject.translate([0,this.indicatorYOffset,0]),this.teleportIndicatorMeshObject.active=!0,this.hitSpot.set(s.locations[0]),this._hasHit=!0):(this.indicatorHidden||(this.teleportIndicatorMeshObject.active=!1,this.indicatorHidden=!0),this._hasHit=!1)}else this.teleportIndicatorMeshObject&&this.isMouseIndicating&&this.onMousePressed();this._prevThumbstickAxis.set(this._currentStickAxes)}setupVREvents(e){if(this.session=e,e.addEventListener("end",function(){this.gamepad=null,this.session=null}.bind(this)),e.inputSources&&e.inputSources.length)for(let n=0;n<e.inputSources.length;n++){let i=e.inputSources[n];i.handedness==this.handedness&&(this.gamepad=i.gamepad)}e.addEventListener("inputsourceschange",function(n){if(n.added&&n.added.length)for(let i=0;i<n.added.length;i++){let s=n.added[i];s.handedness==this.handedness&&(this.gamepad=s.gamepad)}}.bind(this))}onMouseDown(){this.isMouseIndicating=!0}onMouseUp(){this.isMouseIndicating=!1,this.teleportIndicatorMeshObject.active=!1,this._hasHit&&this._teleportPlayer(this.hitSpot,0)}onMousePressed(){let e=[0,0,0];H.getTranslation(e,this.cam.transformWorld);let n=this.cam.getForward(this._tempVec),i=this.rayHit=this.rayCastMode==0?this.engine.scene.rayCast(e,n,1<<this.floorGroup):this.engine.physics.rayCast(e,n,1<<this.floorGroup,this.maxDistance);i.hitCount>0?(this.indicatorHidden=!1,n[1]=0,v.normalize(n,n),this._currentIndicatorRotation=-Math.sign(n[2])*Math.acos(n[0])-Math.PI*.5,this.teleportIndicatorMeshObject.resetTranslationRotation(),this.teleportIndicatorMeshObject.rotateAxisAngleRad([0,1,0],this._currentIndicatorRotation),this.teleportIndicatorMeshObject.translate(i.locations[0]),this.teleportIndicatorMeshObject.active=!0,this.hitSpot=i.locations[0],this._hasHit=!0):(this.indicatorHidden||(this.teleportIndicatorMeshObject.active=!1,this.indicatorHidden=!0),this._hasHit=!1)}_teleportPlayer(e,n){this.camRoot.rotateAxisAngleRad([0,1,0],n);let i=this._tempVec,s=this._tempVec0;this.session?(this.eyeLeft.getTranslationWorld(i),this.eyeRight.getTranslationWorld(s),v.add(i,i,s),v.scale(i,i,.5)):this.cam.getTranslationWorld(i),this.camRoot.getTranslationWorld(s),v.sub(i,s,i),i[0]+=e[0],i[1]=e[1],i[2]+=e[2],this.camRoot.setTranslationWorld(i)}};M(ke,"TypeName","teleport"),M(ke,"Properties",{teleportIndicatorMeshObject:{type:g.Object},camRoot:{type:g.Object},cam:{type:g.Object},eyeLeft:{type:g.Object},eyeRight:{type:g.Object},handedness:{type:g.Enum,values:["input component","left","right","none"],default:"input component"},floorGroup:{type:g.Int,default:1},thumbstickActivationThreshhold:{type:g.Float,default:-.7},thumbstickDeactivationThreshhold:{type:g.Float,default:.3},indicatorYOffset:{type:g.Float,default:.01},rayCastMode:{type:g.Enum,values:["collision","physx"],default:"collision"},maxDistance:{type:g.Float,default:100}});var Bt=v.create(),Y=v.create(),mt=v.create(),Fe=class extends y{init(){this.points=new Array(this.segments+1);for(let e=0;e<this.points.length;++e)this.points[e]=v.create();this.currentPointOffset=0,this.up=[0,1,0],this.timeTillNext=this.interval}start(){this.trailContainer=this.engine.scene.addObject(),this.meshComp=this.trailContainer.addComponent("mesh"),this.meshComp.material=this.material;let e=2*this.points.length;this.indexData=new Uint32Array(6*this.segments);for(let n=0,i=0;n<e-2;n+=2,i+=6)this.indexData.subarray(i,i+6).set([n+1,n+0,n+2,n+2,n+3,n+1]);this.mesh=new te({vertexCount:e,indexData:this.indexData,indexType:$.UnsignedInt}),this.meshComp.mesh=this.mesh}updateVertices(){let e=this.mesh.attribute(V.Position),n=this.mesh.attribute(V.TextureCoordinate),i=this.mesh.attribute(V.Normal);v.set(Bt,0,0,0);for(let s=0;s<this.points.length;++s){let o=this.points[(this.currentPointIndex+s+1)%this.points.length],l=this.points[(this.currentPointIndex+s+2)%this.points.length];s!==this.points.length-1&&v.sub(Bt,l,o),v.cross(Y,this.up,Bt),v.normalize(Y,Y);let c=1-this.timeTillNext/this.interval,h=(s-c)/this.segments;v.scale(Y,Y,(this.taper?h:1)*this.width/2),e.set(s*2,[o[0]-Y[0],o[1]-Y[1],o[2]-Y[2]]),e.set(s*2+1,[o[0]+Y[0],o[1]+Y[1],o[2]+Y[2]]),i&&(v.cross(mt,Bt,Y),v.normalize(mt,mt),i.set(s*2,mt),i.set(s*2+1,mt)),n&&(n.set(s*2,[0,h]),n.set(s*2+1,[1,h]))}this.mesh.update()}resetTrail(){this.object.getTranslationWorld(this.points[0]);for(let e=1;e<this.points.length;++e)v.copy(this.points[e],this.points[0]);this.currentPointIndex=0,this.timeTillNext=this.interval}update(e){this.timeTillNext-=e,e>this.resetThreshold&&this.resetTrail(),this.timeTillNext<0&&(this.currentPointIndex=(this.currentPointIndex+1)%this.points.length,this.timeTillNext=this.timeTillNext%this.interval+this.interval),this.object.getTranslationWorld(this.points[this.currentPointIndex]),this.updateVertices()}onActivate(){this.resetTrail()}onDestroy(){this.trailContainer.destroy(),this.mesh.destroy()}};M(Fe,"TypeName","trail"),M(Fe,"Properties",{material:{type:g.Material},segments:{type:g.Int,default:50},interval:{type:g.Float,default:.1},width:{type:g.Float,default:1},taper:{type:g.Bool,default:!0},resetThreshold:{type:g.Float,default:.5}});Math.clamp=function(t,e,n){return Math.max(e,Math.min(t,n))};var Co=function(){let t=new Float32Array(3),e=new Float32Array(3),n=new Float32Array(3),i=new Float32Array(3),s=new Float32Array(3),o=new Float32Array(3),l=new Float32Array(3),c=new Float32Array(4),h=new Float32Array(4),p=new Float32Array(4),r=new Float32Array(4);return function(a,_,m,u,f,d,b,x,w,A){v.sub(n,u,m);let T=v.length(n);v.sub(t,u,f);let S=v.length(t);v.sub(t,d,m);let E=Math.clamp(v.length(t),b,T+S-b);v.sub(e,f,m),v.sub(i,m,u),v.sub(s,f,u),v.normalize(e,e),v.normalize(n,n),v.normalize(i,i),v.normalize(s,s),v.normalize(t,t);let C=Math.acos(Math.clamp(v.dot(e,n),-1,1)),F=Math.acos(Math.clamp(v.dot(i,s),-1,1)),B=Math.acos(Math.clamp(v.dot(e,t),-1,1)),N=Math.acos(Math.clamp((S*S-T*T-E*E)/(-2*T*E),-1,1)),D=Math.acos(Math.clamp((E*E-T*T-S*S)/(-2*T*S),-1,1));v.sub(e,f,m),v.sub(n,u,m),v.sub(t,d,m),v.cross(o,e,n),v.cross(l,e,t),A?(v.sub(n,A,u),v.transformQuat(n,[0,0,-1],w)):v.sub(n,u,m);let k=v.length(o);k==0?o.set([1,0,0]):v.scale(o,o,1/k),v.normalize(l,l),j.conjugate(x,x),j.setAxisAngle(h,v.transformQuat(c,o,x),N-C),j.setAxisAngle(r,v.transformQuat(c,l,x),B),j.mul(a,a,j.mul(c,h,r)),j.normalize(a,a),j.conjugate(w,w),j.setAxisAngle(p,v.transformQuat(c,o,w),D-F),j.mul(_,_,p),j.normalize(_,_)}}(),Be=class extends y{init(){this.pos=new Float32Array(3*7),this.p=[this.pos.subarray(0,3),this.pos.subarray(3,6),this.pos.subarray(6,9),this.pos.subarray(9,12),this.pos.subarray(12,15),this.pos.subarray(15,18),this.pos.subarray(18,21)]}update(){let e=this.p;this.root.getTranslationWorld(e[0]),this.middle.getTranslationWorld(e[1]),this.end.getTranslationWorld(e[2]),this.target.getTranslationWorld(e[3]);let n=e[4],i=e[5];this.root.getTranslationLocal(n),this.middle.getTranslationLocal(i),this.helper&&this.helper.getTranslationWorld(e[6]),Co(this.root.transformLocal,this.middle.transformLocal,e[0],e[1],e[2],e[3],.01,this.root.transformWorld.subarray(0,4),this.middle.transformWorld.subarray(0,4),this.helper?e[6]:null),this.root.setTranslationLocal(n),this.middle.setTranslationLocal(i),this.root.setDirty(),this.middle.setDirty()}};M(Be,"TypeName","two-joint-ik-solver"),M(Be,"Properties",{root:{type:g.Object},middle:{type:g.Object},end:{type:g.Object},target:{type:g.Object},helper:{type:g.Object}});var Le=class extends y{init(){if(!this.material)throw Error("video-texture: material property not set");this.loaded=!1,this.frameUpdateRequested=!0}start(){if(this.video=document.createElement("video"),this.video.src=this.url,this.video.crossOrigin="anonymous",this.video.playsInline=!0,this.video.loop=this.loop,this.video.muted=this.muted,this.video.addEventListener("playing",()=>{this.loaded=!0}),this.autoplay){let e=()=>{this.video.play(),window.removeEventListener("click",e),window.removeEventListener("touchstart",e)};window.addEventListener("click",e),window.addEventListener("touchstart",e)}}applyTexture(){let e=this.material,n=e.shader,i=this.texture=new ge(this.engine,this.video);n==="Flat Opaque Textured"?e.flatTexture=i:n==="Phong Opaque Textured"||n==="Foliage"?e.diffuseTexture=i:n==="Background"?e.texture=i:n==="Physical Opaque Textured"?e.albedoTexture=i:console.error("Shader",n,"not supported by video-texture"),"requestVideoFrameCallback"in this.video?this.video.requestVideoFrameCallback(this.updateVideo.bind(this)):this.video.addEventListener("timeupdate",()=>{this.frameUpdateRequested=!0})}update(e){this.loaded&&this.frameUpdateRequested&&(this.texture?this.texture.update():this.applyTexture(),this.frameUpdateRequested=!1)}updateVideo(){this.frameUpdateRequested=!0,this.video.requestVideoFrameCallback(this.updateVideo.bind(this))}};M(Le,"TypeName","video-texture"),M(Le,"Properties",{url:{type:g.String},material:{type:g.Material},loop:{type:g.Bool,default:!0},autoplay:{type:g.Bool,default:!0},muted:{type:g.Bool,default:!0}});var De=class extends y{start(){this.components=[],this.getComponents(this.object),this.onXRSessionEnd(),this.engine.onXRSessionStart.push(this.onXRSessionStart.bind(this)),this.engine.onXRSessionEnd.push(this.onXRSessionEnd.bind(this))}getComponents(e){let n=e.getComponents().filter(i=>i.type!=="vr-mode-active-switch");if(this.components=this.components.concat(n),this.affectChildren){let i=e.children;for(let s=0;s<i.length;++s)this.getComponents(i[s])}}setComponentsActive(e){let n=this.components;for(let i=0;i<n.length;++i)n[i].active=e}onXRSessionStart(){this.active&&this.setComponentsActive(this.activateComponents==0)}onXRSessionEnd(){this.active&&this.setComponentsActive(this.activateComponents!=0)}};M(De,"TypeName","vr-mode-active-switch"),M(De,"Properties",{activateComponents:{type:g.Enum,values:["in VR","in non-VR"],default:"in VR"},affectChildren:{type:g.Bool,default:!0}});var Po={X:[1,0,0],Y:[0,1,0],Z:[0,0,1]},Oo={PositiveX:[1,0,0],NegativeX:[-1,0,0],PositiveY:[0,1,0],NegativeY:[0,-1,0],PositiveZ:[0,0,1],NegativeZ:[0,0,-1]},Ne=class extends y{meta=null;bones={hips:null,spine:null,chest:null,upperChest:null,neck:null,head:null,leftEye:null,rightEye:null,jaw:null,leftUpperLeg:null,leftLowerLeg:null,leftFoot:null,leftToes:null,rightUpperLeg:null,rightLowerLeg:null,rightFoot:null,rightToes:null,leftShoulder:null,leftUpperArm:null,leftLowerArm:null,leftHand:null,rightShoulder:null,rightUpperArm:null,rightLowerArm:null,rightHand:null,leftThumbMetacarpal:null,leftThumbProximal:null,leftThumbDistal:null,leftIndexProximal:null,leftIndexIntermediate:null,leftIndexDistal:null,leftMiddleProximal:null,leftMiddleIntermediate:null,leftMiddleDistal:null,leftRingProximal:null,leftRingIntermediate:null,leftRingDistal:null,leftLittleProximal:null,leftLittleIntermediate:null,leftLittleDistal:null,rightThumbMetacarpal:null,rightThumbProximal:null,rightThumbDistal:null,rightIndexProximal:null,rightIndexIntermediate:null,rightIndexDistal:null,rightMiddleProximal:null,rightMiddleIntermediate:null,rightMiddleDistal:null,rightRingProximal:null,rightRingIntermediate:null,rightRingDistal:null,rightLittleProximal:null,rightLittleIntermediate:null,rightLittleDistal:null};restPose={};_nodeConstraints=[];_springChains=[];_sphereColliders=[];_capsuleColliders=[];_firstPersonAnnotations=[];_lookAt=null;_initialized=!1;init(){this._tempV3=v.create(),this._tempV3A=v.create(),this._tempV3B=v.create(),this._tempQuat=j.create(),this._tempQuatA=j.create(),this._tempQuatB=j.create(),this._tempMat4A=re.create(),this._tempQuat2=H.create(),this._tailToShape=v.create(),this._headToTail=v.create(),this._inertia=v.create(),this._stiffness=v.create(),this._external=v.create(),this._rightVector=v.set(v.create(),1,0,0),this._upVector=v.set(v.create(),0,1,0),this._forwardVector=v.set(v.create(),0,0,1),this._identityQuat=j.identity(j.create()),this._rad2deg=180/Math.PI}start(){if(!this.src){console.error("vrm: src property not set");return}this.engine.scene.append(this.src,{loadGltfExtensions:!0}).then(({root:e,extensions:n})=>{e.children.forEach(i=>i.parent=this.object),this._initializeVrm(n),e.destroy()})}_initializeVrm(e){if(this._initialized)throw Error("VRM component has already been initialized");let n=e.root.VRMC_vrm;if(!n)throw Error("Missing VRM extensions");if(n.specVersion!=="1.0")throw Error(`Unsupported VRM version, only 1.0 is supported, but encountered '${n.specVersion}'`);this.meta=n.meta,this._parseHumanoid(n.humanoid,e),n.firstPerson&&this._parseFirstPerson(n.firstPerson,e),n.lookAt&&this._parseLookAt(n.lookAt),this._findAndParseNodeConstraints(e);let i=e.root.VRMC_springBone;i&&this._parseAndInitializeSpringBones(i,e),this._initialized=!0}_parseHumanoid(e,n){for(let i in e.humanBones){if(!(i in this.bones)){console.warn(`Unrecognized bone '${i}'`);continue}let s=e.humanBones[i].node,o=n.idMapping[s];this.bones[i]=this.engine.wrapObject(o),this.restPose[i]=j.copy(j.create(),this.bones[i].rotationLocal)}}_parseFirstPerson(e,n){for(let i of e.meshAnnotations){let s={node:this.engine.wrapObject(n.idMapping[i.node]),firstPerson:!0,thirdPerson:!0};switch(i.type){case"firstPersonOnly":s.thirdPerson=!1;break;case"thirdPersonOnly":s.firstPerson=!1;break;case"both":break;case"auto":console.warn("First person mesh annotation type 'auto' is not supported, treating as 'both'!");break;default:console.error(`Invalid mesh annotation type '${i.type}'`);break}this._firstPersonAnnotations.push(s)}}_parseLookAt(e){if(e.type!=="bone"){console.warn(`Unsupported lookAt type '${e.type}', only 'bone' is supported`);return}let n=i=>({inputMaxValue:i.inputMaxValue,outputScale:i.outputScale});this._lookAt={offsetFromHeadBone:e.offsetFromHeadBone||[0,0,0],horizontalInner:n(e.rangeMapHorizontalInner),horizontalOuter:n(e.rangeMapHorizontalOuter),verticalDown:n(e.rangeMapVerticalDown),verticalUp:n(e.rangeMapVerticalUp)}}_findAndParseNodeConstraints(e){let n=i=>{let s=e.node[i.objectId];if(s&&"VRMC_node_constraint"in s){let l=s.VRMC_node_constraint.constraint,c,h;if("roll"in l?(c="roll",h=Po[l.roll.rollAxis]):"aim"in l?(c="aim",h=Oo[l.aim.aimAxis]):"rotation"in l&&(c="rotation"),c){let p=this.engine.wrapObject(e.idMapping[l[c].source]);this._nodeConstraints.push({type:c,source:p,destination:i,axis:h,weight:l[c].weight,destinationRestLocalRotation:j.copy(j.create(),i.rotationLocal),sourceRestLocalRotation:j.copy(j.create(),p.rotationLocal),sourceRestLocalRotationInv:j.invert(j.create(),p.rotationLocal)})}else console.warn("Unrecognized or invalid VRMC_node_constraint, ignoring it")}for(let o of i.children)n(o)};n(this.object)}_parseAndInitializeSpringBones(e,n){let i=(e.colliders||[]).map((o,l)=>{let c="capsule"in o.shape?"capsule":"sphere";return{id:l,object:this.engine.wrapObject(n.idMapping[o.node]),shape:{isCapsule:c==="capsule",radius:o.shape[c].radius,offset:o.shape[c].offset,tail:o.shape[c].tail},cache:{head:v.create(),tail:v.create()}}});this._sphereColliders=i.filter(o=>!o.shape.isCapsule),this._capsuleColliders=i.filter(o=>o.shape.isCapsule);let s=(e.colliderGroups||[]).map(o=>({name:o.name,colliders:o.colliders.map(l=>i[l])}));for(let o of e.springs){let l=[];for(let h of o.joints){let p={hitRadius:0,stiffness:1,gravityPower:0,gravityDir:[0,-1,0],dragForce:.5,node:null,state:null};Object.assign(p,h),p.node=this.engine.wrapObject(n.idMapping[p.node]),l.push(p)}let c=(o.colliderGroups||[]).flatMap(h=>s[h].colliders);this._springChains.push({name:o.name,center:o.center?this.engine.wrapObject(n.idMapping[o.center]):null,joints:l,sphereColliders:c.filter(h=>!h.shape.isCapsule),capsuleColliders:c.filter(h=>h.shape.isCapsule)})}for(let o of this._springChains)for(let l=0;l<o.joints.length-1;++l){let c=o.joints[l],h=o.joints[l+1],p=c.node.getTranslationWorld(v.create()),r=h.node.getTranslationWorld(v.create()),a=v.subtract(this._tempV3A,p,r),_={prevTail:r,currentTail:v.copy(v.create(),r),initialLocalRotation:j.copy(j.create(),c.node.rotationLocal),initialLocalTransformInvert:H.invert(H.create(),c.node.transformLocal),boneAxis:v.normalize(v.create(),h.node.getTranslationLocal(this._tempV3)),boneLength:Math.max(.01,v.length(a)),prevTailCenter:null,currentTailCenter:null};o.center&&(_.prevTailCenter=o.center.transformPointInverseWorld(v.create(),r),_.currentTailCenter=v.copy(v.create(),r)),c.state=_}}update(e){this._initialized&&(this._resolveLookAt(),this._resolveConstraints(),this._updateSpringBones(e))}_rangeMap(e,n){let i=e.inputMaxValue,s=e.outputScale;return Math.min(n,i)/i*s}_resolveLookAt(){if(!this._lookAt||!this.lookAtTarget)return;let e=this.bones.head.transformPointWorld(this._tempV3A,this._lookAt.offsetFromHeadBone),n=this.lookAtTarget.getTranslationWorld(this._tempV3B),i=v.sub(this._tempV3A,n,e);v.normalize(i,i),this.bones.head.parent.transformVectorInverseWorld(i);let s=v.dot(i,this._forwardVector),o=v.dot(i,this._rightVector),l=Math.atan2(o,s)*this._rad2deg,c=Math.sqrt(o*o+s*s),h=v.dot(i,this._upVector),p=Math.atan2(-h,c)*this._rad2deg;if(p>0?p=this._rangeMap(this._lookAt.verticalDown,p):p=-this._rangeMap(this._lookAt.verticalUp,-p),this.bones.leftEye){let r=l;r>0?r=this._rangeMap(this._lookAt.horizontalInner,r):r=-this._rangeMap(this._lookAt.horizontalOuter,-r);let a=j.fromEuler(this._tempQuatA,p,r,0);this.bones.leftEye.rotationLocal=j.multiply(a,this.restPose.leftEye,a)}if(this.bones.rightEye){let r=l;r>0?r=this._rangeMap(this._lookAt.horizontalOuter,r):r=-this._rangeMap(this._lookAt.horizontalInner,-r);let a=j.fromEuler(this._tempQuatA,p,r,0);this.bones.rightEye.rotationLocal=j.multiply(a,this.restPose.rightEye,a)}}_resolveConstraints(){for(let e of this._nodeConstraints)this._resolveConstraint(e)}_resolveConstraint(e){let n=e.destinationRestLocalRotation,i=e.sourceRestLocalRotationInv,s=j.identity(this._tempQuatA);switch(e.type){case"roll":{let o=j.multiply(this._tempQuatA,i,e.source.rotationLocal),l=j.multiply(this._tempQuatA,e.sourceRestLocalRotation,o);j.mul(l,l,i);let c=j.invert(this._tempQuatB,n),h=j.multiply(this._tempQuatB,c,l);j.multiply(h,h,n);let p=v.transformQuat(this._tempV3A,e.axis,h),r=j.rotationTo(this._tempQuatA,e.axis,p);j.mul(s,n,j.invert(this._tempQuat,r)),j.mul(s,s,h)}break;case"aim":{let o=e.destination.parent.rotationWorld,l=v.transformQuat(this._tempV3A,e.axis,n);v.transformQuat(l,l,o);let c=e.source.getTranslationWorld(this._tempV3B);v.sub(c,c,e.destination.getTranslationWorld(this._tempV3)),v.normalize(c,c);let h=j.rotationTo(this._tempQuatA,l,c);j.mul(s,j.invert(this._tempQuat,o),h),j.mul(s,s,o),j.mul(s,s,n)}break;case"rotation":{let o=j.mul(s,i,e.source.rotationLocal);j.mul(s,n,o)}break}j.slerp(s,n,s,e.weight),e.destination.rotationLocal=s}_updateSpringBones(e){this._sphereColliders.forEach(({object:n,shape:i,cache:s})=>{let o=v.copy(s.head,i.offset);n.transformVectorWorld(o),v.add(s.head,n.getTranslationWorld(this._tempV3),o)}),this._capsuleColliders.forEach(({object:n,shape:i,cache:s})=>{let o=n.getTranslationWorld(this._tempV3A),l=v.copy(s.head,i.offset);n.transformVectorWorld(l),v.add(s.head,o,l);let c=v.copy(s.tail,i.tail);n.transformVectorWorld(c),v.add(s.tail,o,c)}),this._springChains.forEach(n=>{for(let i=0;i<n.joints.length-1;++i){let s=n.joints[i],o=s.node.parent?s.node.parent.rotationWorld:this._identityQuat,l=this._inertia;n.center?(v.sub(l,s.state.currentTailCenter,s.state.prevTailCenter),n.center.transformVectorWorld(l)):v.sub(l,s.state.currentTail,s.state.prevTail),v.scale(l,l,1-s.dragForce);let c=v.copy(this._stiffness,s.state.boneAxis);v.transformQuat(c,c,s.state.initialLocalRotation),v.transformQuat(c,c,o),v.scale(c,c,e*s.stiffness);let h=v.scale(this._external,s.gravityDir,e*s.gravityPower),p=v.copy(this._tempV3A,s.state.currentTail);v.add(p,p,l),v.add(p,p,c),v.add(p,p,h);let r=s.node.getTranslationWorld(this._tempV3B);v.sub(p,p,r),v.normalize(p,p),v.scaleAndAdd(p,r,p,s.state.boneLength);for(let{shape:m,cache:u}of n.sphereColliders){let f=this._tailToShape,d=u.head;f=v.sub(f,p,d);let b=m.radius+s.hitRadius,x=v.length(f)-b;x<0&&(v.normalize(f,f),v.scaleAndAdd(p,p,f,-x),v.sub(p,p,r),v.normalize(p,p),v.scaleAndAdd(p,r,p,s.state.boneLength))}for(let{shape:m,cache:u}of n.capsuleColliders){let f=this._tailToShape,d=u.head,b=u.tail;f=v.sub(f,p,d);let x=v.sub(this._headToTail,b,d),w=v.dot(x,f);v.squaredLength(x)<=w?v.sub(f,p,b):w>0&&(v.scale(x,x,w/v.squaredLength(x)),v.sub(f,f,x));let A=m.radius+s.hitRadius,T=v.length(f)-A;T<0&&(v.normalize(f,f),v.scaleAndAdd(p,p,f,-T),v.sub(p,p,r),v.normalize(p,p),v.scaleAndAdd(p,r,p,s.state.boneLength))}v.copy(s.state.prevTail,s.state.currentTail),v.copy(s.state.currentTail,p),n.center&&(v.copy(s.state.prevTailCenter,s.state.currentTailCenter),v.copy(s.state.currentTailCenter,p),n.center.transformPointInverseWorld(s.state.currentTailCenter)),s.node.parent.transformPointInverseWorld(p);let a=H.fromTranslation(this._tempQuat2,p);H.multiply(a,s.state.initialLocalTransformInvert,a),H.getTranslation(p,a),v.normalize(p,p);let _=j.rotationTo(this._tempQuatA,s.state.boneAxis,p);s.node.rotationLocal=j.mul(this._tempQuatA,s.state.initialLocalRotation,_)}})}set firstPerson(e){this._firstPersonAnnotations.forEach(n=>{let i=e==n.firstPerson||e!=n.thirdPerson;n.node.getComponents("mesh").forEach(s=>{s.active=i})})}};M(Ne,"TypeName","vrm"),M(Ne,"Properties",{src:{type:g.String},lookAtTarget:{type:g.Object}});var ze=class extends y{init(){this.up=!1,this.right=!1,this.down=!1,this.left=!1,window.addEventListener("keydown",this.press.bind(this)),window.addEventListener("keyup",this.release.bind(this))}start(){this.headObject=this.headObject||this.object}update(){let e=[0,0,0];this.up&&(e[2]-=1),this.down&&(e[2]+=1),this.left&&(e[0]-=1),this.right&&(e[0]+=1),v.normalize(e,e),e[0]*=this.speed,e[2]*=this.speed,v.transformQuat(e,e,this.headObject.transformWorld),this.object.translate(e)}press(e){e.keyCode===38||e.keyCode===87||e.keyCode===90?this.up=!0:e.keyCode===39||e.keyCode===68?this.right=!0:e.keyCode===40||e.keyCode===83?this.down=!0:(e.keyCode===37||e.keyCode===65||e.keyCode===81)&&(this.left=!0)}release(e){e.keyCode===38||e.keyCode===87||e.keyCode===90?this.up=!1:e.keyCode===39||e.keyCode===68?this.right=!1:e.keyCode===40||e.keyCode===83?this.down=!1:(e.keyCode===37||e.keyCode===65||e.keyCode===81)&&(this.left=!1)}};M(ze,"TypeName","wasd-controls"),M(ze,"Properties",{speed:{type:g.Float,default:.1},headObject:{type:g.Object}});var an=class{constructor(){this.PREFAB_UNAME_KEY="pun";this.PREFAB_TNAME_KEY="texName";this._prefabs=new Map}registerPrefab(e){let n=e.getPrefabUniqueName();if(this._prefabs.has(n))throw new Error("Can't register the same prefab twice: "+n);this._prefabs.set(n,e),e.object[this.PREFAB_UNAME_KEY]=n}getPrefab(e){return this._prefabs.has(e.TypeName)?this._prefabs.get(e.TypeName):null}getPrefabByName(e){return this._prefabs.has(e)?this._prefabs.get(e):null}removePrefab(e){this._prefabs.has(e.TypeName)&&this._prefabs.delete(e.TypeName)}},O=new an;var ln=class{get texturesUniqueID(){return Array.from(this._texturesInformation.keys())}constructor(){this._texturesInformation=new Map}register(e){return this._texturesInformation.has(e.uniqueID)?!1:(this._texturesInformation.set(e.uniqueID,e),console.log("New Texture information registered ",e.uniqueID),!0)}getTextureInformation(e){return this._texturesInformation.get(e)}},Ue=new ln;function Ve(){return WL.scene}function gi(){return WL.onXRSessionStart}var dt=class{constructor(e){this._layerSize=e,this._layerData=new Array(this._layerSize);for(let n=0;n<this._layerSize;++n)this._layerData[n]=new Array(this._layerSize)}};var pe=class{get gridSize(){return this._gridSize}get layerCount(){return this._layerCount}get cellSize(){return this._cellSize}constructor(e,n,i){this._gridSize=e,this._layerCount=n,this._cellSize=i,this._gridOffset=this._gridSize*this._cellSize/2,this._gridData=new Array(this._layerCount);for(let s=0;s<this._layerCount;++s)this._gridData[s]=new dt(this._gridSize);console.log(this._gridData)}getCellPositionVec3(e){return this.getCellPosition(e[0],e[1],e[2])}getCellPosition(e,n,i){let s=v.create();return s[1]=n*this._cellSize,s[0]=e*this._cellSize-this._gridOffset,s[2]=i*this._cellSize-this._gridOffset,s}getCellIndices(e,n,i){let s=v.create();return s[0]=Math.round((e+this._gridOffset)/this._cellSize),s[1]=Math.floor(n/this._cellSize),s[2]=Math.round((i+this._gridOffset)/this._cellSize),s}};var cn=class{get grid(){return this._grid}constructor(e,n,i){this._grid=new pe(e,n,i)}},me=new cn(30,10,.25);var K=class{static setTag(e,n){e[this.tagKey]=n}static hasTag(e,n){return!(!e[this.tagKey]&&e[this.tagKey]!==n)}static getTag(e){return e[this.tagKey]}};K.tagKey="TAG";var J=class extends y{start(){K.setTag(this.object,parseInt(this.tag))}};J.TypeName="tag-component",J.Properties={tag:{type:g.Enum,values:[0 .toString(),2 .toString()]}};var L=class extends y{start(){this._scene=Ve(),this._cellSize=me.grid.cellSize}createPrevisObject(){this._previsObject=this._scene.addObject(null),this._previsObject.translateWorld([0,-5,0]);let n=this._scene.addObject(this._previsObject);n.translateObject([0,this._cellSize/2,0]),n.addComponent("mesh",{mesh:this.previsMesh,material:this.previsMat})}createBlock(n,i,s){let o=this._scene.addObject(s);o[O.PREFAB_UNAME_KEY]=this.getPrefabUniqueName(),o[O.PREFAB_TNAME_KEY]=i.uniqueID,o.translateWorld(n);let l=this._scene.addObject(o);l.resetTransform(),l.translateObject([0,this._cellSize/2,0]),l.rotationWorld=this._previsObject.rotationWorld;let c=this.finalMat.clone();c.albedoTexture=i.albedoTexture,c.normalTexture=i.normalTexture,l.addComponent("mesh",{mesh:this.finalMesh,material:c}),l.addComponent(J,{tag:1});let h=this._cellSize/2+.001;return l.addComponent("collision",{collider:wt.AxisAlignedBox,extents:[h,h,h],group:1}),o}updatePrevisPosition(n){this._previsObject.setTranslationWorld(n);let i=v.create();this._previsObject.getTranslationWorld(i)}updatePrevisRotation(n,i){this._previsObject.rotateAxisAngleDeg([1,0,0],n),this._previsObject.rotateAxisAngleDeg([0,1,0],i)}setPrevisRotation(n){this._previsObject.resetRotation(),this._previsObject.rotationWorld=n}updatePrevisColor(n){this.previsMat.diffuseColor=n}};L.TypeName="",L.Properties={finalMesh:{type:g.Mesh},previsMesh:{type:g.Mesh},finalMat:{type:g.Material},previsMat:{type:g.Material}};var hn=class extends L{getPrefabUniqueName(){return hn.TypeName}start(){super.start(),O.registerPrefab(this),this.createPrevisObject()}},se=hn;se.TypeName="block-prefab",se.Properties={finalMesh:{type:g.Mesh},previsMesh:{type:g.Mesh},finalMat:{type:g.Material},previsMat:{type:g.Material}};var pn=class{constructor(){this._currentPrefab=null,this._currentColor=[1,1,1,1],this.test()}test(){return Cn(this,null,function*(){yield new Promise(e=>setTimeout(e,1e3)),this._currentPrefab=O.getPrefab(se),this._currentPrefab.updatePrevisColor(this._currentColor),this._currentTexture=Ue.getTextureInformation("Stone01")})}setBuildContainer(e){this._buildContainer=e}setCurrentPrevizPosition(e){this._currentPrefab.updatePrevisPosition(e)}setPrefab(e){this._currentPrefab=e}setColor(e){this._currentColor=e,this._currentPrefab.updatePrevisColor(this._currentColor)}setTexture(e){this._currentTexture=e}addCurrentPrevizRotation(e,n){this._currentPrefab.updatePrevisRotation(e,n)}instanciatePrefabAt(e){this._currentPrefab.createBlock(e,this._currentTexture,this._buildContainer)}getCurrentBuildData(){return this._buildContainer.getComponent(ne).generateBuildData()}loadBuild(e){this._buildContainer.getComponent(ne).loadBuildData(e)}},z=new pn;var ne=class extends y{init(){z.setBuildContainer(this.object)}generateBuildData(){let e=new Array,n=this.object.children;for(let i of n){let s=i.children[0],o=v.create();i.getTranslationWorld(o),e.push({type:i[O.PREFAB_UNAME_KEY],texture:i[O.PREFAB_TNAME_KEY],position:o,rotation:s.rotationWorld})}return e}loadBuildData(e){this.clearBlocksInScene();let n;for(let i of e){n=O.getPrefabByName(i.type);let s=i.rotation;n.setPrevisRotation(j.fromValues(s[0],s[1],s[2],s[3])),z.setPrefab(n);let o=Ue.getTextureInformation(i.texture);z.setTexture(o),z.instanciatePrefabAt(i.position)}}clearBlocksInScene(){for(let e of this.object.children)e.destroy()}};ne.TypeName="build-container",ne.Properties={};var He=class extends y{start(){this._grid=new pe(2,10,.5);let n=this.debugVisualObject.getComponent("mesh"),i=Ve(),s=25/2;for(let o=0;o<this._grid.layerCount;++o)for(let l=0;l<this._grid.gridSize;++l)for(let c=0;c<this._grid.gridSize;++c){let h=i.addObject(this.object);h.addComponent("mesh",{mesh:n.mesh,material:n.material}),h.resetTranslation(),h.translate(this._grid.getCellPosition(l,o,c));let p=this._grid.cellSize;h.scale([p,p,p])}}};He.TypeName="grid-debug-component",He.Properties={debugVisualObject:{type:g.Object,default:null}};var ut=class{get isPressed(){return this._isPressed}get wasPressed(){return this._wasPressed}constructor(e,n){this._gamepadButton=e,this._index=n,this._isPressed=!1,this._wasPressed=!1,this._onPressedEvent=new Array,this._onReleasedEvent=new Array}update(){if(this._isPressed=this._gamepadButton.pressed,this._isPressed&&!this._wasPressed){for(let e of this._onPressedEvent)e(this);this._wasPressed=!0}if(!this._isPressed&&this._wasPressed){for(let e=0;e<this._onReleasedEvent.length;e++)this._onReleasedEvent[e](this);this._wasPressed=!1}}addPressedListener(e){return this._onPressedEvent.push(e)-1}addReleasedListener(e){return this._onReleasedEvent.push(e)-1}removePressedListener(e){this._onPressedEvent.splice(e,1)}removeReleasedListener(e){this._onReleasedEvent.splice(e,1)}clearPressedListeners(){this._onPressedEvent=new Array}clearReleasedListeners(){this._onReleasedEvent=new Array}};var ft=class{constructor(e,n){this._joystickTriggerValue=.5;this.setup(e,n)}get hand(){return this._hand}get joystickXValue(){return this._gamepad.axes[2]}get joystickYValue(){return this._gamepad.axes[3]}get joystickXJustMoved(){return this._joystickXJustMoved}get joystickYJustMoved(){return this._joystickYJustMoved}setup(e,n){this._gamepad=e,this._hand=n,this.initButtons()}update(){for(let e of this._buttons.keys())this._buttons.get(e).update();this._joystickXIsMoving=Math.abs(this._gamepad.axes[2])>this._joystickTriggerValue,this._joystickYIsMoving=Math.abs(this._gamepad.axes[3])>this._joystickTriggerValue,this._joystickXJustMoved=this._joystickXIsMoving&&!this._joystickXWasMoving,this._joystickYJustMoved=this._joystickYIsMoving&&!this._joystickYWasMoving,this._joystickXWasMoving=this._joystickXIsMoving,this._joystickYWasMoving=this._joystickYIsMoving}getButton(e){return this._buttons.get(e)}initButtons(){let e=[0,1,4,5];this._buttons!=null&&(this._buttons.clear(),this._buttons=null),this._buttons=new Map;for(let n=0;n<e.length;++n){let i=e[n],s=this._gamepad.buttons[i],o=new ut(s,i);this._buttons.set(i,o)}}};var oe=class extends y{get isPointing(){return this._isPointing}get currentHitPosition(){return this._currentHitPosition}get currentHitObject(){return this._currentHitObject}start(){this._scene=Ve(),this._rayMesh=this.rayVisualObject.getComponent("mesh"),this._rayMesh.material.diffuseColor=Z.create(),this.rayVisualObject.translate([0,0,-.5]),this._origin=[0,0,0],this._direction=[0,0,0]}update(n){this.rayOrigin.getTranslationWorld(this._origin),this.rayOrigin.getForward(this._direction);let i=this._scene.rayCast(this._origin,this._direction,1);i.hitCount>0?(this._isPointing=!0,this._currentHitPosition=v.clone(i.locations[0]),this._currentHitObject=i.objects[0],this.processRayStretch(),this.cursorHitVisualObject.setTranslationWorld(this._currentHitPosition)):(this._isPointing=!1,this.rayObject.resetScaling(),this.cursorHitVisualObject.setTranslationWorld([0,-5,0]))}processRayStretch(){let n=v.create();n[0]=this._origin[0],n[1]=this._origin[1],n[2]=this._origin[2];let i=v.distance(n,this._currentHitPosition);this.rayObject.resetScaling(),this.rayObject.scale([1,i-.05,1])}};oe.TypeName="pointer-ray",oe.Properties={rayOrigin:{type:g.Object},rayObject:{type:g.Object},rayVisualObject:{type:g.Object},cursorHitVisualObject:{type:g.Object}};var ae=class extends y{init(){this._interactCallbacks=new Array}addInteractCallback(n){this._interactCallbacks.push(n)}removeInteractCallback(n){let i=this._interactCallbacks.indexOf(n);this._interactCallbacks.splice(i,1)}};ae.TypeName="ui-element-base",ae.Properties={};var mn=class{constructor(e,n,i,s){this._value=[e,n,i,s]}static createRGB(e,n,i){return new mn(e,n,i,1)}asArray(){return this._value}},W=mn;W.COLOR_NORMAL=Z.fromValues(76/255,106/255,134/255,1),W.COLOR_ACTIVE=Z.fromValues(255/255,162/255,56/255,1),W.COLOR_TINT_NORMAL=Z.fromValues(1,1,1,1),W.COLOR_TINT_ACTIVE=Z.fromValues(.7,.7,.7,1);var U=class extends ae{start(){this._meshComponent=this.object.getComponent("mesh"),this._meshComponent.material=this._meshComponent.material.clone(),this.textObject!=null&&(this._textComponent=this.textObject.getComponent("text")),this.object.addComponent(J,{tag:2})}interact(){console.log("Button clicked: "+this.object.name);for(let n of this._interactCallbacks)n();this.visualFeedbackEnabled&&this.processVisualFeedback()}processVisualFeedback(){this._meshComponent.material.color=W.COLOR_TINT_ACTIVE,setTimeout(()=>{this._meshComponent.material.color=W.COLOR_TINT_NORMAL},100)}};U.TypeName="ui-button",U.Properties={textObject:{type:g.Object},visualFeedbackEnabled:{type:g.Bool,default:!0}};var dn=class{constructor(){this._soundEmitters=new Map}registerEmitter(e){if(this._soundEmitters.has(e.emitterType)){console.warn("Only one emitter can be register by type");return}this._soundEmitters.set(e.emitterType,e)}playAt(e,n){if(!this._soundEmitters.has(e)){console.warn(`Can't play sound from emitter ${e}. It doesn't exist`);return}this._soundEmitters.get(e).playAt(n)}},de=new dn;var We=class extends y{start(){if(this.inputObject===null)throw new Error("Input Object must be defined");if(this._inputComponent=this.inputObject.getComponent("input"),this._hand=this._inputComponent.handedness,this.pointerRay===null)throw new Error("Pointer Ray Object must be defined");this._pointerRayComponent=this.pointerRay.getComponent(oe),gi().push(this.onXrSessionStart.bind(this))}update(n){if(this._xrGamepad!=null){if(this._xrGamepad.update(),!this._pointerRayComponent.isPointing){z.setCurrentPrevizPosition([0,-5,0]);return}switch(K.getTag(this._pointerRayComponent.currentHitObject)){case 1:case 0:{let i=this._pointerRayComponent.currentHitPosition,s=me.grid.getCellIndices(i[0],i[1],i[2]),o=me.grid.getCellPositionVec3(s);this._xrGamepad.joystickXJustMoved&&(z.addCurrentPrevizRotation(0,this._xrGamepad.joystickXValue>0?90:-90),de.playAt(2,this._pointerRayComponent.currentHitPosition)),z.setCurrentPrevizPosition(o);break}case 2:{z.setCurrentPrevizPosition([0,-5,0]);break}}}}onXrSessionStart(n){this.inputSourcesSetup(n)}inputSourcesSetup(n){for(let i=0;i<n.inputSources.length;++i){let s=n.inputSources[i];s.handedness===this._hand&&(console.log("Setup hand : "+s.handedness+" For XR Controller "+this._hand),this.setupXrGamepad(s.gamepad))}n.addEventListener("inputsourceschange",this.onXrInputSourceChangeHandler.bind(this))}setupXrGamepad(n){this._xrGamepad=new ft(n,this._hand),this._xrGamepad.getButton(0).addPressedListener(this.onPlacementTriggerPressed.bind(this)),this._xrGamepad.getButton(5).addPressedListener(this.onDeleteButtonPressed.bind(this))}onXrInputSourceChangeHandler(n){for(let i=0;i<n.added.length;++i){let s=n.added[i];s.handedness===this._hand&&(console.log("Setup hand : "+s.handedness+" For XR Controller "+this._hand),this.setupXrGamepad(s.gamepad))}}onPlacementTriggerPressed(){if(this._pointerRayComponent.currentHitObject)switch(K.getTag(this._pointerRayComponent.currentHitObject)){case 1:case 0:{let n=this._pointerRayComponent.currentHitPosition,i=me.grid.getCellIndices(n[0],n[1],n[2]),s=me.grid.getCellPositionVec3(i);z.instanciatePrefabAt(s),de.playAt(1,this._pointerRayComponent.currentHitPosition);break}case 2:{let n=this._pointerRayComponent.currentHitObject.getComponent(U);n&&(n.interact(),de.playAt(0,this._pointerRayComponent.currentHitPosition));break}}}onDeleteButtonPressed(){if(this._pointerRayComponent.currentHitObject)switch(K.getTag(this._pointerRayComponent.currentHitObject)){case 1:{this._pointerRayComponent.currentHitObject.parent.destroy(),de.playAt(3,this._pointerRayComponent.currentHitPosition);break}}}};We.TypeName="XR-Controller",We.Properties={pointerMode:{type:g.Int,default:0},inputObject:{type:g.Object,default:null},pointerRay:{type:g.Object,default:null}};var un=class extends L{getPrefabUniqueName(){return un.TypeName}start(){super.start(),O.registerPrefab(this),this.createPrevisObject()}},Xe=un;Xe.TypeName="block-slope-prefab",Xe.Properties={finalMesh:{type:g.Mesh},previsMesh:{type:g.Mesh},finalMat:{type:g.Material},previsMat:{type:g.Material}};var fn=class extends L{getPrefabUniqueName(){return fn.TypeName}start(){super.start(),O.registerPrefab(this),this.createPrevisObject()}},qe=fn;qe.TypeName="block-stair-prefab",qe.Properties={finalMesh:{type:g.Mesh},previsMesh:{type:g.Mesh},finalMat:{type:g.Material},previsMat:{type:g.Material}};var gn=class extends L{getPrefabUniqueName(){return gn.TypeName}start(){super.start(),O.registerPrefab(this),this.createPrevisObject()}},Ye=gn;Ye.TypeName="block-vertical-prefab",Ye.Properties={finalMesh:{type:g.Mesh},previsMesh:{type:g.Mesh},finalMat:{type:g.Material},previsMat:{type:g.Material}};var vn=class extends L{getPrefabUniqueName(){return vn.TypeName}start(){super.start(),O.registerPrefab(this),this.createPrevisObject()}},Ge=vn;Ge.TypeName="cone-cut-prefab",Ge.Properties={finalMesh:{type:g.Mesh},previsMesh:{type:g.Mesh},finalMat:{type:g.Material},previsMat:{type:g.Material}};var bn=class extends L{getPrefabUniqueName(){return bn.TypeName}start(){super.start(),O.registerPrefab(this),this.createPrevisObject()}},Qe=bn;Qe.TypeName="cone-prefab",Qe.Properties={finalMesh:{type:g.Mesh},previsMesh:{type:g.Mesh},finalMat:{type:g.Material},previsMat:{type:g.Material}};var yn=class extends L{getPrefabUniqueName(){return yn.TypeName}start(){super.start(),O.registerPrefab(this),this.createPrevisObject()}},$e=yn;$e.TypeName="cylinder-prefab",$e.Properties={finalMesh:{type:g.Mesh},previsMesh:{type:g.Mesh},finalMat:{type:g.Material},previsMat:{type:g.Material}};var xn=class extends L{getPrefabUniqueName(){return xn.TypeName}start(){super.start(),O.registerPrefab(this),this.createPrevisObject()}},Ze=xn;Ze.TypeName="pyramid-cut-prefab",Ze.Properties={finalMesh:{type:g.Mesh},previsMesh:{type:g.Mesh},finalMat:{type:g.Material},previsMat:{type:g.Material}};var wn=class extends L{getPrefabUniqueName(){return wn.TypeName}start(){super.start(),O.registerPrefab(this),this.createPrevisObject()}},Ke=wn;Ke.TypeName="pyramid-prefab",Ke.Properties={finalMesh:{type:g.Mesh},previsMesh:{type:g.Mesh},finalMat:{type:g.Material},previsMat:{type:g.Material}};var Mn=class extends L{getPrefabUniqueName(){return Mn.TypeName}start(){super.start(),O.registerPrefab(this),this.createPrevisObject()}},Je=Mn;Je.TypeName="slab-prefab",Je.Properties={finalMesh:{type:g.Mesh},previsMesh:{type:g.Mesh},finalMat:{type:g.Material},previsMat:{type:g.Material}};var Dt="SAVE_DATA",Tn=class{constructor(){if(!(typeof window=="undefined"||!window.localStorage)){if(this._localStorage=window.localStorage,this._localStorage.getItem(Dt)!==null){this.processExistingSaveData();return}this.createSaveData()}}processExistingSaveData(){this._saveData=JSON.parse(this._localStorage.getItem(Dt)),console.log(this._saveData)}createSaveData(){this._saveData={saves:new Array},this._localStorage.setItem(Dt,JSON.stringify(this._saveData))}getSavesEntries(){return this._saveData.saves}createNewSaveEntry(e){return{name:e,userPref:{color:[1,1,1],block:""},blocks:new Array}}createOrUpdateSaveEntry(e){let n=this._saveData.saves;for(let i=0;i<n.length;i++)if(n[i].name==e.name){n[i]=e,this._saveData.saves=n;return}this._saveData.saves.push(e)}removeSaveEntry(e){let n=this._saveData.saves;for(let i=0;i<n.length;i++)if(n[i].name==e.name){n.splice(i,1);return}}flushSaves(){this._localStorage.setItem(Dt,JSON.stringify(this._saveData)),this.processExistingSaveData()}},ie=new Tn;var X=class extends y{get emitterType(){return this._emitterType}init(){this.onInit(),de.registerEmitter(this)}start(){this._audioSource=this.object.getComponent("howler-audio-source")}playAt(n){this.object.setTranslationWorld(n),this._audioSource.play()}};X.TypeName="sound-emitter-base",X.Properties={};var gt=class extends X{onInit(){this._emitterType=0}};gt.TypeName="sound-emitter-click";var vt=class extends X{onInit(){this._emitterType=3}};vt.TypeName="sound-emitter-destroy";var bt=class extends X{onInit(){this._emitterType=1}};bt.TypeName="sound-emitter-place";var yt=class extends X{onInit(){this._emitterType=2}};yt.TypeName="sound-emitter-rotate";var le=class extends y{init(){this._buttons=new Map}registerButton(n){this._buttons.set(n.object.name,n)}notifyInteraction(n){let i=this._buttons.keys();for(let s of i)this._buttons.get(s).setVisualColor(W.COLOR_TINT_NORMAL);n.setVisualColor(W.COLOR_TINT_ACTIVE)}};le.TypeName="block-selection-panel",le.Properties={};var et=class extends y{start(){this._prefabComponent=O.getPrefabByName(this.prefab[O.PREFAB_UNAME_KEY]),this._buttonComponent=this.object.getComponent(U),this._buttonComponent.addInteractCallback(this.onInteractHandler.bind(this)),this._mesh=this.object.getComponent("mesh");let n=this._mesh.material;this._mesh.material=n.clone(),this._parent=this.object.parent.getComponent(le),this._parent.registerButton(this)}onActivate(){this._prefabComponent=O.getPrefabByName(this.prefab[O.PREFAB_UNAME_KEY])}setVisualColor(n){this._mesh.material.color=n}onInteractHandler(){z.setPrefab(this._prefabComponent),this._parent.notifyInteraction(this)}};et.TypeName="block-selector-interactible",et.Properties={prefab:{type:g.Object}};var tt=class extends y{start(){this._color=new Float32Array([this.red,this.green,this.blue,1]),this._buttonComponent=this.object.getComponent(U),this._buttonComponent.addInteractCallback(this.onInteractHandler.bind(this))}onInteractHandler(){z.setColor(this._color)}};tt.TypeName="color-selector-interactible",tt.Properties={red:{type:g.Float},green:{type:g.Float},blue:{type:g.Float}};var ce=class extends y{get uniqueID(){return this.uid}get albedoTexture(){return this.albedo}get normalTexture(){return this.normal}start(){Ue.register(this)}};ce.TypeName="texture-information",ce.Properties={uid:{type:g.String},albedo:{type:g.Texture,default:null},normal:{type:g.Texture,default:null}};var _e=class extends y{init(){this._buttons=new Map}registerButton(n){this._buttons.set(n.object.name,n)}notifyInteraction(n){let i=this._buttons.keys();for(let s of i)this._buttons.get(s).setVisualColor(W.COLOR_TINT_NORMAL);n.setVisualColor(W.COLOR_TINT_ACTIVE)}};_e.TypeName="texture-selection-panel",_e.Properties={};var nt=class extends y{start(){if(!this.textureInfoObject){console.error("Object must be set to initialize the button ",this.object.name);return}this._texture=this.textureInfoObject.getComponent(ce),this._buttonComponent=this.object.getComponent(U),this._buttonComponent.addInteractCallback(this.onInteractHandler.bind(this)),this._mesh=this.object.getComponent("mesh");let n=this._mesh.material;this._mesh.material=n.clone(),this._parent=this.object.parent.getComponent(_e),this._parent.registerButton(this)}setVisualColor(n){this._mesh.material.color=n}onInteractHandler(){z.setTexture(this._texture),this._parent.notifyInteraction(this)}};nt.TypeName="texture-selector-interactible",nt.Properties={textureInfoObject:{type:g.Object,default:null}};var it=class extends y{start(){this._loadButton=this.loadButtonObj.getComponent(U),this._newButton=this.newButtonObj.getComponent(U),this._nextButton=this.nextButtonObj.getComponent(U),this._saveButton=this.saveButtonObj.getComponent(U),this._removeButton=this.removeButtonObj.getComponent(U),this._loadButton.addInteractCallback(this.onLoadButtonClicked.bind(this)),this._newButton.addInteractCallback(this.onNewButtonPressed.bind(this)),this._nextButton.addInteractCallback(this.onNextButtonPressed.bind(this)),this._saveButton.addInteractCallback(this.onSaveButtonPressed.bind(this)),this._removeButton.addInteractCallback(this.onRemoveButtonPressed.bind(this)),this._saveCount=this.saveCountObj.getComponent("text"),this._saveName=this.saveNameObj.getComponent("text"),this._saveEntries=ie.getSavesEntries(),this._currentSaveIndex=this._saveEntries.length<1?-1:0,this._saveCount.text="Saves: "+this._saveEntries.length,this._saveName.text=this._currentSaveIndex<0?"No save available":this._saveEntries[0].name,this.loadBlankSave()}onLoadButtonClicked(){this._currentSaveIndex<0||(this._currentBuildData=this._saveEntries[this._currentSaveIndex],console.log(this._currentBuildData),z.loadBuild(this._currentBuildData.blocks))}onNewButtonPressed(){this.setCurrentSelectedSave(-1),z.loadBuild(this._currentBuildData.blocks)}onNextButtonPressed(){this._currentSaveIndex++,this._currentSaveIndex>this._saveEntries.length-1&&(this._currentSaveIndex=0),this.setCurrentSelectedSave(this._currentSaveIndex),this._saveName.text=this._currentSaveIndex<0?"No save available":this._currentBuildData.name}onSaveButtonPressed(){this._currentBuildData.blocks=z.getCurrentBuildData(),ie.createOrUpdateSaveEntry(this._currentBuildData),ie.flushSaves(),this._saveEntries=ie.getSavesEntries(),this._currentSaveIndex=this._currentSaveIndex<0?0:this._currentSaveIndex,this._saveCount.text="Saves count: "+this._saveEntries.length,this._saveName.text=this._currentSaveIndex<0?"No save available":this._saveEntries[this._currentSaveIndex].name}onRemoveButtonPressed(){if(this._currentSaveIndex<0)return;let n=this._saveEntries[this._currentSaveIndex];if(n.name==this._currentBuildData.name&&(this.setCurrentSelectedSave(-1),z.loadBuild(this._currentBuildData.blocks)),ie.removeSaveEntry(n),ie.flushSaves(),this._saveEntries=ie.getSavesEntries(),this._saveEntries.length<1)this._currentSaveIndex=-1;else{let i=this._currentSaveIndex>this._saveEntries.length-1;this._currentSaveIndex=i?0:this._currentSaveIndex}this._saveCount.text="Saves: "+this._saveEntries.length,this._saveName.text=this._currentSaveIndex<0?"No save available":this._saveEntries[this._currentSaveIndex].name}loadBlankSave(){this.setCurrentSelectedSave(-1),z.loadBuild(this._currentBuildData.blocks)}setCurrentSelectedSave(n){switch(n){case-1:this._currentBuildData=ie.createNewSaveEntry(new Date().toLocaleString());break;default:this._currentBuildData=this._saveEntries[n];break}}};it.TypeName="save-panel",it.Properties={loadButtonObj:{type:g.Object,default:null},newButtonObj:{type:g.Object,default:null},nextButtonObj:{type:g.Object,default:null},saveButtonObj:{type:g.Object,default:null},removeButtonObj:{type:g.Object,default:null},saveCountObj:{type:g.Object,default:null},saveNameObj:{type:g.Object,default:null}};var G=class extends y{start(){this._objToggler=this.object.addComponent(he),this._mesh=this.object.getComponent("mesh"),this.object.setTranslationLocal(v.fromValues(0,0,0))}show(){this._objToggler.setActive(!0)}hide(){this._objToggler.setActive(!1)}};G.TypeName="arm-panel",G.Properties={};var he=class extends y{start(){this._components=new Array,this.fetchAllComponents(this.object)}setActive(n){for(let i=0;i<this._components.length;i++)this._components[i].active=n}fetchAllComponents(n){let i=n.getComponents(null).filter(o=>o.type!==G.TypeName);this._components=this._components.concat(i);let s=n.children;for(let o=0;o<s.length;o++){let l=s[o];this.fetchAllComponents(l)}}};he.TypeName="object-toggler",he.Properties={};var rt=class extends y{start(){this._mesh=this.object.getComponent("mesh");let n=this.material.clone();n.occlusionTexture=this.albedoMap,n.normalTexture=this.normalMap,this._mesh.material=n}};rt.TypeName="simple-preview-block-creator",rt.Properties={material:{type:g.Material,default:null},albedoMap:{type:g.Texture,default:null},normalMap:{type:g.Texture,default:null}};var ee=class extends y{get isActive(){return this._isActive}get button(){return this._button}init(){this.setup(),this.setupIcon()}setActive(n){this._mesh.material.color=n?W.COLOR_ACTIVE:W.COLOR_NORMAL,this._isActive=n}setup(){var n;this._button=this.object.getComponent(U),this._mesh=this.object.getComponent("mesh"),this._material=(n=this._mesh.material)==null?void 0:n.clone(),this._mesh.material=this._material,this._material.color=W.COLOR_NORMAL,this._isActive=!1}setupIcon(){var i;let n=this.iconObject.getComponent("mesh");this._iconMaterial=(i=n.material)==null?void 0:i.clone(),n.material=this._iconMaterial,this._iconMaterial.flatTexture=this.iconTexture}};ee.TypeName="menu-selection-button",ee.Properties={iconObject:{type:g.Object,default:null},iconTexture:{type:g.Texture,default:null}};var st=class extends y{start(){this._menuButtonComp=this.menuButton.getComponent(ee),this._blockButtonComp=this.blockButton.getComponent(ee),this._textureButtonComp=this.textureButton.getComponent(ee),this._menuButtonComp.button.addInteractCallback(this.onMenuButtonPressed.bind(this)),this._blockButtonComp.button.addInteractCallback(this.onBlockButtonPressed.bind(this)),this._textureButtonComp.button.addInteractCallback(this.onTextureButtonPressed.bind(this)),this._menuPanelComp=this.menuPanel.getComponent(G),this._blockPanelComp=this.blockPanel.getComponent(G),this._texturePanelComp=this.texturePanel.getComponent(G),console.log(this.engine),this.engine.onXRSessionStart.push(()=>{setTimeout(()=>{this._menuPanelComp.hide(),this._blockPanelComp.hide(),this._texturePanelComp.hide(),console.log("COUCOU scene loaded !")},100)})}onMenuButtonPressed(){this._menuButtonComp.setActive(!0),this._menuPanelComp.show(),this._blockButtonComp.setActive(!1),this._textureButtonComp.setActive(!1),this._blockPanelComp.hide(),this._texturePanelComp.hide()}onBlockButtonPressed(){this._blockButtonComp.setActive(!0),this._blockPanelComp.show(),this._menuButtonComp.setActive(!1),this._textureButtonComp.setActive(!1),this._menuPanelComp.hide(),this._texturePanelComp.hide()}onTextureButtonPressed(){this._textureButtonComp.setActive(!0),this._texturePanelComp.show(),this._menuButtonComp.setActive(!1),this._blockButtonComp.setActive(!1),this._menuPanelComp.hide(),this._blockPanelComp.hide()}};st.TypeName="menu-controller",st.Properties={menuButton:{type:g.Object},blockButton:{type:g.Object},textureButton:{type:g.Object},menuPanel:{type:g.Object},blockPanel:{type:g.Object},texturePanel:{type:g.Object}};WL.registerComponent(ve,xe,be,we,Me,Te,Ae,je,Se,Ce,Pe,Oe,Ie,Ee,Re,ke,Fe,Be,Le,De,Ne,ze);WL.registerComponent(ne);WL.registerComponent(He);WL.registerComponent(oe);WL.registerComponent(We);WL.registerComponent(se);WL.registerComponent(Xe);WL.registerComponent(qe);WL.registerComponent(Ye);WL.registerComponent(Ge);WL.registerComponent(Qe);WL.registerComponent($e);WL.registerComponent(Ze);WL.registerComponent(Ke);WL.registerComponent(Je);WL.registerComponent(X);WL.registerComponent(gt);WL.registerComponent(vt);WL.registerComponent(bt);WL.registerComponent(yt);WL.registerComponent(et);WL.registerComponent(tt);WL.registerComponent(nt);WL.registerComponent(U);WL.registerComponent(ae);WL.registerComponent(it);WL.registerComponent(he);WL.registerComponent(rt);WL.registerComponent(J);WL.registerComponent(ce);WL.registerComponent(G);WL.registerComponent(le);WL.registerComponent(st);WL.registerComponent(ee);WL.registerComponent(_e);})();
+</div>`;
+
+// node_modules/gl-matrix/esm/common.js
+var EPSILON = 1e-6;
+var ARRAY_TYPE = typeof Float32Array !== "undefined" ? Float32Array : Array;
+var RANDOM = Math.random;
+var degree = Math.PI / 180;
+if (!Math.hypot)
+  Math.hypot = function() {
+    var y = 0, i = arguments.length;
+    while (i--) {
+      y += arguments[i] * arguments[i];
+    }
+    return Math.sqrt(y);
+  };
+
+// node_modules/gl-matrix/esm/mat3.js
+function create() {
+  var out = new ARRAY_TYPE(9);
+  if (ARRAY_TYPE != Float32Array) {
+    out[1] = 0;
+    out[2] = 0;
+    out[3] = 0;
+    out[5] = 0;
+    out[6] = 0;
+    out[7] = 0;
+  }
+  out[0] = 1;
+  out[4] = 1;
+  out[8] = 1;
+  return out;
+}
+
+// node_modules/gl-matrix/esm/mat4.js
+var mat4_exports = {};
+__export(mat4_exports, {
+  add: () => add,
+  adjoint: () => adjoint,
+  clone: () => clone,
+  copy: () => copy,
+  create: () => create2,
+  determinant: () => determinant,
+  equals: () => equals,
+  exactEquals: () => exactEquals,
+  frob: () => frob,
+  fromQuat: () => fromQuat,
+  fromQuat2: () => fromQuat2,
+  fromRotation: () => fromRotation,
+  fromRotationTranslation: () => fromRotationTranslation,
+  fromRotationTranslationScale: () => fromRotationTranslationScale,
+  fromRotationTranslationScaleOrigin: () => fromRotationTranslationScaleOrigin,
+  fromScaling: () => fromScaling,
+  fromTranslation: () => fromTranslation,
+  fromValues: () => fromValues,
+  fromXRotation: () => fromXRotation,
+  fromYRotation: () => fromYRotation,
+  fromZRotation: () => fromZRotation,
+  frustum: () => frustum,
+  getRotation: () => getRotation,
+  getScaling: () => getScaling,
+  getTranslation: () => getTranslation,
+  identity: () => identity,
+  invert: () => invert,
+  lookAt: () => lookAt,
+  mul: () => mul,
+  multiply: () => multiply,
+  multiplyScalar: () => multiplyScalar,
+  multiplyScalarAndAdd: () => multiplyScalarAndAdd,
+  ortho: () => ortho,
+  orthoNO: () => orthoNO,
+  orthoZO: () => orthoZO,
+  perspective: () => perspective,
+  perspectiveFromFieldOfView: () => perspectiveFromFieldOfView,
+  perspectiveNO: () => perspectiveNO,
+  perspectiveZO: () => perspectiveZO,
+  rotate: () => rotate,
+  rotateX: () => rotateX,
+  rotateY: () => rotateY,
+  rotateZ: () => rotateZ,
+  scale: () => scale,
+  set: () => set,
+  str: () => str,
+  sub: () => sub,
+  subtract: () => subtract,
+  targetTo: () => targetTo,
+  translate: () => translate,
+  transpose: () => transpose
+});
+function create2() {
+  var out = new ARRAY_TYPE(16);
+  if (ARRAY_TYPE != Float32Array) {
+    out[1] = 0;
+    out[2] = 0;
+    out[3] = 0;
+    out[4] = 0;
+    out[6] = 0;
+    out[7] = 0;
+    out[8] = 0;
+    out[9] = 0;
+    out[11] = 0;
+    out[12] = 0;
+    out[13] = 0;
+    out[14] = 0;
+  }
+  out[0] = 1;
+  out[5] = 1;
+  out[10] = 1;
+  out[15] = 1;
+  return out;
+}
+function clone(a) {
+  var out = new ARRAY_TYPE(16);
+  out[0] = a[0];
+  out[1] = a[1];
+  out[2] = a[2];
+  out[3] = a[3];
+  out[4] = a[4];
+  out[5] = a[5];
+  out[6] = a[6];
+  out[7] = a[7];
+  out[8] = a[8];
+  out[9] = a[9];
+  out[10] = a[10];
+  out[11] = a[11];
+  out[12] = a[12];
+  out[13] = a[13];
+  out[14] = a[14];
+  out[15] = a[15];
+  return out;
+}
+function copy(out, a) {
+  out[0] = a[0];
+  out[1] = a[1];
+  out[2] = a[2];
+  out[3] = a[3];
+  out[4] = a[4];
+  out[5] = a[5];
+  out[6] = a[6];
+  out[7] = a[7];
+  out[8] = a[8];
+  out[9] = a[9];
+  out[10] = a[10];
+  out[11] = a[11];
+  out[12] = a[12];
+  out[13] = a[13];
+  out[14] = a[14];
+  out[15] = a[15];
+  return out;
+}
+function fromValues(m00, m01, m02, m03, m10, m11, m12, m13, m20, m21, m22, m23, m30, m31, m32, m33) {
+  var out = new ARRAY_TYPE(16);
+  out[0] = m00;
+  out[1] = m01;
+  out[2] = m02;
+  out[3] = m03;
+  out[4] = m10;
+  out[5] = m11;
+  out[6] = m12;
+  out[7] = m13;
+  out[8] = m20;
+  out[9] = m21;
+  out[10] = m22;
+  out[11] = m23;
+  out[12] = m30;
+  out[13] = m31;
+  out[14] = m32;
+  out[15] = m33;
+  return out;
+}
+function set(out, m00, m01, m02, m03, m10, m11, m12, m13, m20, m21, m22, m23, m30, m31, m32, m33) {
+  out[0] = m00;
+  out[1] = m01;
+  out[2] = m02;
+  out[3] = m03;
+  out[4] = m10;
+  out[5] = m11;
+  out[6] = m12;
+  out[7] = m13;
+  out[8] = m20;
+  out[9] = m21;
+  out[10] = m22;
+  out[11] = m23;
+  out[12] = m30;
+  out[13] = m31;
+  out[14] = m32;
+  out[15] = m33;
+  return out;
+}
+function identity(out) {
+  out[0] = 1;
+  out[1] = 0;
+  out[2] = 0;
+  out[3] = 0;
+  out[4] = 0;
+  out[5] = 1;
+  out[6] = 0;
+  out[7] = 0;
+  out[8] = 0;
+  out[9] = 0;
+  out[10] = 1;
+  out[11] = 0;
+  out[12] = 0;
+  out[13] = 0;
+  out[14] = 0;
+  out[15] = 1;
+  return out;
+}
+function transpose(out, a) {
+  if (out === a) {
+    var a01 = a[1], a02 = a[2], a03 = a[3];
+    var a12 = a[6], a13 = a[7];
+    var a23 = a[11];
+    out[1] = a[4];
+    out[2] = a[8];
+    out[3] = a[12];
+    out[4] = a01;
+    out[6] = a[9];
+    out[7] = a[13];
+    out[8] = a02;
+    out[9] = a12;
+    out[11] = a[14];
+    out[12] = a03;
+    out[13] = a13;
+    out[14] = a23;
+  } else {
+    out[0] = a[0];
+    out[1] = a[4];
+    out[2] = a[8];
+    out[3] = a[12];
+    out[4] = a[1];
+    out[5] = a[5];
+    out[6] = a[9];
+    out[7] = a[13];
+    out[8] = a[2];
+    out[9] = a[6];
+    out[10] = a[10];
+    out[11] = a[14];
+    out[12] = a[3];
+    out[13] = a[7];
+    out[14] = a[11];
+    out[15] = a[15];
+  }
+  return out;
+}
+function invert(out, a) {
+  var a00 = a[0], a01 = a[1], a02 = a[2], a03 = a[3];
+  var a10 = a[4], a11 = a[5], a12 = a[6], a13 = a[7];
+  var a20 = a[8], a21 = a[9], a22 = a[10], a23 = a[11];
+  var a30 = a[12], a31 = a[13], a32 = a[14], a33 = a[15];
+  var b00 = a00 * a11 - a01 * a10;
+  var b01 = a00 * a12 - a02 * a10;
+  var b02 = a00 * a13 - a03 * a10;
+  var b03 = a01 * a12 - a02 * a11;
+  var b04 = a01 * a13 - a03 * a11;
+  var b05 = a02 * a13 - a03 * a12;
+  var b06 = a20 * a31 - a21 * a30;
+  var b07 = a20 * a32 - a22 * a30;
+  var b08 = a20 * a33 - a23 * a30;
+  var b09 = a21 * a32 - a22 * a31;
+  var b10 = a21 * a33 - a23 * a31;
+  var b11 = a22 * a33 - a23 * a32;
+  var det = b00 * b11 - b01 * b10 + b02 * b09 + b03 * b08 - b04 * b07 + b05 * b06;
+  if (!det) {
+    return null;
+  }
+  det = 1 / det;
+  out[0] = (a11 * b11 - a12 * b10 + a13 * b09) * det;
+  out[1] = (a02 * b10 - a01 * b11 - a03 * b09) * det;
+  out[2] = (a31 * b05 - a32 * b04 + a33 * b03) * det;
+  out[3] = (a22 * b04 - a21 * b05 - a23 * b03) * det;
+  out[4] = (a12 * b08 - a10 * b11 - a13 * b07) * det;
+  out[5] = (a00 * b11 - a02 * b08 + a03 * b07) * det;
+  out[6] = (a32 * b02 - a30 * b05 - a33 * b01) * det;
+  out[7] = (a20 * b05 - a22 * b02 + a23 * b01) * det;
+  out[8] = (a10 * b10 - a11 * b08 + a13 * b06) * det;
+  out[9] = (a01 * b08 - a00 * b10 - a03 * b06) * det;
+  out[10] = (a30 * b04 - a31 * b02 + a33 * b00) * det;
+  out[11] = (a21 * b02 - a20 * b04 - a23 * b00) * det;
+  out[12] = (a11 * b07 - a10 * b09 - a12 * b06) * det;
+  out[13] = (a00 * b09 - a01 * b07 + a02 * b06) * det;
+  out[14] = (a31 * b01 - a30 * b03 - a32 * b00) * det;
+  out[15] = (a20 * b03 - a21 * b01 + a22 * b00) * det;
+  return out;
+}
+function adjoint(out, a) {
+  var a00 = a[0], a01 = a[1], a02 = a[2], a03 = a[3];
+  var a10 = a[4], a11 = a[5], a12 = a[6], a13 = a[7];
+  var a20 = a[8], a21 = a[9], a22 = a[10], a23 = a[11];
+  var a30 = a[12], a31 = a[13], a32 = a[14], a33 = a[15];
+  out[0] = a11 * (a22 * a33 - a23 * a32) - a21 * (a12 * a33 - a13 * a32) + a31 * (a12 * a23 - a13 * a22);
+  out[1] = -(a01 * (a22 * a33 - a23 * a32) - a21 * (a02 * a33 - a03 * a32) + a31 * (a02 * a23 - a03 * a22));
+  out[2] = a01 * (a12 * a33 - a13 * a32) - a11 * (a02 * a33 - a03 * a32) + a31 * (a02 * a13 - a03 * a12);
+  out[3] = -(a01 * (a12 * a23 - a13 * a22) - a11 * (a02 * a23 - a03 * a22) + a21 * (a02 * a13 - a03 * a12));
+  out[4] = -(a10 * (a22 * a33 - a23 * a32) - a20 * (a12 * a33 - a13 * a32) + a30 * (a12 * a23 - a13 * a22));
+  out[5] = a00 * (a22 * a33 - a23 * a32) - a20 * (a02 * a33 - a03 * a32) + a30 * (a02 * a23 - a03 * a22);
+  out[6] = -(a00 * (a12 * a33 - a13 * a32) - a10 * (a02 * a33 - a03 * a32) + a30 * (a02 * a13 - a03 * a12));
+  out[7] = a00 * (a12 * a23 - a13 * a22) - a10 * (a02 * a23 - a03 * a22) + a20 * (a02 * a13 - a03 * a12);
+  out[8] = a10 * (a21 * a33 - a23 * a31) - a20 * (a11 * a33 - a13 * a31) + a30 * (a11 * a23 - a13 * a21);
+  out[9] = -(a00 * (a21 * a33 - a23 * a31) - a20 * (a01 * a33 - a03 * a31) + a30 * (a01 * a23 - a03 * a21));
+  out[10] = a00 * (a11 * a33 - a13 * a31) - a10 * (a01 * a33 - a03 * a31) + a30 * (a01 * a13 - a03 * a11);
+  out[11] = -(a00 * (a11 * a23 - a13 * a21) - a10 * (a01 * a23 - a03 * a21) + a20 * (a01 * a13 - a03 * a11));
+  out[12] = -(a10 * (a21 * a32 - a22 * a31) - a20 * (a11 * a32 - a12 * a31) + a30 * (a11 * a22 - a12 * a21));
+  out[13] = a00 * (a21 * a32 - a22 * a31) - a20 * (a01 * a32 - a02 * a31) + a30 * (a01 * a22 - a02 * a21);
+  out[14] = -(a00 * (a11 * a32 - a12 * a31) - a10 * (a01 * a32 - a02 * a31) + a30 * (a01 * a12 - a02 * a11));
+  out[15] = a00 * (a11 * a22 - a12 * a21) - a10 * (a01 * a22 - a02 * a21) + a20 * (a01 * a12 - a02 * a11);
+  return out;
+}
+function determinant(a) {
+  var a00 = a[0], a01 = a[1], a02 = a[2], a03 = a[3];
+  var a10 = a[4], a11 = a[5], a12 = a[6], a13 = a[7];
+  var a20 = a[8], a21 = a[9], a22 = a[10], a23 = a[11];
+  var a30 = a[12], a31 = a[13], a32 = a[14], a33 = a[15];
+  var b00 = a00 * a11 - a01 * a10;
+  var b01 = a00 * a12 - a02 * a10;
+  var b02 = a00 * a13 - a03 * a10;
+  var b03 = a01 * a12 - a02 * a11;
+  var b04 = a01 * a13 - a03 * a11;
+  var b05 = a02 * a13 - a03 * a12;
+  var b06 = a20 * a31 - a21 * a30;
+  var b07 = a20 * a32 - a22 * a30;
+  var b08 = a20 * a33 - a23 * a30;
+  var b09 = a21 * a32 - a22 * a31;
+  var b10 = a21 * a33 - a23 * a31;
+  var b11 = a22 * a33 - a23 * a32;
+  return b00 * b11 - b01 * b10 + b02 * b09 + b03 * b08 - b04 * b07 + b05 * b06;
+}
+function multiply(out, a, b) {
+  var a00 = a[0], a01 = a[1], a02 = a[2], a03 = a[3];
+  var a10 = a[4], a11 = a[5], a12 = a[6], a13 = a[7];
+  var a20 = a[8], a21 = a[9], a22 = a[10], a23 = a[11];
+  var a30 = a[12], a31 = a[13], a32 = a[14], a33 = a[15];
+  var b0 = b[0], b1 = b[1], b2 = b[2], b3 = b[3];
+  out[0] = b0 * a00 + b1 * a10 + b2 * a20 + b3 * a30;
+  out[1] = b0 * a01 + b1 * a11 + b2 * a21 + b3 * a31;
+  out[2] = b0 * a02 + b1 * a12 + b2 * a22 + b3 * a32;
+  out[3] = b0 * a03 + b1 * a13 + b2 * a23 + b3 * a33;
+  b0 = b[4];
+  b1 = b[5];
+  b2 = b[6];
+  b3 = b[7];
+  out[4] = b0 * a00 + b1 * a10 + b2 * a20 + b3 * a30;
+  out[5] = b0 * a01 + b1 * a11 + b2 * a21 + b3 * a31;
+  out[6] = b0 * a02 + b1 * a12 + b2 * a22 + b3 * a32;
+  out[7] = b0 * a03 + b1 * a13 + b2 * a23 + b3 * a33;
+  b0 = b[8];
+  b1 = b[9];
+  b2 = b[10];
+  b3 = b[11];
+  out[8] = b0 * a00 + b1 * a10 + b2 * a20 + b3 * a30;
+  out[9] = b0 * a01 + b1 * a11 + b2 * a21 + b3 * a31;
+  out[10] = b0 * a02 + b1 * a12 + b2 * a22 + b3 * a32;
+  out[11] = b0 * a03 + b1 * a13 + b2 * a23 + b3 * a33;
+  b0 = b[12];
+  b1 = b[13];
+  b2 = b[14];
+  b3 = b[15];
+  out[12] = b0 * a00 + b1 * a10 + b2 * a20 + b3 * a30;
+  out[13] = b0 * a01 + b1 * a11 + b2 * a21 + b3 * a31;
+  out[14] = b0 * a02 + b1 * a12 + b2 * a22 + b3 * a32;
+  out[15] = b0 * a03 + b1 * a13 + b2 * a23 + b3 * a33;
+  return out;
+}
+function translate(out, a, v) {
+  var x = v[0], y = v[1], z = v[2];
+  var a00, a01, a02, a03;
+  var a10, a11, a12, a13;
+  var a20, a21, a22, a23;
+  if (a === out) {
+    out[12] = a[0] * x + a[4] * y + a[8] * z + a[12];
+    out[13] = a[1] * x + a[5] * y + a[9] * z + a[13];
+    out[14] = a[2] * x + a[6] * y + a[10] * z + a[14];
+    out[15] = a[3] * x + a[7] * y + a[11] * z + a[15];
+  } else {
+    a00 = a[0];
+    a01 = a[1];
+    a02 = a[2];
+    a03 = a[3];
+    a10 = a[4];
+    a11 = a[5];
+    a12 = a[6];
+    a13 = a[7];
+    a20 = a[8];
+    a21 = a[9];
+    a22 = a[10];
+    a23 = a[11];
+    out[0] = a00;
+    out[1] = a01;
+    out[2] = a02;
+    out[3] = a03;
+    out[4] = a10;
+    out[5] = a11;
+    out[6] = a12;
+    out[7] = a13;
+    out[8] = a20;
+    out[9] = a21;
+    out[10] = a22;
+    out[11] = a23;
+    out[12] = a00 * x + a10 * y + a20 * z + a[12];
+    out[13] = a01 * x + a11 * y + a21 * z + a[13];
+    out[14] = a02 * x + a12 * y + a22 * z + a[14];
+    out[15] = a03 * x + a13 * y + a23 * z + a[15];
+  }
+  return out;
+}
+function scale(out, a, v) {
+  var x = v[0], y = v[1], z = v[2];
+  out[0] = a[0] * x;
+  out[1] = a[1] * x;
+  out[2] = a[2] * x;
+  out[3] = a[3] * x;
+  out[4] = a[4] * y;
+  out[5] = a[5] * y;
+  out[6] = a[6] * y;
+  out[7] = a[7] * y;
+  out[8] = a[8] * z;
+  out[9] = a[9] * z;
+  out[10] = a[10] * z;
+  out[11] = a[11] * z;
+  out[12] = a[12];
+  out[13] = a[13];
+  out[14] = a[14];
+  out[15] = a[15];
+  return out;
+}
+function rotate(out, a, rad, axis) {
+  var x = axis[0], y = axis[1], z = axis[2];
+  var len5 = Math.hypot(x, y, z);
+  var s, c, t;
+  var a00, a01, a02, a03;
+  var a10, a11, a12, a13;
+  var a20, a21, a22, a23;
+  var b00, b01, b02;
+  var b10, b11, b12;
+  var b20, b21, b22;
+  if (len5 < EPSILON) {
+    return null;
+  }
+  len5 = 1 / len5;
+  x *= len5;
+  y *= len5;
+  z *= len5;
+  s = Math.sin(rad);
+  c = Math.cos(rad);
+  t = 1 - c;
+  a00 = a[0];
+  a01 = a[1];
+  a02 = a[2];
+  a03 = a[3];
+  a10 = a[4];
+  a11 = a[5];
+  a12 = a[6];
+  a13 = a[7];
+  a20 = a[8];
+  a21 = a[9];
+  a22 = a[10];
+  a23 = a[11];
+  b00 = x * x * t + c;
+  b01 = y * x * t + z * s;
+  b02 = z * x * t - y * s;
+  b10 = x * y * t - z * s;
+  b11 = y * y * t + c;
+  b12 = z * y * t + x * s;
+  b20 = x * z * t + y * s;
+  b21 = y * z * t - x * s;
+  b22 = z * z * t + c;
+  out[0] = a00 * b00 + a10 * b01 + a20 * b02;
+  out[1] = a01 * b00 + a11 * b01 + a21 * b02;
+  out[2] = a02 * b00 + a12 * b01 + a22 * b02;
+  out[3] = a03 * b00 + a13 * b01 + a23 * b02;
+  out[4] = a00 * b10 + a10 * b11 + a20 * b12;
+  out[5] = a01 * b10 + a11 * b11 + a21 * b12;
+  out[6] = a02 * b10 + a12 * b11 + a22 * b12;
+  out[7] = a03 * b10 + a13 * b11 + a23 * b12;
+  out[8] = a00 * b20 + a10 * b21 + a20 * b22;
+  out[9] = a01 * b20 + a11 * b21 + a21 * b22;
+  out[10] = a02 * b20 + a12 * b21 + a22 * b22;
+  out[11] = a03 * b20 + a13 * b21 + a23 * b22;
+  if (a !== out) {
+    out[12] = a[12];
+    out[13] = a[13];
+    out[14] = a[14];
+    out[15] = a[15];
+  }
+  return out;
+}
+function rotateX(out, a, rad) {
+  var s = Math.sin(rad);
+  var c = Math.cos(rad);
+  var a10 = a[4];
+  var a11 = a[5];
+  var a12 = a[6];
+  var a13 = a[7];
+  var a20 = a[8];
+  var a21 = a[9];
+  var a22 = a[10];
+  var a23 = a[11];
+  if (a !== out) {
+    out[0] = a[0];
+    out[1] = a[1];
+    out[2] = a[2];
+    out[3] = a[3];
+    out[12] = a[12];
+    out[13] = a[13];
+    out[14] = a[14];
+    out[15] = a[15];
+  }
+  out[4] = a10 * c + a20 * s;
+  out[5] = a11 * c + a21 * s;
+  out[6] = a12 * c + a22 * s;
+  out[7] = a13 * c + a23 * s;
+  out[8] = a20 * c - a10 * s;
+  out[9] = a21 * c - a11 * s;
+  out[10] = a22 * c - a12 * s;
+  out[11] = a23 * c - a13 * s;
+  return out;
+}
+function rotateY(out, a, rad) {
+  var s = Math.sin(rad);
+  var c = Math.cos(rad);
+  var a00 = a[0];
+  var a01 = a[1];
+  var a02 = a[2];
+  var a03 = a[3];
+  var a20 = a[8];
+  var a21 = a[9];
+  var a22 = a[10];
+  var a23 = a[11];
+  if (a !== out) {
+    out[4] = a[4];
+    out[5] = a[5];
+    out[6] = a[6];
+    out[7] = a[7];
+    out[12] = a[12];
+    out[13] = a[13];
+    out[14] = a[14];
+    out[15] = a[15];
+  }
+  out[0] = a00 * c - a20 * s;
+  out[1] = a01 * c - a21 * s;
+  out[2] = a02 * c - a22 * s;
+  out[3] = a03 * c - a23 * s;
+  out[8] = a00 * s + a20 * c;
+  out[9] = a01 * s + a21 * c;
+  out[10] = a02 * s + a22 * c;
+  out[11] = a03 * s + a23 * c;
+  return out;
+}
+function rotateZ(out, a, rad) {
+  var s = Math.sin(rad);
+  var c = Math.cos(rad);
+  var a00 = a[0];
+  var a01 = a[1];
+  var a02 = a[2];
+  var a03 = a[3];
+  var a10 = a[4];
+  var a11 = a[5];
+  var a12 = a[6];
+  var a13 = a[7];
+  if (a !== out) {
+    out[8] = a[8];
+    out[9] = a[9];
+    out[10] = a[10];
+    out[11] = a[11];
+    out[12] = a[12];
+    out[13] = a[13];
+    out[14] = a[14];
+    out[15] = a[15];
+  }
+  out[0] = a00 * c + a10 * s;
+  out[1] = a01 * c + a11 * s;
+  out[2] = a02 * c + a12 * s;
+  out[3] = a03 * c + a13 * s;
+  out[4] = a10 * c - a00 * s;
+  out[5] = a11 * c - a01 * s;
+  out[6] = a12 * c - a02 * s;
+  out[7] = a13 * c - a03 * s;
+  return out;
+}
+function fromTranslation(out, v) {
+  out[0] = 1;
+  out[1] = 0;
+  out[2] = 0;
+  out[3] = 0;
+  out[4] = 0;
+  out[5] = 1;
+  out[6] = 0;
+  out[7] = 0;
+  out[8] = 0;
+  out[9] = 0;
+  out[10] = 1;
+  out[11] = 0;
+  out[12] = v[0];
+  out[13] = v[1];
+  out[14] = v[2];
+  out[15] = 1;
+  return out;
+}
+function fromScaling(out, v) {
+  out[0] = v[0];
+  out[1] = 0;
+  out[2] = 0;
+  out[3] = 0;
+  out[4] = 0;
+  out[5] = v[1];
+  out[6] = 0;
+  out[7] = 0;
+  out[8] = 0;
+  out[9] = 0;
+  out[10] = v[2];
+  out[11] = 0;
+  out[12] = 0;
+  out[13] = 0;
+  out[14] = 0;
+  out[15] = 1;
+  return out;
+}
+function fromRotation(out, rad, axis) {
+  var x = axis[0], y = axis[1], z = axis[2];
+  var len5 = Math.hypot(x, y, z);
+  var s, c, t;
+  if (len5 < EPSILON) {
+    return null;
+  }
+  len5 = 1 / len5;
+  x *= len5;
+  y *= len5;
+  z *= len5;
+  s = Math.sin(rad);
+  c = Math.cos(rad);
+  t = 1 - c;
+  out[0] = x * x * t + c;
+  out[1] = y * x * t + z * s;
+  out[2] = z * x * t - y * s;
+  out[3] = 0;
+  out[4] = x * y * t - z * s;
+  out[5] = y * y * t + c;
+  out[6] = z * y * t + x * s;
+  out[7] = 0;
+  out[8] = x * z * t + y * s;
+  out[9] = y * z * t - x * s;
+  out[10] = z * z * t + c;
+  out[11] = 0;
+  out[12] = 0;
+  out[13] = 0;
+  out[14] = 0;
+  out[15] = 1;
+  return out;
+}
+function fromXRotation(out, rad) {
+  var s = Math.sin(rad);
+  var c = Math.cos(rad);
+  out[0] = 1;
+  out[1] = 0;
+  out[2] = 0;
+  out[3] = 0;
+  out[4] = 0;
+  out[5] = c;
+  out[6] = s;
+  out[7] = 0;
+  out[8] = 0;
+  out[9] = -s;
+  out[10] = c;
+  out[11] = 0;
+  out[12] = 0;
+  out[13] = 0;
+  out[14] = 0;
+  out[15] = 1;
+  return out;
+}
+function fromYRotation(out, rad) {
+  var s = Math.sin(rad);
+  var c = Math.cos(rad);
+  out[0] = c;
+  out[1] = 0;
+  out[2] = -s;
+  out[3] = 0;
+  out[4] = 0;
+  out[5] = 1;
+  out[6] = 0;
+  out[7] = 0;
+  out[8] = s;
+  out[9] = 0;
+  out[10] = c;
+  out[11] = 0;
+  out[12] = 0;
+  out[13] = 0;
+  out[14] = 0;
+  out[15] = 1;
+  return out;
+}
+function fromZRotation(out, rad) {
+  var s = Math.sin(rad);
+  var c = Math.cos(rad);
+  out[0] = c;
+  out[1] = s;
+  out[2] = 0;
+  out[3] = 0;
+  out[4] = -s;
+  out[5] = c;
+  out[6] = 0;
+  out[7] = 0;
+  out[8] = 0;
+  out[9] = 0;
+  out[10] = 1;
+  out[11] = 0;
+  out[12] = 0;
+  out[13] = 0;
+  out[14] = 0;
+  out[15] = 1;
+  return out;
+}
+function fromRotationTranslation(out, q, v) {
+  var x = q[0], y = q[1], z = q[2], w = q[3];
+  var x2 = x + x;
+  var y2 = y + y;
+  var z2 = z + z;
+  var xx = x * x2;
+  var xy = x * y2;
+  var xz = x * z2;
+  var yy = y * y2;
+  var yz = y * z2;
+  var zz = z * z2;
+  var wx = w * x2;
+  var wy = w * y2;
+  var wz = w * z2;
+  out[0] = 1 - (yy + zz);
+  out[1] = xy + wz;
+  out[2] = xz - wy;
+  out[3] = 0;
+  out[4] = xy - wz;
+  out[5] = 1 - (xx + zz);
+  out[6] = yz + wx;
+  out[7] = 0;
+  out[8] = xz + wy;
+  out[9] = yz - wx;
+  out[10] = 1 - (xx + yy);
+  out[11] = 0;
+  out[12] = v[0];
+  out[13] = v[1];
+  out[14] = v[2];
+  out[15] = 1;
+  return out;
+}
+function fromQuat2(out, a) {
+  var translation = new ARRAY_TYPE(3);
+  var bx = -a[0], by = -a[1], bz = -a[2], bw = a[3], ax = a[4], ay = a[5], az = a[6], aw = a[7];
+  var magnitude = bx * bx + by * by + bz * bz + bw * bw;
+  if (magnitude > 0) {
+    translation[0] = (ax * bw + aw * bx + ay * bz - az * by) * 2 / magnitude;
+    translation[1] = (ay * bw + aw * by + az * bx - ax * bz) * 2 / magnitude;
+    translation[2] = (az * bw + aw * bz + ax * by - ay * bx) * 2 / magnitude;
+  } else {
+    translation[0] = (ax * bw + aw * bx + ay * bz - az * by) * 2;
+    translation[1] = (ay * bw + aw * by + az * bx - ax * bz) * 2;
+    translation[2] = (az * bw + aw * bz + ax * by - ay * bx) * 2;
+  }
+  fromRotationTranslation(out, a, translation);
+  return out;
+}
+function getTranslation(out, mat) {
+  out[0] = mat[12];
+  out[1] = mat[13];
+  out[2] = mat[14];
+  return out;
+}
+function getScaling(out, mat) {
+  var m11 = mat[0];
+  var m12 = mat[1];
+  var m13 = mat[2];
+  var m21 = mat[4];
+  var m22 = mat[5];
+  var m23 = mat[6];
+  var m31 = mat[8];
+  var m32 = mat[9];
+  var m33 = mat[10];
+  out[0] = Math.hypot(m11, m12, m13);
+  out[1] = Math.hypot(m21, m22, m23);
+  out[2] = Math.hypot(m31, m32, m33);
+  return out;
+}
+function getRotation(out, mat) {
+  var scaling = new ARRAY_TYPE(3);
+  getScaling(scaling, mat);
+  var is1 = 1 / scaling[0];
+  var is2 = 1 / scaling[1];
+  var is3 = 1 / scaling[2];
+  var sm11 = mat[0] * is1;
+  var sm12 = mat[1] * is2;
+  var sm13 = mat[2] * is3;
+  var sm21 = mat[4] * is1;
+  var sm22 = mat[5] * is2;
+  var sm23 = mat[6] * is3;
+  var sm31 = mat[8] * is1;
+  var sm32 = mat[9] * is2;
+  var sm33 = mat[10] * is3;
+  var trace = sm11 + sm22 + sm33;
+  var S = 0;
+  if (trace > 0) {
+    S = Math.sqrt(trace + 1) * 2;
+    out[3] = 0.25 * S;
+    out[0] = (sm23 - sm32) / S;
+    out[1] = (sm31 - sm13) / S;
+    out[2] = (sm12 - sm21) / S;
+  } else if (sm11 > sm22 && sm11 > sm33) {
+    S = Math.sqrt(1 + sm11 - sm22 - sm33) * 2;
+    out[3] = (sm23 - sm32) / S;
+    out[0] = 0.25 * S;
+    out[1] = (sm12 + sm21) / S;
+    out[2] = (sm31 + sm13) / S;
+  } else if (sm22 > sm33) {
+    S = Math.sqrt(1 + sm22 - sm11 - sm33) * 2;
+    out[3] = (sm31 - sm13) / S;
+    out[0] = (sm12 + sm21) / S;
+    out[1] = 0.25 * S;
+    out[2] = (sm23 + sm32) / S;
+  } else {
+    S = Math.sqrt(1 + sm33 - sm11 - sm22) * 2;
+    out[3] = (sm12 - sm21) / S;
+    out[0] = (sm31 + sm13) / S;
+    out[1] = (sm23 + sm32) / S;
+    out[2] = 0.25 * S;
+  }
+  return out;
+}
+function fromRotationTranslationScale(out, q, v, s) {
+  var x = q[0], y = q[1], z = q[2], w = q[3];
+  var x2 = x + x;
+  var y2 = y + y;
+  var z2 = z + z;
+  var xx = x * x2;
+  var xy = x * y2;
+  var xz = x * z2;
+  var yy = y * y2;
+  var yz = y * z2;
+  var zz = z * z2;
+  var wx = w * x2;
+  var wy = w * y2;
+  var wz = w * z2;
+  var sx = s[0];
+  var sy = s[1];
+  var sz = s[2];
+  out[0] = (1 - (yy + zz)) * sx;
+  out[1] = (xy + wz) * sx;
+  out[2] = (xz - wy) * sx;
+  out[3] = 0;
+  out[4] = (xy - wz) * sy;
+  out[5] = (1 - (xx + zz)) * sy;
+  out[6] = (yz + wx) * sy;
+  out[7] = 0;
+  out[8] = (xz + wy) * sz;
+  out[9] = (yz - wx) * sz;
+  out[10] = (1 - (xx + yy)) * sz;
+  out[11] = 0;
+  out[12] = v[0];
+  out[13] = v[1];
+  out[14] = v[2];
+  out[15] = 1;
+  return out;
+}
+function fromRotationTranslationScaleOrigin(out, q, v, s, o) {
+  var x = q[0], y = q[1], z = q[2], w = q[3];
+  var x2 = x + x;
+  var y2 = y + y;
+  var z2 = z + z;
+  var xx = x * x2;
+  var xy = x * y2;
+  var xz = x * z2;
+  var yy = y * y2;
+  var yz = y * z2;
+  var zz = z * z2;
+  var wx = w * x2;
+  var wy = w * y2;
+  var wz = w * z2;
+  var sx = s[0];
+  var sy = s[1];
+  var sz = s[2];
+  var ox = o[0];
+  var oy = o[1];
+  var oz = o[2];
+  var out0 = (1 - (yy + zz)) * sx;
+  var out1 = (xy + wz) * sx;
+  var out2 = (xz - wy) * sx;
+  var out4 = (xy - wz) * sy;
+  var out5 = (1 - (xx + zz)) * sy;
+  var out6 = (yz + wx) * sy;
+  var out8 = (xz + wy) * sz;
+  var out9 = (yz - wx) * sz;
+  var out10 = (1 - (xx + yy)) * sz;
+  out[0] = out0;
+  out[1] = out1;
+  out[2] = out2;
+  out[3] = 0;
+  out[4] = out4;
+  out[5] = out5;
+  out[6] = out6;
+  out[7] = 0;
+  out[8] = out8;
+  out[9] = out9;
+  out[10] = out10;
+  out[11] = 0;
+  out[12] = v[0] + ox - (out0 * ox + out4 * oy + out8 * oz);
+  out[13] = v[1] + oy - (out1 * ox + out5 * oy + out9 * oz);
+  out[14] = v[2] + oz - (out2 * ox + out6 * oy + out10 * oz);
+  out[15] = 1;
+  return out;
+}
+function fromQuat(out, q) {
+  var x = q[0], y = q[1], z = q[2], w = q[3];
+  var x2 = x + x;
+  var y2 = y + y;
+  var z2 = z + z;
+  var xx = x * x2;
+  var yx = y * x2;
+  var yy = y * y2;
+  var zx = z * x2;
+  var zy = z * y2;
+  var zz = z * z2;
+  var wx = w * x2;
+  var wy = w * y2;
+  var wz = w * z2;
+  out[0] = 1 - yy - zz;
+  out[1] = yx + wz;
+  out[2] = zx - wy;
+  out[3] = 0;
+  out[4] = yx - wz;
+  out[5] = 1 - xx - zz;
+  out[6] = zy + wx;
+  out[7] = 0;
+  out[8] = zx + wy;
+  out[9] = zy - wx;
+  out[10] = 1 - xx - yy;
+  out[11] = 0;
+  out[12] = 0;
+  out[13] = 0;
+  out[14] = 0;
+  out[15] = 1;
+  return out;
+}
+function frustum(out, left, right, bottom, top, near, far) {
+  var rl = 1 / (right - left);
+  var tb = 1 / (top - bottom);
+  var nf = 1 / (near - far);
+  out[0] = near * 2 * rl;
+  out[1] = 0;
+  out[2] = 0;
+  out[3] = 0;
+  out[4] = 0;
+  out[5] = near * 2 * tb;
+  out[6] = 0;
+  out[7] = 0;
+  out[8] = (right + left) * rl;
+  out[9] = (top + bottom) * tb;
+  out[10] = (far + near) * nf;
+  out[11] = -1;
+  out[12] = 0;
+  out[13] = 0;
+  out[14] = far * near * 2 * nf;
+  out[15] = 0;
+  return out;
+}
+function perspectiveNO(out, fovy, aspect, near, far) {
+  var f = 1 / Math.tan(fovy / 2), nf;
+  out[0] = f / aspect;
+  out[1] = 0;
+  out[2] = 0;
+  out[3] = 0;
+  out[4] = 0;
+  out[5] = f;
+  out[6] = 0;
+  out[7] = 0;
+  out[8] = 0;
+  out[9] = 0;
+  out[11] = -1;
+  out[12] = 0;
+  out[13] = 0;
+  out[15] = 0;
+  if (far != null && far !== Infinity) {
+    nf = 1 / (near - far);
+    out[10] = (far + near) * nf;
+    out[14] = 2 * far * near * nf;
+  } else {
+    out[10] = -1;
+    out[14] = -2 * near;
+  }
+  return out;
+}
+var perspective = perspectiveNO;
+function perspectiveZO(out, fovy, aspect, near, far) {
+  var f = 1 / Math.tan(fovy / 2), nf;
+  out[0] = f / aspect;
+  out[1] = 0;
+  out[2] = 0;
+  out[3] = 0;
+  out[4] = 0;
+  out[5] = f;
+  out[6] = 0;
+  out[7] = 0;
+  out[8] = 0;
+  out[9] = 0;
+  out[11] = -1;
+  out[12] = 0;
+  out[13] = 0;
+  out[15] = 0;
+  if (far != null && far !== Infinity) {
+    nf = 1 / (near - far);
+    out[10] = far * nf;
+    out[14] = far * near * nf;
+  } else {
+    out[10] = -1;
+    out[14] = -near;
+  }
+  return out;
+}
+function perspectiveFromFieldOfView(out, fov, near, far) {
+  var upTan = Math.tan(fov.upDegrees * Math.PI / 180);
+  var downTan = Math.tan(fov.downDegrees * Math.PI / 180);
+  var leftTan = Math.tan(fov.leftDegrees * Math.PI / 180);
+  var rightTan = Math.tan(fov.rightDegrees * Math.PI / 180);
+  var xScale = 2 / (leftTan + rightTan);
+  var yScale = 2 / (upTan + downTan);
+  out[0] = xScale;
+  out[1] = 0;
+  out[2] = 0;
+  out[3] = 0;
+  out[4] = 0;
+  out[5] = yScale;
+  out[6] = 0;
+  out[7] = 0;
+  out[8] = -((leftTan - rightTan) * xScale * 0.5);
+  out[9] = (upTan - downTan) * yScale * 0.5;
+  out[10] = far / (near - far);
+  out[11] = -1;
+  out[12] = 0;
+  out[13] = 0;
+  out[14] = far * near / (near - far);
+  out[15] = 0;
+  return out;
+}
+function orthoNO(out, left, right, bottom, top, near, far) {
+  var lr = 1 / (left - right);
+  var bt = 1 / (bottom - top);
+  var nf = 1 / (near - far);
+  out[0] = -2 * lr;
+  out[1] = 0;
+  out[2] = 0;
+  out[3] = 0;
+  out[4] = 0;
+  out[5] = -2 * bt;
+  out[6] = 0;
+  out[7] = 0;
+  out[8] = 0;
+  out[9] = 0;
+  out[10] = 2 * nf;
+  out[11] = 0;
+  out[12] = (left + right) * lr;
+  out[13] = (top + bottom) * bt;
+  out[14] = (far + near) * nf;
+  out[15] = 1;
+  return out;
+}
+var ortho = orthoNO;
+function orthoZO(out, left, right, bottom, top, near, far) {
+  var lr = 1 / (left - right);
+  var bt = 1 / (bottom - top);
+  var nf = 1 / (near - far);
+  out[0] = -2 * lr;
+  out[1] = 0;
+  out[2] = 0;
+  out[3] = 0;
+  out[4] = 0;
+  out[5] = -2 * bt;
+  out[6] = 0;
+  out[7] = 0;
+  out[8] = 0;
+  out[9] = 0;
+  out[10] = nf;
+  out[11] = 0;
+  out[12] = (left + right) * lr;
+  out[13] = (top + bottom) * bt;
+  out[14] = near * nf;
+  out[15] = 1;
+  return out;
+}
+function lookAt(out, eye, center, up) {
+  var x0, x1, x2, y0, y1, y2, z0, z1, z2, len5;
+  var eyex = eye[0];
+  var eyey = eye[1];
+  var eyez = eye[2];
+  var upx = up[0];
+  var upy = up[1];
+  var upz = up[2];
+  var centerx = center[0];
+  var centery = center[1];
+  var centerz = center[2];
+  if (Math.abs(eyex - centerx) < EPSILON && Math.abs(eyey - centery) < EPSILON && Math.abs(eyez - centerz) < EPSILON) {
+    return identity(out);
+  }
+  z0 = eyex - centerx;
+  z1 = eyey - centery;
+  z2 = eyez - centerz;
+  len5 = 1 / Math.hypot(z0, z1, z2);
+  z0 *= len5;
+  z1 *= len5;
+  z2 *= len5;
+  x0 = upy * z2 - upz * z1;
+  x1 = upz * z0 - upx * z2;
+  x2 = upx * z1 - upy * z0;
+  len5 = Math.hypot(x0, x1, x2);
+  if (!len5) {
+    x0 = 0;
+    x1 = 0;
+    x2 = 0;
+  } else {
+    len5 = 1 / len5;
+    x0 *= len5;
+    x1 *= len5;
+    x2 *= len5;
+  }
+  y0 = z1 * x2 - z2 * x1;
+  y1 = z2 * x0 - z0 * x2;
+  y2 = z0 * x1 - z1 * x0;
+  len5 = Math.hypot(y0, y1, y2);
+  if (!len5) {
+    y0 = 0;
+    y1 = 0;
+    y2 = 0;
+  } else {
+    len5 = 1 / len5;
+    y0 *= len5;
+    y1 *= len5;
+    y2 *= len5;
+  }
+  out[0] = x0;
+  out[1] = y0;
+  out[2] = z0;
+  out[3] = 0;
+  out[4] = x1;
+  out[5] = y1;
+  out[6] = z1;
+  out[7] = 0;
+  out[8] = x2;
+  out[9] = y2;
+  out[10] = z2;
+  out[11] = 0;
+  out[12] = -(x0 * eyex + x1 * eyey + x2 * eyez);
+  out[13] = -(y0 * eyex + y1 * eyey + y2 * eyez);
+  out[14] = -(z0 * eyex + z1 * eyey + z2 * eyez);
+  out[15] = 1;
+  return out;
+}
+function targetTo(out, eye, target, up) {
+  var eyex = eye[0], eyey = eye[1], eyez = eye[2], upx = up[0], upy = up[1], upz = up[2];
+  var z0 = eyex - target[0], z1 = eyey - target[1], z2 = eyez - target[2];
+  var len5 = z0 * z0 + z1 * z1 + z2 * z2;
+  if (len5 > 0) {
+    len5 = 1 / Math.sqrt(len5);
+    z0 *= len5;
+    z1 *= len5;
+    z2 *= len5;
+  }
+  var x0 = upy * z2 - upz * z1, x1 = upz * z0 - upx * z2, x2 = upx * z1 - upy * z0;
+  len5 = x0 * x0 + x1 * x1 + x2 * x2;
+  if (len5 > 0) {
+    len5 = 1 / Math.sqrt(len5);
+    x0 *= len5;
+    x1 *= len5;
+    x2 *= len5;
+  }
+  out[0] = x0;
+  out[1] = x1;
+  out[2] = x2;
+  out[3] = 0;
+  out[4] = z1 * x2 - z2 * x1;
+  out[5] = z2 * x0 - z0 * x2;
+  out[6] = z0 * x1 - z1 * x0;
+  out[7] = 0;
+  out[8] = z0;
+  out[9] = z1;
+  out[10] = z2;
+  out[11] = 0;
+  out[12] = eyex;
+  out[13] = eyey;
+  out[14] = eyez;
+  out[15] = 1;
+  return out;
+}
+function str(a) {
+  return "mat4(" + a[0] + ", " + a[1] + ", " + a[2] + ", " + a[3] + ", " + a[4] + ", " + a[5] + ", " + a[6] + ", " + a[7] + ", " + a[8] + ", " + a[9] + ", " + a[10] + ", " + a[11] + ", " + a[12] + ", " + a[13] + ", " + a[14] + ", " + a[15] + ")";
+}
+function frob(a) {
+  return Math.hypot(a[0], a[1], a[2], a[3], a[4], a[5], a[6], a[7], a[8], a[9], a[10], a[11], a[12], a[13], a[14], a[15]);
+}
+function add(out, a, b) {
+  out[0] = a[0] + b[0];
+  out[1] = a[1] + b[1];
+  out[2] = a[2] + b[2];
+  out[3] = a[3] + b[3];
+  out[4] = a[4] + b[4];
+  out[5] = a[5] + b[5];
+  out[6] = a[6] + b[6];
+  out[7] = a[7] + b[7];
+  out[8] = a[8] + b[8];
+  out[9] = a[9] + b[9];
+  out[10] = a[10] + b[10];
+  out[11] = a[11] + b[11];
+  out[12] = a[12] + b[12];
+  out[13] = a[13] + b[13];
+  out[14] = a[14] + b[14];
+  out[15] = a[15] + b[15];
+  return out;
+}
+function subtract(out, a, b) {
+  out[0] = a[0] - b[0];
+  out[1] = a[1] - b[1];
+  out[2] = a[2] - b[2];
+  out[3] = a[3] - b[3];
+  out[4] = a[4] - b[4];
+  out[5] = a[5] - b[5];
+  out[6] = a[6] - b[6];
+  out[7] = a[7] - b[7];
+  out[8] = a[8] - b[8];
+  out[9] = a[9] - b[9];
+  out[10] = a[10] - b[10];
+  out[11] = a[11] - b[11];
+  out[12] = a[12] - b[12];
+  out[13] = a[13] - b[13];
+  out[14] = a[14] - b[14];
+  out[15] = a[15] - b[15];
+  return out;
+}
+function multiplyScalar(out, a, b) {
+  out[0] = a[0] * b;
+  out[1] = a[1] * b;
+  out[2] = a[2] * b;
+  out[3] = a[3] * b;
+  out[4] = a[4] * b;
+  out[5] = a[5] * b;
+  out[6] = a[6] * b;
+  out[7] = a[7] * b;
+  out[8] = a[8] * b;
+  out[9] = a[9] * b;
+  out[10] = a[10] * b;
+  out[11] = a[11] * b;
+  out[12] = a[12] * b;
+  out[13] = a[13] * b;
+  out[14] = a[14] * b;
+  out[15] = a[15] * b;
+  return out;
+}
+function multiplyScalarAndAdd(out, a, b, scale6) {
+  out[0] = a[0] + b[0] * scale6;
+  out[1] = a[1] + b[1] * scale6;
+  out[2] = a[2] + b[2] * scale6;
+  out[3] = a[3] + b[3] * scale6;
+  out[4] = a[4] + b[4] * scale6;
+  out[5] = a[5] + b[5] * scale6;
+  out[6] = a[6] + b[6] * scale6;
+  out[7] = a[7] + b[7] * scale6;
+  out[8] = a[8] + b[8] * scale6;
+  out[9] = a[9] + b[9] * scale6;
+  out[10] = a[10] + b[10] * scale6;
+  out[11] = a[11] + b[11] * scale6;
+  out[12] = a[12] + b[12] * scale6;
+  out[13] = a[13] + b[13] * scale6;
+  out[14] = a[14] + b[14] * scale6;
+  out[15] = a[15] + b[15] * scale6;
+  return out;
+}
+function exactEquals(a, b) {
+  return a[0] === b[0] && a[1] === b[1] && a[2] === b[2] && a[3] === b[3] && a[4] === b[4] && a[5] === b[5] && a[6] === b[6] && a[7] === b[7] && a[8] === b[8] && a[9] === b[9] && a[10] === b[10] && a[11] === b[11] && a[12] === b[12] && a[13] === b[13] && a[14] === b[14] && a[15] === b[15];
+}
+function equals(a, b) {
+  var a0 = a[0], a1 = a[1], a2 = a[2], a3 = a[3];
+  var a4 = a[4], a5 = a[5], a6 = a[6], a7 = a[7];
+  var a8 = a[8], a9 = a[9], a10 = a[10], a11 = a[11];
+  var a12 = a[12], a13 = a[13], a14 = a[14], a15 = a[15];
+  var b0 = b[0], b1 = b[1], b2 = b[2], b3 = b[3];
+  var b4 = b[4], b5 = b[5], b6 = b[6], b7 = b[7];
+  var b8 = b[8], b9 = b[9], b10 = b[10], b11 = b[11];
+  var b12 = b[12], b13 = b[13], b14 = b[14], b15 = b[15];
+  return Math.abs(a0 - b0) <= EPSILON * Math.max(1, Math.abs(a0), Math.abs(b0)) && Math.abs(a1 - b1) <= EPSILON * Math.max(1, Math.abs(a1), Math.abs(b1)) && Math.abs(a2 - b2) <= EPSILON * Math.max(1, Math.abs(a2), Math.abs(b2)) && Math.abs(a3 - b3) <= EPSILON * Math.max(1, Math.abs(a3), Math.abs(b3)) && Math.abs(a4 - b4) <= EPSILON * Math.max(1, Math.abs(a4), Math.abs(b4)) && Math.abs(a5 - b5) <= EPSILON * Math.max(1, Math.abs(a5), Math.abs(b5)) && Math.abs(a6 - b6) <= EPSILON * Math.max(1, Math.abs(a6), Math.abs(b6)) && Math.abs(a7 - b7) <= EPSILON * Math.max(1, Math.abs(a7), Math.abs(b7)) && Math.abs(a8 - b8) <= EPSILON * Math.max(1, Math.abs(a8), Math.abs(b8)) && Math.abs(a9 - b9) <= EPSILON * Math.max(1, Math.abs(a9), Math.abs(b9)) && Math.abs(a10 - b10) <= EPSILON * Math.max(1, Math.abs(a10), Math.abs(b10)) && Math.abs(a11 - b11) <= EPSILON * Math.max(1, Math.abs(a11), Math.abs(b11)) && Math.abs(a12 - b12) <= EPSILON * Math.max(1, Math.abs(a12), Math.abs(b12)) && Math.abs(a13 - b13) <= EPSILON * Math.max(1, Math.abs(a13), Math.abs(b13)) && Math.abs(a14 - b14) <= EPSILON * Math.max(1, Math.abs(a14), Math.abs(b14)) && Math.abs(a15 - b15) <= EPSILON * Math.max(1, Math.abs(a15), Math.abs(b15));
+}
+var mul = multiply;
+var sub = subtract;
+
+// node_modules/gl-matrix/esm/quat.js
+var quat_exports = {};
+__export(quat_exports, {
+  add: () => add4,
+  calculateW: () => calculateW,
+  clone: () => clone4,
+  conjugate: () => conjugate,
+  copy: () => copy4,
+  create: () => create5,
+  dot: () => dot3,
+  equals: () => equals4,
+  exactEquals: () => exactEquals4,
+  exp: () => exp,
+  fromEuler: () => fromEuler,
+  fromMat3: () => fromMat3,
+  fromValues: () => fromValues4,
+  getAngle: () => getAngle,
+  getAxisAngle: () => getAxisAngle,
+  identity: () => identity2,
+  invert: () => invert2,
+  len: () => len3,
+  length: () => length3,
+  lerp: () => lerp3,
+  ln: () => ln,
+  mul: () => mul4,
+  multiply: () => multiply4,
+  normalize: () => normalize3,
+  pow: () => pow,
+  random: () => random3,
+  rotateX: () => rotateX3,
+  rotateY: () => rotateY3,
+  rotateZ: () => rotateZ3,
+  rotationTo: () => rotationTo,
+  scale: () => scale4,
+  set: () => set4,
+  setAxes: () => setAxes,
+  setAxisAngle: () => setAxisAngle,
+  slerp: () => slerp,
+  sqlerp: () => sqlerp,
+  sqrLen: () => sqrLen3,
+  squaredLength: () => squaredLength3,
+  str: () => str4
+});
+
+// node_modules/gl-matrix/esm/vec3.js
+var vec3_exports = {};
+__export(vec3_exports, {
+  add: () => add2,
+  angle: () => angle,
+  bezier: () => bezier,
+  ceil: () => ceil,
+  clone: () => clone2,
+  copy: () => copy2,
+  create: () => create3,
+  cross: () => cross,
+  dist: () => dist,
+  distance: () => distance,
+  div: () => div,
+  divide: () => divide,
+  dot: () => dot,
+  equals: () => equals2,
+  exactEquals: () => exactEquals2,
+  floor: () => floor,
+  forEach: () => forEach,
+  fromValues: () => fromValues2,
+  hermite: () => hermite,
+  inverse: () => inverse,
+  len: () => len,
+  length: () => length,
+  lerp: () => lerp,
+  max: () => max,
+  min: () => min,
+  mul: () => mul2,
+  multiply: () => multiply2,
+  negate: () => negate,
+  normalize: () => normalize,
+  random: () => random,
+  rotateX: () => rotateX2,
+  rotateY: () => rotateY2,
+  rotateZ: () => rotateZ2,
+  round: () => round,
+  scale: () => scale2,
+  scaleAndAdd: () => scaleAndAdd,
+  set: () => set2,
+  sqrDist: () => sqrDist,
+  sqrLen: () => sqrLen,
+  squaredDistance: () => squaredDistance,
+  squaredLength: () => squaredLength,
+  str: () => str2,
+  sub: () => sub2,
+  subtract: () => subtract2,
+  transformMat3: () => transformMat3,
+  transformMat4: () => transformMat4,
+  transformQuat: () => transformQuat,
+  zero: () => zero
+});
+function create3() {
+  var out = new ARRAY_TYPE(3);
+  if (ARRAY_TYPE != Float32Array) {
+    out[0] = 0;
+    out[1] = 0;
+    out[2] = 0;
+  }
+  return out;
+}
+function clone2(a) {
+  var out = new ARRAY_TYPE(3);
+  out[0] = a[0];
+  out[1] = a[1];
+  out[2] = a[2];
+  return out;
+}
+function length(a) {
+  var x = a[0];
+  var y = a[1];
+  var z = a[2];
+  return Math.hypot(x, y, z);
+}
+function fromValues2(x, y, z) {
+  var out = new ARRAY_TYPE(3);
+  out[0] = x;
+  out[1] = y;
+  out[2] = z;
+  return out;
+}
+function copy2(out, a) {
+  out[0] = a[0];
+  out[1] = a[1];
+  out[2] = a[2];
+  return out;
+}
+function set2(out, x, y, z) {
+  out[0] = x;
+  out[1] = y;
+  out[2] = z;
+  return out;
+}
+function add2(out, a, b) {
+  out[0] = a[0] + b[0];
+  out[1] = a[1] + b[1];
+  out[2] = a[2] + b[2];
+  return out;
+}
+function subtract2(out, a, b) {
+  out[0] = a[0] - b[0];
+  out[1] = a[1] - b[1];
+  out[2] = a[2] - b[2];
+  return out;
+}
+function multiply2(out, a, b) {
+  out[0] = a[0] * b[0];
+  out[1] = a[1] * b[1];
+  out[2] = a[2] * b[2];
+  return out;
+}
+function divide(out, a, b) {
+  out[0] = a[0] / b[0];
+  out[1] = a[1] / b[1];
+  out[2] = a[2] / b[2];
+  return out;
+}
+function ceil(out, a) {
+  out[0] = Math.ceil(a[0]);
+  out[1] = Math.ceil(a[1]);
+  out[2] = Math.ceil(a[2]);
+  return out;
+}
+function floor(out, a) {
+  out[0] = Math.floor(a[0]);
+  out[1] = Math.floor(a[1]);
+  out[2] = Math.floor(a[2]);
+  return out;
+}
+function min(out, a, b) {
+  out[0] = Math.min(a[0], b[0]);
+  out[1] = Math.min(a[1], b[1]);
+  out[2] = Math.min(a[2], b[2]);
+  return out;
+}
+function max(out, a, b) {
+  out[0] = Math.max(a[0], b[0]);
+  out[1] = Math.max(a[1], b[1]);
+  out[2] = Math.max(a[2], b[2]);
+  return out;
+}
+function round(out, a) {
+  out[0] = Math.round(a[0]);
+  out[1] = Math.round(a[1]);
+  out[2] = Math.round(a[2]);
+  return out;
+}
+function scale2(out, a, b) {
+  out[0] = a[0] * b;
+  out[1] = a[1] * b;
+  out[2] = a[2] * b;
+  return out;
+}
+function scaleAndAdd(out, a, b, scale6) {
+  out[0] = a[0] + b[0] * scale6;
+  out[1] = a[1] + b[1] * scale6;
+  out[2] = a[2] + b[2] * scale6;
+  return out;
+}
+function distance(a, b) {
+  var x = b[0] - a[0];
+  var y = b[1] - a[1];
+  var z = b[2] - a[2];
+  return Math.hypot(x, y, z);
+}
+function squaredDistance(a, b) {
+  var x = b[0] - a[0];
+  var y = b[1] - a[1];
+  var z = b[2] - a[2];
+  return x * x + y * y + z * z;
+}
+function squaredLength(a) {
+  var x = a[0];
+  var y = a[1];
+  var z = a[2];
+  return x * x + y * y + z * z;
+}
+function negate(out, a) {
+  out[0] = -a[0];
+  out[1] = -a[1];
+  out[2] = -a[2];
+  return out;
+}
+function inverse(out, a) {
+  out[0] = 1 / a[0];
+  out[1] = 1 / a[1];
+  out[2] = 1 / a[2];
+  return out;
+}
+function normalize(out, a) {
+  var x = a[0];
+  var y = a[1];
+  var z = a[2];
+  var len5 = x * x + y * y + z * z;
+  if (len5 > 0) {
+    len5 = 1 / Math.sqrt(len5);
+  }
+  out[0] = a[0] * len5;
+  out[1] = a[1] * len5;
+  out[2] = a[2] * len5;
+  return out;
+}
+function dot(a, b) {
+  return a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
+}
+function cross(out, a, b) {
+  var ax = a[0], ay = a[1], az = a[2];
+  var bx = b[0], by = b[1], bz = b[2];
+  out[0] = ay * bz - az * by;
+  out[1] = az * bx - ax * bz;
+  out[2] = ax * by - ay * bx;
+  return out;
+}
+function lerp(out, a, b, t) {
+  var ax = a[0];
+  var ay = a[1];
+  var az = a[2];
+  out[0] = ax + t * (b[0] - ax);
+  out[1] = ay + t * (b[1] - ay);
+  out[2] = az + t * (b[2] - az);
+  return out;
+}
+function hermite(out, a, b, c, d, t) {
+  var factorTimes2 = t * t;
+  var factor1 = factorTimes2 * (2 * t - 3) + 1;
+  var factor2 = factorTimes2 * (t - 2) + t;
+  var factor3 = factorTimes2 * (t - 1);
+  var factor4 = factorTimes2 * (3 - 2 * t);
+  out[0] = a[0] * factor1 + b[0] * factor2 + c[0] * factor3 + d[0] * factor4;
+  out[1] = a[1] * factor1 + b[1] * factor2 + c[1] * factor3 + d[1] * factor4;
+  out[2] = a[2] * factor1 + b[2] * factor2 + c[2] * factor3 + d[2] * factor4;
+  return out;
+}
+function bezier(out, a, b, c, d, t) {
+  var inverseFactor = 1 - t;
+  var inverseFactorTimesTwo = inverseFactor * inverseFactor;
+  var factorTimes2 = t * t;
+  var factor1 = inverseFactorTimesTwo * inverseFactor;
+  var factor2 = 3 * t * inverseFactorTimesTwo;
+  var factor3 = 3 * factorTimes2 * inverseFactor;
+  var factor4 = factorTimes2 * t;
+  out[0] = a[0] * factor1 + b[0] * factor2 + c[0] * factor3 + d[0] * factor4;
+  out[1] = a[1] * factor1 + b[1] * factor2 + c[1] * factor3 + d[1] * factor4;
+  out[2] = a[2] * factor1 + b[2] * factor2 + c[2] * factor3 + d[2] * factor4;
+  return out;
+}
+function random(out, scale6) {
+  scale6 = scale6 || 1;
+  var r = RANDOM() * 2 * Math.PI;
+  var z = RANDOM() * 2 - 1;
+  var zScale = Math.sqrt(1 - z * z) * scale6;
+  out[0] = Math.cos(r) * zScale;
+  out[1] = Math.sin(r) * zScale;
+  out[2] = z * scale6;
+  return out;
+}
+function transformMat4(out, a, m) {
+  var x = a[0], y = a[1], z = a[2];
+  var w = m[3] * x + m[7] * y + m[11] * z + m[15];
+  w = w || 1;
+  out[0] = (m[0] * x + m[4] * y + m[8] * z + m[12]) / w;
+  out[1] = (m[1] * x + m[5] * y + m[9] * z + m[13]) / w;
+  out[2] = (m[2] * x + m[6] * y + m[10] * z + m[14]) / w;
+  return out;
+}
+function transformMat3(out, a, m) {
+  var x = a[0], y = a[1], z = a[2];
+  out[0] = x * m[0] + y * m[3] + z * m[6];
+  out[1] = x * m[1] + y * m[4] + z * m[7];
+  out[2] = x * m[2] + y * m[5] + z * m[8];
+  return out;
+}
+function transformQuat(out, a, q) {
+  var qx = q[0], qy = q[1], qz = q[2], qw = q[3];
+  var x = a[0], y = a[1], z = a[2];
+  var uvx = qy * z - qz * y, uvy = qz * x - qx * z, uvz = qx * y - qy * x;
+  var uuvx = qy * uvz - qz * uvy, uuvy = qz * uvx - qx * uvz, uuvz = qx * uvy - qy * uvx;
+  var w2 = qw * 2;
+  uvx *= w2;
+  uvy *= w2;
+  uvz *= w2;
+  uuvx *= 2;
+  uuvy *= 2;
+  uuvz *= 2;
+  out[0] = x + uvx + uuvx;
+  out[1] = y + uvy + uuvy;
+  out[2] = z + uvz + uuvz;
+  return out;
+}
+function rotateX2(out, a, b, rad) {
+  var p = [], r = [];
+  p[0] = a[0] - b[0];
+  p[1] = a[1] - b[1];
+  p[2] = a[2] - b[2];
+  r[0] = p[0];
+  r[1] = p[1] * Math.cos(rad) - p[2] * Math.sin(rad);
+  r[2] = p[1] * Math.sin(rad) + p[2] * Math.cos(rad);
+  out[0] = r[0] + b[0];
+  out[1] = r[1] + b[1];
+  out[2] = r[2] + b[2];
+  return out;
+}
+function rotateY2(out, a, b, rad) {
+  var p = [], r = [];
+  p[0] = a[0] - b[0];
+  p[1] = a[1] - b[1];
+  p[2] = a[2] - b[2];
+  r[0] = p[2] * Math.sin(rad) + p[0] * Math.cos(rad);
+  r[1] = p[1];
+  r[2] = p[2] * Math.cos(rad) - p[0] * Math.sin(rad);
+  out[0] = r[0] + b[0];
+  out[1] = r[1] + b[1];
+  out[2] = r[2] + b[2];
+  return out;
+}
+function rotateZ2(out, a, b, rad) {
+  var p = [], r = [];
+  p[0] = a[0] - b[0];
+  p[1] = a[1] - b[1];
+  p[2] = a[2] - b[2];
+  r[0] = p[0] * Math.cos(rad) - p[1] * Math.sin(rad);
+  r[1] = p[0] * Math.sin(rad) + p[1] * Math.cos(rad);
+  r[2] = p[2];
+  out[0] = r[0] + b[0];
+  out[1] = r[1] + b[1];
+  out[2] = r[2] + b[2];
+  return out;
+}
+function angle(a, b) {
+  var ax = a[0], ay = a[1], az = a[2], bx = b[0], by = b[1], bz = b[2], mag1 = Math.sqrt(ax * ax + ay * ay + az * az), mag2 = Math.sqrt(bx * bx + by * by + bz * bz), mag = mag1 * mag2, cosine = mag && dot(a, b) / mag;
+  return Math.acos(Math.min(Math.max(cosine, -1), 1));
+}
+function zero(out) {
+  out[0] = 0;
+  out[1] = 0;
+  out[2] = 0;
+  return out;
+}
+function str2(a) {
+  return "vec3(" + a[0] + ", " + a[1] + ", " + a[2] + ")";
+}
+function exactEquals2(a, b) {
+  return a[0] === b[0] && a[1] === b[1] && a[2] === b[2];
+}
+function equals2(a, b) {
+  var a0 = a[0], a1 = a[1], a2 = a[2];
+  var b0 = b[0], b1 = b[1], b2 = b[2];
+  return Math.abs(a0 - b0) <= EPSILON * Math.max(1, Math.abs(a0), Math.abs(b0)) && Math.abs(a1 - b1) <= EPSILON * Math.max(1, Math.abs(a1), Math.abs(b1)) && Math.abs(a2 - b2) <= EPSILON * Math.max(1, Math.abs(a2), Math.abs(b2));
+}
+var sub2 = subtract2;
+var mul2 = multiply2;
+var div = divide;
+var dist = distance;
+var sqrDist = squaredDistance;
+var len = length;
+var sqrLen = squaredLength;
+var forEach = function() {
+  var vec = create3();
+  return function(a, stride, offset2, count, fn, arg) {
+    var i, l;
+    if (!stride) {
+      stride = 3;
+    }
+    if (!offset2) {
+      offset2 = 0;
+    }
+    if (count) {
+      l = Math.min(count * stride + offset2, a.length);
+    } else {
+      l = a.length;
+    }
+    for (i = offset2; i < l; i += stride) {
+      vec[0] = a[i];
+      vec[1] = a[i + 1];
+      vec[2] = a[i + 2];
+      fn(vec, vec, arg);
+      a[i] = vec[0];
+      a[i + 1] = vec[1];
+      a[i + 2] = vec[2];
+    }
+    return a;
+  };
+}();
+
+// node_modules/gl-matrix/esm/vec4.js
+var vec4_exports = {};
+__export(vec4_exports, {
+  add: () => add3,
+  ceil: () => ceil2,
+  clone: () => clone3,
+  copy: () => copy3,
+  create: () => create4,
+  cross: () => cross2,
+  dist: () => dist2,
+  distance: () => distance2,
+  div: () => div2,
+  divide: () => divide2,
+  dot: () => dot2,
+  equals: () => equals3,
+  exactEquals: () => exactEquals3,
+  floor: () => floor2,
+  forEach: () => forEach2,
+  fromValues: () => fromValues3,
+  inverse: () => inverse2,
+  len: () => len2,
+  length: () => length2,
+  lerp: () => lerp2,
+  max: () => max2,
+  min: () => min2,
+  mul: () => mul3,
+  multiply: () => multiply3,
+  negate: () => negate2,
+  normalize: () => normalize2,
+  random: () => random2,
+  round: () => round2,
+  scale: () => scale3,
+  scaleAndAdd: () => scaleAndAdd2,
+  set: () => set3,
+  sqrDist: () => sqrDist2,
+  sqrLen: () => sqrLen2,
+  squaredDistance: () => squaredDistance2,
+  squaredLength: () => squaredLength2,
+  str: () => str3,
+  sub: () => sub3,
+  subtract: () => subtract3,
+  transformMat4: () => transformMat42,
+  transformQuat: () => transformQuat2,
+  zero: () => zero2
+});
+function create4() {
+  var out = new ARRAY_TYPE(4);
+  if (ARRAY_TYPE != Float32Array) {
+    out[0] = 0;
+    out[1] = 0;
+    out[2] = 0;
+    out[3] = 0;
+  }
+  return out;
+}
+function clone3(a) {
+  var out = new ARRAY_TYPE(4);
+  out[0] = a[0];
+  out[1] = a[1];
+  out[2] = a[2];
+  out[3] = a[3];
+  return out;
+}
+function fromValues3(x, y, z, w) {
+  var out = new ARRAY_TYPE(4);
+  out[0] = x;
+  out[1] = y;
+  out[2] = z;
+  out[3] = w;
+  return out;
+}
+function copy3(out, a) {
+  out[0] = a[0];
+  out[1] = a[1];
+  out[2] = a[2];
+  out[3] = a[3];
+  return out;
+}
+function set3(out, x, y, z, w) {
+  out[0] = x;
+  out[1] = y;
+  out[2] = z;
+  out[3] = w;
+  return out;
+}
+function add3(out, a, b) {
+  out[0] = a[0] + b[0];
+  out[1] = a[1] + b[1];
+  out[2] = a[2] + b[2];
+  out[3] = a[3] + b[3];
+  return out;
+}
+function subtract3(out, a, b) {
+  out[0] = a[0] - b[0];
+  out[1] = a[1] - b[1];
+  out[2] = a[2] - b[2];
+  out[3] = a[3] - b[3];
+  return out;
+}
+function multiply3(out, a, b) {
+  out[0] = a[0] * b[0];
+  out[1] = a[1] * b[1];
+  out[2] = a[2] * b[2];
+  out[3] = a[3] * b[3];
+  return out;
+}
+function divide2(out, a, b) {
+  out[0] = a[0] / b[0];
+  out[1] = a[1] / b[1];
+  out[2] = a[2] / b[2];
+  out[3] = a[3] / b[3];
+  return out;
+}
+function ceil2(out, a) {
+  out[0] = Math.ceil(a[0]);
+  out[1] = Math.ceil(a[1]);
+  out[2] = Math.ceil(a[2]);
+  out[3] = Math.ceil(a[3]);
+  return out;
+}
+function floor2(out, a) {
+  out[0] = Math.floor(a[0]);
+  out[1] = Math.floor(a[1]);
+  out[2] = Math.floor(a[2]);
+  out[3] = Math.floor(a[3]);
+  return out;
+}
+function min2(out, a, b) {
+  out[0] = Math.min(a[0], b[0]);
+  out[1] = Math.min(a[1], b[1]);
+  out[2] = Math.min(a[2], b[2]);
+  out[3] = Math.min(a[3], b[3]);
+  return out;
+}
+function max2(out, a, b) {
+  out[0] = Math.max(a[0], b[0]);
+  out[1] = Math.max(a[1], b[1]);
+  out[2] = Math.max(a[2], b[2]);
+  out[3] = Math.max(a[3], b[3]);
+  return out;
+}
+function round2(out, a) {
+  out[0] = Math.round(a[0]);
+  out[1] = Math.round(a[1]);
+  out[2] = Math.round(a[2]);
+  out[3] = Math.round(a[3]);
+  return out;
+}
+function scale3(out, a, b) {
+  out[0] = a[0] * b;
+  out[1] = a[1] * b;
+  out[2] = a[2] * b;
+  out[3] = a[3] * b;
+  return out;
+}
+function scaleAndAdd2(out, a, b, scale6) {
+  out[0] = a[0] + b[0] * scale6;
+  out[1] = a[1] + b[1] * scale6;
+  out[2] = a[2] + b[2] * scale6;
+  out[3] = a[3] + b[3] * scale6;
+  return out;
+}
+function distance2(a, b) {
+  var x = b[0] - a[0];
+  var y = b[1] - a[1];
+  var z = b[2] - a[2];
+  var w = b[3] - a[3];
+  return Math.hypot(x, y, z, w);
+}
+function squaredDistance2(a, b) {
+  var x = b[0] - a[0];
+  var y = b[1] - a[1];
+  var z = b[2] - a[2];
+  var w = b[3] - a[3];
+  return x * x + y * y + z * z + w * w;
+}
+function length2(a) {
+  var x = a[0];
+  var y = a[1];
+  var z = a[2];
+  var w = a[3];
+  return Math.hypot(x, y, z, w);
+}
+function squaredLength2(a) {
+  var x = a[0];
+  var y = a[1];
+  var z = a[2];
+  var w = a[3];
+  return x * x + y * y + z * z + w * w;
+}
+function negate2(out, a) {
+  out[0] = -a[0];
+  out[1] = -a[1];
+  out[2] = -a[2];
+  out[3] = -a[3];
+  return out;
+}
+function inverse2(out, a) {
+  out[0] = 1 / a[0];
+  out[1] = 1 / a[1];
+  out[2] = 1 / a[2];
+  out[3] = 1 / a[3];
+  return out;
+}
+function normalize2(out, a) {
+  var x = a[0];
+  var y = a[1];
+  var z = a[2];
+  var w = a[3];
+  var len5 = x * x + y * y + z * z + w * w;
+  if (len5 > 0) {
+    len5 = 1 / Math.sqrt(len5);
+  }
+  out[0] = x * len5;
+  out[1] = y * len5;
+  out[2] = z * len5;
+  out[3] = w * len5;
+  return out;
+}
+function dot2(a, b) {
+  return a[0] * b[0] + a[1] * b[1] + a[2] * b[2] + a[3] * b[3];
+}
+function cross2(out, u, v, w) {
+  var A = v[0] * w[1] - v[1] * w[0], B = v[0] * w[2] - v[2] * w[0], C = v[0] * w[3] - v[3] * w[0], D = v[1] * w[2] - v[2] * w[1], E = v[1] * w[3] - v[3] * w[1], F = v[2] * w[3] - v[3] * w[2];
+  var G = u[0];
+  var H = u[1];
+  var I = u[2];
+  var J = u[3];
+  out[0] = H * F - I * E + J * D;
+  out[1] = -(G * F) + I * C - J * B;
+  out[2] = G * E - H * C + J * A;
+  out[3] = -(G * D) + H * B - I * A;
+  return out;
+}
+function lerp2(out, a, b, t) {
+  var ax = a[0];
+  var ay = a[1];
+  var az = a[2];
+  var aw = a[3];
+  out[0] = ax + t * (b[0] - ax);
+  out[1] = ay + t * (b[1] - ay);
+  out[2] = az + t * (b[2] - az);
+  out[3] = aw + t * (b[3] - aw);
+  return out;
+}
+function random2(out, scale6) {
+  scale6 = scale6 || 1;
+  var v1, v2, v3, v4;
+  var s1, s2;
+  do {
+    v1 = RANDOM() * 2 - 1;
+    v2 = RANDOM() * 2 - 1;
+    s1 = v1 * v1 + v2 * v2;
+  } while (s1 >= 1);
+  do {
+    v3 = RANDOM() * 2 - 1;
+    v4 = RANDOM() * 2 - 1;
+    s2 = v3 * v3 + v4 * v4;
+  } while (s2 >= 1);
+  var d = Math.sqrt((1 - s1) / s2);
+  out[0] = scale6 * v1;
+  out[1] = scale6 * v2;
+  out[2] = scale6 * v3 * d;
+  out[3] = scale6 * v4 * d;
+  return out;
+}
+function transformMat42(out, a, m) {
+  var x = a[0], y = a[1], z = a[2], w = a[3];
+  out[0] = m[0] * x + m[4] * y + m[8] * z + m[12] * w;
+  out[1] = m[1] * x + m[5] * y + m[9] * z + m[13] * w;
+  out[2] = m[2] * x + m[6] * y + m[10] * z + m[14] * w;
+  out[3] = m[3] * x + m[7] * y + m[11] * z + m[15] * w;
+  return out;
+}
+function transformQuat2(out, a, q) {
+  var x = a[0], y = a[1], z = a[2];
+  var qx = q[0], qy = q[1], qz = q[2], qw = q[3];
+  var ix = qw * x + qy * z - qz * y;
+  var iy = qw * y + qz * x - qx * z;
+  var iz = qw * z + qx * y - qy * x;
+  var iw = -qx * x - qy * y - qz * z;
+  out[0] = ix * qw + iw * -qx + iy * -qz - iz * -qy;
+  out[1] = iy * qw + iw * -qy + iz * -qx - ix * -qz;
+  out[2] = iz * qw + iw * -qz + ix * -qy - iy * -qx;
+  out[3] = a[3];
+  return out;
+}
+function zero2(out) {
+  out[0] = 0;
+  out[1] = 0;
+  out[2] = 0;
+  out[3] = 0;
+  return out;
+}
+function str3(a) {
+  return "vec4(" + a[0] + ", " + a[1] + ", " + a[2] + ", " + a[3] + ")";
+}
+function exactEquals3(a, b) {
+  return a[0] === b[0] && a[1] === b[1] && a[2] === b[2] && a[3] === b[3];
+}
+function equals3(a, b) {
+  var a0 = a[0], a1 = a[1], a2 = a[2], a3 = a[3];
+  var b0 = b[0], b1 = b[1], b2 = b[2], b3 = b[3];
+  return Math.abs(a0 - b0) <= EPSILON * Math.max(1, Math.abs(a0), Math.abs(b0)) && Math.abs(a1 - b1) <= EPSILON * Math.max(1, Math.abs(a1), Math.abs(b1)) && Math.abs(a2 - b2) <= EPSILON * Math.max(1, Math.abs(a2), Math.abs(b2)) && Math.abs(a3 - b3) <= EPSILON * Math.max(1, Math.abs(a3), Math.abs(b3));
+}
+var sub3 = subtract3;
+var mul3 = multiply3;
+var div2 = divide2;
+var dist2 = distance2;
+var sqrDist2 = squaredDistance2;
+var len2 = length2;
+var sqrLen2 = squaredLength2;
+var forEach2 = function() {
+  var vec = create4();
+  return function(a, stride, offset2, count, fn, arg) {
+    var i, l;
+    if (!stride) {
+      stride = 4;
+    }
+    if (!offset2) {
+      offset2 = 0;
+    }
+    if (count) {
+      l = Math.min(count * stride + offset2, a.length);
+    } else {
+      l = a.length;
+    }
+    for (i = offset2; i < l; i += stride) {
+      vec[0] = a[i];
+      vec[1] = a[i + 1];
+      vec[2] = a[i + 2];
+      vec[3] = a[i + 3];
+      fn(vec, vec, arg);
+      a[i] = vec[0];
+      a[i + 1] = vec[1];
+      a[i + 2] = vec[2];
+      a[i + 3] = vec[3];
+    }
+    return a;
+  };
+}();
+
+// node_modules/gl-matrix/esm/quat.js
+function create5() {
+  var out = new ARRAY_TYPE(4);
+  if (ARRAY_TYPE != Float32Array) {
+    out[0] = 0;
+    out[1] = 0;
+    out[2] = 0;
+  }
+  out[3] = 1;
+  return out;
+}
+function identity2(out) {
+  out[0] = 0;
+  out[1] = 0;
+  out[2] = 0;
+  out[3] = 1;
+  return out;
+}
+function setAxisAngle(out, axis, rad) {
+  rad = rad * 0.5;
+  var s = Math.sin(rad);
+  out[0] = s * axis[0];
+  out[1] = s * axis[1];
+  out[2] = s * axis[2];
+  out[3] = Math.cos(rad);
+  return out;
+}
+function getAxisAngle(out_axis, q) {
+  var rad = Math.acos(q[3]) * 2;
+  var s = Math.sin(rad / 2);
+  if (s > EPSILON) {
+    out_axis[0] = q[0] / s;
+    out_axis[1] = q[1] / s;
+    out_axis[2] = q[2] / s;
+  } else {
+    out_axis[0] = 1;
+    out_axis[1] = 0;
+    out_axis[2] = 0;
+  }
+  return rad;
+}
+function getAngle(a, b) {
+  var dotproduct = dot3(a, b);
+  return Math.acos(2 * dotproduct * dotproduct - 1);
+}
+function multiply4(out, a, b) {
+  var ax = a[0], ay = a[1], az = a[2], aw = a[3];
+  var bx = b[0], by = b[1], bz = b[2], bw = b[3];
+  out[0] = ax * bw + aw * bx + ay * bz - az * by;
+  out[1] = ay * bw + aw * by + az * bx - ax * bz;
+  out[2] = az * bw + aw * bz + ax * by - ay * bx;
+  out[3] = aw * bw - ax * bx - ay * by - az * bz;
+  return out;
+}
+function rotateX3(out, a, rad) {
+  rad *= 0.5;
+  var ax = a[0], ay = a[1], az = a[2], aw = a[3];
+  var bx = Math.sin(rad), bw = Math.cos(rad);
+  out[0] = ax * bw + aw * bx;
+  out[1] = ay * bw + az * bx;
+  out[2] = az * bw - ay * bx;
+  out[3] = aw * bw - ax * bx;
+  return out;
+}
+function rotateY3(out, a, rad) {
+  rad *= 0.5;
+  var ax = a[0], ay = a[1], az = a[2], aw = a[3];
+  var by = Math.sin(rad), bw = Math.cos(rad);
+  out[0] = ax * bw - az * by;
+  out[1] = ay * bw + aw * by;
+  out[2] = az * bw + ax * by;
+  out[3] = aw * bw - ay * by;
+  return out;
+}
+function rotateZ3(out, a, rad) {
+  rad *= 0.5;
+  var ax = a[0], ay = a[1], az = a[2], aw = a[3];
+  var bz = Math.sin(rad), bw = Math.cos(rad);
+  out[0] = ax * bw + ay * bz;
+  out[1] = ay * bw - ax * bz;
+  out[2] = az * bw + aw * bz;
+  out[3] = aw * bw - az * bz;
+  return out;
+}
+function calculateW(out, a) {
+  var x = a[0], y = a[1], z = a[2];
+  out[0] = x;
+  out[1] = y;
+  out[2] = z;
+  out[3] = Math.sqrt(Math.abs(1 - x * x - y * y - z * z));
+  return out;
+}
+function exp(out, a) {
+  var x = a[0], y = a[1], z = a[2], w = a[3];
+  var r = Math.sqrt(x * x + y * y + z * z);
+  var et = Math.exp(w);
+  var s = r > 0 ? et * Math.sin(r) / r : 0;
+  out[0] = x * s;
+  out[1] = y * s;
+  out[2] = z * s;
+  out[3] = et * Math.cos(r);
+  return out;
+}
+function ln(out, a) {
+  var x = a[0], y = a[1], z = a[2], w = a[3];
+  var r = Math.sqrt(x * x + y * y + z * z);
+  var t = r > 0 ? Math.atan2(r, w) / r : 0;
+  out[0] = x * t;
+  out[1] = y * t;
+  out[2] = z * t;
+  out[3] = 0.5 * Math.log(x * x + y * y + z * z + w * w);
+  return out;
+}
+function pow(out, a, b) {
+  ln(out, a);
+  scale4(out, out, b);
+  exp(out, out);
+  return out;
+}
+function slerp(out, a, b, t) {
+  var ax = a[0], ay = a[1], az = a[2], aw = a[3];
+  var bx = b[0], by = b[1], bz = b[2], bw = b[3];
+  var omega, cosom, sinom, scale0, scale1;
+  cosom = ax * bx + ay * by + az * bz + aw * bw;
+  if (cosom < 0) {
+    cosom = -cosom;
+    bx = -bx;
+    by = -by;
+    bz = -bz;
+    bw = -bw;
+  }
+  if (1 - cosom > EPSILON) {
+    omega = Math.acos(cosom);
+    sinom = Math.sin(omega);
+    scale0 = Math.sin((1 - t) * omega) / sinom;
+    scale1 = Math.sin(t * omega) / sinom;
+  } else {
+    scale0 = 1 - t;
+    scale1 = t;
+  }
+  out[0] = scale0 * ax + scale1 * bx;
+  out[1] = scale0 * ay + scale1 * by;
+  out[2] = scale0 * az + scale1 * bz;
+  out[3] = scale0 * aw + scale1 * bw;
+  return out;
+}
+function random3(out) {
+  var u1 = RANDOM();
+  var u2 = RANDOM();
+  var u3 = RANDOM();
+  var sqrt1MinusU1 = Math.sqrt(1 - u1);
+  var sqrtU1 = Math.sqrt(u1);
+  out[0] = sqrt1MinusU1 * Math.sin(2 * Math.PI * u2);
+  out[1] = sqrt1MinusU1 * Math.cos(2 * Math.PI * u2);
+  out[2] = sqrtU1 * Math.sin(2 * Math.PI * u3);
+  out[3] = sqrtU1 * Math.cos(2 * Math.PI * u3);
+  return out;
+}
+function invert2(out, a) {
+  var a0 = a[0], a1 = a[1], a2 = a[2], a3 = a[3];
+  var dot5 = a0 * a0 + a1 * a1 + a2 * a2 + a3 * a3;
+  var invDot = dot5 ? 1 / dot5 : 0;
+  out[0] = -a0 * invDot;
+  out[1] = -a1 * invDot;
+  out[2] = -a2 * invDot;
+  out[3] = a3 * invDot;
+  return out;
+}
+function conjugate(out, a) {
+  out[0] = -a[0];
+  out[1] = -a[1];
+  out[2] = -a[2];
+  out[3] = a[3];
+  return out;
+}
+function fromMat3(out, m) {
+  var fTrace = m[0] + m[4] + m[8];
+  var fRoot;
+  if (fTrace > 0) {
+    fRoot = Math.sqrt(fTrace + 1);
+    out[3] = 0.5 * fRoot;
+    fRoot = 0.5 / fRoot;
+    out[0] = (m[5] - m[7]) * fRoot;
+    out[1] = (m[6] - m[2]) * fRoot;
+    out[2] = (m[1] - m[3]) * fRoot;
+  } else {
+    var i = 0;
+    if (m[4] > m[0])
+      i = 1;
+    if (m[8] > m[i * 3 + i])
+      i = 2;
+    var j = (i + 1) % 3;
+    var k = (i + 2) % 3;
+    fRoot = Math.sqrt(m[i * 3 + i] - m[j * 3 + j] - m[k * 3 + k] + 1);
+    out[i] = 0.5 * fRoot;
+    fRoot = 0.5 / fRoot;
+    out[3] = (m[j * 3 + k] - m[k * 3 + j]) * fRoot;
+    out[j] = (m[j * 3 + i] + m[i * 3 + j]) * fRoot;
+    out[k] = (m[k * 3 + i] + m[i * 3 + k]) * fRoot;
+  }
+  return out;
+}
+function fromEuler(out, x, y, z) {
+  var halfToRad = 0.5 * Math.PI / 180;
+  x *= halfToRad;
+  y *= halfToRad;
+  z *= halfToRad;
+  var sx = Math.sin(x);
+  var cx = Math.cos(x);
+  var sy = Math.sin(y);
+  var cy = Math.cos(y);
+  var sz = Math.sin(z);
+  var cz = Math.cos(z);
+  out[0] = sx * cy * cz - cx * sy * sz;
+  out[1] = cx * sy * cz + sx * cy * sz;
+  out[2] = cx * cy * sz - sx * sy * cz;
+  out[3] = cx * cy * cz + sx * sy * sz;
+  return out;
+}
+function str4(a) {
+  return "quat(" + a[0] + ", " + a[1] + ", " + a[2] + ", " + a[3] + ")";
+}
+var clone4 = clone3;
+var fromValues4 = fromValues3;
+var copy4 = copy3;
+var set4 = set3;
+var add4 = add3;
+var mul4 = multiply4;
+var scale4 = scale3;
+var dot3 = dot2;
+var lerp3 = lerp2;
+var length3 = length2;
+var len3 = length3;
+var squaredLength3 = squaredLength2;
+var sqrLen3 = squaredLength3;
+var normalize3 = normalize2;
+var exactEquals4 = exactEquals3;
+var equals4 = equals3;
+var rotationTo = function() {
+  var tmpvec3 = create3();
+  var xUnitVec3 = fromValues2(1, 0, 0);
+  var yUnitVec3 = fromValues2(0, 1, 0);
+  return function(out, a, b) {
+    var dot5 = dot(a, b);
+    if (dot5 < -0.999999) {
+      cross(tmpvec3, xUnitVec3, a);
+      if (len(tmpvec3) < 1e-6)
+        cross(tmpvec3, yUnitVec3, a);
+      normalize(tmpvec3, tmpvec3);
+      setAxisAngle(out, tmpvec3, Math.PI);
+      return out;
+    } else if (dot5 > 0.999999) {
+      out[0] = 0;
+      out[1] = 0;
+      out[2] = 0;
+      out[3] = 1;
+      return out;
+    } else {
+      cross(tmpvec3, a, b);
+      out[0] = tmpvec3[0];
+      out[1] = tmpvec3[1];
+      out[2] = tmpvec3[2];
+      out[3] = 1 + dot5;
+      return normalize3(out, out);
+    }
+  };
+}();
+var sqlerp = function() {
+  var temp1 = create5();
+  var temp2 = create5();
+  return function(out, a, b, c, d, t) {
+    slerp(temp1, a, d, t);
+    slerp(temp2, b, c, t);
+    slerp(out, temp1, temp2, 2 * t * (1 - t));
+    return out;
+  };
+}();
+var setAxes = function() {
+  var matr = create();
+  return function(out, view, right, up) {
+    matr[0] = right[0];
+    matr[3] = right[1];
+    matr[6] = right[2];
+    matr[1] = up[0];
+    matr[4] = up[1];
+    matr[7] = up[2];
+    matr[2] = -view[0];
+    matr[5] = -view[1];
+    matr[8] = -view[2];
+    return normalize3(out, fromMat3(out, matr));
+  };
+}();
+
+// node_modules/gl-matrix/esm/quat2.js
+var quat2_exports = {};
+__export(quat2_exports, {
+  add: () => add5,
+  clone: () => clone5,
+  conjugate: () => conjugate2,
+  copy: () => copy5,
+  create: () => create6,
+  dot: () => dot4,
+  equals: () => equals5,
+  exactEquals: () => exactEquals5,
+  fromMat4: () => fromMat4,
+  fromRotation: () => fromRotation2,
+  fromRotationTranslation: () => fromRotationTranslation2,
+  fromRotationTranslationValues: () => fromRotationTranslationValues,
+  fromTranslation: () => fromTranslation2,
+  fromValues: () => fromValues5,
+  getDual: () => getDual,
+  getReal: () => getReal,
+  getTranslation: () => getTranslation2,
+  identity: () => identity3,
+  invert: () => invert3,
+  len: () => len4,
+  length: () => length4,
+  lerp: () => lerp4,
+  mul: () => mul5,
+  multiply: () => multiply5,
+  normalize: () => normalize4,
+  rotateAroundAxis: () => rotateAroundAxis,
+  rotateByQuatAppend: () => rotateByQuatAppend,
+  rotateByQuatPrepend: () => rotateByQuatPrepend,
+  rotateX: () => rotateX4,
+  rotateY: () => rotateY4,
+  rotateZ: () => rotateZ4,
+  scale: () => scale5,
+  set: () => set5,
+  setDual: () => setDual,
+  setReal: () => setReal,
+  sqrLen: () => sqrLen4,
+  squaredLength: () => squaredLength4,
+  str: () => str5,
+  translate: () => translate2
+});
+function create6() {
+  var dq = new ARRAY_TYPE(8);
+  if (ARRAY_TYPE != Float32Array) {
+    dq[0] = 0;
+    dq[1] = 0;
+    dq[2] = 0;
+    dq[4] = 0;
+    dq[5] = 0;
+    dq[6] = 0;
+    dq[7] = 0;
+  }
+  dq[3] = 1;
+  return dq;
+}
+function clone5(a) {
+  var dq = new ARRAY_TYPE(8);
+  dq[0] = a[0];
+  dq[1] = a[1];
+  dq[2] = a[2];
+  dq[3] = a[3];
+  dq[4] = a[4];
+  dq[5] = a[5];
+  dq[6] = a[6];
+  dq[7] = a[7];
+  return dq;
+}
+function fromValues5(x1, y1, z1, w1, x2, y2, z2, w2) {
+  var dq = new ARRAY_TYPE(8);
+  dq[0] = x1;
+  dq[1] = y1;
+  dq[2] = z1;
+  dq[3] = w1;
+  dq[4] = x2;
+  dq[5] = y2;
+  dq[6] = z2;
+  dq[7] = w2;
+  return dq;
+}
+function fromRotationTranslationValues(x1, y1, z1, w1, x2, y2, z2) {
+  var dq = new ARRAY_TYPE(8);
+  dq[0] = x1;
+  dq[1] = y1;
+  dq[2] = z1;
+  dq[3] = w1;
+  var ax = x2 * 0.5, ay = y2 * 0.5, az = z2 * 0.5;
+  dq[4] = ax * w1 + ay * z1 - az * y1;
+  dq[5] = ay * w1 + az * x1 - ax * z1;
+  dq[6] = az * w1 + ax * y1 - ay * x1;
+  dq[7] = -ax * x1 - ay * y1 - az * z1;
+  return dq;
+}
+function fromRotationTranslation2(out, q, t) {
+  var ax = t[0] * 0.5, ay = t[1] * 0.5, az = t[2] * 0.5, bx = q[0], by = q[1], bz = q[2], bw = q[3];
+  out[0] = bx;
+  out[1] = by;
+  out[2] = bz;
+  out[3] = bw;
+  out[4] = ax * bw + ay * bz - az * by;
+  out[5] = ay * bw + az * bx - ax * bz;
+  out[6] = az * bw + ax * by - ay * bx;
+  out[7] = -ax * bx - ay * by - az * bz;
+  return out;
+}
+function fromTranslation2(out, t) {
+  out[0] = 0;
+  out[1] = 0;
+  out[2] = 0;
+  out[3] = 1;
+  out[4] = t[0] * 0.5;
+  out[5] = t[1] * 0.5;
+  out[6] = t[2] * 0.5;
+  out[7] = 0;
+  return out;
+}
+function fromRotation2(out, q) {
+  out[0] = q[0];
+  out[1] = q[1];
+  out[2] = q[2];
+  out[3] = q[3];
+  out[4] = 0;
+  out[5] = 0;
+  out[6] = 0;
+  out[7] = 0;
+  return out;
+}
+function fromMat4(out, a) {
+  var outer = create5();
+  getRotation(outer, a);
+  var t = new ARRAY_TYPE(3);
+  getTranslation(t, a);
+  fromRotationTranslation2(out, outer, t);
+  return out;
+}
+function copy5(out, a) {
+  out[0] = a[0];
+  out[1] = a[1];
+  out[2] = a[2];
+  out[3] = a[3];
+  out[4] = a[4];
+  out[5] = a[5];
+  out[6] = a[6];
+  out[7] = a[7];
+  return out;
+}
+function identity3(out) {
+  out[0] = 0;
+  out[1] = 0;
+  out[2] = 0;
+  out[3] = 1;
+  out[4] = 0;
+  out[5] = 0;
+  out[6] = 0;
+  out[7] = 0;
+  return out;
+}
+function set5(out, x1, y1, z1, w1, x2, y2, z2, w2) {
+  out[0] = x1;
+  out[1] = y1;
+  out[2] = z1;
+  out[3] = w1;
+  out[4] = x2;
+  out[5] = y2;
+  out[6] = z2;
+  out[7] = w2;
+  return out;
+}
+var getReal = copy4;
+function getDual(out, a) {
+  out[0] = a[4];
+  out[1] = a[5];
+  out[2] = a[6];
+  out[3] = a[7];
+  return out;
+}
+var setReal = copy4;
+function setDual(out, q) {
+  out[4] = q[0];
+  out[5] = q[1];
+  out[6] = q[2];
+  out[7] = q[3];
+  return out;
+}
+function getTranslation2(out, a) {
+  var ax = a[4], ay = a[5], az = a[6], aw = a[7], bx = -a[0], by = -a[1], bz = -a[2], bw = a[3];
+  out[0] = (ax * bw + aw * bx + ay * bz - az * by) * 2;
+  out[1] = (ay * bw + aw * by + az * bx - ax * bz) * 2;
+  out[2] = (az * bw + aw * bz + ax * by - ay * bx) * 2;
+  return out;
+}
+function translate2(out, a, v) {
+  var ax1 = a[0], ay1 = a[1], az1 = a[2], aw1 = a[3], bx1 = v[0] * 0.5, by1 = v[1] * 0.5, bz1 = v[2] * 0.5, ax2 = a[4], ay2 = a[5], az2 = a[6], aw2 = a[7];
+  out[0] = ax1;
+  out[1] = ay1;
+  out[2] = az1;
+  out[3] = aw1;
+  out[4] = aw1 * bx1 + ay1 * bz1 - az1 * by1 + ax2;
+  out[5] = aw1 * by1 + az1 * bx1 - ax1 * bz1 + ay2;
+  out[6] = aw1 * bz1 + ax1 * by1 - ay1 * bx1 + az2;
+  out[7] = -ax1 * bx1 - ay1 * by1 - az1 * bz1 + aw2;
+  return out;
+}
+function rotateX4(out, a, rad) {
+  var bx = -a[0], by = -a[1], bz = -a[2], bw = a[3], ax = a[4], ay = a[5], az = a[6], aw = a[7], ax1 = ax * bw + aw * bx + ay * bz - az * by, ay1 = ay * bw + aw * by + az * bx - ax * bz, az1 = az * bw + aw * bz + ax * by - ay * bx, aw1 = aw * bw - ax * bx - ay * by - az * bz;
+  rotateX3(out, a, rad);
+  bx = out[0];
+  by = out[1];
+  bz = out[2];
+  bw = out[3];
+  out[4] = ax1 * bw + aw1 * bx + ay1 * bz - az1 * by;
+  out[5] = ay1 * bw + aw1 * by + az1 * bx - ax1 * bz;
+  out[6] = az1 * bw + aw1 * bz + ax1 * by - ay1 * bx;
+  out[7] = aw1 * bw - ax1 * bx - ay1 * by - az1 * bz;
+  return out;
+}
+function rotateY4(out, a, rad) {
+  var bx = -a[0], by = -a[1], bz = -a[2], bw = a[3], ax = a[4], ay = a[5], az = a[6], aw = a[7], ax1 = ax * bw + aw * bx + ay * bz - az * by, ay1 = ay * bw + aw * by + az * bx - ax * bz, az1 = az * bw + aw * bz + ax * by - ay * bx, aw1 = aw * bw - ax * bx - ay * by - az * bz;
+  rotateY3(out, a, rad);
+  bx = out[0];
+  by = out[1];
+  bz = out[2];
+  bw = out[3];
+  out[4] = ax1 * bw + aw1 * bx + ay1 * bz - az1 * by;
+  out[5] = ay1 * bw + aw1 * by + az1 * bx - ax1 * bz;
+  out[6] = az1 * bw + aw1 * bz + ax1 * by - ay1 * bx;
+  out[7] = aw1 * bw - ax1 * bx - ay1 * by - az1 * bz;
+  return out;
+}
+function rotateZ4(out, a, rad) {
+  var bx = -a[0], by = -a[1], bz = -a[2], bw = a[3], ax = a[4], ay = a[5], az = a[6], aw = a[7], ax1 = ax * bw + aw * bx + ay * bz - az * by, ay1 = ay * bw + aw * by + az * bx - ax * bz, az1 = az * bw + aw * bz + ax * by - ay * bx, aw1 = aw * bw - ax * bx - ay * by - az * bz;
+  rotateZ3(out, a, rad);
+  bx = out[0];
+  by = out[1];
+  bz = out[2];
+  bw = out[3];
+  out[4] = ax1 * bw + aw1 * bx + ay1 * bz - az1 * by;
+  out[5] = ay1 * bw + aw1 * by + az1 * bx - ax1 * bz;
+  out[6] = az1 * bw + aw1 * bz + ax1 * by - ay1 * bx;
+  out[7] = aw1 * bw - ax1 * bx - ay1 * by - az1 * bz;
+  return out;
+}
+function rotateByQuatAppend(out, a, q) {
+  var qx = q[0], qy = q[1], qz = q[2], qw = q[3], ax = a[0], ay = a[1], az = a[2], aw = a[3];
+  out[0] = ax * qw + aw * qx + ay * qz - az * qy;
+  out[1] = ay * qw + aw * qy + az * qx - ax * qz;
+  out[2] = az * qw + aw * qz + ax * qy - ay * qx;
+  out[3] = aw * qw - ax * qx - ay * qy - az * qz;
+  ax = a[4];
+  ay = a[5];
+  az = a[6];
+  aw = a[7];
+  out[4] = ax * qw + aw * qx + ay * qz - az * qy;
+  out[5] = ay * qw + aw * qy + az * qx - ax * qz;
+  out[6] = az * qw + aw * qz + ax * qy - ay * qx;
+  out[7] = aw * qw - ax * qx - ay * qy - az * qz;
+  return out;
+}
+function rotateByQuatPrepend(out, q, a) {
+  var qx = q[0], qy = q[1], qz = q[2], qw = q[3], bx = a[0], by = a[1], bz = a[2], bw = a[3];
+  out[0] = qx * bw + qw * bx + qy * bz - qz * by;
+  out[1] = qy * bw + qw * by + qz * bx - qx * bz;
+  out[2] = qz * bw + qw * bz + qx * by - qy * bx;
+  out[3] = qw * bw - qx * bx - qy * by - qz * bz;
+  bx = a[4];
+  by = a[5];
+  bz = a[6];
+  bw = a[7];
+  out[4] = qx * bw + qw * bx + qy * bz - qz * by;
+  out[5] = qy * bw + qw * by + qz * bx - qx * bz;
+  out[6] = qz * bw + qw * bz + qx * by - qy * bx;
+  out[7] = qw * bw - qx * bx - qy * by - qz * bz;
+  return out;
+}
+function rotateAroundAxis(out, a, axis, rad) {
+  if (Math.abs(rad) < EPSILON) {
+    return copy5(out, a);
+  }
+  var axisLength = Math.hypot(axis[0], axis[1], axis[2]);
+  rad = rad * 0.5;
+  var s = Math.sin(rad);
+  var bx = s * axis[0] / axisLength;
+  var by = s * axis[1] / axisLength;
+  var bz = s * axis[2] / axisLength;
+  var bw = Math.cos(rad);
+  var ax1 = a[0], ay1 = a[1], az1 = a[2], aw1 = a[3];
+  out[0] = ax1 * bw + aw1 * bx + ay1 * bz - az1 * by;
+  out[1] = ay1 * bw + aw1 * by + az1 * bx - ax1 * bz;
+  out[2] = az1 * bw + aw1 * bz + ax1 * by - ay1 * bx;
+  out[3] = aw1 * bw - ax1 * bx - ay1 * by - az1 * bz;
+  var ax = a[4], ay = a[5], az = a[6], aw = a[7];
+  out[4] = ax * bw + aw * bx + ay * bz - az * by;
+  out[5] = ay * bw + aw * by + az * bx - ax * bz;
+  out[6] = az * bw + aw * bz + ax * by - ay * bx;
+  out[7] = aw * bw - ax * bx - ay * by - az * bz;
+  return out;
+}
+function add5(out, a, b) {
+  out[0] = a[0] + b[0];
+  out[1] = a[1] + b[1];
+  out[2] = a[2] + b[2];
+  out[3] = a[3] + b[3];
+  out[4] = a[4] + b[4];
+  out[5] = a[5] + b[5];
+  out[6] = a[6] + b[6];
+  out[7] = a[7] + b[7];
+  return out;
+}
+function multiply5(out, a, b) {
+  var ax0 = a[0], ay0 = a[1], az0 = a[2], aw0 = a[3], bx1 = b[4], by1 = b[5], bz1 = b[6], bw1 = b[7], ax1 = a[4], ay1 = a[5], az1 = a[6], aw1 = a[7], bx0 = b[0], by0 = b[1], bz0 = b[2], bw0 = b[3];
+  out[0] = ax0 * bw0 + aw0 * bx0 + ay0 * bz0 - az0 * by0;
+  out[1] = ay0 * bw0 + aw0 * by0 + az0 * bx0 - ax0 * bz0;
+  out[2] = az0 * bw0 + aw0 * bz0 + ax0 * by0 - ay0 * bx0;
+  out[3] = aw0 * bw0 - ax0 * bx0 - ay0 * by0 - az0 * bz0;
+  out[4] = ax0 * bw1 + aw0 * bx1 + ay0 * bz1 - az0 * by1 + ax1 * bw0 + aw1 * bx0 + ay1 * bz0 - az1 * by0;
+  out[5] = ay0 * bw1 + aw0 * by1 + az0 * bx1 - ax0 * bz1 + ay1 * bw0 + aw1 * by0 + az1 * bx0 - ax1 * bz0;
+  out[6] = az0 * bw1 + aw0 * bz1 + ax0 * by1 - ay0 * bx1 + az1 * bw0 + aw1 * bz0 + ax1 * by0 - ay1 * bx0;
+  out[7] = aw0 * bw1 - ax0 * bx1 - ay0 * by1 - az0 * bz1 + aw1 * bw0 - ax1 * bx0 - ay1 * by0 - az1 * bz0;
+  return out;
+}
+var mul5 = multiply5;
+function scale5(out, a, b) {
+  out[0] = a[0] * b;
+  out[1] = a[1] * b;
+  out[2] = a[2] * b;
+  out[3] = a[3] * b;
+  out[4] = a[4] * b;
+  out[5] = a[5] * b;
+  out[6] = a[6] * b;
+  out[7] = a[7] * b;
+  return out;
+}
+var dot4 = dot3;
+function lerp4(out, a, b, t) {
+  var mt = 1 - t;
+  if (dot4(a, b) < 0)
+    t = -t;
+  out[0] = a[0] * mt + b[0] * t;
+  out[1] = a[1] * mt + b[1] * t;
+  out[2] = a[2] * mt + b[2] * t;
+  out[3] = a[3] * mt + b[3] * t;
+  out[4] = a[4] * mt + b[4] * t;
+  out[5] = a[5] * mt + b[5] * t;
+  out[6] = a[6] * mt + b[6] * t;
+  out[7] = a[7] * mt + b[7] * t;
+  return out;
+}
+function invert3(out, a) {
+  var sqlen = squaredLength4(a);
+  out[0] = -a[0] / sqlen;
+  out[1] = -a[1] / sqlen;
+  out[2] = -a[2] / sqlen;
+  out[3] = a[3] / sqlen;
+  out[4] = -a[4] / sqlen;
+  out[5] = -a[5] / sqlen;
+  out[6] = -a[6] / sqlen;
+  out[7] = a[7] / sqlen;
+  return out;
+}
+function conjugate2(out, a) {
+  out[0] = -a[0];
+  out[1] = -a[1];
+  out[2] = -a[2];
+  out[3] = a[3];
+  out[4] = -a[4];
+  out[5] = -a[5];
+  out[6] = -a[6];
+  out[7] = a[7];
+  return out;
+}
+var length4 = length3;
+var len4 = length4;
+var squaredLength4 = squaredLength3;
+var sqrLen4 = squaredLength4;
+function normalize4(out, a) {
+  var magnitude = squaredLength4(a);
+  if (magnitude > 0) {
+    magnitude = Math.sqrt(magnitude);
+    var a0 = a[0] / magnitude;
+    var a1 = a[1] / magnitude;
+    var a2 = a[2] / magnitude;
+    var a3 = a[3] / magnitude;
+    var b0 = a[4];
+    var b1 = a[5];
+    var b2 = a[6];
+    var b3 = a[7];
+    var a_dot_b = a0 * b0 + a1 * b1 + a2 * b2 + a3 * b3;
+    out[0] = a0;
+    out[1] = a1;
+    out[2] = a2;
+    out[3] = a3;
+    out[4] = (b0 - a0 * a_dot_b) / magnitude;
+    out[5] = (b1 - a1 * a_dot_b) / magnitude;
+    out[6] = (b2 - a2 * a_dot_b) / magnitude;
+    out[7] = (b3 - a3 * a_dot_b) / magnitude;
+  }
+  return out;
+}
+function str5(a) {
+  return "quat2(" + a[0] + ", " + a[1] + ", " + a[2] + ", " + a[3] + ", " + a[4] + ", " + a[5] + ", " + a[6] + ", " + a[7] + ")";
+}
+function exactEquals5(a, b) {
+  return a[0] === b[0] && a[1] === b[1] && a[2] === b[2] && a[3] === b[3] && a[4] === b[4] && a[5] === b[5] && a[6] === b[6] && a[7] === b[7];
+}
+function equals5(a, b) {
+  var a0 = a[0], a1 = a[1], a2 = a[2], a3 = a[3], a4 = a[4], a5 = a[5], a6 = a[6], a7 = a[7];
+  var b0 = b[0], b1 = b[1], b2 = b[2], b3 = b[3], b4 = b[4], b5 = b[5], b6 = b[6], b7 = b[7];
+  return Math.abs(a0 - b0) <= EPSILON * Math.max(1, Math.abs(a0), Math.abs(b0)) && Math.abs(a1 - b1) <= EPSILON * Math.max(1, Math.abs(a1), Math.abs(b1)) && Math.abs(a2 - b2) <= EPSILON * Math.max(1, Math.abs(a2), Math.abs(b2)) && Math.abs(a3 - b3) <= EPSILON * Math.max(1, Math.abs(a3), Math.abs(b3)) && Math.abs(a4 - b4) <= EPSILON * Math.max(1, Math.abs(a4), Math.abs(b4)) && Math.abs(a5 - b5) <= EPSILON * Math.max(1, Math.abs(a5), Math.abs(b5)) && Math.abs(a6 - b6) <= EPSILON * Math.max(1, Math.abs(a6), Math.abs(b6)) && Math.abs(a7 - b7) <= EPSILON * Math.max(1, Math.abs(a7), Math.abs(b7));
+}
+
+// node_modules/@wonderlandengine/components/cursor.js
+var Cursor = class extends Component {
+  init() {
+    this.session = null;
+    this.collisionMask = 1 << this.collisionGroup;
+    this.maxDistance = 100;
+    const sceneLoaded = this.onDestroy.bind(this);
+    this.engine.onSceneLoaded.push(sceneLoaded);
+    this.onDestroyCallbacks = [
+      () => {
+        const index = this.engine.onSceneLoaded.indexOf(sceneLoaded);
+        if (index >= 0)
+          this.engine.onSceneLoaded.splice(index, 1);
+      }
+    ];
+  }
+  start() {
+    if (this.handedness == 0) {
+      const inputComp = this.object.getComponent("input");
+      if (!inputComp) {
+        console.warn(
+          "cursor component on object",
+          this.object.name,
+          'was configured with handedness "input component", but object has no input component.'
+        );
+      } else {
+        this.handedness = inputComp.handedness;
+        this.input = inputComp;
+      }
+    } else {
+      this.handedness = ["left", "right"][this.handedness - 1];
+    }
+    this.globalTarget = this.object.addComponent("cursor-target");
+    this.origin = new Float32Array(3);
+    this.cursorObjScale = new Float32Array(3);
+    this.direction = [0, 0, 0];
+    this.tempQuat = new Float32Array(4);
+    this.viewComponent = this.object.getComponent("view");
+    if (this.viewComponent != null) {
+      const onClick = this.onClick.bind(this);
+      this.engine.canvas.addEventListener("click", onClick);
+      const onPointerMove = this.onPointerMove.bind(this);
+      this.engine.canvas.addEventListener("pointermove", onPointerMove);
+      const onPointerDown = this.onPointerDown.bind(this);
+      this.engine.canvas.addEventListener("pointerdown", onPointerDown);
+      const onPointerUp = this.onPointerUp.bind(this);
+      this.engine.canvas.addEventListener("pointerup", onPointerUp);
+      this.projectionMatrix = new Float32Array(16);
+      mat4_exports.invert(this.projectionMatrix, this.viewComponent.projectionMatrix);
+      const onViewportResize = this.onViewportResize.bind(this);
+      window.addEventListener("resize", onViewportResize);
+      this.onDestroyCallbacks.push(() => {
+        this.engine.canvas.removeEventListener("click", onClick);
+        this.engine.canvas.removeEventListener("pointermove", onPointerMove);
+        this.engine.canvas.removeEventListener("pointerdown", onPointerDown);
+        this.engine.canvas.removeEventListener("pointerup", onPointerUp);
+        window.removeEventListener("resize", onViewportResize);
+      });
+    }
+    this.isHovering = false;
+    this.visible = true;
+    this.isDown = false;
+    this.lastIsDown = false;
+    this.cursorPos = new Float32Array(3);
+    this.hoveringObject = null;
+    const onXRSessionStart = this.setupVREvents.bind(this);
+    this.engine.onXRSessionStart.push(onXRSessionStart);
+    this.onDestroyCallbacks.push(() => {
+      const index = this.engine.onXRSessionStart.indexOf(onXRSessionStart);
+      if (index >= 0)
+        this.engine.onXRSessionStart.splice(index, 1);
+    });
+    if (this.cursorRayObject) {
+      this.cursorRayScale = new Float32Array(3);
+      this.cursorRayScale.set(this.cursorRayObject.scalingLocal);
+      this.object.getTranslationWorld(this.origin);
+      this.object.getForward(this.direction);
+      this._setCursorRayTransform([
+        this.origin[0] + this.direction[0],
+        this.origin[1] + this.direction[1],
+        this.origin[2] + this.direction[2]
+      ]);
+    }
+  }
+  onViewportResize() {
+    if (!this.viewComponent)
+      return;
+    mat4_exports.invert(this.projectionMatrix, this.viewComponent.projectionMatrix);
+  }
+  _setCursorRayTransform(hitPosition) {
+    if (!this.cursorRayObject)
+      return;
+    const dist3 = vec3_exports.dist(this.origin, hitPosition);
+    this.cursorRayObject.setTranslationLocal([0, 0, -dist3 / 2]);
+    if (this.cursorRayScalingAxis != 4) {
+      this.cursorRayObject.resetScaling();
+      this.cursorRayScale[this.cursorRayScalingAxis] = dist3 / 2;
+      this.cursorRayObject.scale(this.cursorRayScale);
+    }
+  }
+  _setCursorVisibility(visible) {
+    if (this.visible == visible)
+      return;
+    this.visible = visible;
+    if (!this.cursorObject)
+      return;
+    if (visible) {
+      this.cursorObject.resetScaling();
+      this.cursorObject.scale(this.cursorObjScale);
+    } else {
+      this.cursorObjScale.set(this.cursorObject.scalingLocal);
+      this.cursorObject.scale([0, 0, 0]);
+    }
+  }
+  update() {
+    this.doUpdate(false);
+  }
+  doUpdate(doClick) {
+    if (this.session) {
+      if (this.arTouchDown && this.input && this.engine.xrSession.inputSources[0].handedness === "none" && this.engine.xrSession.inputSources[0].gamepad) {
+        const p = this.engine.xrSession.inputSources[0].gamepad.axes;
+        this.direction = [p[0], -p[1], -1];
+        this.updateDirection();
+      } else {
+        this.object.getTranslationWorld(this.origin);
+        this.object.getForward(this.direction);
+      }
+      const rayHit = this.rayHit = this.rayCastMode == 0 ? this.engine.scene.rayCast(
+        this.origin,
+        this.direction,
+        this.collisionMask
+      ) : this.engine.physics.rayCast(
+        this.origin,
+        this.direction,
+        this.collisionMask,
+        this.maxDistance
+      );
+      if (rayHit.hitCount > 0) {
+        this.cursorPos.set(rayHit.locations[0]);
+      } else {
+        this.cursorPos.fill(0);
+      }
+      this.hoverBehaviour(rayHit, doClick);
+    }
+    if (this.cursorObject) {
+      if (this.hoveringObject && (this.cursorPos[0] != 0 || this.cursorPos[1] != 0 || this.cursorPos[2] != 0)) {
+        this._setCursorVisibility(true);
+        this.cursorObject.setTranslationWorld(this.cursorPos);
+        this._setCursorRayTransform(this.cursorPos);
+      } else {
+        this._setCursorVisibility(false);
+      }
+    }
+  }
+  hoverBehaviour(rayHit, doClick) {
+    if (rayHit.hitCount > 0) {
+      if (!this.hoveringObject || !this.hoveringObject.equals(rayHit.objects[0])) {
+        if (this.hoveringObject) {
+          const cursorTarget3 = this.hoveringObject.getComponent("cursor-target");
+          if (cursorTarget3)
+            cursorTarget3.onUnhover(this.hoveringObject, this);
+          this.globalTarget.onUnhover(this.hoveringObject, this);
+        }
+        this.hoveringObject = rayHit.objects[0];
+        if (this.styleCursor)
+          this.engine.canvas.style.cursor = "pointer";
+        let cursorTarget2 = this.hoveringObject.getComponent("cursor-target");
+        if (cursorTarget2) {
+          this.hoveringObjectTarget = cursorTarget2;
+          cursorTarget2.onHover(this.hoveringObject, this);
+        }
+        this.globalTarget.onHover(this.hoveringObject, this);
+      }
+      if (this.hoveringObjectTarget) {
+        this.hoveringObjectTarget.onMove(this.hoveringObject, this);
+      }
+      const cursorTarget = this.hoveringObject.getComponent("cursor-target");
+      if (this.isDown !== this.lastIsDown) {
+        if (this.isDown) {
+          if (cursorTarget)
+            cursorTarget.onDown(this.hoveringObject, this);
+          this.globalTarget.onDown(this.hoveringObject, this);
+        } else {
+          if (cursorTarget)
+            cursorTarget.onUp(this.hoveringObject, this);
+          this.globalTarget.onUp(this.hoveringObject, this);
+        }
+      }
+      if (doClick) {
+        if (cursorTarget)
+          cursorTarget.onClick(this.hoveringObject, this);
+        this.globalTarget.onClick(this.hoveringObject, this);
+      }
+    } else if (this.hoveringObject && rayHit.hitCount == 0) {
+      const cursorTarget = this.hoveringObject.getComponent("cursor-target");
+      if (cursorTarget)
+        cursorTarget.onUnhover(this.hoveringObject, this);
+      this.globalTarget.onUnhover(this.hoveringObject, this);
+      this.hoveringObject = null;
+      this.hoveringObjectTarget = null;
+      if (this.styleCursor)
+        this.engine.canvas.style.cursor = "default";
+    }
+    this.lastIsDown = this.isDown;
+  }
+  /**
+   * Setup event listeners on session object
+   * @param s WebXR session
+   *
+   * Sets up 'select' and 'end' events and caches the session to avoid
+   * Module object access.
+   */
+  setupVREvents(s) {
+    this.session = s;
+    const onSessionEnd = function(e) {
+      this.session = null;
+    }.bind(this);
+    s.addEventListener("end", onSessionEnd);
+    const onSelect = this.onSelect.bind(this);
+    s.addEventListener("select", onSelect);
+    const onSelectStart = this.onSelectStart.bind(this);
+    s.addEventListener("selectstart", onSelectStart);
+    const onSelectEnd = this.onSelectEnd.bind(this);
+    s.addEventListener("selectend", onSelectEnd);
+    this.onDestroyCallbacks.push(() => {
+      if (!this.session)
+        return;
+      s.removeEventListener("end", onSessionEnd);
+      s.removeEventListener("select", onSelect);
+      s.removeEventListener("selectstart", onSelectStart);
+      s.removeEventListener("selectend", onSelectEnd);
+    });
+    this.onViewportResize();
+  }
+  /** 'select' event listener */
+  onSelect(e) {
+    if (e.inputSource.handedness != this.handedness)
+      return;
+    this.doUpdate(true);
+  }
+  /** 'selectstart' event listener */
+  onSelectStart(e) {
+    this.arTouchDown = true;
+    if (e.inputSource.handedness == this.handedness)
+      this.isDown = true;
+  }
+  /** 'selectend' event listener */
+  onSelectEnd(e) {
+    this.arTouchDown = false;
+    if (e.inputSource.handedness == this.handedness)
+      this.isDown = false;
+  }
+  /** 'pointermove' event listener */
+  onPointerMove(e) {
+    if (!e.isPrimary)
+      return;
+    const bounds = e.target.getBoundingClientRect();
+    const rayHit = this.updateMousePos(
+      e.clientX,
+      e.clientY,
+      bounds.width,
+      bounds.height
+    );
+    this.hoverBehaviour(rayHit, false);
+  }
+  /** 'click' event listener */
+  onClick(e) {
+    const bounds = e.target.getBoundingClientRect();
+    const rayHit = this.updateMousePos(
+      e.clientX,
+      e.clientY,
+      bounds.width,
+      bounds.height
+    );
+    this.hoverBehaviour(rayHit, true);
+  }
+  /** 'pointerdown' event listener */
+  onPointerDown(e) {
+    if (!e.isPrimary || e.button !== 0)
+      return;
+    const bounds = e.target.getBoundingClientRect();
+    const rayHit = this.updateMousePos(
+      e.clientX,
+      e.clientY,
+      bounds.width,
+      bounds.height
+    );
+    this.isDown = true;
+    this.hoverBehaviour(rayHit, false);
+  }
+  /** 'pointerup' event listener */
+  onPointerUp(e) {
+    if (!e.isPrimary || e.button !== 0)
+      return;
+    const bounds = e.target.getBoundingClientRect();
+    const rayHit = this.updateMousePos(
+      e.clientX,
+      e.clientY,
+      bounds.width,
+      bounds.height
+    );
+    this.isDown = false;
+    this.hoverBehaviour(rayHit, false);
+  }
+  /**
+   * Update mouse position in non-VR mode and raycast for new position
+   * @returns @ref WL.RayHit for new position.
+   */
+  updateMousePos(clientX, clientY, w, h) {
+    const left = clientX / w;
+    const top = clientY / h;
+    this.direction = [left * 2 - 1, -top * 2 + 1, -1];
+    return this.updateDirection();
+  }
+  updateDirection() {
+    this.object.getTranslationWorld(this.origin);
+    vec3_exports.transformMat4(this.direction, this.direction, this.projectionMatrix);
+    vec3_exports.normalize(this.direction, this.direction);
+    vec3_exports.transformQuat(this.direction, this.direction, this.object.transformWorld);
+    const rayHit = this.rayHit = this.rayCastMode == 0 ? this.engine.scene.rayCast(this.origin, this.direction, this.collisionMask) : this.engine.physics.rayCast(
+      this.origin,
+      this.direction,
+      this.collisionMask,
+      this.maxDistance
+    );
+    if (rayHit.hitCount > 0) {
+      this.cursorPos.set(rayHit.locations[0]);
+    } else {
+      this.cursorPos.fill(0);
+    }
+    return rayHit;
+  }
+  onDeactivate() {
+    this._setCursorVisibility(false);
+    if (this.hoveringObject) {
+      const target = this.hoveringObject.getComponent("cursor-target");
+      if (target)
+        target.onUnhover(this.hoveringObject, this);
+      this.globalTarget.onUnhover(this.hoveringObject, this);
+    }
+    if (this.cursorRayObject)
+      this.cursorRayObject.scale([0, 0, 0]);
+  }
+  onActivate() {
+    this._setCursorVisibility(true);
+  }
+  onDestroy() {
+    for (const f of this.onDestroyCallbacks)
+      f();
+  }
+};
+__publicField(Cursor, "TypeName", "cursor");
+__publicField(Cursor, "Properties", {
+  /** Collision group for the ray cast. Only objects in this group will be affected by this cursor. */
+  collisionGroup: { type: Type.Int, default: 1 },
+  /** (optional) Object that visualizes the cursor's ray. */
+  cursorRayObject: { type: Type.Object },
+  /** Axis along which to scale the `cursorRayObject`. */
+  cursorRayScalingAxis: {
+    type: Type.Enum,
+    values: ["x", "y", "z", "none"],
+    default: "z"
+  },
+  /** (optional) Object that visualizes the cursor's hit location. */
+  cursorObject: { type: Type.Object },
+  /** Handedness for VR cursors to accept trigger events only from respective controller. */
+  handedness: {
+    type: Type.Enum,
+    values: ["input component", "left", "right", "none"],
+    default: "input component"
+  },
+  /** Mode for raycasting, whether to use PhysX or simple collision components */
+  rayCastMode: {
+    type: Type.Enum,
+    values: ["collision", "physx"],
+    default: "collision"
+  },
+  /** Whether to set the CSS style of the mouse cursor on desktop */
+  styleCursor: { type: Type.Bool, default: true }
+});
+
+// node_modules/@wonderlandengine/components/debug-object.js
+var DebugObject = class extends Component {
+  start() {
+  }
+  init() {
+    let origin = [0, 0, 0];
+    quat2_exports.getTranslation(origin, this.object.transformWorld);
+    console.log("Debug Object:", this.object.name);
+    console.log("Other object:", this.obj.name);
+    console.log("	translation", origin);
+    console.log("	transformWorld", this.object.transformWorld);
+    console.log("	transformLocal", this.object.transformLocal);
+  }
+  update() {
+  }
+};
+__publicField(DebugObject, "TypeName", "debug-object");
+__publicField(DebugObject, "Properties", {
+  /** A second object to print the name of */
+  obj: { type: Type.Object }
+});
+
+// node_modules/@wonderlandengine/components/fixed-foveation.js
+var FixedFoveation = class extends Component {
+  start() {
+    if (this.engine.xrSession) {
+      this.setFixedFoveation();
+    } else {
+      this.engine.onXRSessionStart.push(this.setFixedFoveation.bind(this));
+    }
+  }
+  setFixedFoveation() {
+    this.engine.xrBaseLayer.fixedFoveation = this.fixedFoveation;
+  }
+};
+__publicField(FixedFoveation, "TypeName", "fixed-foveation");
+__publicField(FixedFoveation, "Properties", {
+  /** Amount to apply from 0 (none) to 1 (full) */
+  fixedFoveation: { type: Type.Float, default: 0.5 }
+});
+
+// node_modules/@wonderlandengine/components/hand-tracking.js
+var ORDERED_JOINTS = [
+  "wrist",
+  "thumb-metacarpal",
+  "thumb-phalanx-proximal",
+  "thumb-phalanx-distal",
+  "thumb-tip",
+  "index-finger-metacarpal",
+  "index-finger-phalanx-proximal",
+  "index-finger-phalanx-intermediate",
+  "index-finger-phalanx-distal",
+  "index-finger-tip",
+  "middle-finger-metacarpal",
+  "middle-finger-phalanx-proximal",
+  "middle-finger-phalanx-intermediate",
+  "middle-finger-phalanx-distal",
+  "middle-finger-tip",
+  "ring-finger-metacarpal",
+  "ring-finger-phalanx-proximal",
+  "ring-finger-phalanx-intermediate",
+  "ring-finger-phalanx-distal",
+  "ring-finger-tip",
+  "pinky-finger-metacarpal",
+  "pinky-finger-phalanx-proximal",
+  "pinky-finger-phalanx-intermediate",
+  "pinky-finger-phalanx-distal",
+  "pinky-finger-tip"
+];
+var HandTracking = class extends Component {
+  init() {
+    this.handedness = ["left", "right"][this.handedness];
+  }
+  start() {
+    this.joints = [];
+    this.session = null;
+    this.hasPose = false;
+    this._childrenActive = true;
+    if (!("XRHand" in window)) {
+      console.warn("WebXR Hand Tracking not supported by this browser.");
+      this.active = false;
+      return;
+    }
+    if (this.handSkin) {
+      let skin = this.handSkin;
+      let jointIds = skin.jointIds;
+      this.joints[ORDERED_JOINTS[0]] = this.engine.wrapObject(jointIds[0]);
+      for (let j = 0; j < jointIds.length; ++j) {
+        let joint = this.engine.wrapObject(jointIds[j]);
+        this.joints[joint.name] = joint;
+      }
+      return;
+    }
+    for (let j = 0; j <= ORDERED_JOINTS.length; ++j) {
+      let joint = this.engine.scene.addObject(this.object.parent);
+      let mesh = joint.addComponent("mesh");
+      mesh.mesh = this.jointMesh;
+      mesh.material = this.jointMaterial;
+      this.joints[ORDERED_JOINTS[j]] = joint;
+    }
+  }
+  update(dt) {
+    if (!this.session) {
+      if (this.engine.xrSession)
+        this.setupVREvents(this.engine.xrSession);
+    }
+    if (!this.session)
+      return;
+    this.hasPose = false;
+    if (this.session && this.session.inputSources) {
+      for (let i = 0; i <= this.session.inputSources.length; ++i) {
+        const inputSource = this.session.inputSources[i];
+        if (!inputSource || !inputSource.hand || inputSource.handedness != this.handedness)
+          continue;
+        this.hasPose = true;
+        if (inputSource.hand.get("wrist") !== null) {
+          const WebXR = this.engine.wasm.WebXR;
+          const p = Module["webxr_frame"].getJointPose(
+            inputSource.hand.get("wrist"),
+            WebXR.refSpaces[WebXR.refSpace]
+          );
+          if (p) {
+            this.object.resetTranslationRotation();
+            this.object.transformLocal.set([
+              p.transform.orientation.x,
+              p.transform.orientation.y,
+              p.transform.orientation.z,
+              p.transform.orientation.w
+            ]);
+            this.object.translate([
+              p.transform.position.x,
+              p.transform.position.y,
+              p.transform.position.z
+            ]);
+          }
+        }
+        let invTranslation = new Float32Array(3);
+        let invRotation = new Float32Array(4);
+        quat_exports.invert(invRotation, this.object.transformLocal);
+        this.object.getTranslationLocal(invTranslation);
+        for (let j = 0; j < ORDERED_JOINTS.length; ++j) {
+          const jointName = ORDERED_JOINTS[j];
+          const joint = this.joints[jointName];
+          if (joint == null)
+            continue;
+          let jointPose = null;
+          if (inputSource.hand.get(jointName) !== null) {
+            const WebXR = this.engine.wasm.WebXR;
+            jointPose = Module["webxr_frame"].getJointPose(
+              inputSource.hand.get(jointName),
+              WebXR.refSpaces[WebXR.refSpace]
+            );
+          }
+          if (jointPose !== null) {
+            if (this.handSkin) {
+              joint.resetTranslationRotation();
+              joint.translate([
+                jointPose.transform.position.x - invTranslation[0],
+                jointPose.transform.position.y - invTranslation[1],
+                jointPose.transform.position.z - invTranslation[2]
+              ]);
+              joint.rotate(invRotation);
+              joint.rotateObject([
+                jointPose.transform.orientation.x,
+                jointPose.transform.orientation.y,
+                jointPose.transform.orientation.z,
+                jointPose.transform.orientation.w
+              ]);
+            } else {
+              joint.resetTransform();
+              joint.transformLocal.set([
+                jointPose.transform.orientation.x,
+                jointPose.transform.orientation.y,
+                jointPose.transform.orientation.z,
+                jointPose.transform.orientation.w
+              ]);
+              joint.translate([
+                jointPose.transform.position.x,
+                jointPose.transform.position.y,
+                jointPose.transform.position.z
+              ]);
+              const r = jointPose.radius || 7e-3;
+              joint.scale([r, r, r]);
+            }
+          } else {
+            if (!this.handSkin)
+              joint.scale([0, 0, 0]);
+          }
+        }
+      }
+    }
+    if (!this.hasPose && this._childrenActive) {
+      this._childrenActive = false;
+      if (this.deactivateChildrenWithoutPose) {
+        this.setChildrenActive(false);
+      }
+      if (this.controllerToDeactivate) {
+        this.controllerToDeactivate.active = true;
+        this.setChildrenActive(true, this.controllerToDeactivate);
+      }
+    } else if (this.hasPose && !this._childrenActive) {
+      this._childrenActive = true;
+      if (this.deactivateChildrenWithoutPose) {
+        this.setChildrenActive(true);
+      }
+      if (this.controllerToDeactivate) {
+        this.controllerToDeactivate.active = false;
+        this.setChildrenActive(false, this.controllerToDeactivate);
+      }
+    }
+  }
+  setChildrenActive(active, object) {
+    object = object || this.object;
+    const children = object.children;
+    for (const o of children) {
+      o.active = active;
+      this.setChildrenActive(active, o);
+    }
+  }
+  isGrabbing() {
+    const indexTipPos = [0, 0, 0];
+    quat2_exports.getTranslation(indexTipPos, this.joints["index-finger-tip"].transformLocal);
+    const thumbTipPos = [0, 0, 0];
+    quat2_exports.getTranslation(thumbTipPos, this.joints["thumb-tip"].transformLocal);
+    return vec3_exports.sqrDist(thumbTipPos, indexTipPos) < 1e-3;
+  }
+  setupVREvents(s) {
+    this.session = s;
+  }
+};
+__publicField(HandTracking, "TypeName", "hand-tracking");
+__publicField(HandTracking, "Properties", {
+  /** Handedness determining whether to receive tracking input from right or left hand */
+  handedness: { type: Type.Enum, default: "left", values: ["left", "right"] },
+  /** (optional) Mesh to use to visualize joints */
+  jointMesh: { type: Type.Mesh, default: null },
+  /** Material to use for display. Applied to either the spawned skinned mesh or the joint spheres. */
+  jointMaterial: { type: Type.Material, default: null },
+  /** (optional) Skin to apply tracked joint poses to. If not present, joint spheres will be used for display instead. */
+  handSkin: { type: Type.Skin, default: null },
+  /** Deactivate children if no pose was tracked */
+  deactivateChildrenWithoutPose: { type: Type.Bool, default: true },
+  /** Controller objects to activate including children if no pose is available */
+  controllerToDeactivate: { type: Type.Object }
+});
+
+// node_modules/@wonderlandengine/components/howler-audio-listener.js
+var import_howler = __toESM(require_howler());
+var HowlerAudioListener = class extends Component {
+  init() {
+    this.origin = new Float32Array(3);
+    this.fwd = new Float32Array(3);
+    this.up = new Float32Array(3);
+  }
+  update() {
+    if (!this.spatial)
+      return;
+    this.object.getTranslationWorld(this.origin);
+    this.object.getForward(this.fwd);
+    this.object.getUp(this.up);
+    Howler.pos(this.origin[0], this.origin[1], this.origin[2]);
+    Howler.orientation(
+      this.fwd[0],
+      this.fwd[1],
+      this.fwd[2],
+      this.up[0],
+      this.up[1],
+      this.up[2]
+    );
+  }
+};
+__publicField(HowlerAudioListener, "TypeName", "howler-audio-listener");
+__publicField(HowlerAudioListener, "Properties", {
+  /** Whether audio should be spatialized/positional. */
+  spatial: { type: Type.Bool, default: true }
+});
+
+// node_modules/@wonderlandengine/components/howler-audio-source.js
+var import_howler2 = __toESM(require_howler());
+var HowlerAudioSource = class extends Component {
+  start() {
+    this.audio = new import_howler2.Howl({
+      src: [this.src],
+      loop: this.loop,
+      volume: this.volume,
+      autoplay: this.autoplay
+    });
+    this.lastPlayedAudioId = null;
+    this.origin = new Float32Array(3);
+    this.lastOrigin = new Float32Array(3);
+    if (this.spatial && this.autoplay) {
+      this.updatePosition();
+      this.play();
+    }
+    const callback = () => {
+      this.stop();
+      const idx = this.engine.onSceneLoaded.indexOf(callback);
+      if (idx >= 0)
+        this.engine.onSceneLoaded.splice(idx, 1);
+    };
+    this.engine.onSceneLoaded.push(callback);
+  }
+  update() {
+    if (!this.spatial || !this.lastPlayedAudioId)
+      return;
+    this.object.getTranslationWorld(this.origin);
+    if (Math.abs(this.lastOrigin[0] - this.origin[0]) > 5e-3 || Math.abs(this.lastOrigin[1] - this.origin[1]) > 5e-3 || Math.abs(this.lastOrigin[2] - this.origin[2]) > 5e-3) {
+      this.updatePosition();
+    }
+  }
+  updatePosition() {
+    this.audio.pos(
+      this.origin[0],
+      this.origin[1],
+      this.origin[2],
+      this.lastPlayedAudioId
+    );
+    this.lastOrigin.set(this.origin);
+  }
+  play() {
+    if (this.lastPlayedAudioId)
+      this.audio.stop(this.lastPlayedAudioId);
+    this.lastPlayedAudioId = this.audio.play();
+    if (this.spatial)
+      this.updatePosition();
+  }
+  stop() {
+    if (!this.lastPlayedAudioId)
+      return;
+    this.audio.stop(this.lastPlayedAudioId);
+    this.lastPlayedAudioId = null;
+  }
+};
+__publicField(HowlerAudioSource, "TypeName", "howler-audio-source");
+__publicField(HowlerAudioSource, "Properties", {
+  /** Volume */
+  volume: { type: Type.Float, default: 1 },
+  /** Whether audio should be spatialized/positional */
+  spatial: { type: Type.Bool, default: true },
+  /** Whether to loop the sound */
+  loop: { type: Type.Bool, default: false },
+  /** Whether to start playing automatically */
+  autoplay: { type: Type.Bool, default: false },
+  /** URL to a sound file to play */
+  src: { type: Type.String, default: "" }
+});
+
+// node_modules/@wonderlandengine/components/image-texture.js
+var ImageTexture = class extends Component {
+  start() {
+    if (!this.material) {
+      throw Error("image-texture: material property not set");
+    }
+    this.engine.textures.load(this.url, "anonymous").then((texture) => {
+      const mat = this.material;
+      const shader = mat.shader;
+      if (shader === "Flat Opaque Textured") {
+        mat.flatTexture = texture;
+      } else if (shader === "Phong Opaque Textured" || shader === "Foliage") {
+        mat.diffuseTexture = texture;
+      } else if (shader === "Background") {
+        mat.texture = texture;
+      } else if (shader === "Physical Opaque Textured") {
+        mat.albedoTexture = texture;
+      } else {
+        console.error("Shader", shader, "not supported by image-texture");
+      }
+    }).catch(console.err);
+  }
+};
+__publicField(ImageTexture, "TypeName", "image-texture");
+__publicField(ImageTexture, "Properties", {
+  /** URL to download the image from */
+  url: { type: Type.String },
+  /** Material to apply the video texture to */
+  material: { type: Type.Material }
+});
+
+// node_modules/@wonderlandengine/components/mouse-look.js
+var MouseLookComponent = class extends Component {
+  init() {
+    this.currentRotationY = 0;
+    this.currentRotationX = 0;
+    this.origin = new Float32Array(3);
+    this.parentOrigin = new Float32Array(3);
+    this.rotationX = 0;
+    this.rotationY = 0;
+  }
+  start() {
+    document.addEventListener("mousemove", (e) => {
+      if (this.active && (this.mouseDown || !this.requireMouseDown)) {
+        this.rotationY = -this.sensitity * e.movementX / 100;
+        this.rotationX = -this.sensitity * e.movementY / 100;
+        this.currentRotationX += this.rotationX;
+        this.currentRotationY += this.rotationY;
+        this.currentRotationX = Math.min(1.507, this.currentRotationX);
+        this.currentRotationX = Math.max(-1.507, this.currentRotationX);
+        this.object.getTranslationWorld(this.origin);
+        const parent = this.object.parent;
+        if (parent !== null) {
+          parent.getTranslationWorld(this.parentOrigin);
+          vec3_exports.sub(this.origin, this.origin, this.parentOrigin);
+        }
+        this.object.resetTranslationRotation();
+        this.object.rotateAxisAngleRad([1, 0, 0], this.currentRotationX);
+        this.object.rotateAxisAngleRad([0, 1, 0], this.currentRotationY);
+        this.object.translate(this.origin);
+      }
+    });
+    const canvas2 = this.engine.canvas;
+    if (this.pointerLockOnClick) {
+      canvas2.addEventListener("mousedown", () => {
+        canvas2.requestPointerLock = canvas2.requestPointerLock || canvas2.mozRequestPointerLock || canvas2.webkitRequestPointerLock;
+        canvas2.requestPointerLock();
+      });
+    }
+    if (this.requireMouseDown) {
+      if (this.mouseButtonIndex == 2) {
+        canvas2.addEventListener(
+          "contextmenu",
+          (e) => {
+            e.preventDefault();
+          },
+          false
+        );
+      }
+      canvas2.addEventListener("mousedown", (e) => {
+        if (e.button == this.mouseButtonIndex) {
+          this.mouseDown = true;
+          document.body.style.cursor = "grabbing";
+          if (e.button == 1) {
+            e.preventDefault();
+            return false;
+          }
+        }
+      });
+      canvas2.addEventListener("mouseup", (e) => {
+        if (e.button == this.mouseButtonIndex) {
+          this.mouseDown = false;
+          document.body.style.cursor = "initial";
+        }
+      });
+    }
+  }
+};
+__publicField(MouseLookComponent, "TypeName", "mouse-look");
+__publicField(MouseLookComponent, "Properties", {
+  /** Mouse look sensitivity */
+  sensitity: { type: Type.Float, default: 0.25 },
+  /** Require a mouse button to be pressed to control view.
+   * Otherwise view will allways follow mouse movement */
+  requireMouseDown: { type: Type.Bool, default: true },
+  /** If "moveOnClick" is enabled, mouse button which should
+   * be held down to control view */
+  mouseButtonIndex: { type: Type.Int },
+  /** Enables pointer lock on "mousedown" event on canvas */
+  pointerLockOnClick: { type: Type.Bool, default: false }
+});
+
+// node_modules/@wonderlandengine/components/player-height.js
+var PlayerHeight = class extends Component {
+  init() {
+    this.engine.onXRSessionStart.push(this.onXRSessionStart.bind(this));
+    this.engine.onXRSessionEnd.push(this.onXRSessionEnd.bind(this));
+  }
+  start() {
+    this.object.resetTranslationRotation();
+    this.object.translate([0, this.height, 0]);
+  }
+  onXRSessionStart() {
+    const WebXR = this.engine.wasm.WebXR;
+    if (!["local", "viewer"].includes(WebXR.refSpace)) {
+      this.object.resetTranslationRotation();
+    }
+  }
+  onXRSessionEnd() {
+    const WebXR = this.engine.wasm.WebXR;
+    if (!["local", "viewer"].includes(WebXR.refSpace)) {
+      this.object.resetTranslationRotation();
+      this.object.translate([0, this.height, 0]);
+    }
+  }
+};
+__publicField(PlayerHeight, "TypeName", "player-height");
+__publicField(PlayerHeight, "Properties", {
+  height: { type: Type.Float, default: 1.75 }
+});
+
+// node_modules/@wonderlandengine/components/target-framerate.js
+var TargetFramerate = class extends Component {
+  start() {
+    if (this.engine.xrSession) {
+      this.setTargetFramerate(this.engine.xrSession);
+    } else {
+      this.engine.onXRSessionStart.push(this.setTargetFramerate.bind(this));
+    }
+  }
+  setTargetFramerate(s) {
+    if (s.supportedFrameRates && s.updateTargetFrameRate) {
+      const a = this.engine.xrSession.supportedFrameRates;
+      a.sort((a2, b) => Math.abs(a2 - this.framerate) - Math.abs(b - this.framerate));
+      this.engine.xrSession.updateTargetFrameRate(a[0]);
+    }
+  }
+};
+__publicField(TargetFramerate, "TypeName", "target-framerate");
+__publicField(TargetFramerate, "Properties", {
+  framerate: { type: Type.Float, default: 90 }
+});
+
+// node_modules/@wonderlandengine/components/teleport.js
+var TeleportComponent = class extends Component {
+  init() {
+    this._prevThumbstickAxis = new Float32Array(2);
+    this._tempVec = new Float32Array(3);
+    this._tempVec0 = new Float32Array(3);
+    this._currentIndicatorRotation = 0;
+    this.input = this.object.getComponent("input");
+    if (!this.input) {
+      console.error(
+        this.object.name,
+        "generic-teleport-component.js: input component is required on the object"
+      );
+      return;
+    }
+    if (!this.teleportIndicatorMeshObject) {
+      console.error(
+        this.object.name,
+        "generic-teleport-component.js: Teleport indicator mesh is missing"
+      );
+      return;
+    }
+    if (!this.camRoot) {
+      console.error(
+        this.object.name,
+        "generic-teleport-component.js: camRoot not set"
+      );
+      return;
+    }
+    this.isIndicating = false;
+    this.indicatorHidden = true;
+    this.hitSpot = new Float32Array(3);
+    this._hasHit = false;
+    this._extraRotation = 0;
+    this._currentStickAxes = new Float32Array(2);
+  }
+  start() {
+    if (this.cam) {
+      this.isMouseIndicating = false;
+      canvas.addEventListener("mousedown", this.onMouseDown.bind(this));
+      canvas.addEventListener("mouseup", this.onMouseUp.bind(this));
+    }
+    if (this.handedness == 0) {
+      const inputComp = this.object.getComponent("input");
+      if (!inputComp) {
+        console.warn(
+          "teleport component on object",
+          this.object.name,
+          'was configured with handedness "input component", but object has no input component.'
+        );
+      } else {
+        this.handedness = inputComp.handedness;
+        this.input = inputComp;
+      }
+    } else {
+      this.handedness = ["left", "right"][this.handedness - 1];
+    }
+    this.engine.onXRSessionStart.push(this.setupVREvents.bind(this));
+    this.teleportIndicatorMeshObject.active = false;
+  }
+  /* Get current camera Y rotation */
+  _getCamRotation() {
+    this.eyeLeft.getForward(this._tempVec);
+    this._tempVec[1] = 0;
+    vec3_exports.normalize(this._tempVec, this._tempVec);
+    return Math.atan2(this._tempVec[0], this._tempVec[2]);
+  }
+  update() {
+    let inputLength = 0;
+    if (this.gamepad && this.gamepad.axes) {
+      this._currentStickAxes[0] = this.gamepad.axes[2];
+      this._currentStickAxes[1] = this.gamepad.axes[3];
+      inputLength = Math.abs(this._currentStickAxes[0]) + Math.abs(this._currentStickAxes[1]);
+    }
+    if (!this.isIndicating && this._prevThumbstickAxis[1] >= this.thumbstickActivationThreshhold && this._currentStickAxes[1] < this.thumbstickActivationThreshhold) {
+      this.isIndicating = true;
+    } else if (this.isIndicating && inputLength < this.thumbstickDeactivationThreshhold) {
+      this.isIndicating = false;
+      this.teleportIndicatorMeshObject.active = false;
+      if (this._hasHit) {
+        this._teleportPlayer(this.hitSpot, this._extraRotation);
+      }
+    }
+    if (this.isIndicating && this.teleportIndicatorMeshObject && this.input) {
+      const origin = this._tempVec0;
+      quat2_exports.getTranslation(origin, this.object.transformWorld);
+      const direction2 = this.object.getForward(this._tempVec);
+      let rayHit = this.rayHit = this.rayCastMode == 0 ? this.engine.scene.rayCast(origin, direction2, 1 << this.floorGroup) : this.engine.physics.rayCast(
+        origin,
+        direction2,
+        1 << this.floorGroup,
+        this.maxDistance
+      );
+      if (rayHit.hitCount > 0) {
+        this.indicatorHidden = false;
+        this._extraRotation = Math.PI + Math.atan2(this._currentStickAxes[0], this._currentStickAxes[1]);
+        this._currentIndicatorRotation = this._getCamRotation() + (this._extraRotation - Math.PI);
+        this.teleportIndicatorMeshObject.resetTranslationRotation();
+        this.teleportIndicatorMeshObject.rotateAxisAngleRad(
+          [0, 1, 0],
+          this._currentIndicatorRotation
+        );
+        this.teleportIndicatorMeshObject.translate(rayHit.locations[0]);
+        this.teleportIndicatorMeshObject.translate([
+          0,
+          this.indicatorYOffset,
+          0
+        ]);
+        this.teleportIndicatorMeshObject.active = true;
+        this.hitSpot.set(rayHit.locations[0]);
+        this._hasHit = true;
+      } else {
+        if (!this.indicatorHidden) {
+          this.teleportIndicatorMeshObject.active = false;
+          this.indicatorHidden = true;
+        }
+        this._hasHit = false;
+      }
+    } else if (this.teleportIndicatorMeshObject && this.isMouseIndicating) {
+      this.onMousePressed();
+    }
+    this._prevThumbstickAxis.set(this._currentStickAxes);
+  }
+  setupVREvents(s) {
+    this.session = s;
+    s.addEventListener(
+      "end",
+      function() {
+        this.gamepad = null;
+        this.session = null;
+      }.bind(this)
+    );
+    if (s.inputSources && s.inputSources.length) {
+      for (let i = 0; i < s.inputSources.length; i++) {
+        let inputSource = s.inputSources[i];
+        if (inputSource.handedness == this.handedness) {
+          this.gamepad = inputSource.gamepad;
+        }
+      }
+    }
+    s.addEventListener(
+      "inputsourceschange",
+      function(e) {
+        if (e.added && e.added.length) {
+          for (let i = 0; i < e.added.length; i++) {
+            let inputSource = e.added[i];
+            if (inputSource.handedness == this.handedness) {
+              this.gamepad = inputSource.gamepad;
+            }
+          }
+        }
+      }.bind(this)
+    );
+  }
+  onMouseDown() {
+    this.isMouseIndicating = true;
+  }
+  onMouseUp() {
+    this.isMouseIndicating = false;
+    this.teleportIndicatorMeshObject.active = false;
+    if (this._hasHit) {
+      this._teleportPlayer(this.hitSpot, 0);
+    }
+  }
+  onMousePressed() {
+    let origin = [0, 0, 0];
+    quat2_exports.getTranslation(origin, this.cam.transformWorld);
+    const direction2 = this.cam.getForward(this._tempVec);
+    let rayHit = this.rayHit = this.rayCastMode == 0 ? this.engine.scene.rayCast(origin, direction2, 1 << this.floorGroup) : this.engine.physics.rayCast(
+      origin,
+      direction2,
+      1 << this.floorGroup,
+      this.maxDistance
+    );
+    if (rayHit.hitCount > 0) {
+      this.indicatorHidden = false;
+      direction2[1] = 0;
+      vec3_exports.normalize(direction2, direction2);
+      this._currentIndicatorRotation = -Math.sign(direction2[2]) * Math.acos(direction2[0]) - Math.PI * 0.5;
+      this.teleportIndicatorMeshObject.resetTranslationRotation();
+      this.teleportIndicatorMeshObject.rotateAxisAngleRad(
+        [0, 1, 0],
+        this._currentIndicatorRotation
+      );
+      this.teleportIndicatorMeshObject.translate(rayHit.locations[0]);
+      this.teleportIndicatorMeshObject.active = true;
+      this.hitSpot = rayHit.locations[0];
+      this._hasHit = true;
+    } else {
+      if (!this.indicatorHidden) {
+        this.teleportIndicatorMeshObject.active = false;
+        this.indicatorHidden = true;
+      }
+      this._hasHit = false;
+    }
+  }
+  _teleportPlayer(newPosition, rotationToAdd) {
+    this.camRoot.rotateAxisAngleRad([0, 1, 0], rotationToAdd);
+    const p = this._tempVec;
+    const p1 = this._tempVec0;
+    if (this.session) {
+      this.eyeLeft.getTranslationWorld(p);
+      this.eyeRight.getTranslationWorld(p1);
+      vec3_exports.add(p, p, p1);
+      vec3_exports.scale(p, p, 0.5);
+    } else {
+      this.cam.getTranslationWorld(p);
+    }
+    this.camRoot.getTranslationWorld(p1);
+    vec3_exports.sub(p, p1, p);
+    p[0] += newPosition[0];
+    p[1] = newPosition[1];
+    p[2] += newPosition[2];
+    this.camRoot.setTranslationWorld(p);
+  }
+};
+__publicField(TeleportComponent, "TypeName", "teleport");
+__publicField(TeleportComponent, "Properties", {
+  /** Object that will be placed as indiciation forwhere the player will teleport to. */
+  teleportIndicatorMeshObject: { type: Type.Object },
+  /** Root of the player, the object that will be positioned on teleportation. */
+  camRoot: { type: Type.Object },
+  /** Non-vr camera for use outside of VR */
+  cam: { type: Type.Object },
+  /** Left eye for use in VR*/
+  eyeLeft: { type: Type.Object },
+  /** Right eye for use in VR*/
+  eyeRight: { type: Type.Object },
+  /** Handedness for VR cursors to accept trigger events only from respective controller. */
+  handedness: {
+    type: Type.Enum,
+    values: ["input component", "left", "right", "none"],
+    default: "input component"
+  },
+  /** Collision group of valid "floor" objects that can be teleported on */
+  floorGroup: { type: Type.Int, default: 1 },
+  /** How far the thumbstick needs to be pushed to have the teleport target indicator show up */
+  thumbstickActivationThreshhold: { type: Type.Float, default: -0.7 },
+  /** How far the thumbstick needs to be released to execute the teleport */
+  thumbstickDeactivationThreshhold: { type: Type.Float, default: 0.3 },
+  /** Offset to apply to the indicator object, e.g. to avoid it from Z-fighting with the floor */
+  indicatorYOffset: { type: Type.Float, default: 0.01 },
+  /** Mode for raycasting, whether to use PhysX or simple collision components */
+  rayCastMode: {
+    type: Type.Enum,
+    values: ["collision", "physx"],
+    default: "collision"
+  },
+  /** Max distance for PhysX raycast */
+  maxDistance: { type: Type.Float, default: 100 }
+});
+
+// node_modules/@wonderlandengine/components/trail.js
+var direction = vec3_exports.create();
+var offset = vec3_exports.create();
+var normal = vec3_exports.create();
+var Trail = class extends Component {
+  init() {
+    this.points = new Array(this.segments + 1);
+    for (let i = 0; i < this.points.length; ++i) {
+      this.points[i] = vec3_exports.create();
+    }
+    this.currentPointOffset = 0;
+    this.up = [0, 1, 0];
+    this.timeTillNext = this.interval;
+  }
+  start() {
+    this.trailContainer = this.engine.scene.addObject();
+    this.meshComp = this.trailContainer.addComponent("mesh");
+    this.meshComp.material = this.material;
+    const vertexCount = 2 * this.points.length;
+    this.indexData = new Uint32Array(6 * this.segments);
+    for (let i = 0, v = 0; i < vertexCount - 2; i += 2, v += 6) {
+      this.indexData.subarray(v, v + 6).set([i + 1, i + 0, i + 2, i + 2, i + 3, i + 1]);
+    }
+    this.mesh = new Mesh({
+      vertexCount,
+      indexData: this.indexData,
+      indexType: MeshIndexType.UnsignedInt
+    });
+    this.meshComp.mesh = this.mesh;
+  }
+  updateVertices() {
+    const positions = this.mesh.attribute(MeshAttribute.Position);
+    const texCoords = this.mesh.attribute(MeshAttribute.TextureCoordinate);
+    const normals = this.mesh.attribute(MeshAttribute.Normal);
+    vec3_exports.set(direction, 0, 0, 0);
+    for (let i = 0; i < this.points.length; ++i) {
+      const curr = this.points[(this.currentPointIndex + i + 1) % this.points.length];
+      const next = this.points[(this.currentPointIndex + i + 2) % this.points.length];
+      if (i !== this.points.length - 1) {
+        vec3_exports.sub(direction, next, curr);
+      }
+      vec3_exports.cross(offset, this.up, direction);
+      vec3_exports.normalize(offset, offset);
+      const timeFraction = 1 - this.timeTillNext / this.interval;
+      const fraction = (i - timeFraction) / this.segments;
+      vec3_exports.scale(
+        offset,
+        offset,
+        (this.taper ? fraction : 1) * this.width / 2
+      );
+      positions.set(i * 2, [
+        curr[0] - offset[0],
+        curr[1] - offset[1],
+        curr[2] - offset[2]
+      ]);
+      positions.set(i * 2 + 1, [
+        curr[0] + offset[0],
+        curr[1] + offset[1],
+        curr[2] + offset[2]
+      ]);
+      if (normals) {
+        vec3_exports.cross(normal, direction, offset);
+        vec3_exports.normalize(normal, normal);
+        normals.set(i * 2, normal);
+        normals.set(i * 2 + 1, normal);
+      }
+      if (texCoords) {
+        texCoords.set(i * 2, [0, fraction]);
+        texCoords.set(i * 2 + 1, [1, fraction]);
+      }
+    }
+    this.mesh.update();
+  }
+  resetTrail() {
+    this.object.getTranslationWorld(this.points[0]);
+    for (let i = 1; i < this.points.length; ++i) {
+      vec3_exports.copy(this.points[i], this.points[0]);
+    }
+    this.currentPointIndex = 0;
+    this.timeTillNext = this.interval;
+  }
+  update(dt) {
+    this.timeTillNext -= dt;
+    if (dt > this.resetThreshold) {
+      this.resetTrail();
+    }
+    if (this.timeTillNext < 0) {
+      this.currentPointIndex = (this.currentPointIndex + 1) % this.points.length;
+      this.timeTillNext = this.timeTillNext % this.interval + this.interval;
+    }
+    this.object.getTranslationWorld(this.points[this.currentPointIndex]);
+    this.updateVertices();
+  }
+  onActivate() {
+    this.resetTrail();
+  }
+  onDestroy() {
+    this.trailContainer.destroy();
+    this.mesh.destroy();
+  }
+};
+__publicField(Trail, "TypeName", "trail");
+__publicField(Trail, "Properties", {
+  /** The material to apply to the trail mesh */
+  material: { type: Type.Material },
+  /** The number of segments in the trail mesh */
+  segments: { type: Type.Int, default: 50 },
+  /** The time interval before recording a new point */
+  interval: { type: Type.Float, default: 0.1 },
+  /** The width of the trail (in world space) */
+  width: { type: Type.Float, default: 1 },
+  /** Whether or not the trail should taper off */
+  taper: { type: Type.Bool, default: true },
+  /**
+   * The maximum delta time in seconds, above which the trail resets.
+   * This prevents the trail from jumping around when updates happen
+   * infrequently (e.g. when the tab doesn't have focus).
+   */
+  resetThreshold: { type: Type.Float, default: 0.5 }
+});
+
+// node_modules/@wonderlandengine/components/two-joint-ik-solver.js
+Math.clamp = function(v, a, b) {
+  return Math.max(a, Math.min(v, b));
+};
+var twoJointIK = function() {
+  let ta = new Float32Array(3);
+  let ca = new Float32Array(3);
+  let ba = new Float32Array(3);
+  let ab = new Float32Array(3);
+  let cb = new Float32Array(3);
+  let axis0 = new Float32Array(3);
+  let axis1 = new Float32Array(3);
+  let temp = new Float32Array(4);
+  let r0 = new Float32Array(4);
+  let r1 = new Float32Array(4);
+  let r2 = new Float32Array(4);
+  return function(a_lr, b_lr, a, b, c, t, eps, a_gr, b_gr, helper) {
+    vec3_exports.sub(ba, b, a);
+    const lab = vec3_exports.length(ba);
+    vec3_exports.sub(ta, b, c);
+    const lcb = vec3_exports.length(ta);
+    vec3_exports.sub(ta, t, a);
+    const lat = Math.clamp(vec3_exports.length(ta), eps, lab + lcb - eps);
+    vec3_exports.sub(ca, c, a);
+    vec3_exports.sub(ab, a, b);
+    vec3_exports.sub(cb, c, b);
+    vec3_exports.normalize(ca, ca);
+    vec3_exports.normalize(ba, ba);
+    vec3_exports.normalize(ab, ab);
+    vec3_exports.normalize(cb, cb);
+    vec3_exports.normalize(ta, ta);
+    const ac_ab_0 = Math.acos(Math.clamp(vec3_exports.dot(ca, ba), -1, 1));
+    const ba_bc_0 = Math.acos(Math.clamp(vec3_exports.dot(ab, cb), -1, 1));
+    const ac_at_0 = Math.acos(Math.clamp(vec3_exports.dot(ca, ta), -1, 1));
+    const ac_ab_1 = Math.acos(
+      Math.clamp((lcb * lcb - lab * lab - lat * lat) / (-2 * lab * lat), -1, 1)
+    );
+    const ba_bc_1 = Math.acos(
+      Math.clamp((lat * lat - lab * lab - lcb * lcb) / (-2 * lab * lcb), -1, 1)
+    );
+    vec3_exports.sub(ca, c, a);
+    vec3_exports.sub(ba, b, a);
+    vec3_exports.sub(ta, t, a);
+    vec3_exports.cross(axis0, ca, ba);
+    vec3_exports.cross(axis1, ca, ta);
+    if (helper) {
+      vec3_exports.sub(ba, helper, b);
+      vec3_exports.transformQuat(ba, [0, 0, -1], b_gr);
+    } else {
+      vec3_exports.sub(ba, b, a);
+    }
+    const l = vec3_exports.length(axis0);
+    if (l == 0) {
+      axis0.set([1, 0, 0]);
+    } else {
+      vec3_exports.scale(axis0, axis0, 1 / l);
+    }
+    vec3_exports.normalize(axis1, axis1);
+    quat_exports.conjugate(a_gr, a_gr);
+    quat_exports.setAxisAngle(r0, vec3_exports.transformQuat(temp, axis0, a_gr), ac_ab_1 - ac_ab_0);
+    quat_exports.setAxisAngle(r2, vec3_exports.transformQuat(temp, axis1, a_gr), ac_at_0);
+    quat_exports.mul(a_lr, a_lr, quat_exports.mul(temp, r0, r2));
+    quat_exports.normalize(a_lr, a_lr);
+    quat_exports.conjugate(b_gr, b_gr);
+    quat_exports.setAxisAngle(r1, vec3_exports.transformQuat(temp, axis0, b_gr), ba_bc_1 - ba_bc_0);
+    quat_exports.mul(b_lr, b_lr, r1);
+    quat_exports.normalize(b_lr, b_lr);
+  };
+}();
+var TwoJointIkSolver = class extends Component {
+  init() {
+    this.pos = new Float32Array(3 * 7);
+    this.p = [
+      this.pos.subarray(0, 3),
+      this.pos.subarray(3, 6),
+      this.pos.subarray(6, 9),
+      this.pos.subarray(9, 12),
+      this.pos.subarray(12, 15),
+      this.pos.subarray(15, 18),
+      this.pos.subarray(18, 21)
+    ];
+  }
+  update() {
+    const p = this.p;
+    this.root.getTranslationWorld(p[0]);
+    this.middle.getTranslationWorld(p[1]);
+    this.end.getTranslationWorld(p[2]);
+    this.target.getTranslationWorld(p[3]);
+    const tla = p[4];
+    const tlb = p[5];
+    this.root.getTranslationLocal(tla);
+    this.middle.getTranslationLocal(tlb);
+    if (this.helper)
+      this.helper.getTranslationWorld(p[6]);
+    twoJointIK(
+      this.root.transformLocal,
+      this.middle.transformLocal,
+      p[0],
+      p[1],
+      p[2],
+      p[3],
+      0.01,
+      this.root.transformWorld.subarray(0, 4),
+      this.middle.transformWorld.subarray(0, 4),
+      this.helper ? p[6] : null
+    );
+    this.root.setTranslationLocal(tla);
+    this.middle.setTranslationLocal(tlb);
+    this.root.setDirty();
+    this.middle.setDirty();
+  }
+};
+__publicField(TwoJointIkSolver, "TypeName", "two-joint-ik-solver");
+__publicField(TwoJointIkSolver, "Properties", {
+  /** Root bone, never moves */
+  root: { type: Type.Object },
+  /** Bone attached to the root */
+  middle: { type: Type.Object },
+  /** Bone attached to the middle */
+  end: { type: Type.Object },
+  /** Target the joins should reach for */
+  target: { type: Type.Object },
+  /** Helper object to use to determine joint rotation axis */
+  helper: { type: Type.Object }
+});
+
+// node_modules/@wonderlandengine/components/video-texture.js
+var VideoTexture = class extends Component {
+  init() {
+    if (!this.material) {
+      throw Error("video-texture: material property not set");
+    }
+    this.loaded = false;
+    this.frameUpdateRequested = true;
+  }
+  start() {
+    this.video = document.createElement("video");
+    this.video.src = this.url;
+    this.video.crossOrigin = "anonymous";
+    this.video.playsInline = true;
+    this.video.loop = this.loop;
+    this.video.muted = this.muted;
+    this.video.addEventListener("playing", () => {
+      this.loaded = true;
+    });
+    if (this.autoplay) {
+      const playAfterUserGesture = () => {
+        this.video.play();
+        window.removeEventListener("click", playAfterUserGesture);
+        window.removeEventListener("touchstart", playAfterUserGesture);
+      };
+      window.addEventListener("click", playAfterUserGesture);
+      window.addEventListener("touchstart", playAfterUserGesture);
+    }
+  }
+  applyTexture() {
+    const mat = this.material;
+    const shader = mat.shader;
+    const texture = this.texture = new Texture(this.engine, this.video);
+    if (shader === "Flat Opaque Textured") {
+      mat.flatTexture = texture;
+    } else if (shader === "Phong Opaque Textured" || shader === "Foliage") {
+      mat.diffuseTexture = texture;
+    } else if (shader === "Background") {
+      mat.texture = texture;
+    } else if (shader === "Physical Opaque Textured") {
+      mat.albedoTexture = texture;
+    } else {
+      console.error("Shader", shader, "not supported by video-texture");
+    }
+    if ("requestVideoFrameCallback" in this.video) {
+      this.video.requestVideoFrameCallback(this.updateVideo.bind(this));
+    } else {
+      this.video.addEventListener(
+        "timeupdate",
+        () => {
+          this.frameUpdateRequested = true;
+        }
+      );
+    }
+  }
+  update(dt) {
+    if (this.loaded && this.frameUpdateRequested) {
+      if (this.texture) {
+        this.texture.update();
+      } else {
+        this.applyTexture();
+      }
+      this.frameUpdateRequested = false;
+    }
+  }
+  updateVideo() {
+    this.frameUpdateRequested = true;
+    this.video.requestVideoFrameCallback(this.updateVideo.bind(this));
+  }
+};
+__publicField(VideoTexture, "TypeName", "video-texture");
+__publicField(VideoTexture, "Properties", {
+  /** URL to download video from */
+  url: { type: Type.String },
+  /** Material to apply the video texture to */
+  material: { type: Type.Material },
+  /** Whether to loop the video */
+  loop: { type: Type.Bool, default: true },
+  /** Whether to automatically start playing the video */
+  autoplay: { type: Type.Bool, default: true },
+  /** Whether to mute sound */
+  muted: { type: Type.Bool, default: true }
+});
+
+// node_modules/@wonderlandengine/components/vr-mode-active-switch.js
+var VrModeActiveSwitch = class extends Component {
+  start() {
+    this.components = [];
+    this.getComponents(this.object);
+    this.onXRSessionEnd();
+    this.engine.onXRSessionStart.push(this.onXRSessionStart.bind(this));
+    this.engine.onXRSessionEnd.push(this.onXRSessionEnd.bind(this));
+  }
+  getComponents(obj) {
+    const comps = obj.getComponents().filter((c) => c.type !== "vr-mode-active-switch");
+    this.components = this.components.concat(comps);
+    if (this.affectChildren) {
+      let children = obj.children;
+      for (let i = 0; i < children.length; ++i) {
+        this.getComponents(children[i]);
+      }
+    }
+  }
+  setComponentsActive(active) {
+    const comps = this.components;
+    for (let i = 0; i < comps.length; ++i) {
+      comps[i].active = active;
+    }
+  }
+  onXRSessionStart() {
+    if (!this.active)
+      return;
+    this.setComponentsActive(this.activateComponents == 0);
+  }
+  onXRSessionEnd() {
+    if (!this.active)
+      return;
+    this.setComponentsActive(this.activateComponents != 0);
+  }
+};
+__publicField(VrModeActiveSwitch, "TypeName", "vr-mode-active-switch");
+__publicField(VrModeActiveSwitch, "Properties", {
+  /** When components should be active: In VR or when not in VR */
+  activateComponents: {
+    type: Type.Enum,
+    values: ["in VR", "in non-VR"],
+    default: "in VR"
+  },
+  /** Whether child object's components should be affected */
+  affectChildren: { type: Type.Bool, default: true }
+});
+
+// node_modules/@wonderlandengine/components/vrm.js
+var VRM_ROLL_AXES = {
+  X: [1, 0, 0],
+  Y: [0, 1, 0],
+  Z: [0, 0, 1]
+};
+var VRM_AIM_AXES = {
+  PositiveX: [1, 0, 0],
+  NegativeX: [-1, 0, 0],
+  PositiveY: [0, 1, 0],
+  NegativeY: [0, -1, 0],
+  PositiveZ: [0, 0, 1],
+  NegativeZ: [0, 0, -1]
+};
+var Vrm = class extends Component {
+  /** Meta information about the VRM model */
+  meta = null;
+  /** The humanoid bones of the VRM model */
+  bones = {
+    /* Torso */
+    hips: null,
+    spine: null,
+    chest: null,
+    upperChest: null,
+    neck: null,
+    /* Head */
+    head: null,
+    leftEye: null,
+    rightEye: null,
+    jaw: null,
+    /* Legs */
+    leftUpperLeg: null,
+    leftLowerLeg: null,
+    leftFoot: null,
+    leftToes: null,
+    rightUpperLeg: null,
+    rightLowerLeg: null,
+    rightFoot: null,
+    rightToes: null,
+    /* Arms */
+    leftShoulder: null,
+    leftUpperArm: null,
+    leftLowerArm: null,
+    leftHand: null,
+    rightShoulder: null,
+    rightUpperArm: null,
+    rightLowerArm: null,
+    rightHand: null,
+    /* Fingers */
+    leftThumbMetacarpal: null,
+    leftThumbProximal: null,
+    leftThumbDistal: null,
+    leftIndexProximal: null,
+    leftIndexIntermediate: null,
+    leftIndexDistal: null,
+    leftMiddleProximal: null,
+    leftMiddleIntermediate: null,
+    leftMiddleDistal: null,
+    leftRingProximal: null,
+    leftRingIntermediate: null,
+    leftRingDistal: null,
+    leftLittleProximal: null,
+    leftLittleIntermediate: null,
+    leftLittleDistal: null,
+    rightThumbMetacarpal: null,
+    rightThumbProximal: null,
+    rightThumbDistal: null,
+    rightIndexProximal: null,
+    rightIndexIntermediate: null,
+    rightIndexDistal: null,
+    rightMiddleProximal: null,
+    rightMiddleIntermediate: null,
+    rightMiddleDistal: null,
+    rightRingProximal: null,
+    rightRingIntermediate: null,
+    rightRingDistal: null,
+    rightLittleProximal: null,
+    rightLittleIntermediate: null,
+    rightLittleDistal: null
+  };
+  /** Rotations of the bones in the rest pose (T-pose) */
+  restPose = {};
+  /* All node constraints, ordered to deal with dependencies */
+  _nodeConstraints = [];
+  /* VRMC_springBone chains */
+  _springChains = [];
+  /* Spherical colliders for spring bones */
+  _sphereColliders = [];
+  /* Capsule shaped colliders for spring bones */
+  _capsuleColliders = [];
+  /* Indicates which meshes are rendered in first/third person views */
+  _firstPersonAnnotations = [];
+  /* Contains details for (bone type) lookAt behaviour */
+  _lookAt = null;
+  /* Whether or not the VRM component has been initialized with `initializeVrm` */
+  _initialized = false;
+  init() {
+    this._tempV3 = vec3_exports.create();
+    this._tempV3A = vec3_exports.create();
+    this._tempV3B = vec3_exports.create();
+    this._tempQuat = quat_exports.create();
+    this._tempQuatA = quat_exports.create();
+    this._tempQuatB = quat_exports.create();
+    this._tempMat4A = mat4_exports.create();
+    this._tempQuat2 = quat2_exports.create();
+    this._tailToShape = vec3_exports.create();
+    this._headToTail = vec3_exports.create();
+    this._inertia = vec3_exports.create();
+    this._stiffness = vec3_exports.create();
+    this._external = vec3_exports.create();
+    this._rightVector = vec3_exports.set(vec3_exports.create(), 1, 0, 0);
+    this._upVector = vec3_exports.set(vec3_exports.create(), 0, 1, 0);
+    this._forwardVector = vec3_exports.set(vec3_exports.create(), 0, 0, 1);
+    this._identityQuat = quat_exports.identity(quat_exports.create());
+    this._rad2deg = 180 / Math.PI;
+  }
+  start() {
+    if (!this.src) {
+      console.error("vrm: src property not set");
+      return;
+    }
+    this.engine.scene.append(this.src, { loadGltfExtensions: true }).then(({ root, extensions }) => {
+      root.children.forEach((child) => child.parent = this.object);
+      this._initializeVrm(extensions);
+      root.destroy();
+    });
+  }
+  /**
+   * Parses the VRM glTF extensions and initializes the vrm component.
+   * @param {GLTFExtensions} extensions The glTF extensions for the VRM model
+   */
+  _initializeVrm(extensions) {
+    if (this._initialized) {
+      throw Error("VRM component has already been initialized");
+    }
+    const VRMC_vrm = extensions.root["VRMC_vrm"];
+    if (!VRMC_vrm) {
+      throw Error("Missing VRM extensions");
+    }
+    if (VRMC_vrm.specVersion !== "1.0") {
+      throw Error(
+        `Unsupported VRM version, only 1.0 is supported, but encountered '${VRMC_vrm.specVersion}'`
+      );
+    }
+    this.meta = VRMC_vrm.meta;
+    this._parseHumanoid(VRMC_vrm.humanoid, extensions);
+    if (VRMC_vrm.firstPerson) {
+      this._parseFirstPerson(VRMC_vrm.firstPerson, extensions);
+    }
+    if (VRMC_vrm.lookAt) {
+      this._parseLookAt(VRMC_vrm.lookAt);
+    }
+    this._findAndParseNodeConstraints(extensions);
+    const springBone = extensions.root["VRMC_springBone"];
+    if (springBone) {
+      this._parseAndInitializeSpringBones(springBone, extensions);
+    }
+    this._initialized = true;
+  }
+  _parseHumanoid(humanoid, extensions) {
+    for (const boneName in humanoid.humanBones) {
+      if (!(boneName in this.bones)) {
+        console.warn(`Unrecognized bone '${boneName}'`);
+        continue;
+      }
+      const node = humanoid.humanBones[boneName].node;
+      const objectId = extensions.idMapping[node];
+      this.bones[boneName] = this.engine.wrapObject(objectId);
+      this.restPose[boneName] = quat_exports.copy(
+        quat_exports.create(),
+        this.bones[boneName].rotationLocal
+      );
+    }
+  }
+  _parseFirstPerson(firstPerson, extensions) {
+    for (const meshAnnotation of firstPerson.meshAnnotations) {
+      const annotation = {
+        node: this.engine.wrapObject(extensions.idMapping[meshAnnotation.node]),
+        firstPerson: true,
+        thirdPerson: true
+      };
+      switch (meshAnnotation.type) {
+        case "firstPersonOnly":
+          annotation.thirdPerson = false;
+          break;
+        case "thirdPersonOnly":
+          annotation.firstPerson = false;
+          break;
+        case "both":
+          break;
+        case "auto":
+          console.warn(
+            "First person mesh annotation type 'auto' is not supported, treating as 'both'!"
+          );
+          break;
+        default:
+          console.error(`Invalid mesh annotation type '${meshAnnotation.type}'`);
+          break;
+      }
+      this._firstPersonAnnotations.push(annotation);
+    }
+  }
+  _parseLookAt(lookAt2) {
+    if (lookAt2.type !== "bone") {
+      console.warn(
+        `Unsupported lookAt type '${lookAt2.type}', only 'bone' is supported`
+      );
+      return;
+    }
+    const parseRangeMap = (rangeMap) => {
+      return {
+        inputMaxValue: rangeMap.inputMaxValue,
+        outputScale: rangeMap.outputScale
+      };
+    };
+    this._lookAt = {
+      offsetFromHeadBone: lookAt2.offsetFromHeadBone || [0, 0, 0],
+      horizontalInner: parseRangeMap(lookAt2.rangeMapHorizontalInner),
+      horizontalOuter: parseRangeMap(lookAt2.rangeMapHorizontalOuter),
+      verticalDown: parseRangeMap(lookAt2.rangeMapVerticalDown),
+      verticalUp: parseRangeMap(lookAt2.rangeMapVerticalUp)
+    };
+  }
+  _findAndParseNodeConstraints(extensions) {
+    const traverse = (object) => {
+      const nodeExtensions = extensions.node[object.objectId];
+      if (nodeExtensions && "VRMC_node_constraint" in nodeExtensions) {
+        const nodeConstraintExtension = nodeExtensions["VRMC_node_constraint"];
+        const constraint = nodeConstraintExtension.constraint;
+        let type, axis;
+        if ("roll" in constraint) {
+          type = "roll";
+          axis = VRM_ROLL_AXES[constraint.roll.rollAxis];
+        } else if ("aim" in constraint) {
+          type = "aim";
+          axis = VRM_AIM_AXES[constraint.aim.aimAxis];
+        } else if ("rotation" in constraint) {
+          type = "rotation";
+        }
+        if (type) {
+          const source = this.engine.wrapObject(
+            extensions.idMapping[constraint[type].source]
+          );
+          this._nodeConstraints.push({
+            type,
+            source,
+            destination: object,
+            axis,
+            weight: constraint[type].weight,
+            /* Rest pose */
+            destinationRestLocalRotation: quat_exports.copy(
+              quat_exports.create(),
+              object.rotationLocal
+            ),
+            sourceRestLocalRotation: quat_exports.copy(
+              quat_exports.create(),
+              source.rotationLocal
+            ),
+            sourceRestLocalRotationInv: quat_exports.invert(
+              quat_exports.create(),
+              source.rotationLocal
+            )
+          });
+        } else {
+          console.warn(
+            "Unrecognized or invalid VRMC_node_constraint, ignoring it"
+          );
+        }
+      }
+      for (const child of object.children) {
+        traverse(child);
+      }
+    };
+    traverse(this.object);
+  }
+  _parseAndInitializeSpringBones(springBone, extensions) {
+    const colliders = (springBone.colliders || []).map((collider, i) => {
+      const shapeType = "capsule" in collider.shape ? "capsule" : "sphere";
+      return {
+        id: i,
+        object: this.engine.wrapObject(extensions.idMapping[collider.node]),
+        shape: {
+          isCapsule: shapeType === "capsule",
+          radius: collider.shape[shapeType].radius,
+          offset: collider.shape[shapeType].offset,
+          tail: collider.shape[shapeType].tail
+        },
+        cache: {
+          head: vec3_exports.create(),
+          tail: vec3_exports.create()
+        }
+      };
+    });
+    this._sphereColliders = colliders.filter((c) => !c.shape.isCapsule);
+    this._capsuleColliders = colliders.filter((c) => c.shape.isCapsule);
+    const colliderGroups = (springBone.colliderGroups || []).map((group) => ({
+      name: group.name,
+      colliders: group.colliders.map((c) => colliders[c])
+    }));
+    for (const spring of springBone.springs) {
+      const joints = [];
+      for (const joint of spring.joints) {
+        const springJoint = {
+          hitRadius: 0,
+          stiffness: 1,
+          gravityPower: 0,
+          gravityDir: [0, -1, 0],
+          dragForce: 0.5,
+          node: null,
+          state: null
+        };
+        Object.assign(springJoint, joint);
+        springJoint.node = this.engine.wrapObject(extensions.idMapping[springJoint.node]);
+        joints.push(springJoint);
+      }
+      const springChainColliders = (spring.colliderGroups || []).flatMap(
+        (cg) => colliderGroups[cg].colliders
+      );
+      this._springChains.push({
+        name: spring.name,
+        center: spring.center ? this.engine.wrapObject(extensions.idMapping[spring.center]) : null,
+        joints,
+        sphereColliders: springChainColliders.filter((c) => !c.shape.isCapsule),
+        capsuleColliders: springChainColliders.filter((c) => c.shape.isCapsule)
+      });
+    }
+    for (const springChain of this._springChains) {
+      for (let i = 0; i < springChain.joints.length - 1; ++i) {
+        const springBoneJoint = springChain.joints[i];
+        const childSpringBoneJoint = springChain.joints[i + 1];
+        const springBonePosition = springBoneJoint.node.getTranslationWorld(
+          vec3_exports.create()
+        );
+        const childSpringBonePosition = childSpringBoneJoint.node.getTranslationWorld(vec3_exports.create());
+        const boneDirection = vec3_exports.subtract(
+          this._tempV3A,
+          springBonePosition,
+          childSpringBonePosition
+        );
+        const state = {
+          prevTail: childSpringBonePosition,
+          currentTail: vec3_exports.copy(vec3_exports.create(), childSpringBonePosition),
+          initialLocalRotation: quat_exports.copy(
+            quat_exports.create(),
+            springBoneJoint.node.rotationLocal
+          ),
+          initialLocalTransformInvert: quat2_exports.invert(
+            quat2_exports.create(),
+            springBoneJoint.node.transformLocal
+          ),
+          boneAxis: vec3_exports.normalize(
+            vec3_exports.create(),
+            childSpringBoneJoint.node.getTranslationLocal(this._tempV3)
+          ),
+          /* Ensure bone length is at least 1cm to avoid jittery behaviour from zero-length bones */
+          boneLength: Math.max(0.01, vec3_exports.length(boneDirection)),
+          /* Tail positions in center space, if needed */
+          prevTailCenter: null,
+          currentTailCenter: null
+        };
+        if (springChain.center) {
+          state.prevTailCenter = springChain.center.transformPointInverseWorld(
+            vec3_exports.create(),
+            childSpringBonePosition
+          );
+          state.currentTailCenter = vec3_exports.copy(
+            vec3_exports.create(),
+            childSpringBonePosition
+          );
+        }
+        springBoneJoint.state = state;
+      }
+    }
+  }
+  update(dt) {
+    if (!this._initialized) {
+      return;
+    }
+    this._resolveLookAt();
+    this._resolveConstraints();
+    this._updateSpringBones(dt);
+  }
+  _rangeMap(rangeMap, input) {
+    const maxValue = rangeMap.inputMaxValue;
+    const outputScale = rangeMap.outputScale;
+    return Math.min(input, maxValue) / maxValue * outputScale;
+  }
+  _resolveLookAt() {
+    if (!this._lookAt || !this.lookAtTarget) {
+      return;
+    }
+    const lookAtSource = this.bones.head.transformPointWorld(
+      this._tempV3A,
+      this._lookAt.offsetFromHeadBone
+    );
+    const lookAtTarget = this.lookAtTarget.getTranslationWorld(this._tempV3B);
+    const lookAtDirection = vec3_exports.sub(this._tempV3A, lookAtTarget, lookAtSource);
+    vec3_exports.normalize(lookAtDirection, lookAtDirection);
+    this.bones.head.parent.transformVectorInverseWorld(lookAtDirection);
+    const z = vec3_exports.dot(lookAtDirection, this._forwardVector);
+    const x = vec3_exports.dot(lookAtDirection, this._rightVector);
+    const yaw = Math.atan2(x, z) * this._rad2deg;
+    const xz = Math.sqrt(x * x + z * z);
+    const y = vec3_exports.dot(lookAtDirection, this._upVector);
+    let pitch = Math.atan2(-y, xz) * this._rad2deg;
+    if (pitch > 0) {
+      pitch = this._rangeMap(this._lookAt.verticalDown, pitch);
+    } else {
+      pitch = -this._rangeMap(this._lookAt.verticalUp, -pitch);
+    }
+    if (this.bones.leftEye) {
+      let yawLeft = yaw;
+      if (yawLeft > 0) {
+        yawLeft = this._rangeMap(this._lookAt.horizontalInner, yawLeft);
+      } else {
+        yawLeft = -this._rangeMap(this._lookAt.horizontalOuter, -yawLeft);
+      }
+      const eyeRotation = quat_exports.fromEuler(this._tempQuatA, pitch, yawLeft, 0);
+      this.bones.leftEye.rotationLocal = quat_exports.multiply(
+        eyeRotation,
+        this.restPose.leftEye,
+        eyeRotation
+      );
+    }
+    if (this.bones.rightEye) {
+      let yawRight = yaw;
+      if (yawRight > 0) {
+        yawRight = this._rangeMap(this._lookAt.horizontalOuter, yawRight);
+      } else {
+        yawRight = -this._rangeMap(this._lookAt.horizontalInner, -yawRight);
+      }
+      const eyeRotation = quat_exports.fromEuler(this._tempQuatA, pitch, yawRight, 0);
+      this.bones.rightEye.rotationLocal = quat_exports.multiply(
+        eyeRotation,
+        this.restPose.rightEye,
+        eyeRotation
+      );
+    }
+  }
+  _resolveConstraints() {
+    for (const nodeConstraint of this._nodeConstraints) {
+      this._resolveConstraint(nodeConstraint);
+    }
+  }
+  _resolveConstraint(nodeConstraint) {
+    const dstRestQuat = nodeConstraint.destinationRestLocalRotation;
+    const srcRestQuatInv = nodeConstraint.sourceRestLocalRotationInv;
+    const targetQuat = quat_exports.identity(this._tempQuatA);
+    switch (nodeConstraint.type) {
+      case "roll":
+        {
+          const deltaSrcQuat = quat_exports.multiply(
+            this._tempQuatA,
+            srcRestQuatInv,
+            nodeConstraint.source.rotationLocal
+          );
+          const deltaSrcQuatInParent = quat_exports.multiply(
+            this._tempQuatA,
+            nodeConstraint.sourceRestLocalRotation,
+            deltaSrcQuat
+          );
+          quat_exports.mul(deltaSrcQuatInParent, deltaSrcQuatInParent, srcRestQuatInv);
+          const dstRestQuatInv = quat_exports.invert(this._tempQuatB, dstRestQuat);
+          const deltaSrcQuatInDst = quat_exports.multiply(
+            this._tempQuatB,
+            dstRestQuatInv,
+            deltaSrcQuatInParent
+          );
+          quat_exports.multiply(deltaSrcQuatInDst, deltaSrcQuatInDst, dstRestQuat);
+          const toVec = vec3_exports.transformQuat(
+            this._tempV3A,
+            nodeConstraint.axis,
+            deltaSrcQuatInDst
+          );
+          const fromToQuat = quat_exports.rotationTo(
+            this._tempQuatA,
+            nodeConstraint.axis,
+            toVec
+          );
+          quat_exports.mul(
+            targetQuat,
+            dstRestQuat,
+            quat_exports.invert(this._tempQuat, fromToQuat)
+          );
+          quat_exports.mul(targetQuat, targetQuat, deltaSrcQuatInDst);
+        }
+        break;
+      case "aim":
+        {
+          const dstParentWorldQuat = nodeConstraint.destination.parent.rotationWorld;
+          const fromVec = vec3_exports.transformQuat(
+            this._tempV3A,
+            nodeConstraint.axis,
+            dstRestQuat
+          );
+          vec3_exports.transformQuat(fromVec, fromVec, dstParentWorldQuat);
+          const toVec = nodeConstraint.source.getTranslationWorld(this._tempV3B);
+          vec3_exports.sub(
+            toVec,
+            toVec,
+            nodeConstraint.destination.getTranslationWorld(this._tempV3)
+          );
+          vec3_exports.normalize(toVec, toVec);
+          const fromToQuat = quat_exports.rotationTo(this._tempQuatA, fromVec, toVec);
+          quat_exports.mul(
+            targetQuat,
+            quat_exports.invert(this._tempQuat, dstParentWorldQuat),
+            fromToQuat
+          );
+          quat_exports.mul(targetQuat, targetQuat, dstParentWorldQuat);
+          quat_exports.mul(targetQuat, targetQuat, dstRestQuat);
+        }
+        break;
+      case "rotation":
+        {
+          const srcDeltaQuat = quat_exports.mul(
+            targetQuat,
+            srcRestQuatInv,
+            nodeConstraint.source.rotationLocal
+          );
+          quat_exports.mul(targetQuat, dstRestQuat, srcDeltaQuat);
+        }
+        break;
+    }
+    quat_exports.slerp(targetQuat, dstRestQuat, targetQuat, nodeConstraint.weight);
+    nodeConstraint.destination.rotationLocal = targetQuat;
+  }
+  _updateSpringBones(dt) {
+    this._sphereColliders.forEach(({ object, shape, cache }) => {
+      const offset2 = vec3_exports.copy(cache.head, shape.offset);
+      object.transformVectorWorld(offset2);
+      vec3_exports.add(cache.head, object.getTranslationWorld(this._tempV3), offset2);
+    });
+    this._capsuleColliders.forEach(({ object, shape, cache }) => {
+      const shapeCenter = object.getTranslationWorld(this._tempV3A);
+      const headOffset = vec3_exports.copy(cache.head, shape.offset);
+      object.transformVectorWorld(headOffset);
+      vec3_exports.add(cache.head, shapeCenter, headOffset);
+      const tailOffset = vec3_exports.copy(cache.tail, shape.tail);
+      object.transformVectorWorld(tailOffset);
+      vec3_exports.add(cache.tail, shapeCenter, tailOffset);
+    });
+    this._springChains.forEach((springChain) => {
+      for (let i = 0; i < springChain.joints.length - 1; ++i) {
+        const joint = springChain.joints[i];
+        const parentWorldRotation = joint.node.parent ? joint.node.parent.rotationWorld : this._identityQuat;
+        const inertia = this._inertia;
+        if (springChain.center) {
+          vec3_exports.sub(
+            inertia,
+            joint.state.currentTailCenter,
+            joint.state.prevTailCenter
+          );
+          springChain.center.transformVectorWorld(inertia);
+        } else {
+          vec3_exports.sub(inertia, joint.state.currentTail, joint.state.prevTail);
+        }
+        vec3_exports.scale(inertia, inertia, 1 - joint.dragForce);
+        const stiffness = vec3_exports.copy(this._stiffness, joint.state.boneAxis);
+        vec3_exports.transformQuat(stiffness, stiffness, joint.state.initialLocalRotation);
+        vec3_exports.transformQuat(stiffness, stiffness, parentWorldRotation);
+        vec3_exports.scale(stiffness, stiffness, dt * joint.stiffness);
+        const external = vec3_exports.scale(
+          this._external,
+          joint.gravityDir,
+          dt * joint.gravityPower
+        );
+        const nextTail = vec3_exports.copy(this._tempV3A, joint.state.currentTail);
+        vec3_exports.add(nextTail, nextTail, inertia);
+        vec3_exports.add(nextTail, nextTail, stiffness);
+        vec3_exports.add(nextTail, nextTail, external);
+        const worldPosition = joint.node.getTranslationWorld(this._tempV3B);
+        vec3_exports.sub(nextTail, nextTail, worldPosition);
+        vec3_exports.normalize(nextTail, nextTail);
+        vec3_exports.scaleAndAdd(nextTail, worldPosition, nextTail, joint.state.boneLength);
+        for (const { shape, cache } of springChain.sphereColliders) {
+          let tailToShape = this._tailToShape;
+          const sphereCenter = cache.head;
+          tailToShape = vec3_exports.sub(tailToShape, nextTail, sphereCenter);
+          const radius = shape.radius + joint.hitRadius;
+          const dist3 = vec3_exports.length(tailToShape) - radius;
+          if (dist3 < 0) {
+            vec3_exports.normalize(tailToShape, tailToShape);
+            vec3_exports.scaleAndAdd(nextTail, nextTail, tailToShape, -dist3);
+            vec3_exports.sub(nextTail, nextTail, worldPosition);
+            vec3_exports.normalize(nextTail, nextTail);
+            vec3_exports.scaleAndAdd(
+              nextTail,
+              worldPosition,
+              nextTail,
+              joint.state.boneLength
+            );
+          }
+        }
+        for (const { shape, cache } of springChain.capsuleColliders) {
+          let tailToShape = this._tailToShape;
+          const head = cache.head;
+          const tail = cache.tail;
+          tailToShape = vec3_exports.sub(tailToShape, nextTail, head);
+          const headToTail = vec3_exports.sub(this._headToTail, tail, head);
+          const dot5 = vec3_exports.dot(headToTail, tailToShape);
+          if (vec3_exports.squaredLength(headToTail) <= dot5) {
+            vec3_exports.sub(tailToShape, nextTail, tail);
+          } else if (dot5 > 0) {
+            vec3_exports.scale(
+              headToTail,
+              headToTail,
+              dot5 / vec3_exports.squaredLength(headToTail)
+            );
+            vec3_exports.sub(tailToShape, tailToShape, headToTail);
+          }
+          const radius = shape.radius + joint.hitRadius;
+          const dist3 = vec3_exports.length(tailToShape) - radius;
+          if (dist3 < 0) {
+            vec3_exports.normalize(tailToShape, tailToShape);
+            vec3_exports.scaleAndAdd(nextTail, nextTail, tailToShape, -dist3);
+            vec3_exports.sub(nextTail, nextTail, worldPosition);
+            vec3_exports.normalize(nextTail, nextTail);
+            vec3_exports.scaleAndAdd(
+              nextTail,
+              worldPosition,
+              nextTail,
+              joint.state.boneLength
+            );
+          }
+        }
+        vec3_exports.copy(joint.state.prevTail, joint.state.currentTail);
+        vec3_exports.copy(joint.state.currentTail, nextTail);
+        if (springChain.center) {
+          vec3_exports.copy(joint.state.prevTailCenter, joint.state.currentTailCenter);
+          vec3_exports.copy(joint.state.currentTailCenter, nextTail);
+          springChain.center.transformPointInverseWorld(
+            joint.state.currentTailCenter
+          );
+        }
+        joint.node.parent.transformPointInverseWorld(nextTail);
+        const nextTailDualQuat = quat2_exports.fromTranslation(this._tempQuat2, nextTail);
+        quat2_exports.multiply(
+          nextTailDualQuat,
+          joint.state.initialLocalTransformInvert,
+          nextTailDualQuat
+        );
+        quat2_exports.getTranslation(nextTail, nextTailDualQuat);
+        vec3_exports.normalize(nextTail, nextTail);
+        const jointRotation = quat_exports.rotationTo(
+          this._tempQuatA,
+          joint.state.boneAxis,
+          nextTail
+        );
+        joint.node.rotationLocal = quat_exports.mul(
+          this._tempQuatA,
+          joint.state.initialLocalRotation,
+          jointRotation
+        );
+      }
+    });
+  }
+  /**
+   * @param {boolean} firstPerson Whether the model should render for first person or third person views
+   */
+  set firstPerson(firstPerson) {
+    this._firstPersonAnnotations.forEach((annotation) => {
+      const visible = firstPerson == annotation.firstPerson || firstPerson != annotation.thirdPerson;
+      annotation.node.getComponents("mesh").forEach((mesh) => {
+        mesh.active = visible;
+      });
+    });
+  }
+};
+__publicField(Vrm, "TypeName", "vrm");
+__publicField(Vrm, "Properties", {
+  /** URL to a VRM file to load */
+  src: { type: Type.String },
+  /** Object the VRM is looking at */
+  lookAtTarget: { type: Type.Object }
+});
+
+// node_modules/@wonderlandengine/components/wasd-controls.js
+var WasdControlsComponent = class extends Component {
+  init() {
+    this.up = false;
+    this.right = false;
+    this.down = false;
+    this.left = false;
+    window.addEventListener("keydown", this.press.bind(this));
+    window.addEventListener("keyup", this.release.bind(this));
+  }
+  start() {
+    this.headObject = this.headObject || this.object;
+  }
+  update() {
+    let direction2 = [0, 0, 0];
+    if (this.up)
+      direction2[2] -= 1;
+    if (this.down)
+      direction2[2] += 1;
+    if (this.left)
+      direction2[0] -= 1;
+    if (this.right)
+      direction2[0] += 1;
+    vec3_exports.normalize(direction2, direction2);
+    direction2[0] *= this.speed;
+    direction2[2] *= this.speed;
+    vec3_exports.transformQuat(direction2, direction2, this.headObject.transformWorld);
+    this.object.translate(direction2);
+  }
+  press(e) {
+    if (e.keyCode === 38 || e.keyCode === 87 || e.keyCode === 90) {
+      this.up = true;
+    } else if (e.keyCode === 39 || e.keyCode === 68) {
+      this.right = true;
+    } else if (e.keyCode === 40 || e.keyCode === 83) {
+      this.down = true;
+    } else if (e.keyCode === 37 || e.keyCode === 65 || e.keyCode === 81) {
+      this.left = true;
+    }
+  }
+  release(e) {
+    if (e.keyCode === 38 || e.keyCode === 87 || e.keyCode === 90) {
+      this.up = false;
+    } else if (e.keyCode === 39 || e.keyCode === 68) {
+      this.right = false;
+    } else if (e.keyCode === 40 || e.keyCode === 83) {
+      this.down = false;
+    } else if (e.keyCode === 37 || e.keyCode === 65 || e.keyCode === 81) {
+      this.left = false;
+    }
+  }
+};
+__publicField(WasdControlsComponent, "TypeName", "wasd-controls");
+__publicField(WasdControlsComponent, "Properties", {
+  /** Movement speed in m/s. */
+  speed: { type: Type.Float, default: 0.1 },
+  /** Object of which the orientation is used to determine forward direction */
+  headObject: { type: Type.Object }
+});
+
+// js/gameplay/prefabs/PrefabsRegistry.ts
+var PrefabsRegistry = class {
+  constructor() {
+    this.PREFAB_UNAME_KEY = "pun";
+    this.PREFAB_TNAME_KEY = "texName";
+    this._prefabs = /* @__PURE__ */ new Map();
+  }
+  registerPrefab(prefab) {
+    let prefabUniqueName = prefab.getPrefabUniqueName();
+    if (this._prefabs.has(prefabUniqueName))
+      throw new Error("Can't register the same prefab twice: " + prefabUniqueName);
+    this._prefabs.set(prefabUniqueName, prefab);
+    prefab.object[this.PREFAB_UNAME_KEY] = prefabUniqueName;
+  }
+  getPrefab(typeOrClass) {
+    if (this._prefabs.has(typeOrClass.TypeName))
+      return this._prefabs.get(typeOrClass.TypeName);
+    return null;
+  }
+  getPrefabByName(uName) {
+    if (this._prefabs.has(uName))
+      return this._prefabs.get(uName);
+    return null;
+  }
+  removePrefab(typeOrClass) {
+    if (!this._prefabs.has(typeOrClass.TypeName))
+      return;
+    this._prefabs.delete(typeOrClass.TypeName);
+  }
+};
+var PrefabsRegistry_default = new PrefabsRegistry();
+
+// js/utils/textures/TextureInformationRegistry.ts
+var TextureInformationRegistry = class {
+  get texturesUniqueID() {
+    return Array.from(this._texturesInformation.keys());
+  }
+  constructor() {
+    this._texturesInformation = /* @__PURE__ */ new Map();
+  }
+  register(texInfo) {
+    if (this._texturesInformation.has(texInfo.uniqueID))
+      return false;
+    this._texturesInformation.set(texInfo.uniqueID, texInfo);
+    console.log("New Texture information registered ", texInfo.uniqueID);
+    return true;
+  }
+  getTextureInformation(uniqueID) {
+    return this._texturesInformation.get(uniqueID);
+  }
+};
+var TextureInformationRegistry_default = new TextureInformationRegistry();
+
+// js/lib/WlApi.ts
+function getCurrentScene() {
+  return WL.scene;
+}
+function getXrSessionStart() {
+  return WL.onXRSessionStart;
+}
+
+// js/gameplay/grid/GridLayer.ts
+var GridLayer = class {
+  constructor(size) {
+    this._layerSize = size;
+    this._layerData = new Array(this._layerSize);
+    for (let i = 0; i < this._layerSize; ++i) {
+      this._layerData[i] = new Array(this._layerSize);
+    }
+  }
+};
+
+// js/gameplay/grid/Grid.ts
+var Grid = class {
+  get gridSize() {
+    return this._gridSize;
+  }
+  get layerCount() {
+    return this._layerCount;
+  }
+  get cellSize() {
+    return this._cellSize;
+  }
+  constructor(size, layerCount, cellSize) {
+    this._gridSize = size;
+    this._layerCount = layerCount;
+    this._cellSize = cellSize;
+    this._gridOffset = this._gridSize * this._cellSize / 2;
+    this._gridData = new Array(this._layerCount);
+    for (let i = 0; i < this._layerCount; ++i) {
+      this._gridData[i] = new GridLayer(this._gridSize);
+    }
+    console.log(this._gridData);
+  }
+  /**
+   * Return position on the grid for the given indices
+   * @param worldPos
+   */
+  getCellPositionVec3(worldPos) {
+    return this.getCellPosition(worldPos[0], worldPos[1], worldPos[2]);
+  }
+  /**
+   * Return position on the grid for the given indices
+   * @param x
+   * @param y
+   * @param z
+   */
+  getCellPosition(x, y, z) {
+    let position = vec3_exports.create();
+    position[1] = y * this._cellSize;
+    position[0] = x * this._cellSize - this._gridOffset;
+    position[2] = z * this._cellSize - this._gridOffset;
+    return position;
+  }
+  /**
+   * Return cell indices from a world position
+   * @param x
+   * @param y
+   * @param z
+   */
+  getCellIndices(x, y, z) {
+    let indices = vec3_exports.create();
+    indices[0] = Math.round((x + this._gridOffset) / this._cellSize);
+    indices[1] = Math.floor(y / this._cellSize);
+    indices[2] = Math.round((z + this._gridOffset) / this._cellSize);
+    return indices;
+  }
+};
+
+// js/gameplay/grid/GridManager.ts
+var GridManager = class {
+  get grid() {
+    return this._grid;
+  }
+  constructor(size, layoutCount, cellSize) {
+    this._grid = new Grid(size, layoutCount, cellSize);
+  }
+};
+var GridManager_default = new GridManager(30, 10, 0.25);
+
+// js/utils/TagUtils.ts
+var TagUtils = class {
+  static setTag(object, tag) {
+    object[this.tagKey] = tag;
+  }
+  static hasTag(object, tag) {
+    return !(!object[this.tagKey] && object[this.tagKey] !== tag);
+  }
+  static getTag(object) {
+    return object[this.tagKey];
+  }
+};
+TagUtils.tagKey = "TAG";
+
+// js/utils/TagComponent.ts
+var TagComponent = class extends Component {
+  start() {
+    TagUtils.setTag(this.object, parseInt(this.tag));
+  }
+};
+TagComponent.TypeName = "tag-component";
+TagComponent.Properties = {
+  tag: {
+    type: Type.Enum,
+    values: [
+      0 /* ENVIRONMENT */.toString(),
+      2 /* UI */.toString()
+    ]
+  }
+};
+
+// js/gameplay/prefabs/PrefabBase.ts
+var PrefabBase = class extends Component {
+  start() {
+    this._scene = getCurrentScene();
+    this._cellSize = GridManager_default.grid.cellSize;
+  }
+  createPrevisObject() {
+    this._previsObject = this._scene.addObject(null);
+    this._previsObject.translateWorld([0, -5, 0]);
+    let previsVisual = this._scene.addObject(this._previsObject);
+    previsVisual.translateObject([0, this._cellSize / 2, 0]);
+    previsVisual.addComponent("mesh", {
+      mesh: this.previsMesh,
+      material: this.previsMat
+    });
+  }
+  /**
+   * Create the block in the scene at the specified world
+   * position
+   * @param position
+   * @param color
+   * @param container
+   */
+  createBlock(position, texInfo, container) {
+    let newBlock = this._scene.addObject(container);
+    newBlock[PrefabsRegistry_default.PREFAB_UNAME_KEY] = this.getPrefabUniqueName();
+    newBlock[PrefabsRegistry_default.PREFAB_TNAME_KEY] = texInfo.uniqueID;
+    newBlock.translateWorld(position);
+    let finalVisual = this._scene.addObject(newBlock);
+    finalVisual.resetTransform();
+    finalVisual.translateObject([0, this._cellSize / 2, 0]);
+    finalVisual.rotationWorld = this._previsObject.rotationWorld;
+    let mat = this.finalMat.clone();
+    mat.albedoTexture = texInfo.albedoTexture;
+    mat.normalTexture = texInfo.normalTexture;
+    finalVisual.addComponent("mesh", {
+      mesh: this.finalMesh,
+      material: mat
+    });
+    finalVisual.addComponent(TagComponent, {
+      tag: 1 /* BLOCK */
+    });
+    let extents = this._cellSize / 2 + 1e-3;
+    finalVisual.addComponent("collision", {
+      collider: Collider.AxisAlignedBox,
+      extents: [extents, extents, extents],
+      group: 1
+    });
+    return newBlock;
+  }
+  /**
+   * Update the world position of the previs visual
+   * @param position
+   */
+  updatePrevisPosition(position) {
+    this._previsObject.setTranslationWorld(position);
+    let pos = vec3_exports.create();
+    this._previsObject.getTranslationWorld(pos);
+  }
+  updatePrevisRotation(xRot, yRot) {
+    this._previsObject.rotateAxisAngleDeg([1, 0, 0], xRot);
+    this._previsObject.rotateAxisAngleDeg([0, 1, 0], yRot);
+  }
+  setPrevisRotation(rotation) {
+    this._previsObject.resetRotation();
+    this._previsObject.rotationWorld = rotation;
+  }
+  updatePrevisColor(color) {
+    this.previsMat["diffuseColor"] = color;
+  }
+};
+PrefabBase.TypeName = "";
+PrefabBase.Properties = {
+  finalMesh: { type: Type.Mesh },
+  previsMesh: { type: Type.Mesh },
+  finalMat: { type: Type.Material },
+  previsMat: { type: Type.Material }
+};
+
+// js/gameplay/prefabs/BlockPrefab.ts
+var _BlockPrefab = class extends PrefabBase {
+  getPrefabUniqueName() {
+    return _BlockPrefab.TypeName;
+  }
+  start() {
+    super.start();
+    PrefabsRegistry_default.registerPrefab(this);
+    this.createPrevisObject();
+  }
+};
+var BlockPrefab = _BlockPrefab;
+BlockPrefab.TypeName = "block-prefab";
+BlockPrefab.Properties = {
+  finalMesh: { type: Type.Mesh },
+  previsMesh: { type: Type.Mesh },
+  finalMat: { type: Type.Material },
+  previsMat: { type: Type.Material }
+};
+
+// js/gameplay/buildSystem/BuildController.ts
+var BuildController = class {
+  constructor() {
+    this._currentPrefab = null;
+    this._currentColor = [1, 1, 1, 1];
+    this.test();
+  }
+  test() {
+    return __async(this, null, function* () {
+      yield new Promise((f) => setTimeout(f, 1e3));
+      this._currentPrefab = PrefabsRegistry_default.getPrefab(BlockPrefab);
+      this._currentPrefab.updatePrevisColor(this._currentColor);
+      this._currentTexture = TextureInformationRegistry_default.getTextureInformation("Stone01");
+    });
+  }
+  /**
+   * Setters and initialisation
+   * ==============================
+   */
+  setBuildContainer(container) {
+    this._buildContainer = container;
+  }
+  setCurrentPrevizPosition(position) {
+    this._currentPrefab.updatePrevisPosition(position);
+  }
+  /**
+   * Set the prefab that should be placed and shown as previs in the world
+   * @param prefab the new prefab
+   */
+  setPrefab(prefab) {
+    this._currentPrefab = prefab;
+  }
+  /**
+   * Set the color that should use the previsualisation mesh's material
+   * @param color the new color of the previz
+   */
+  setColor(color) {
+    this._currentColor = color;
+    this._currentPrefab.updatePrevisColor(this._currentColor);
+  }
+  /**
+   * Set the current Texture information that will be used when a new block will be
+   * placed in the world by the user.
+   * @param texInfo the new texture to use on block creation in the world
+   */
+  setTexture(texInfo) {
+    this._currentTexture = texInfo;
+  }
+  /**
+   * Previz and prefab control
+   * ==============================
+   */
+  addCurrentPrevizRotation(xRot, yRot) {
+    this._currentPrefab.updatePrevisRotation(xRot, yRot);
+  }
+  instanciatePrefabAt(position) {
+    this._currentPrefab.createBlock(position, this._currentTexture, this._buildContainer);
+  }
+  /**
+   * Save and Load
+   * ==============================
+   */
+  getCurrentBuildData() {
+    return this._buildContainer.getComponent(BuildContainer).generateBuildData();
+  }
+  loadBuild(data) {
+    this._buildContainer.getComponent(BuildContainer).loadBuildData(data);
+  }
+};
+var BuildController_default = new BuildController();
+
+// js/gameplay/buildSystem/BuildContainer.ts
+var BuildContainer = class extends Component {
+  init() {
+    BuildController_default.setBuildContainer(this.object);
+  }
+  generateBuildData() {
+    let data = new Array();
+    const children = this.object.children;
+    for (const child of children) {
+      let visual = child.children[0];
+      let position = vec3_exports.create();
+      child.getTranslationWorld(position);
+      data.push({
+        type: child[PrefabsRegistry_default.PREFAB_UNAME_KEY],
+        texture: child[PrefabsRegistry_default.PREFAB_TNAME_KEY],
+        position,
+        rotation: visual.rotationWorld
+      });
+    }
+    return data;
+  }
+  loadBuildData(data) {
+    this.clearBlocksInScene();
+    let currentPrefab;
+    for (const block of data) {
+      currentPrefab = PrefabsRegistry_default.getPrefabByName(block.type);
+      const rot = block.rotation;
+      currentPrefab.setPrevisRotation(quat_exports.fromValues(rot[0], rot[1], rot[2], rot[3]));
+      BuildController_default.setPrefab(currentPrefab);
+      const currentTexture = TextureInformationRegistry_default.getTextureInformation(block.texture);
+      BuildController_default.setTexture(currentTexture);
+      BuildController_default.instanciatePrefabAt(block.position);
+    }
+  }
+  clearBlocksInScene() {
+    for (const child of this.object.children) {
+      child.destroy();
+    }
+  }
+};
+BuildContainer.TypeName = "build-container";
+BuildContainer.Properties = {};
+
+// js/gameplay/grid/GridDebugComponent.ts
+var GridDebugComponent = class extends Component {
+  start() {
+    this._grid = new Grid(2, 10, 0.5);
+    let mesh = this.debugVisualObject.getComponent("mesh");
+    let scene = getCurrentScene();
+    let offset2 = 25 / 2;
+    for (let y = 0; y < this._grid.layerCount; ++y)
+      for (let x = 0; x < this._grid.gridSize; ++x)
+        for (let z = 0; z < this._grid.gridSize; ++z) {
+          let tmp = scene.addObject(this.object);
+          tmp.addComponent("mesh", {
+            mesh: mesh.mesh,
+            material: mesh.material
+          });
+          tmp.resetTranslation();
+          tmp.translate(this._grid.getCellPosition(x, y, z));
+          let cellSize = this._grid.cellSize;
+          tmp.scale([cellSize, cellSize, cellSize]);
+        }
+  }
+};
+GridDebugComponent.TypeName = "grid-debug-component";
+GridDebugComponent.Properties = {
+  debugVisualObject: { type: Type.Object, default: null }
+};
+
+// js/gameplay/interactions/PointerRay.ts
+var PointerRay = class extends Component {
+  // Getters
+  get isPointing() {
+    return this._isPointing;
+  }
+  get currentHitPosition() {
+    return this._currentHitPosition;
+  }
+  get currentHitObject() {
+    return this._currentHitObject;
+  }
+  start() {
+    this._scene = getCurrentScene();
+    this._rayMesh = this.rayVisualObject.getComponent("mesh");
+    this._rayMesh.material["diffuseColor"] = vec4_exports.create();
+    this.rayVisualObject.translate([0, 0, -0.5]);
+    this._origin = [0, 0, 0];
+    this._direction = [0, 0, 0];
+  }
+  update(delta) {
+    this.rayOrigin.getTranslationWorld(this._origin);
+    this.rayOrigin.getForward(this._direction);
+    let hit = this._scene.rayCast(this._origin, this._direction, 1);
+    if (hit.hitCount > 0) {
+      this._isPointing = true;
+      this._currentHitPosition = vec3_exports.clone(hit.locations[0]);
+      this._currentHitObject = hit.objects[0];
+      this.processRayStretch();
+      this.cursorHitVisualObject.setTranslationWorld(this._currentHitPosition);
+    } else {
+      this._isPointing = false;
+      this.rayObject.resetScaling();
+      this.cursorHitVisualObject.setTranslationWorld([0, -5, 0]);
+    }
+  }
+  processRayStretch() {
+    let rayPos = vec3_exports.create();
+    rayPos[0] = this._origin[0];
+    rayPos[1] = this._origin[1];
+    rayPos[2] = this._origin[2];
+    let distance3 = vec3_exports.distance(rayPos, this._currentHitPosition);
+    this.rayObject.resetScaling();
+    this.rayObject.scale([1, distance3 - 0.05, 1]);
+  }
+};
+PointerRay.TypeName = "pointer-ray";
+PointerRay.Properties = {
+  rayOrigin: { type: Type.Object },
+  rayObject: { type: Type.Object },
+  rayVisualObject: { type: Type.Object },
+  cursorHitVisualObject: { type: Type.Object }
+};
+
+// js/gameplay/input/XrButton.ts
+var XrButton = class {
+  get isPressed() {
+    return this._isPressed;
+  }
+  get wasPressed() {
+    return this._wasPressed;
+  }
+  constructor(gamepadButton, index) {
+    this._gamepadButton = gamepadButton;
+    this._index = index;
+    this._isPressed = false;
+    this._wasPressed = false;
+    this._onPressedEvent = new Array();
+    this._onReleasedEvent = new Array();
+  }
+  update() {
+    this._isPressed = this._gamepadButton.pressed;
+    if (this._isPressed && !this._wasPressed) {
+      for (let onPressedEventListener of this._onPressedEvent) {
+        onPressedEventListener(this);
+      }
+      this._wasPressed = true;
+    }
+    if (!this._isPressed && this._wasPressed) {
+      for (let i = 0; i < this._onReleasedEvent.length; i++)
+        this._onReleasedEvent[i](this);
+      this._wasPressed = false;
+    }
+  }
+  addPressedListener(listener) {
+    return this._onPressedEvent.push(listener) - 1;
+  }
+  addReleasedListener(listener) {
+    return this._onReleasedEvent.push(listener) - 1;
+  }
+  removePressedListener(handler) {
+    this._onPressedEvent.splice(handler, 1);
+  }
+  removeReleasedListener(handler) {
+    this._onReleasedEvent.splice(handler, 1);
+  }
+  clearPressedListeners() {
+    this._onPressedEvent = new Array();
+  }
+  clearReleasedListeners() {
+    this._onReleasedEvent = new Array();
+  }
+};
+
+// js/gameplay/input/XrGamepad.ts
+var XrGamepad = class {
+  constructor(gamepad, hand) {
+    this._joystickTriggerValue = 0.5;
+    this.setup(gamepad, hand);
+  }
+  get hand() {
+    return this._hand;
+  }
+  get joystickXValue() {
+    return this._gamepad.axes[2 /* THUMBSTICK_X */];
+  }
+  get joystickYValue() {
+    return this._gamepad.axes[3 /* THUMBSTICK_Y */];
+  }
+  get joystickXJustMoved() {
+    return this._joystickXJustMoved;
+  }
+  get joystickYJustMoved() {
+    return this._joystickYJustMoved;
+  }
+  setup(gamepad, hand) {
+    this._gamepad = gamepad;
+    this._hand = hand;
+    this.initButtons();
+  }
+  update() {
+    for (const key of this._buttons.keys()) {
+      this._buttons.get(key).update();
+    }
+    this._joystickXIsMoving = Math.abs(this._gamepad.axes[2 /* THUMBSTICK_X */]) > this._joystickTriggerValue;
+    this._joystickYIsMoving = Math.abs(this._gamepad.axes[3 /* THUMBSTICK_Y */]) > this._joystickTriggerValue;
+    this._joystickXJustMoved = this._joystickXIsMoving && !this._joystickXWasMoving;
+    this._joystickYJustMoved = this._joystickYIsMoving && !this._joystickYWasMoving;
+    this._joystickXWasMoving = this._joystickXIsMoving;
+    this._joystickYWasMoving = this._joystickYIsMoving;
+  }
+  getButton(buttonIndex) {
+    return this._buttons.get(buttonIndex);
+  }
+  initButtons() {
+    let buttonsIndices = [
+      0 /* BUTTON_TRIGGER */,
+      1 /* BUTTON_SQUEEZE */,
+      4 /* BUTTON_A_X */,
+      5 /* BUTTON_B_Y */
+    ];
+    if (this._buttons != null) {
+      this._buttons.clear();
+      this._buttons = null;
+    }
+    this._buttons = /* @__PURE__ */ new Map();
+    for (let i = 0; i < buttonsIndices.length; ++i) {
+      let index = buttonsIndices[i];
+      let gamepadButton = this._gamepad.buttons[index];
+      let button = new XrButton(gamepadButton, index);
+      this._buttons.set(index, button);
+    }
+  }
+};
+
+// js/ui/UiElementBase.ts
+var UiElementBase = class extends Component {
+  init() {
+    this._interactCallbacks = new Array();
+  }
+  addInteractCallback(callback) {
+    this._interactCallbacks.push(callback);
+  }
+  removeInteractCallback(callback) {
+    const index = this._interactCallbacks.indexOf(callback);
+    this._interactCallbacks.splice(index, 1);
+  }
+};
+UiElementBase.TypeName = "ui-element-base";
+UiElementBase.Properties = {};
+
+// js/utils/materials/Color.ts
+var _Color = class {
+  constructor(r, g, b, a) {
+    this._value = [r, g, b, a];
+  }
+  static createRGB(r, g, b) {
+    return new _Color(r, g, b, 1);
+  }
+  asArray() {
+    return this._value;
+  }
+};
+var Color = _Color;
+Color.COLOR_NORMAL = vec4_exports.fromValues(76 / 255, 106 / 255, 134 / 255, 1);
+Color.COLOR_ACTIVE = vec4_exports.fromValues(255 / 255, 162 / 255, 56 / 255, 1);
+Color.COLOR_TINT_NORMAL = vec4_exports.fromValues(1, 1, 1, 1);
+Color.COLOR_TINT_ACTIVE = vec4_exports.fromValues(0.7, 0.7, 0.7, 1);
+
+// js/ui/UiButton.ts
+var UiButton = class extends UiElementBase {
+  start() {
+    this._meshComponent = this.object.getComponent("mesh");
+    this._meshComponent.material = this._meshComponent.material.clone();
+    if (this.textObject != null)
+      this._textComponent = this.textObject.getComponent("text");
+    this.object.addComponent(TagComponent, {
+      tag: 2 /* UI */
+    });
+  }
+  interact() {
+    console.log("Button clicked: " + this.object.name);
+    for (const interactCallback of this._interactCallbacks)
+      interactCallback();
+    if (this.visualFeedbackEnabled)
+      this.processVisualFeedback();
+  }
+  processVisualFeedback() {
+    this._meshComponent.material["color"] = Color.COLOR_TINT_ACTIVE;
+    setTimeout(() => {
+      this._meshComponent.material["color"] = Color.COLOR_TINT_NORMAL;
+    }, 100);
+  }
+};
+UiButton.TypeName = "ui-button";
+UiButton.Properties = {
+  textObject: { type: Type.Object },
+  visualFeedbackEnabled: { type: Type.Bool, default: true }
+};
+
+// js/sound/SoundSystem.ts
+var SoundSystem = class {
+  constructor() {
+    this._soundEmitters = /* @__PURE__ */ new Map();
+  }
+  registerEmitter(soundEmitter) {
+    if (this._soundEmitters.has(soundEmitter.emitterType)) {
+      console.warn("Only one emitter can be register by type");
+      return;
+    }
+    this._soundEmitters.set(soundEmitter.emitterType, soundEmitter);
+  }
+  playAt(soundEmitterType, position) {
+    if (!this._soundEmitters.has(soundEmitterType)) {
+      console.warn(`Can't play sound from emitter ${soundEmitterType}. It doesn't exist`);
+      return;
+    }
+    this._soundEmitters.get(soundEmitterType).playAt(position);
+  }
+};
+var SoundSystem_default = new SoundSystem();
+
+// js/gameplay/interactions/XrController.ts
+var XrController = class extends Component {
+  start() {
+    if (this.inputObject === null)
+      throw new Error("Input Object must be defined");
+    this._inputComponent = this.inputObject.getComponent("input");
+    this._hand = this._inputComponent.handedness;
+    if (this.pointerRay === null)
+      throw new Error("Pointer Ray Object must be defined");
+    this._pointerRayComponent = this.pointerRay.getComponent(PointerRay);
+    getXrSessionStart().push(this.onXrSessionStart.bind(this));
+  }
+  update(delta) {
+    if (this._xrGamepad == null)
+      return;
+    this._xrGamepad.update();
+    if (!this._pointerRayComponent.isPointing) {
+      BuildController_default.setCurrentPrevizPosition([0, -5, 0]);
+      return;
+    }
+    switch (TagUtils.getTag(this._pointerRayComponent.currentHitObject)) {
+      case 1 /* BLOCK */:
+      case 0 /* ENVIRONMENT */: {
+        const ptrPos = this._pointerRayComponent.currentHitPosition;
+        const indices = GridManager_default.grid.getCellIndices(ptrPos[0], ptrPos[1], ptrPos[2]);
+        const position = GridManager_default.grid.getCellPositionVec3(indices);
+        if (this._xrGamepad.joystickXJustMoved) {
+          BuildController_default.addCurrentPrevizRotation(
+            0,
+            this._xrGamepad.joystickXValue > 0 ? 90 : -90
+          );
+          SoundSystem_default.playAt(2 /* BlockRotate */, this._pointerRayComponent.currentHitPosition);
+        }
+        BuildController_default.setCurrentPrevizPosition(position);
+        break;
+      }
+      case 2 /* UI */: {
+        BuildController_default.setCurrentPrevizPosition([0, -5, 0]);
+        break;
+      }
+    }
+  }
+  /**
+   * Callback for XR Session start.
+   * Initialization of the input and listeners of session's events
+   * @param session
+   * @private
+   */
+  onXrSessionStart(session) {
+    this.inputSourcesSetup(session);
+  }
+  /**
+   * Handle session start input sources and subscribe to Input Sources change
+   * event to handle controllers changes while session is running.
+   * @param session
+   * @private
+   */
+  inputSourcesSetup(session) {
+    for (let i = 0; i < session.inputSources.length; ++i) {
+      let current = session.inputSources[i];
+      if (current.handedness === this._hand) {
+        console.log("Setup hand : " + current.handedness + " For XR Controller " + this._hand);
+        this.setupXrGamepad(current.gamepad);
+      }
+    }
+    session.addEventListener("inputsourceschange", this.onXrInputSourceChangeHandler.bind(this));
+  }
+  /**
+   * Setup given gamepad and subscribe to all necessary events
+   * in order to map actions on controls (Xr Buttons)
+   * @param gamepad
+   * @private
+   */
+  setupXrGamepad(gamepad) {
+    this._xrGamepad = new XrGamepad(gamepad, this._hand);
+    this._xrGamepad.getButton(0 /* BUTTON_TRIGGER */).addPressedListener(this.onPlacementTriggerPressed.bind(this));
+    this._xrGamepad.getButton(5 /* BUTTON_B_Y */).addPressedListener(this.onDeleteButtonPressed.bind(this));
+  }
+  /**
+   * Handler for 'inputsourceschange' event
+   * @param event
+   * @private
+   */
+  onXrInputSourceChangeHandler(event) {
+    for (let i = 0; i < event.added.length; ++i) {
+      let current = event.added[i];
+      if (current.handedness === this._hand) {
+        console.log("Setup hand : " + current.handedness + " For XR Controller " + this._hand);
+        this.setupXrGamepad(current.gamepad);
+      }
+    }
+  }
+  /**
+   * Handler trigger input
+   * @private
+   */
+  onPlacementTriggerPressed() {
+    if (!this._pointerRayComponent.currentHitObject)
+      return;
+    switch (TagUtils.getTag(this._pointerRayComponent.currentHitObject)) {
+      case 1 /* BLOCK */:
+      case 0 /* ENVIRONMENT */: {
+        let ptrPos = this._pointerRayComponent.currentHitPosition;
+        let indices = GridManager_default.grid.getCellIndices(ptrPos[0], ptrPos[1], ptrPos[2]);
+        let position = GridManager_default.grid.getCellPositionVec3(indices);
+        BuildController_default.instanciatePrefabAt(position);
+        SoundSystem_default.playAt(1 /* BlockPlaced */, this._pointerRayComponent.currentHitPosition);
+        break;
+      }
+      case 2 /* UI */: {
+        const buttonComponent = this._pointerRayComponent.currentHitObject.getComponent(UiButton);
+        if (buttonComponent) {
+          buttonComponent.interact();
+          SoundSystem_default.playAt(0 /* Click */, this._pointerRayComponent.currentHitPosition);
+        }
+        break;
+      }
+    }
+  }
+  /**
+   * Handler B button input
+   * @private
+   */
+  onDeleteButtonPressed() {
+    if (!this._pointerRayComponent.currentHitObject)
+      return;
+    switch (TagUtils.getTag(this._pointerRayComponent.currentHitObject)) {
+      case 1 /* BLOCK */: {
+        this._pointerRayComponent.currentHitObject.parent.destroy();
+        SoundSystem_default.playAt(3 /* BlockDestroy */, this._pointerRayComponent.currentHitPosition);
+        break;
+      }
+    }
+  }
+};
+XrController.TypeName = "XR-Controller";
+XrController.Properties = {
+  pointerMode: { type: Type.Int, default: 0 },
+  inputObject: { type: Type.Object, default: null },
+  pointerRay: { type: Type.Object, default: null }
+};
+
+// js/gameplay/prefabs/BlockSlopePrefab.ts
+var _BlockSlopePrefab = class extends PrefabBase {
+  getPrefabUniqueName() {
+    return _BlockSlopePrefab.TypeName;
+  }
+  start() {
+    super.start();
+    PrefabsRegistry_default.registerPrefab(this);
+    this.createPrevisObject();
+  }
+};
+var BlockSlopePrefab = _BlockSlopePrefab;
+BlockSlopePrefab.TypeName = "block-slope-prefab";
+BlockSlopePrefab.Properties = {
+  finalMesh: { type: Type.Mesh },
+  previsMesh: { type: Type.Mesh },
+  finalMat: { type: Type.Material },
+  previsMat: { type: Type.Material }
+};
+
+// js/gameplay/prefabs/BlockStairPrefab.ts
+var _BlockStairPrefab = class extends PrefabBase {
+  getPrefabUniqueName() {
+    return _BlockStairPrefab.TypeName;
+  }
+  start() {
+    super.start();
+    PrefabsRegistry_default.registerPrefab(this);
+    this.createPrevisObject();
+  }
+};
+var BlockStairPrefab = _BlockStairPrefab;
+BlockStairPrefab.TypeName = "block-stair-prefab";
+BlockStairPrefab.Properties = {
+  finalMesh: { type: Type.Mesh },
+  previsMesh: { type: Type.Mesh },
+  finalMat: { type: Type.Material },
+  previsMat: { type: Type.Material }
+};
+
+// js/gameplay/prefabs/BlockVerticalPrefab.ts
+var _BlockVerticalPrefab = class extends PrefabBase {
+  getPrefabUniqueName() {
+    return _BlockVerticalPrefab.TypeName;
+  }
+  start() {
+    super.start();
+    PrefabsRegistry_default.registerPrefab(this);
+    this.createPrevisObject();
+  }
+};
+var BlockVerticalPrefab = _BlockVerticalPrefab;
+BlockVerticalPrefab.TypeName = "block-vertical-prefab";
+BlockVerticalPrefab.Properties = {
+  finalMesh: { type: Type.Mesh },
+  previsMesh: { type: Type.Mesh },
+  finalMat: { type: Type.Material },
+  previsMat: { type: Type.Material }
+};
+
+// js/gameplay/prefabs/ConeCutPrefab.ts
+var _ConeCutPrefab = class extends PrefabBase {
+  getPrefabUniqueName() {
+    return _ConeCutPrefab.TypeName;
+  }
+  start() {
+    super.start();
+    PrefabsRegistry_default.registerPrefab(this);
+    this.createPrevisObject();
+  }
+};
+var ConeCutPrefab = _ConeCutPrefab;
+ConeCutPrefab.TypeName = "cone-cut-prefab";
+ConeCutPrefab.Properties = {
+  finalMesh: { type: Type.Mesh },
+  previsMesh: { type: Type.Mesh },
+  finalMat: { type: Type.Material },
+  previsMat: { type: Type.Material }
+};
+
+// js/gameplay/prefabs/ConePrefab.ts
+var _ConePrefab = class extends PrefabBase {
+  getPrefabUniqueName() {
+    return _ConePrefab.TypeName;
+  }
+  start() {
+    super.start();
+    PrefabsRegistry_default.registerPrefab(this);
+    this.createPrevisObject();
+  }
+};
+var ConePrefab = _ConePrefab;
+ConePrefab.TypeName = "cone-prefab";
+ConePrefab.Properties = {
+  finalMesh: { type: Type.Mesh },
+  previsMesh: { type: Type.Mesh },
+  finalMat: { type: Type.Material },
+  previsMat: { type: Type.Material }
+};
+
+// js/gameplay/prefabs/CylinderPrefab.ts
+var _CylinderPrefab = class extends PrefabBase {
+  getPrefabUniqueName() {
+    return _CylinderPrefab.TypeName;
+  }
+  start() {
+    super.start();
+    PrefabsRegistry_default.registerPrefab(this);
+    this.createPrevisObject();
+  }
+};
+var CylinderPrefab = _CylinderPrefab;
+CylinderPrefab.TypeName = "cylinder-prefab";
+CylinderPrefab.Properties = {
+  finalMesh: { type: Type.Mesh },
+  previsMesh: { type: Type.Mesh },
+  finalMat: { type: Type.Material },
+  previsMat: { type: Type.Material }
+};
+
+// js/gameplay/prefabs/PyramidCutPrefab.ts
+var _PyramidCutPrefab = class extends PrefabBase {
+  getPrefabUniqueName() {
+    return _PyramidCutPrefab.TypeName;
+  }
+  start() {
+    super.start();
+    PrefabsRegistry_default.registerPrefab(this);
+    this.createPrevisObject();
+  }
+};
+var PyramidCutPrefab = _PyramidCutPrefab;
+PyramidCutPrefab.TypeName = "pyramid-cut-prefab";
+PyramidCutPrefab.Properties = {
+  finalMesh: { type: Type.Mesh },
+  previsMesh: { type: Type.Mesh },
+  finalMat: { type: Type.Material },
+  previsMat: { type: Type.Material }
+};
+
+// js/gameplay/prefabs/PyramidPrefab.ts
+var _PyramidPrefab = class extends PrefabBase {
+  getPrefabUniqueName() {
+    return _PyramidPrefab.TypeName;
+  }
+  start() {
+    super.start();
+    PrefabsRegistry_default.registerPrefab(this);
+    this.createPrevisObject();
+  }
+};
+var PyramidPrefab = _PyramidPrefab;
+PyramidPrefab.TypeName = "pyramid-prefab";
+PyramidPrefab.Properties = {
+  finalMesh: { type: Type.Mesh },
+  previsMesh: { type: Type.Mesh },
+  finalMat: { type: Type.Material },
+  previsMat: { type: Type.Material }
+};
+
+// js/gameplay/prefabs/SlabPrefab.ts
+var _SlabPrefab = class extends PrefabBase {
+  getPrefabUniqueName() {
+    return _SlabPrefab.TypeName;
+  }
+  start() {
+    super.start();
+    PrefabsRegistry_default.registerPrefab(this);
+    this.createPrevisObject();
+  }
+};
+var SlabPrefab = _SlabPrefab;
+SlabPrefab.TypeName = "slab-prefab";
+SlabPrefab.Properties = {
+  finalMesh: { type: Type.Mesh },
+  previsMesh: { type: Type.Mesh },
+  finalMat: { type: Type.Material },
+  previsMat: { type: Type.Material }
+};
+
+// js/sound/SoundEmitterBase.ts
+var SoundEmitterBase = class extends Component {
+  get emitterType() {
+    return this._emitterType;
+  }
+  init() {
+    this.onInit();
+    SoundSystem_default.registerEmitter(this);
+  }
+  start() {
+    this._audioSource = this.object.getComponent("howler-audio-source");
+  }
+  playAt(position) {
+    this.object.setTranslationWorld(position);
+    this._audioSource.play();
+  }
+};
+SoundEmitterBase.TypeName = "sound-emitter-base";
+SoundEmitterBase.Properties = {};
+
+// js/sound/soundEmitters/ClickSoundEmitter.ts
+var ClickSoundEmitter = class extends SoundEmitterBase {
+  onInit() {
+    this._emitterType = 0 /* Click */;
+  }
+};
+ClickSoundEmitter.TypeName = "sound-emitter-click";
+
+// js/sound/soundEmitters/DestroySoundEmitter.ts
+var DestroySoundEmitter = class extends SoundEmitterBase {
+  onInit() {
+    this._emitterType = 3 /* BlockDestroy */;
+  }
+};
+DestroySoundEmitter.TypeName = "sound-emitter-destroy";
+
+// js/sound/soundEmitters/PlaceSoundEmitter.ts
+var PlaceSoundEmitter = class extends SoundEmitterBase {
+  onInit() {
+    this._emitterType = 1 /* BlockPlaced */;
+  }
+};
+PlaceSoundEmitter.TypeName = "sound-emitter-place";
+
+// js/sound/soundEmitters/RotateSoundEmitter.ts
+var RotateSoundEmitter = class extends SoundEmitterBase {
+  onInit() {
+    this._emitterType = 2 /* BlockRotate */;
+  }
+};
+RotateSoundEmitter.TypeName = "sound-emitter-rotate";
+
+// js/ui/armMenu/BlockSelectionPanel.ts
+var BlockSelectionPanel = class extends Component {
+  init() {
+    this._buttons = /* @__PURE__ */ new Map();
+  }
+  // Each child buttons will register using this method
+  registerButton(button) {
+    this._buttons.set(button.object.name, button);
+  }
+  // Button will notify this panel on interaction
+  notifyInteraction(button) {
+    const keys = this._buttons.keys();
+    for (const key of keys) {
+      const tmpBtn = this._buttons.get(key);
+      tmpBtn.setVisualColor(Color.COLOR_TINT_NORMAL);
+    }
+    button.setVisualColor(Color.COLOR_TINT_ACTIVE);
+  }
+};
+BlockSelectionPanel.TypeName = "block-selection-panel";
+BlockSelectionPanel.Properties = {};
+
+// js/ui/BlockSelectorInteractible.ts
+var BlockSelectorInteractible = class extends Component {
+  start() {
+    this._prefabComponent = PrefabsRegistry_default.getPrefabByName(this.prefab[PrefabsRegistry_default.PREFAB_UNAME_KEY]);
+    this._buttonComponent = this.object.getComponent(UiButton);
+    this._buttonComponent.addInteractCallback(this.onInteractHandler.bind(this));
+    this._mesh = this.object.getComponent("mesh");
+    let material = this._mesh.material;
+    this._mesh.material = material.clone();
+    this._parent = this.object.parent.getComponent(BlockSelectionPanel);
+    this._parent.registerButton(this);
+  }
+  onActivate() {
+    this._prefabComponent = PrefabsRegistry_default.getPrefabByName(this.prefab[PrefabsRegistry_default.PREFAB_UNAME_KEY]);
+  }
+  setVisualColor(color) {
+    this._mesh.material["color"] = color;
+  }
+  onInteractHandler() {
+    BuildController_default.setPrefab(this._prefabComponent);
+    this._parent.notifyInteraction(this);
+  }
+};
+BlockSelectorInteractible.TypeName = "block-selector-interactible";
+BlockSelectorInteractible.Properties = {
+  prefab: { type: Type.Object }
+};
+
+// js/utils/textures/TextureInformation.ts
+var TextureInformation = class extends Component {
+  get uniqueID() {
+    return this.uid;
+  }
+  get albedoTexture() {
+    return this.albedo;
+  }
+  get normalTexture() {
+    return this.normal;
+  }
+  start() {
+    TextureInformationRegistry_default.register(this);
+  }
+};
+TextureInformation.TypeName = "texture-information";
+TextureInformation.Properties = {
+  uid: { type: Type.String },
+  albedo: { type: Type.Texture, default: null },
+  normal: { type: Type.Texture, default: null }
+};
+
+// js/ui/armMenu/TextureSelectionPanel.ts
+var TextureSelectionPanel = class extends Component {
+  init() {
+    this._buttons = /* @__PURE__ */ new Map();
+  }
+  // Each child buttons will register using this method
+  registerButton(button) {
+    this._buttons.set(button.object.name, button);
+  }
+  // Button will notify this panel on interaction
+  notifyInteraction(button) {
+    const keys = this._buttons.keys();
+    for (const key of keys) {
+      const tmpBtn = this._buttons.get(key);
+      tmpBtn.setVisualColor(Color.COLOR_TINT_NORMAL);
+    }
+    button.setVisualColor(Color.COLOR_TINT_ACTIVE);
+  }
+};
+TextureSelectionPanel.TypeName = "texture-selection-panel";
+TextureSelectionPanel.Properties = {};
+
+// js/ui/TextureSelectorInteractible.ts
+var TextureSelectorInteractible = class extends Component {
+  start() {
+    if (!this.textureInfoObject) {
+      console.error("Object must be set to initialize the button ", this.object.name);
+      return;
+    }
+    this._texture = this.textureInfoObject.getComponent(TextureInformation);
+    this._buttonComponent = this.object.getComponent(UiButton);
+    this._buttonComponent.addInteractCallback(this.onInteractHandler.bind(this));
+    this._mesh = this.object.getComponent("mesh");
+    let material = this._mesh.material;
+    this._mesh.material = material.clone();
+    this._parent = this.object.parent.getComponent(TextureSelectionPanel);
+    this._parent.registerButton(this);
+  }
+  setVisualColor(color) {
+    this._mesh.material["color"] = color;
+  }
+  onInteractHandler() {
+    BuildController_default.setTexture(this._texture);
+    this._parent.notifyInteraction(this);
+  }
+};
+TextureSelectorInteractible.TypeName = "texture-selector-interactible";
+TextureSelectorInteractible.Properties = {
+  textureInfoObject: { type: Type.Object, default: null }
+};
+
+// js/utils/ObjectToggler.ts
+var ObjectToggler = class extends Component {
+  start() {
+    this._components = new Array();
+    this.fetchAllComponents(this.object);
+  }
+  /**
+   * Enable or disable all components from the owner and its
+   * children (all the hierarchy is affected by the process)
+   * @param active 
+   */
+  setActive(active) {
+    for (let i = 0; i < this._components.length; i++) {
+      this._components[i].active = active;
+    }
+  }
+  /**
+   * This method fetch all components for the given object and
+   * store them into an array.
+   * This array is then use to enable/disable all components in order
+   * to reproduce a enable/disable behaviour on the object
+   * @param object object to extract components ref
+   */
+  fetchAllComponents(object) {
+    const objComponents = object.getComponents(null).filter((e) => e.type !== ArmPanel.TypeName);
+    this._components = this._components.concat(objComponents);
+    const children = object.children;
+    for (let i = 0; i < children.length; i++) {
+      const child = children[i];
+      this.fetchAllComponents(child);
+    }
+  }
+};
+ObjectToggler.TypeName = "object-toggler";
+ObjectToggler.Properties = {};
+
+// js/ui/armMenu/ArmPanel.ts
+var ArmPanel = class extends Component {
+  start() {
+    this._objToggler = this.object.addComponent(ObjectToggler);
+    this._mesh = this.object.getComponent("mesh");
+    this.object.setTranslationLocal(vec3_exports.fromValues(0, 0, 0));
+  }
+  /** Show the panel and enable all interactions */
+  show() {
+    this._objToggler.setActive(true);
+  }
+  /** Hide the panel and disable all interaction */
+  hide() {
+    this._objToggler.setActive(false);
+  }
+};
+ArmPanel.TypeName = "arm-panel";
+ArmPanel.Properties = {};
+
+// js/ui/armMenu/MenuSelectionButton.ts
+var MenuSelectionButton = class extends Component {
+  // Getters
+  get isActive() {
+    return this._isActive;
+  }
+  get button() {
+    return this._button;
+  }
+  init() {
+    this.setup();
+    this.setupIcon();
+  }
+  /**
+   * Change the visual appearance of the button based on
+   * given properties
+   * @param isActive 
+   */
+  setActive(isActive) {
+    this._mesh.material["color"] = isActive ? Color.COLOR_ACTIVE : Color.COLOR_NORMAL;
+    this._isActive = isActive;
+  }
+  setup() {
+    var _a;
+    this._button = this.object.getComponent(UiButton);
+    this._mesh = this.object.getComponent("mesh");
+    this._material = (_a = this._mesh.material) == null ? void 0 : _a.clone();
+    this._mesh.material = this._material;
+    this._material.color = Color.COLOR_NORMAL;
+    this._isActive = false;
+  }
+  setupIcon() {
+    var _a;
+    const iconTempMesh = this.iconObject.getComponent("mesh");
+    this._iconMaterial = (_a = iconTempMesh.material) == null ? void 0 : _a.clone();
+    iconTempMesh.material = this._iconMaterial;
+    this._iconMaterial.flatTexture = this.iconTexture;
+  }
+};
+MenuSelectionButton.TypeName = "menu-selection-button";
+MenuSelectionButton.Properties = {
+  iconObject: { type: Type.Object, default: null },
+  iconTexture: { type: Type.Texture, default: null }
+};
+
+// js/ui/armMenu/MenuController.ts
+var MenuController = class extends Component {
+  start() {
+    this._menuButtonComp = this.menuButton.getComponent(MenuSelectionButton);
+    this._blockButtonComp = this.blockButton.getComponent(MenuSelectionButton);
+    this._textureButtonComp = this.textureButton.getComponent(MenuSelectionButton);
+    this._menuButtonComp.button.addInteractCallback(this.onMenuButtonPressed.bind(this));
+    this._blockButtonComp.button.addInteractCallback(this.onBlockButtonPressed.bind(this));
+    this._textureButtonComp.button.addInteractCallback(this.onTextureButtonPressed.bind(this));
+    this._menuPanelComp = this.menuPanel.getComponent(ArmPanel);
+    this._blockPanelComp = this.blockPanel.getComponent(ArmPanel);
+    this._texturePanelComp = this.texturePanel.getComponent(ArmPanel);
+    console.log(this.engine);
+    this.engine.onXRSessionStart.push(() => {
+      setTimeout(() => {
+        this._menuPanelComp.hide();
+        this._blockPanelComp.hide();
+        this._texturePanelComp.hide();
+        console.log("COUCOU scene loaded !");
+      }, 100);
+    });
+  }
+  onMenuButtonPressed() {
+    this._menuButtonComp.setActive(true);
+    this._menuPanelComp.show();
+    this._blockButtonComp.setActive(false);
+    this._textureButtonComp.setActive(false);
+    this._blockPanelComp.hide();
+    this._texturePanelComp.hide();
+  }
+  onBlockButtonPressed() {
+    this._blockButtonComp.setActive(true);
+    this._blockPanelComp.show();
+    this._menuButtonComp.setActive(false);
+    this._textureButtonComp.setActive(false);
+    this._menuPanelComp.hide();
+    this._texturePanelComp.hide();
+  }
+  onTextureButtonPressed() {
+    this._textureButtonComp.setActive(true);
+    this._texturePanelComp.show();
+    this._menuButtonComp.setActive(false);
+    this._blockButtonComp.setActive(false);
+    this._menuPanelComp.hide();
+    this._blockPanelComp.hide();
+  }
+};
+MenuController.TypeName = "menu-controller";
+MenuController.Properties = {
+  // Buttons
+  menuButton: { type: Type.Object },
+  blockButton: { type: Type.Object },
+  textureButton: { type: Type.Object },
+  // Panels
+  menuPanel: { type: Type.Object },
+  blockPanel: { type: Type.Object },
+  texturePanel: { type: Type.Object }
+};
+
+// js/gameplay/serialization/SerializationUtils.ts
+var SAVE_ITEM_KEY = "SAVE_DATA";
+var SerializationUtils = class {
+  constructor() {
+    if (typeof window === "undefined" || !window.localStorage)
+      return;
+    this._localStorage = window.localStorage;
+    if (this._localStorage.getItem(SAVE_ITEM_KEY) !== null) {
+      this.processExistingSaveData();
+      return;
+    }
+    this.createSaveData();
+  }
+  processExistingSaveData() {
+    this._saveData = JSON.parse(this._localStorage.getItem(SAVE_ITEM_KEY));
+    console.log(this._saveData);
+  }
+  createSaveData() {
+    this._saveData = { saves: new Array() };
+    this._localStorage.setItem(SAVE_ITEM_KEY, JSON.stringify(this._saveData));
+  }
+  // Saves manipulation
+  // =============================
+  getSavesEntries() {
+    return this._saveData.saves;
+  }
+  /** Create a new save entry without pushing it in saves array */
+  createNewSaveEntry(name) {
+    return {
+      name,
+      userPref: { color: [1, 1, 1], block: "" },
+      blocks: new Array()
+    };
+  }
+  createOrUpdateSaveEntry(saveData) {
+    const saves = this._saveData.saves;
+    for (let i = 0; i < saves.length; i++) {
+      if (saves[i].name == saveData.name) {
+        saves[i] = saveData;
+        this._saveData.saves = saves;
+        return;
+      }
+    }
+    this._saveData.saves.push(saveData);
+  }
+  removeSaveEntry(saveData) {
+    const saves = this._saveData.saves;
+    for (let i = 0; i < saves.length; i++) {
+      if (saves[i].name == saveData.name) {
+        saves.splice(i, 1);
+        return;
+      }
+    }
+  }
+  /** Write changes from local memory to local storage */
+  flushSaves() {
+    this._localStorage.setItem(SAVE_ITEM_KEY, JSON.stringify(this._saveData));
+    this.processExistingSaveData();
+  }
+};
+var SerializationUtils_default = new SerializationUtils();
+
+// js/ui/saveMenu/SavePanel.ts
+var SavePanel = class extends Component {
+  start() {
+    this._loadButton = this.loadButtonObj.getComponent(UiButton);
+    this._newButton = this.newButtonObj.getComponent(UiButton);
+    this._nextButton = this.nextButtonObj.getComponent(UiButton);
+    this._saveButton = this.saveButtonObj.getComponent(UiButton);
+    this._removeButton = this.removeButtonObj.getComponent(UiButton);
+    this._loadButton.addInteractCallback(this.onLoadButtonClicked.bind(this));
+    this._newButton.addInteractCallback(this.onNewButtonPressed.bind(this));
+    this._nextButton.addInteractCallback(this.onNextButtonPressed.bind(this));
+    this._saveButton.addInteractCallback(this.onSaveButtonPressed.bind(this));
+    this._removeButton.addInteractCallback(this.onRemoveButtonPressed.bind(this));
+    this._saveCount = this.saveCountObj.getComponent("text");
+    this._saveName = this.saveNameObj.getComponent("text");
+    this._saveEntries = SerializationUtils_default.getSavesEntries();
+    this._currentSaveIndex = this._saveEntries.length < 1 ? -1 : 0;
+    this._saveCount.text = "Saves: " + this._saveEntries.length;
+    this._saveName.text = this._currentSaveIndex < 0 ? "No save available" : this._saveEntries[0].name;
+    this.loadBlankSave();
+  }
+  // Buttons callbacks
+  onLoadButtonClicked() {
+    if (this._currentSaveIndex < 0)
+      return;
+    this._currentBuildData = this._saveEntries[this._currentSaveIndex];
+    console.log(this._currentBuildData);
+    BuildController_default.loadBuild(this._currentBuildData.blocks);
+  }
+  onNewButtonPressed() {
+    this.setCurrentSelectedSave(-1);
+    BuildController_default.loadBuild(this._currentBuildData.blocks);
+  }
+  onNextButtonPressed() {
+    this._currentSaveIndex++;
+    if (this._currentSaveIndex > this._saveEntries.length - 1)
+      this._currentSaveIndex = 0;
+    this.setCurrentSelectedSave(this._currentSaveIndex);
+    this._saveName.text = this._currentSaveIndex < 0 ? "No save available" : this._currentBuildData.name;
+  }
+  onSaveButtonPressed() {
+    this._currentBuildData.blocks = BuildController_default.getCurrentBuildData();
+    SerializationUtils_default.createOrUpdateSaveEntry(this._currentBuildData);
+    SerializationUtils_default.flushSaves();
+    this._saveEntries = SerializationUtils_default.getSavesEntries();
+    this._currentSaveIndex = this._currentSaveIndex < 0 ? 0 : this._currentSaveIndex;
+    this._saveCount.text = "Saves count: " + this._saveEntries.length;
+    this._saveName.text = this._currentSaveIndex < 0 ? "No save available" : this._saveEntries[this._currentSaveIndex].name;
+  }
+  onRemoveButtonPressed() {
+    if (this._currentSaveIndex < 0)
+      return;
+    let saveToDelete = this._saveEntries[this._currentSaveIndex];
+    if (saveToDelete.name == this._currentBuildData.name) {
+      this.setCurrentSelectedSave(-1);
+      BuildController_default.loadBuild(this._currentBuildData.blocks);
+    }
+    SerializationUtils_default.removeSaveEntry(saveToDelete);
+    SerializationUtils_default.flushSaves();
+    this._saveEntries = SerializationUtils_default.getSavesEntries();
+    if (this._saveEntries.length < 1) {
+      this._currentSaveIndex = -1;
+    } else {
+      const shouldResetIndex = this._currentSaveIndex > this._saveEntries.length - 1;
+      this._currentSaveIndex = shouldResetIndex ? 0 : this._currentSaveIndex;
+    }
+    this._saveCount.text = "Saves: " + this._saveEntries.length;
+    this._saveName.text = this._currentSaveIndex < 0 ? "No save available" : this._saveEntries[this._currentSaveIndex].name;
+  }
+  // Saves manipulation
+  // =============================
+  loadBlankSave() {
+    this.setCurrentSelectedSave(-1);
+    BuildController_default.loadBuild(this._currentBuildData.blocks);
+  }
+  setCurrentSelectedSave(index) {
+    switch (index) {
+      case -1:
+        this._currentBuildData = SerializationUtils_default.createNewSaveEntry((/* @__PURE__ */ new Date()).toLocaleString());
+        break;
+      default:
+        this._currentBuildData = this._saveEntries[index];
+        break;
+    }
+  }
+};
+SavePanel.TypeName = "save-panel";
+SavePanel.Properties = {
+  loadButtonObj: { type: Type.Object, default: null },
+  newButtonObj: { type: Type.Object, default: null },
+  nextButtonObj: { type: Type.Object, default: null },
+  saveButtonObj: { type: Type.Object, default: null },
+  removeButtonObj: { type: Type.Object, default: null },
+  saveCountObj: { type: Type.Object, default: null },
+  saveNameObj: { type: Type.Object, default: null }
+};
 /*! Bundled license information:
 
 howler/dist/howler.js:

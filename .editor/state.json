@@ -19,11 +19,13 @@
         "Console": true,
         "Scene Outline": true,
         "Properties": true,
-        "Project Settings": true,
-        "Resources": true,
+        "Project Settings": false,
+        "Resources": false,
         "Project Data": false,
+        "Benchmark": false,
         "Profile": false,
         "Preferences": false,
-        "Localization": false
+        "Localization": false,
+        "Test Engine": false
     }
 }

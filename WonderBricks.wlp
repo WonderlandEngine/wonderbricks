@@ -220,14 +220,14 @@
                 {
                     "type": "light",
                     "light": {
-                        "attenuation": 0.5,
                         "type": "sun",
                         "shadows": true,
                         "color": [
                             1.0,
                             1.0,
                             1.0
-                        ]
+                        ],
+                        "intensity": 1.0
                     }
                 }
             ],
@@ -1356,14 +1356,14 @@
                 {
                     "type": "light",
                     "light": {
-                        "attenuation": 0.1,
                         "type": "sun",
                         "shadows": false,
                         "color": [
                             0.7372549,
                             0.7372549,
                             0.7372549
-                        ]
+                        ],
+                        "intensity": 1.0
                     }
                 }
             ],
@@ -6645,7 +6645,7 @@
             "rotation": [
                 1.1776214847714073e-7,
                 0.1553436,
-                5.881723197376232e-8,
+                5.8817231973762345e-8,
                 0.9878605
             ],
             "scaling": [
@@ -6668,7 +6668,7 @@
             "rotation": [
                 1.1776214847714073e-7,
                 0.1553436,
-                5.881723197376232e-8,
+                5.8817231973762345e-8,
                 0.9878605
             ],
             "scaling": [
@@ -6834,6 +6834,81 @@
                 "file": "models\\terrain\\Environment.glb"
             },
             "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb"
+        },
+        "1bbe6632-3530-4f2f-9592-06afabfcc54f": {
+            "name": "InstructionsPanel",
+            "translation": [
+                0.0,
+                1.0732429,
+                -1.8956909
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                1.0,
+                1.0,
+                1.0
+            ]
+        },
+        "34b3cf8a-56c3-433d-9b2d-b0fccf5e853c": {
+            "link": {
+                "name": "WorldPanel",
+                "file": "models\\UI\\instructionPanel.glb"
+            },
+            "parent": "1bbe6632-3530-4f2f-9592-06afabfcc54f",
+            "components": [
+                {
+                    "mesh": {
+                        "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
+                    }
+                }
+            ]
+        },
+        "bc28f631-a563-4907-a87d-3e94fee84c6a": {
+            "link": {
+                "name": "WorldPanelMenu",
+                "file": "models\\UI\\instructionPanel.glb"
+            },
+            "parent": "1bbe6632-3530-4f2f-9592-06afabfcc54f",
+            "components": [
+                {
+                    "mesh": {
+                        "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
+                    }
+                }
+            ]
+        },
+        "ac8fa86f-3324-4f25-9999-b0c4d052a9a3": {
+            "link": {
+                "name": "WorldPanelContent",
+                "file": "models\\UI\\instructionPanel.glb"
+            },
+            "parent": "1bbe6632-3530-4f2f-9592-06afabfcc54f",
+            "components": [
+                {
+                    "mesh": {
+                        "material": "b9a19119-10ce-49ce-9735-0e65d37e3487"
+                    }
+                }
+            ]
+        },
+        "b1a43121-78a7-4ea3-ad68-10003cfcd17c": {
+            "link": {
+                "name": "CloseButton",
+                "file": "models\\UI\\instructionPanel.glb"
+            },
+            "parent": "1bbe6632-3530-4f2f-9592-06afabfcc54f",
+            "components": [
+                {
+                    "mesh": {
+                        "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
+                    }
+                }
+            ]
         }
     },
     "meshes": {
@@ -7036,12 +7111,6 @@
             "link": {
                 "name": "Icosphere",
                 "file": "models\\terrain\\cloud.glb"
-            }
-        },
-        "325": {
-            "link": {
-                "name": "Plane",
-                "file": "models\\UI\\panel.glb"
             }
         },
         "351": {
@@ -7506,78 +7575,6 @@
                 "file": "models\\UI\\TextureButtons.glb"
             }
         },
-        "29ee42f7-1e5b-4112-9b1b-65d0be208390": {
-            "link": {
-                "name": "ArmPanel",
-                "file": "models\\UI\\panel.glb"
-            }
-        },
-        "bca6aa8d-15c3-414b-9d21-16a765261456": {
-            "link": {
-                "name": "PanelTitle",
-                "file": "models\\UI\\panel.glb"
-            }
-        },
-        "66cbab8b-53d1-4b32-8939-776afce95ea1": {
-            "link": {
-                "name": "Buttons.021",
-                "file": "models\\UI\\panel.glb"
-            }
-        },
-        "1475d94b-564e-4b7b-b388-49dc011fbfa8": {
-            "link": {
-                "name": "Buttons.022",
-                "file": "models\\UI\\panel.glb"
-            }
-        },
-        "dd194303-ab89-4a59-ba19-ed2d7d5577cb": {
-            "link": {
-                "name": "Buttons.023",
-                "file": "models\\UI\\panel.glb"
-            }
-        },
-        "8925b440-fb7d-4aeb-8b43-2daaf00ce9b4": {
-            "link": {
-                "name": "Buttons.024",
-                "file": "models\\UI\\panel.glb"
-            }
-        },
-        "4f51383d-a26e-41d0-9b08-69a10d1f7c85": {
-            "link": {
-                "name": "Buttons.025",
-                "file": "models\\UI\\panel.glb"
-            }
-        },
-        "e8728957-3972-4cf6-886e-65b52471284b": {
-            "link": {
-                "name": "Buttons",
-                "file": "models\\UI\\panel.glb"
-            }
-        },
-        "4ac801d1-ecb7-4720-9f27-f43304445253": {
-            "link": {
-                "name": "Buttons.001",
-                "file": "models\\UI\\panel.glb"
-            }
-        },
-        "09be0086-4b6f-4583-bc99-d96a2185dd5f": {
-            "link": {
-                "name": "Buttons.002",
-                "file": "models\\UI\\panel.glb"
-            }
-        },
-        "71e2a007-ac21-4ee7-bf03-2b22bb2d4a0b": {
-            "link": {
-                "name": "Buttons.003",
-                "file": "models\\UI\\panel.glb"
-            }
-        },
-        "9f1d6e16-85ed-45bb-b369-f2a2e6b88508": {
-            "link": {
-                "name": "Buttons.004",
-                "file": "models\\UI\\panel.glb"
-            }
-        },
         "e1487cdf-6f08-46af-8d81-929bca8e5f90": {
             "link": {
                 "name": "Buttons.098",
@@ -7750,12 +7747,6 @@
             "link": {
                 "name": "PanelTitle.009",
                 "file": "models\\UI\\MainMenuButtons.glb"
-            }
-        },
-        "6b0259d2-e553-415b-90f5-2102cfd6931d": {
-            "link": {
-                "name": "cloud",
-                "file": "models\\terrain\\Environment.glb"
             }
         },
         "c3ecc658-d47b-42e0-84db-24621ee9963f": {
@@ -8141,6 +8132,30 @@
                 "name": "Cylinder.007",
                 "file": "models\\terrain\\Environment.glb"
             }
+        },
+        "aa97063c-7a8b-4a16-891c-e9e89c8488ae": {
+            "link": {
+                "name": "ArmPanel.001",
+                "file": "models\\UI\\instructionPanel.glb"
+            }
+        },
+        "2d8c2f50-dfab-488b-892a-7bf31eaed7f1": {
+            "link": {
+                "name": "PanelTitle.002",
+                "file": "models\\UI\\instructionPanel.glb"
+            }
+        },
+        "9ceaa7ba-f7d2-4f51-8993-e3089237783f": {
+            "link": {
+                "name": "ArmPanel.002",
+                "file": "models\\UI\\instructionPanel.glb"
+            }
+        },
+        "e2d5616d-70f9-4eae-9bc8-320a58067d52": {
+            "link": {
+                "name": "PanelTitle.003",
+                "file": "models\\UI\\instructionPanel.glb"
+            }
         }
     },
     "textures": {
@@ -8180,12 +8195,6 @@
                 "file": "models\\UI\\button.glb"
             },
             "name": "ui-atlas"
-        },
-        "323": {
-            "link": {
-                "name": "texture_0",
-                "file": "models\\UI\\panel.glb"
-            }
         },
         "365": {
             "link": {
@@ -8594,6 +8603,12 @@
                 "name": "texture_5",
                 "file": "models\\terrain\\Environment.glb"
             }
+        },
+        "88fcf303-d35f-4484-a4ed-6eeee93c2ea9": {
+            "link": {
+                "name": "InstructionsPanel.png",
+                "file": "textures\\00_UI\\InstructionsPanel.png"
+            }
         }
     },
     "images": {
@@ -8643,12 +8658,6 @@
                 "file": "models\\UI\\button.glb"
             }
         },
-        "322": {
-            "link": {
-                "name": "ui-atlas",
-                "file": "models\\UI\\panel.glb"
-            }
-        },
         "364": {
             "link": {
                 "name": "Sky.png",
@@ -8658,8 +8667,8 @@
                 1024,
                 512
             ],
-            "compress": false,
-            "stream": false
+            "stream": false,
+            "compression": "none"
         },
         "364-specular": {
             "link": {
@@ -8670,9 +8679,9 @@
                 1024,
                 512
             ],
-            "compress": true,
             "stream": false,
-            "isSpecularProbe": true
+            "isSpecularProbe": true,
+            "compression": "etc1s"
         },
         "364-probe": {
             "link": {
@@ -8683,9 +8692,9 @@
                 1024,
                 512
             ],
-            "compress": false,
             "stream": false,
-            "isProbe": true
+            "isProbe": true,
+            "compression": "none"
         },
         "a75ead41-f98e-4e80-a784-b3dcfb7f6585": {
             "link": {
@@ -9210,7 +9219,7 @@
                 "name": "paletUI.png",
                 "file": "textures\\00_UI\\paletUI.png"
             },
-            "compress": false
+            "compression": "none"
         },
         "0c97b89a-3551-4e2f-a356-0c6848f4b33a": {
             "link": {
@@ -9265,6 +9274,12 @@
                 "name": "Vol_59_2_Nature_Normal",
                 "file": "models\\terrain\\Environment.glb"
             }
+        },
+        "7420cae4-d372-47e8-8a40-6788b680d75e": {
+            "link": {
+                "name": "InstructionsPanel.png",
+                "file": "textures\\00_UI\\InstructionsPanel.png"
+            }
         }
     },
     "materials": {
@@ -9295,15 +9310,21 @@
                 ],
                 "shininess": 1,
                 "ambientColor": [
-                    0.0884836,
-                    0.3058823,
-                    0.0719723,
+                    0.05,
+                    0.05,
+                    0.05,
                     1.0
                 ],
                 "diffuseColor": [
                     0.271461,
                     0.5058823,
                     0.2598846,
+                    1.0
+                ],
+                "emissiveColor": [
+                    0.0884836,
+                    0.3058823,
+                    0.0719723,
                     1.0
                 ]
             }
@@ -9325,6 +9346,12 @@
                 ],
                 "shininess": 10,
                 "ambientColor": [
+                    0.05,
+                    0.05,
+                    0.05,
+                    1.0
+                ],
+                "emissiveColor": [
                     0.1058823,
                     0.1058823,
                     0.1058823,
@@ -9348,6 +9375,12 @@
                     1.0
                 ],
                 "ambientColor": [
+                    0.05,
+                    0.05,
+                    0.05,
+                    1.0
+                ],
+                "emissiveColor": [
                     0.3843137,
                     0.3089579,
                     0.0,
@@ -9366,14 +9399,42 @@
                 "name": "skel_controller_materials_controllerMTL1",
                 "file": "models\\oculus-touch-v2-left.glb"
             },
-            "name": "ControllerLeft"
+            "name": "ControllerLeft",
+            "Phong": {
+                "ambientColor": [
+                    0.05,
+                    0.05,
+                    0.05,
+                    1.0
+                ],
+                "diffuseColor": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            }
         },
         "88": {
             "link": {
                 "name": "skel_controller_materials_controllerMTL",
                 "file": "models\\oculus-touch-v2-right.glb"
             },
-            "name": "ControllerRight"
+            "name": "ControllerRight",
+            "Phong": {
+                "ambientColor": [
+                    0.05,
+                    0.05,
+                    0.05,
+                    1.0
+                ],
+                "diffuseColor": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            }
         },
         "128": {
             "name": "Cursor",
@@ -9394,14 +9455,30 @@
                 "name": "Default_Material",
                 "file": "models\\hand-left.glb"
             },
-            "name": "HandLeft"
+            "name": "HandLeft",
+            "Phong": {
+                "ambientColor": [
+                    0.05,
+                    0.05,
+                    0.05,
+                    1.0
+                ]
+            }
         },
         "164": {
             "link": {
                 "name": "lambert2",
                 "file": "models\\hand-right.glb"
             },
-            "name": "HandRight"
+            "name": "HandRight",
+            "Phong": {
+                "ambientColor": [
+                    0.05,
+                    0.05,
+                    0.05,
+                    1.0
+                ]
+            }
         },
         "201": {
             "link": {
@@ -9437,9 +9514,15 @@
                     1.0
                 ],
                 "ambientColor": [
+                    0.05,
+                    0.05,
+                    0.05,
+                    1.0
+                ],
+                "emissiveColor": [
                     0.0274509,
-                    0.0274507,
-                    0.0274507,
+                    0.0274506,
+                    0.0274506,
                     1.0
                 ]
             }
@@ -9460,8 +9543,14 @@
                     1.0
                 ],
                 "ambientColor": [
+                    0.05,
+                    0.05,
+                    0.05,
+                    1.0
+                ],
+                "emissiveColor": [
                     0.0,
-                    0.3294117,
+                    0.3294116,
                     0.2013071,
                     1.0
                 ]
@@ -9645,6 +9734,20 @@
             },
             "Flat": {
                 "flatTexture": "114b23b6-ad70-4c46-8a02-d61fc5423a25"
+            },
+            "Phong": {
+                "ambientColor": [
+                    0.05,
+                    0.05,
+                    0.05,
+                    1.0
+                ],
+                "diffuseColor": [
+                    0.5,
+                    0.5,
+                    0.5,
+                    1.0
+                ]
             }
         },
         "30c45614-7b5d-405b-ab31-4009d5045730": {
@@ -9664,7 +9767,8 @@
                     1.0,
                     1.0
                 ],
-                "roughnessFactor": 1.0
+                "roughnessFactor": 1.0,
+                "occlusionFactor": 1.0
             }
         },
         "315f7a72-ec35-4c91-88dd-064d9e21b757": {
@@ -9701,6 +9805,23 @@
                 "normalTexture": "1e4ce675-3834-4462-81f5-f5327d60a279",
                 "roughnessFactor": 1.0
             }
+        },
+        "b9a19119-10ce-49ce-9735-0e65d37e3487": {
+            "link": {
+                "name": "UI",
+                "file": "models\\UI\\panel.glb"
+            },
+            "pipeline": "35",
+            "Flat": {
+                "flatTexture": "88fcf303-d35f-4484-a4ed-6eeee93c2ea9",
+                "color": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "name": "ui-instruction"
         }
     },
     "shaders": {
@@ -9841,9 +9962,9 @@
         "project": {
             "name": "wonderbrick",
             "version": [
+                1,
                 0,
-                9,
-                5
+                1
             ]
         },
         "vr": {
@@ -9871,7 +9992,6 @@
             "libraryPaths": [
                 "/js/lib/"
             ],
-            "autoManageEntryPoint": true,
             "bundlingType": "esbuild"
         },
         "runtime": {
@@ -9896,6 +10016,10 @@
                 0.0,
                 0.0,
                 0.0
+            ],
+            "compressedTextureAtlasSize": [
+                32768,
+                16384
             ]
         },
         "editor": {
@@ -9907,12 +10031,6 @@
             "link": {
                 "name": "Plane",
                 "file": "models\\UI\\button.glb"
-            }
-        },
-        "327": {
-            "link": {
-                "name": "Plane",
-                "file": "models\\UI\\panel.glb"
             }
         }
     },
@@ -9973,18 +10091,28 @@
             "link": {
                 "name": "Phong Opaque",
                 "file": "default"
+            },
+            "features": {
+                "DEPRECATED_LIGHT_ATTENUATION": true,
+                "WITH_EMISSIVE": true
             }
         },
         "38": {
             "link": {
                 "name": "Phong Opaque Textured",
                 "file": "default"
+            },
+            "features": {
+                "DEPRECATED_LIGHT_ATTENUATION": true
             }
         },
         "39": {
             "link": {
                 "name": "Foliage",
                 "file": "default"
+            },
+            "features": {
+                "DEPRECATED_LIGHT_ATTENUATION": true
             }
         },
         "40": {
@@ -10011,10 +10139,10 @@
                 "file": "default"
             },
             "features": {
-                "OCCLUSION_TEXTURE": true,
+                "OCCLUSION_TEXTURE": false,
                 "NORMAL_MAPPING": true,
                 "TEXTURED": false,
-                "GLOBAL_ILLUMINATION": true,
+                "GLOBAL_ILLUMINATION": false,
                 "TONEMAPPING": false,
                 "SHADOW_NORMAL_OFFSET_SCALE_BY_SHADOW_DEPTH": true,
                 "SHADOW_NORMAL_OFFSET_SLOPE_SCALE": true,
@@ -10043,13 +10171,17 @@
                 "file": "default"
             },
             "features": {
-                "WITH_EMISSIVE": false
+                "WITH_EMISSIVE": false,
+                "DEPRECATED_LIGHT_ATTENUATION": true
             }
         },
         "232": {
             "link": {
                 "name": "Phong Lightmapped",
                 "file": "default"
+            },
+            "features": {
+                "DEPRECATED_LIGHT_ATTENUATION": true
             }
         },
         "234": {
@@ -10236,7 +10368,9 @@
         "models/Bricks/Cube_1_0.5_Wireframe.glb",
         "models/Bricks/Cube_1_0.5.glb",
         "models/UI/MainMenuButtons.glb",
-        "models/terrain/Environment.glb"
+        "models/terrain/Environment.glb",
+        "models/UI/instructionPanel.glb",
+        "textures/00_UI/InstructionsPanel.png"
     ],
     "fonts": {
         "230": {
