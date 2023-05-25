@@ -15840,6 +15840,9 @@ var ArmPanel = class extends Component {
   // Fields
   _objToggler;
   _mesh;
+  static onRegister(engine2) {
+    engine2.registerComponent(ObjectToggler);
+  }
   start() {
     this._objToggler = this.object.addComponent(ObjectToggler);
     this._mesh = this.object.getComponent("mesh");

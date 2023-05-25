@@ -1,4 +1,4 @@
-import { Component, CustomParameter, MeshComponent, Object } from "@wonderlandengine/api";
+import {Component, CustomParameter, MeshComponent, Object, WonderlandEngine} from "@wonderlandengine/api";
 import { vec3 } from "gl-matrix";
 import { ObjectToggler } from "../../utils/ObjectToggler";
 
@@ -16,6 +16,11 @@ export class ArmPanel extends Component
     // Fields
     private _objToggler: ObjectToggler;
     private _mesh: MeshComponent;
+
+    public static onRegister(engine: WonderlandEngine): void
+    {
+        engine.registerComponent(ObjectToggler);
+    }
 
     public override start(): void 
     {
