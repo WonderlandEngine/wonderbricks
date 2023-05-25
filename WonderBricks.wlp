@@ -227,7 +227,7 @@
                             1.0,
                             1.0
                         ],
-                        "intensity": 1.0
+                        "intensity": 3.0
                     }
                 }
             ],
@@ -1363,7 +1363,7 @@
                             0.7372549,
                             0.7372549
                         ],
-                        "intensity": 1.0
+                        "intensity": 2.0
                     }
                 }
             ],
@@ -9448,7 +9448,7 @@
                 ],
                 "shininess": 1
             },
-            "pipeline": "34"
+            "pipeline": "71d32bc7-c702-46bc-a931-4ff8a81c1fb5"
         },
         "131": {
             "link": {
@@ -9569,7 +9569,7 @@
                     1.0
                 ]
             },
-            "pipeline": "34",
+            "pipeline": "71d32bc7-c702-46bc-a931-4ff8a81c1fb5",
             "Flat": {
                 "color": [
                     0.7847533,
@@ -10226,6 +10226,18 @@
             "features": {
                 "NORMAL_MAPPING": true
             }
+        },
+        "71d32bc7-c702-46bc-a931-4ff8a81c1fb5": {
+            "link": {
+                "name": "Flat Opaque",
+                "file": "default"
+            },
+            "features": {
+                "ALPHA_MASKED": false,
+                "TEXTURED": false
+            },
+            "sampleAlphaToCoverage": true,
+            "name": "Flat Opaque Cursor"
         }
     },
     "files": [

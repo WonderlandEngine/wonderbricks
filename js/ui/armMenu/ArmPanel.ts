@@ -1,6 +1,6 @@
-import {Component, CustomParameter, MeshComponent, Object, WonderlandEngine} from "@wonderlandengine/api";
+import {Component, MeshComponent, ComponentProperty, WonderlandEngine} from "@wonderlandengine/api";
 import { vec3 } from "gl-matrix";
-import { ObjectToggler } from "../../utils/ObjectToggler";
+import { ObjectToggler } from "../../utils/ObjectToggler.js";
 
 
 /**
@@ -11,7 +11,7 @@ import { ObjectToggler } from "../../utils/ObjectToggler";
 export class ArmPanel extends Component
 {
     static TypeName: string = 'arm-panel';
-    static Properties: Record<string, CustomParameter> = { };
+    static Properties: Record<string, ComponentProperty> = { };
 
     // Fields
     private _objToggler: ObjectToggler;
@@ -28,7 +28,7 @@ export class ArmPanel extends Component
         this._mesh = this.object.getComponent('mesh');
 
         // Reset object position
-        this.object.setTranslationLocal(vec3.fromValues(0, 0, 0));
+        this.object.setPositionLocal(vec3.fromValues(0, 0, 0));
     }
 
     /** Show the panel and enable all interactions */
