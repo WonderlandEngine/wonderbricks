@@ -1,17 +1,17 @@
 // Third party
-import { Object } from "@wonderlandengine/api";
+import { Object, Object3D } from "@wonderlandengine/api";
 import { vec3, vec4 } from "gl-matrix";
 
 // Prefabs
-import PrefabsRegistry from "../prefabs/PrefabsRegistry";
-import PrefabBase from "../prefabs/PrefabBase";
+import PrefabsRegistry from "../prefabs/PrefabsRegistry.js";
+import PrefabBase from "../prefabs/PrefabBase.js";
 
 // Others
-import { BlockData } from "../serialization/SarielizationData";
-import { BuildContainer } from "./BuildContainer";
-import { TextureInformation } from "../../utils/textures/TextureInformation";
-import TextureInformationRegistry from "../../utils/textures/TextureInformationRegistry";
-import { BlockPrefab } from "../prefabs/BlockPrefab";
+import { BlockData } from "../serialization/SarielizationData.js";
+import { BuildContainer } from "./BuildContainer.js";
+import { TextureInformation } from "../../utils/textures/TextureInformation.js";
+import TextureInformationRegistry from "../../utils/textures/TextureInformationRegistry.js";
+import { BlockPrefab } from "../prefabs/BlockPrefab.js";
 
 
 /**
@@ -21,7 +21,7 @@ import { BlockPrefab } from "../prefabs/BlockPrefab";
  */
 class BuildController
 {
-    private _buildContainer: Object;
+    private _buildContainer: Object3D;
 
     private _currentPrefab: PrefabBase;
     private _currentTexture: TextureInformation;
@@ -55,7 +55,7 @@ class BuildController
 
     public setBuildContainer(container: Object): void { this._buildContainer = container; }
 
-    public setCurrentPrevizPosition(position: vec3): void { this._currentPrefab.updatePrevisPosition(position); }
+    public setCurrentPrevisPosition(position: vec3): void { this._currentPrefab.updatePrevisPosition(position); }
 
     /**
      * Set the prefab that should be placed and shown as previs in the world
@@ -64,8 +64,8 @@ class BuildController
     public setPrefab(prefab: PrefabBase): void { this._currentPrefab = prefab; }
 
     /**
-     * Set the color that should use the previsualisation mesh's material
-     * @param color the new color of the previz
+     * Set the color that should use the visualisation mesh's material
+     * @param color the new color of the previs
      */
     public setColor(color: vec4): void 
     {
@@ -84,16 +84,16 @@ class BuildController
     }
 
     /**
-     * Previz and prefab control
+     * Previs and prefab control
      * ==============================
      */
 
-    public addCurrentPrevizRotation(xRot: number, yRot: number): void 
+    public addCurrentPrevisRotation(xRot: number, yRot: number): void
     { 
         this._currentPrefab.updatePrevisRotation(xRot, yRot); 
     }
 
-    public instanciatePrefabAt(position: vec3): void 
+    public instantiatePrefabAt(position: vec3): void
     { 
         this._currentPrefab.createBlock(position, this._currentTexture, this._buildContainer); 
     }
@@ -110,7 +110,7 @@ class BuildController
 
     public loadBuild(data: Array<BlockData>): void 
     { 
-        this._buildContainer.getComponent(BuildContainer).loadBuildData(data); 
+        this._buildContainer.getComponent(BuildContainer).loadBuildData(data);
     }
 }
 

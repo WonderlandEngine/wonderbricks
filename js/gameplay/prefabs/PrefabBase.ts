@@ -1,17 +1,17 @@
 import { Collider, Component, Material, Mesh, Object, Scene, Type } from "@wonderlandengine/api";
-import { Constructor, CustomParameter } from "@wonderlandengine/api/wonderland";
+import { Constructor, ComponentProperty } from "@wonderlandengine/api";
 import { quat, vec3, vec4 } from "gl-matrix";
-import { getCurrentScene } from "../../lib/WlApi";
-import GridManager from "../grid/GridManager";
-import { TagComponent } from "../../utils/TagComponent";
-import { Tag } from "../../utils/Tag";
-import PrefabsRegistry from "./PrefabsRegistry";
-import { PhysicalMaterial } from "../../utils/materials/PhysicalMaterial";
-import { TextureInformation } from "../../utils/textures/TextureInformation";
+import { getCurrentScene } from "../../lib/WlApi.js";
+import GridManager from "../grid/GridManager.js";
+import { TagComponent } from "../../utils/TagComponent.js";
+import { Tag } from "../../utils/Tag.js";
+import PrefabsRegistry from "./PrefabsRegistry.js";
+import { PhysicalMaterial } from "../../utils/materials/PhysicalMaterial.js";
+import { TextureInformation } from "../../utils/textures/TextureInformation.js";
 
 export type PrefabBaseConstructor<T extends PrefabBase> = Constructor<T> & {
     TypeName: string;
-    Properties: Record<string, CustomParameter>;
+    Properties: Record<string, ComponentProperty>;
 };
 
 export default abstract class PrefabBase extends Component
@@ -64,7 +64,7 @@ export default abstract class PrefabBase extends Component
      * Create the block in the scene at the specified world
      * position
      * @param position
-     * @param color
+     * @param texInfo
      * @param container
      */
     public createBlock(position: vec3, texInfo: TextureInformation, container: Object): Object
@@ -114,9 +114,9 @@ export default abstract class PrefabBase extends Component
      */
     public updatePrevisPosition(position: vec3): void
     {
-        this._previsObject.setTranslationWorld(position);
+        this._previsObject.setPositionWorld(position);
         let pos: vec3 = vec3.create();
-        this._previsObject.getTranslationWorld(pos);
+        this._previsObject.getPositionWorld(pos);
     }
 
     public updatePrevisRotation(xRot: number, yRot: number): void
@@ -128,11 +128,11 @@ export default abstract class PrefabBase extends Component
     public setPrevisRotation(rotation: quat): void
     {
         this._previsObject.resetRotation();
-        this._previsObject.rotationWorld = rotation;
+        this._previsObject.setRotationWorld(rotation);
     }
 
     public updatePrevisColor(color: vec4): void
     {
-        this.previsMat['diffuseColor'] = color;
+        this.previsMat['albedoColor'] = color;
     }
 }

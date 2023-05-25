@@ -57,7 +57,7 @@ export class BuildContainer extends Component
             const currentTexture = TextureInformationRegistry.getTextureInformation(block.texture);
             BuildController.setTexture(currentTexture);
 
-            BuildController.instanciatePrefabAt(block.position);
+            BuildController.instantiatePrefabAt(block.position);
         }
     }
 

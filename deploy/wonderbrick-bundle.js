@@ -32,25 +32,22 @@ var __publicField = (obj, key, value) => {
   __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
   return value;
 };
-var __async = (__this, __arguments, generator) => {
-  return new Promise((resolve, reject) => {
-    var fulfilled = (value) => {
-      try {
-        step(generator.next(value));
-      } catch (e) {
-        reject(e);
-      }
-    };
-    var rejected = (value) => {
-      try {
-        step(generator.throw(value));
-      } catch (e) {
-        reject(e);
-      }
-    };
-    var step = (x) => x.done ? resolve(x.value) : Promise.resolve(x.value).then(fulfilled, rejected);
-    step((generator = generator.apply(__this, __arguments)).next());
-  });
+var __accessCheck = (obj, member, msg) => {
+  if (!member.has(obj))
+    throw TypeError("Cannot " + msg);
+};
+var __privateGet = (obj, member, getter) => {
+  __accessCheck(obj, member, "read from private field");
+  return getter ? getter.call(obj) : member.get(obj);
+};
+var __privateAdd = (obj, member, value) => {
+  if (member.has(obj))
+    throw TypeError("Cannot add the same private member more than once");
+  member instanceof WeakSet ? member.add(obj) : member.set(obj, value);
+};
+var __privateMethod = (obj, member, method) => {
+  __accessCheck(obj, member, "access private method");
+  return method;
 };
 
 // node_modules/howler/dist/howler.js
@@ -424,7 +421,7 @@ var require_howler = __commonJS({
         }
       };
       var Howler2 = new HowlerGlobal2();
-      var Howl3 = function(o) {
+      var Howl2 = function(o) {
         var self2 = this;
         if (!o.src || o.src.length === 0) {
           console.error("An array of source files must be passed with any new Howl.");
@@ -432,7 +429,7 @@ var require_howler = __commonJS({
         }
         self2.init(o);
       };
-      Howl3.prototype = {
+      Howl2.prototype = {
         /**
          * Initialize a new Howl group object.
          * @param  {Object} o Passed in properties for this group.
@@ -1847,23 +1844,23 @@ var require_howler = __commonJS({
         define([], function() {
           return {
             Howler: Howler2,
-            Howl: Howl3
+            Howl: Howl2
           };
         });
       }
       if (typeof exports !== "undefined") {
         exports.Howler = Howler2;
-        exports.Howl = Howl3;
+        exports.Howl = Howl2;
       }
       if (typeof global !== "undefined") {
         global.HowlerGlobal = HowlerGlobal2;
         global.Howler = Howler2;
-        global.Howl = Howl3;
+        global.Howl = Howl2;
         global.Sound = Sound2;
       } else if (typeof window !== "undefined") {
         window.HowlerGlobal = HowlerGlobal2;
         window.Howler = Howler2;
-        window.Howl = Howl3;
+        window.Howl = Howl2;
         window.Sound = Sound2;
       }
     })();
@@ -2262,9 +2259,539 @@ var require_howler = __commonJS({
   }
 });
 
-// node_modules/@wonderlandengine/api/wonderland.js
+// node_modules/earcut/src/earcut.js
+var require_earcut = __commonJS({
+  "node_modules/earcut/src/earcut.js"(exports, module) {
+    "use strict";
+    module.exports = earcut2;
+    module.exports.default = earcut2;
+    function earcut2(data, holeIndices, dim) {
+      dim = dim || 2;
+      var hasHoles = holeIndices && holeIndices.length, outerLen = hasHoles ? holeIndices[0] * dim : data.length, outerNode = linkedList(data, 0, outerLen, dim, true), triangles = [];
+      if (!outerNode || outerNode.next === outerNode.prev)
+        return triangles;
+      var minX, minY, maxX, maxY, x, y, invSize;
+      if (hasHoles)
+        outerNode = eliminateHoles(data, holeIndices, outerNode, dim);
+      if (data.length > 80 * dim) {
+        minX = maxX = data[0];
+        minY = maxY = data[1];
+        for (var i = dim; i < outerLen; i += dim) {
+          x = data[i];
+          y = data[i + 1];
+          if (x < minX)
+            minX = x;
+          if (y < minY)
+            minY = y;
+          if (x > maxX)
+            maxX = x;
+          if (y > maxY)
+            maxY = y;
+        }
+        invSize = Math.max(maxX - minX, maxY - minY);
+        invSize = invSize !== 0 ? 32767 / invSize : 0;
+      }
+      earcutLinked(outerNode, triangles, dim, minX, minY, invSize, 0);
+      return triangles;
+    }
+    function linkedList(data, start, end, dim, clockwise) {
+      var i, last;
+      if (clockwise === signedArea(data, start, end, dim) > 0) {
+        for (i = start; i < end; i += dim)
+          last = insertNode(i, data[i], data[i + 1], last);
+      } else {
+        for (i = end - dim; i >= start; i -= dim)
+          last = insertNode(i, data[i], data[i + 1], last);
+      }
+      if (last && equals6(last, last.next)) {
+        removeNode(last);
+        last = last.next;
+      }
+      return last;
+    }
+    function filterPoints(start, end) {
+      if (!start)
+        return start;
+      if (!end)
+        end = start;
+      var p = start, again;
+      do {
+        again = false;
+        if (!p.steiner && (equals6(p, p.next) || area(p.prev, p, p.next) === 0)) {
+          removeNode(p);
+          p = end = p.prev;
+          if (p === p.next)
+            break;
+          again = true;
+        } else {
+          p = p.next;
+        }
+      } while (again || p !== end);
+      return end;
+    }
+    function earcutLinked(ear, triangles, dim, minX, minY, invSize, pass) {
+      if (!ear)
+        return;
+      if (!pass && invSize)
+        indexCurve(ear, minX, minY, invSize);
+      var stop = ear, prev, next;
+      while (ear.prev !== ear.next) {
+        prev = ear.prev;
+        next = ear.next;
+        if (invSize ? isEarHashed(ear, minX, minY, invSize) : isEar(ear)) {
+          triangles.push(prev.i / dim | 0);
+          triangles.push(ear.i / dim | 0);
+          triangles.push(next.i / dim | 0);
+          removeNode(ear);
+          ear = next.next;
+          stop = next.next;
+          continue;
+        }
+        ear = next;
+        if (ear === stop) {
+          if (!pass) {
+            earcutLinked(filterPoints(ear), triangles, dim, minX, minY, invSize, 1);
+          } else if (pass === 1) {
+            ear = cureLocalIntersections(filterPoints(ear), triangles, dim);
+            earcutLinked(ear, triangles, dim, minX, minY, invSize, 2);
+          } else if (pass === 2) {
+            splitEarcut(ear, triangles, dim, minX, minY, invSize);
+          }
+          break;
+        }
+      }
+    }
+    function isEar(ear) {
+      var a = ear.prev, b = ear, c = ear.next;
+      if (area(a, b, c) >= 0)
+        return false;
+      var ax = a.x, bx = b.x, cx = c.x, ay = a.y, by = b.y, cy = c.y;
+      var x0 = ax < bx ? ax < cx ? ax : cx : bx < cx ? bx : cx, y0 = ay < by ? ay < cy ? ay : cy : by < cy ? by : cy, x1 = ax > bx ? ax > cx ? ax : cx : bx > cx ? bx : cx, y1 = ay > by ? ay > cy ? ay : cy : by > cy ? by : cy;
+      var p = c.next;
+      while (p !== a) {
+        if (p.x >= x0 && p.x <= x1 && p.y >= y0 && p.y <= y1 && pointInTriangle(ax, ay, bx, by, cx, cy, p.x, p.y) && area(p.prev, p, p.next) >= 0)
+          return false;
+        p = p.next;
+      }
+      return true;
+    }
+    function isEarHashed(ear, minX, minY, invSize) {
+      var a = ear.prev, b = ear, c = ear.next;
+      if (area(a, b, c) >= 0)
+        return false;
+      var ax = a.x, bx = b.x, cx = c.x, ay = a.y, by = b.y, cy = c.y;
+      var x0 = ax < bx ? ax < cx ? ax : cx : bx < cx ? bx : cx, y0 = ay < by ? ay < cy ? ay : cy : by < cy ? by : cy, x1 = ax > bx ? ax > cx ? ax : cx : bx > cx ? bx : cx, y1 = ay > by ? ay > cy ? ay : cy : by > cy ? by : cy;
+      var minZ = zOrder(x0, y0, minX, minY, invSize), maxZ = zOrder(x1, y1, minX, minY, invSize);
+      var p = ear.prevZ, n = ear.nextZ;
+      while (p && p.z >= minZ && n && n.z <= maxZ) {
+        if (p.x >= x0 && p.x <= x1 && p.y >= y0 && p.y <= y1 && p !== a && p !== c && pointInTriangle(ax, ay, bx, by, cx, cy, p.x, p.y) && area(p.prev, p, p.next) >= 0)
+          return false;
+        p = p.prevZ;
+        if (n.x >= x0 && n.x <= x1 && n.y >= y0 && n.y <= y1 && n !== a && n !== c && pointInTriangle(ax, ay, bx, by, cx, cy, n.x, n.y) && area(n.prev, n, n.next) >= 0)
+          return false;
+        n = n.nextZ;
+      }
+      while (p && p.z >= minZ) {
+        if (p.x >= x0 && p.x <= x1 && p.y >= y0 && p.y <= y1 && p !== a && p !== c && pointInTriangle(ax, ay, bx, by, cx, cy, p.x, p.y) && area(p.prev, p, p.next) >= 0)
+          return false;
+        p = p.prevZ;
+      }
+      while (n && n.z <= maxZ) {
+        if (n.x >= x0 && n.x <= x1 && n.y >= y0 && n.y <= y1 && n !== a && n !== c && pointInTriangle(ax, ay, bx, by, cx, cy, n.x, n.y) && area(n.prev, n, n.next) >= 0)
+          return false;
+        n = n.nextZ;
+      }
+      return true;
+    }
+    function cureLocalIntersections(start, triangles, dim) {
+      var p = start;
+      do {
+        var a = p.prev, b = p.next.next;
+        if (!equals6(a, b) && intersects(a, p, p.next, b) && locallyInside(a, b) && locallyInside(b, a)) {
+          triangles.push(a.i / dim | 0);
+          triangles.push(p.i / dim | 0);
+          triangles.push(b.i / dim | 0);
+          removeNode(p);
+          removeNode(p.next);
+          p = start = b;
+        }
+        p = p.next;
+      } while (p !== start);
+      return filterPoints(p);
+    }
+    function splitEarcut(start, triangles, dim, minX, minY, invSize) {
+      var a = start;
+      do {
+        var b = a.next.next;
+        while (b !== a.prev) {
+          if (a.i !== b.i && isValidDiagonal(a, b)) {
+            var c = splitPolygon(a, b);
+            a = filterPoints(a, a.next);
+            c = filterPoints(c, c.next);
+            earcutLinked(a, triangles, dim, minX, minY, invSize, 0);
+            earcutLinked(c, triangles, dim, minX, minY, invSize, 0);
+            return;
+          }
+          b = b.next;
+        }
+        a = a.next;
+      } while (a !== start);
+    }
+    function eliminateHoles(data, holeIndices, outerNode, dim) {
+      var queue = [], i, len5, start, end, list;
+      for (i = 0, len5 = holeIndices.length; i < len5; i++) {
+        start = holeIndices[i] * dim;
+        end = i < len5 - 1 ? holeIndices[i + 1] * dim : data.length;
+        list = linkedList(data, start, end, dim, false);
+        if (list === list.next)
+          list.steiner = true;
+        queue.push(getLeftmost(list));
+      }
+      queue.sort(compareX);
+      for (i = 0; i < queue.length; i++) {
+        outerNode = eliminateHole(queue[i], outerNode);
+      }
+      return outerNode;
+    }
+    function compareX(a, b) {
+      return a.x - b.x;
+    }
+    function eliminateHole(hole, outerNode) {
+      var bridge = findHoleBridge(hole, outerNode);
+      if (!bridge) {
+        return outerNode;
+      }
+      var bridgeReverse = splitPolygon(bridge, hole);
+      filterPoints(bridgeReverse, bridgeReverse.next);
+      return filterPoints(bridge, bridge.next);
+    }
+    function findHoleBridge(hole, outerNode) {
+      var p = outerNode, hx = hole.x, hy = hole.y, qx = -Infinity, m;
+      do {
+        if (hy <= p.y && hy >= p.next.y && p.next.y !== p.y) {
+          var x = p.x + (hy - p.y) * (p.next.x - p.x) / (p.next.y - p.y);
+          if (x <= hx && x > qx) {
+            qx = x;
+            m = p.x < p.next.x ? p : p.next;
+            if (x === hx)
+              return m;
+          }
+        }
+        p = p.next;
+      } while (p !== outerNode);
+      if (!m)
+        return null;
+      var stop = m, mx = m.x, my = m.y, tanMin = Infinity, tan;
+      p = m;
+      do {
+        if (hx >= p.x && p.x >= mx && hx !== p.x && pointInTriangle(hy < my ? hx : qx, hy, mx, my, hy < my ? qx : hx, hy, p.x, p.y)) {
+          tan = Math.abs(hy - p.y) / (hx - p.x);
+          if (locallyInside(p, hole) && (tan < tanMin || tan === tanMin && (p.x > m.x || p.x === m.x && sectorContainsSector(m, p)))) {
+            m = p;
+            tanMin = tan;
+          }
+        }
+        p = p.next;
+      } while (p !== stop);
+      return m;
+    }
+    function sectorContainsSector(m, p) {
+      return area(m.prev, m, p.prev) < 0 && area(p.next, m, m.next) < 0;
+    }
+    function indexCurve(start, minX, minY, invSize) {
+      var p = start;
+      do {
+        if (p.z === 0)
+          p.z = zOrder(p.x, p.y, minX, minY, invSize);
+        p.prevZ = p.prev;
+        p.nextZ = p.next;
+        p = p.next;
+      } while (p !== start);
+      p.prevZ.nextZ = null;
+      p.prevZ = null;
+      sortLinked(p);
+    }
+    function sortLinked(list) {
+      var i, p, q, e, tail, numMerges, pSize, qSize, inSize = 1;
+      do {
+        p = list;
+        list = null;
+        tail = null;
+        numMerges = 0;
+        while (p) {
+          numMerges++;
+          q = p;
+          pSize = 0;
+          for (i = 0; i < inSize; i++) {
+            pSize++;
+            q = q.nextZ;
+            if (!q)
+              break;
+          }
+          qSize = inSize;
+          while (pSize > 0 || qSize > 0 && q) {
+            if (pSize !== 0 && (qSize === 0 || !q || p.z <= q.z)) {
+              e = p;
+              p = p.nextZ;
+              pSize--;
+            } else {
+              e = q;
+              q = q.nextZ;
+              qSize--;
+            }
+            if (tail)
+              tail.nextZ = e;
+            else
+              list = e;
+            e.prevZ = tail;
+            tail = e;
+          }
+          p = q;
+        }
+        tail.nextZ = null;
+        inSize *= 2;
+      } while (numMerges > 1);
+      return list;
+    }
+    function zOrder(x, y, minX, minY, invSize) {
+      x = (x - minX) * invSize | 0;
+      y = (y - minY) * invSize | 0;
+      x = (x | x << 8) & 16711935;
+      x = (x | x << 4) & 252645135;
+      x = (x | x << 2) & 858993459;
+      x = (x | x << 1) & 1431655765;
+      y = (y | y << 8) & 16711935;
+      y = (y | y << 4) & 252645135;
+      y = (y | y << 2) & 858993459;
+      y = (y | y << 1) & 1431655765;
+      return x | y << 1;
+    }
+    function getLeftmost(start) {
+      var p = start, leftmost = start;
+      do {
+        if (p.x < leftmost.x || p.x === leftmost.x && p.y < leftmost.y)
+          leftmost = p;
+        p = p.next;
+      } while (p !== start);
+      return leftmost;
+    }
+    function pointInTriangle(ax, ay, bx, by, cx, cy, px, py) {
+      return (cx - px) * (ay - py) >= (ax - px) * (cy - py) && (ax - px) * (by - py) >= (bx - px) * (ay - py) && (bx - px) * (cy - py) >= (cx - px) * (by - py);
+    }
+    function isValidDiagonal(a, b) {
+      return a.next.i !== b.i && a.prev.i !== b.i && !intersectsPolygon(a, b) && // dones't intersect other edges
+      (locallyInside(a, b) && locallyInside(b, a) && middleInside(a, b) && // locally visible
+      (area(a.prev, a, b.prev) || area(a, b.prev, b)) || // does not create opposite-facing sectors
+      equals6(a, b) && area(a.prev, a, a.next) > 0 && area(b.prev, b, b.next) > 0);
+    }
+    function area(p, q, r) {
+      return (q.y - p.y) * (r.x - q.x) - (q.x - p.x) * (r.y - q.y);
+    }
+    function equals6(p1, p2) {
+      return p1.x === p2.x && p1.y === p2.y;
+    }
+    function intersects(p1, q1, p2, q2) {
+      var o1 = sign(area(p1, q1, p2));
+      var o2 = sign(area(p1, q1, q2));
+      var o3 = sign(area(p2, q2, p1));
+      var o4 = sign(area(p2, q2, q1));
+      if (o1 !== o2 && o3 !== o4)
+        return true;
+      if (o1 === 0 && onSegment(p1, p2, q1))
+        return true;
+      if (o2 === 0 && onSegment(p1, q2, q1))
+        return true;
+      if (o3 === 0 && onSegment(p2, p1, q2))
+        return true;
+      if (o4 === 0 && onSegment(p2, q1, q2))
+        return true;
+      return false;
+    }
+    function onSegment(p, q, r) {
+      return q.x <= Math.max(p.x, r.x) && q.x >= Math.min(p.x, r.x) && q.y <= Math.max(p.y, r.y) && q.y >= Math.min(p.y, r.y);
+    }
+    function sign(num) {
+      return num > 0 ? 1 : num < 0 ? -1 : 0;
+    }
+    function intersectsPolygon(a, b) {
+      var p = a;
+      do {
+        if (p.i !== a.i && p.next.i !== a.i && p.i !== b.i && p.next.i !== b.i && intersects(p, p.next, a, b))
+          return true;
+        p = p.next;
+      } while (p !== a);
+      return false;
+    }
+    function locallyInside(a, b) {
+      return area(a.prev, a, a.next) < 0 ? area(a, b, a.next) >= 0 && area(a, a.prev, b) >= 0 : area(a, b, a.prev) < 0 || area(a, a.next, b) < 0;
+    }
+    function middleInside(a, b) {
+      var p = a, inside = false, px = (a.x + b.x) / 2, py = (a.y + b.y) / 2;
+      do {
+        if (p.y > py !== p.next.y > py && p.next.y !== p.y && px < (p.next.x - p.x) * (py - p.y) / (p.next.y - p.y) + p.x)
+          inside = !inside;
+        p = p.next;
+      } while (p !== a);
+      return inside;
+    }
+    function splitPolygon(a, b) {
+      var a2 = new Node(a.i, a.x, a.y), b2 = new Node(b.i, b.x, b.y), an = a.next, bp = b.prev;
+      a.next = b;
+      b.prev = a;
+      a2.next = an;
+      an.prev = a2;
+      b2.next = a2;
+      a2.prev = b2;
+      bp.next = b2;
+      b2.prev = bp;
+      return b2;
+    }
+    function insertNode(i, x, y, last) {
+      var p = new Node(i, x, y);
+      if (!last) {
+        p.prev = p;
+        p.next = p;
+      } else {
+        p.next = last.next;
+        p.prev = last;
+        last.next.prev = p;
+        last.next = p;
+      }
+      return p;
+    }
+    function removeNode(p) {
+      p.next.prev = p.prev;
+      p.prev.next = p.next;
+      if (p.prevZ)
+        p.prevZ.nextZ = p.nextZ;
+      if (p.nextZ)
+        p.nextZ.prevZ = p.prevZ;
+    }
+    function Node(i, x, y) {
+      this.i = i;
+      this.x = x;
+      this.y = y;
+      this.prev = null;
+      this.next = null;
+      this.z = 0;
+      this.prevZ = null;
+      this.nextZ = null;
+      this.steiner = false;
+    }
+    earcut2.deviation = function(data, holeIndices, dim, triangles) {
+      var hasHoles = holeIndices && holeIndices.length;
+      var outerLen = hasHoles ? holeIndices[0] * dim : data.length;
+      var polygonArea = Math.abs(signedArea(data, 0, outerLen, dim));
+      if (hasHoles) {
+        for (var i = 0, len5 = holeIndices.length; i < len5; i++) {
+          var start = holeIndices[i] * dim;
+          var end = i < len5 - 1 ? holeIndices[i + 1] * dim : data.length;
+          polygonArea -= Math.abs(signedArea(data, start, end, dim));
+        }
+      }
+      var trianglesArea = 0;
+      for (i = 0; i < triangles.length; i += 3) {
+        var a = triangles[i] * dim;
+        var b = triangles[i + 1] * dim;
+        var c = triangles[i + 2] * dim;
+        trianglesArea += Math.abs(
+          (data[a] - data[c]) * (data[b + 1] - data[a + 1]) - (data[a] - data[b]) * (data[c + 1] - data[a + 1])
+        );
+      }
+      return polygonArea === 0 && trianglesArea === 0 ? 0 : Math.abs((trianglesArea - polygonArea) / polygonArea);
+    };
+    function signedArea(data, start, end, dim) {
+      var sum = 0;
+      for (var i = start, j = end - dim; i < end; i += dim) {
+        sum += (data[j] - data[i]) * (data[i + 1] + data[j + 1]);
+        j = i;
+      }
+      return sum;
+    }
+    earcut2.flatten = function(data) {
+      var dim = data[0][0].length, result = { vertices: [], holes: [], dimensions: dim }, holeIndex = 0;
+      for (var i = 0; i < data.length; i++) {
+        for (var j = 0; j < data[i].length; j++) {
+          for (var d = 0; d < dim; d++)
+            result.vertices.push(data[i][j][d]);
+        }
+        if (i > 0) {
+          holeIndex += data[i - 1].length;
+          result.holes.push(holeIndex);
+        }
+      }
+      return result;
+    };
+  }
+});
+
+// node_modules/@wonderlandengine/api/dist/index.js
+var dist_exports = {};
+__export(dist_exports, {
+  APIVersion: () => APIVersion,
+  Alignment: () => Alignment,
+  Animation: () => Animation,
+  AnimationComponent: () => AnimationComponent,
+  AnimationState: () => AnimationState,
+  Collider: () => Collider,
+  CollisionComponent: () => CollisionComponent,
+  CollisionEventType: () => CollisionEventType,
+  Component: () => Component,
+  Emitter: () => Emitter,
+  ForceMode: () => ForceMode,
+  I18N: () => I18N,
+  InputComponent: () => InputComponent,
+  InputType: () => InputType,
+  Justification: () => Justification,
+  LightComponent: () => LightComponent,
+  LightType: () => LightType,
+  LockAxis: () => LockAxis,
+  Material: () => Material,
+  MaterialParamType: () => MaterialParamType,
+  Mesh: () => Mesh,
+  MeshAttribute: () => MeshAttribute,
+  MeshAttributeAccessor: () => MeshAttributeAccessor,
+  MeshComponent: () => MeshComponent,
+  MeshIndexType: () => MeshIndexType,
+  MeshSkinningType: () => MeshSkinningType,
+  Object: () => Object3D,
+  Object3D: () => Object3D,
+  PhysXComponent: () => PhysXComponent,
+  Physics: () => Physics,
+  Property: () => Property,
+  RayHit: () => RayHit,
+  RetainEmitter: () => RetainEmitter,
+  Scene: () => Scene,
+  Shape: () => Shape,
+  Skin: () => Skin,
+  TextComponent: () => TextComponent,
+  TextEffect: () => TextEffect,
+  Texture: () => Texture,
+  TextureManager: () => TextureManager,
+  Type: () => Type,
+  ViewComponent: () => ViewComponent,
+  WASM: () => WASM,
+  WonderlandEngine: () => WonderlandEngine,
+  XR: () => XR,
+  checkRuntimeCompatibility: () => checkRuntimeCompatibility,
+  loadRuntime: () => loadRuntime,
+  math: () => math
+});
+
+// node_modules/wasm-feature-detect/dist/esm/index.js
+var simd = async () => WebAssembly.validate(new Uint8Array([0, 97, 115, 109, 1, 0, 0, 0, 1, 5, 1, 96, 0, 1, 123, 3, 2, 1, 0, 10, 10, 1, 8, 0, 65, 0, 253, 15, 253, 98, 11]));
+var threads = () => (async (e) => {
+  try {
+    return "undefined" != typeof MessageChannel && new MessageChannel().port1.postMessage(new SharedArrayBuffer(1)), WebAssembly.validate(e);
+  } catch (e2) {
+    return false;
+  }
+})(new Uint8Array([0, 97, 115, 109, 1, 0, 0, 0, 1, 4, 1, 96, 0, 0, 3, 2, 1, 0, 5, 4, 1, 3, 1, 1, 10, 11, 1, 9, 0, 65, 0, 254, 16, 2, 0, 26, 11]));
+
+// node_modules/@wonderlandengine/api/dist/property.js
 var Type;
 (function(Type2) {
+  Type2[Type2["Native"] = 1] = "Native";
   Type2[Type2["Bool"] = 2] = "Bool";
   Type2[Type2["Int"] = 4] = "Int";
   Type2[Type2["Float"] = 8] = "Float";
@@ -2278,6 +2805,450 @@ var Type;
   Type2[Type2["Skin"] = 2048] = "Skin";
   Type2[Type2["Color"] = 4096] = "Color";
 })(Type || (Type = {}));
+var Property = {
+  /**
+   * Create an boolean property.
+   *
+   * @param defaultValue The default value. If not provided, defaults to `false`.
+   */
+  bool(defaultValue = false) {
+    return { type: Type.Bool, default: defaultValue };
+  },
+  /**
+   * Create an integer property.
+   *
+   * @param defaultValue The default value. If not provided, defaults to `0`.
+   */
+  int(defaultValue = 0) {
+    return { type: Type.Int, default: defaultValue };
+  },
+  /**
+   * Create an float property.
+   *
+   * @param defaultValue The default value. If not provided, defaults to `0.0`.
+   */
+  float(defaultValue = 0) {
+    return { type: Type.Float, default: defaultValue };
+  },
+  /**
+   * Create an string property.
+   *
+   * @param defaultValue The default value. If not provided, defaults to `''`.
+   */
+  string(defaultValue = "") {
+    return { type: Type.String, default: defaultValue };
+  },
+  /**
+   * Create an enumeration property.
+   *
+   * @param values The list of values.
+   * @param defaultValue The default value. Can be a string or an index into
+   *     `values`. If not provided, defaults to the first element.
+   */
+  enum(values, defaultValue) {
+    return { type: Type.Enum, values, default: defaultValue };
+  },
+  /** Create an {@link Object3D} reference property. */
+  object() {
+    return { type: Type.Object, default: null };
+  },
+  /** Create a {@link Mesh} reference property. */
+  mesh() {
+    return { type: Type.Mesh, default: null };
+  },
+  /** Create a {@link Texture} reference property. */
+  texture() {
+    return { type: Type.Texture, default: null };
+  },
+  /** Create a {@link Material} reference property. */
+  material() {
+    return { type: Type.Material, default: null };
+  },
+  /** Create an {@link Animation} reference property. */
+  animation() {
+    return { type: Type.Animation, default: null };
+  },
+  /** Create a {@link Skin} reference property. */
+  skin() {
+    return { type: Type.Skin, default: null };
+  },
+  /**
+   * Create a color property.
+   *
+   * @param r The red component, in the range [0; 1].
+   * @param g The green component, in the range [0; 1].
+   * @param b The blue component, in the range [0; 1].
+   * @param a The alpha component, in the range [0; 1].
+   */
+  color(r = 0, g = 0, b = 0, a = 1) {
+    return { type: Type.Color, default: [r, g, b, a] };
+  }
+};
+
+// node_modules/@wonderlandengine/api/dist/decorators.js
+function propertyDecorator(data) {
+  return function(target, propertyKey) {
+    const ctor = target.constructor;
+    ctor.Properties = ctor.Properties ?? {};
+    ctor.Properties[propertyKey] = data;
+  };
+}
+function enumerable() {
+  return function(_, __, descriptor) {
+    descriptor.enumerable = true;
+  };
+}
+function nativeProperty() {
+  return function(target, propertyKey, descriptor) {
+    enumerable()(target, propertyKey, descriptor);
+    propertyDecorator({ type: Type.Native })(target, propertyKey);
+  };
+}
+var property = {};
+for (const name in Property) {
+  property[name] = (...args) => {
+    const functor = Property[name];
+    return propertyDecorator(functor(...args));
+  };
+}
+
+// node_modules/@wonderlandengine/api/dist/utils/object.js
+function isString(value) {
+  if (value === "")
+    return true;
+  return value && (typeof value === "string" || value.constructor === String);
+}
+function isNumber(value) {
+  if (value === null || value === void 0)
+    return false;
+  return typeof value === "number" || value.constructor === Number;
+}
+
+// node_modules/@wonderlandengine/api/dist/utils/event.js
+var Emitter = class {
+  /**
+   * List of listeners to trigger when `notify` is called.
+   *
+   * @hidden
+   */
+  _listeners = [];
+  /**
+   * Register a new listener to be triggered on {@link Emitter.notify}.
+   *
+   * Basic usage:
+   *
+   * ```js
+   * emitter.add((data) => {
+   *     console.log('event received!');
+   *     console.log(data);
+   * });
+   * ```
+   *
+   * Automatically remove the listener when an event is received:
+   *
+   * ```js
+   * emitter.add((data) => {
+   *     console.log('event received!');
+   *     console.log(data);
+   * }, {once: true});
+   * ```
+   *
+   * @param listener The callback to register.
+   * @param opts The listener options. For more information, please have a look
+   *     at the {@link ListenerOptions} interface.
+   *
+   * @returns Reference to self (for method chaining)
+   */
+  add(listener, opts = {}) {
+    const { once = false, id = void 0 } = opts;
+    this._listeners.push({ id, once, callback: listener });
+    return this;
+  }
+  /**
+   * Equivalent to {@link Emitter.add}.
+   *
+   * @param listeners The callback(s) to register.
+   * @returns Reference to self (for method chaining).
+   *
+   * @deprecated Please use {@link Emitter.add} instead.
+   */
+  push(...listeners) {
+    for (const cb of listeners)
+      this.add(cb);
+    return this;
+  }
+  /**
+   * Register a new listener to be triggered on {@link Emitter.notify}.
+   *
+   * Once notified, the listener will be automatically removed.
+   *
+   * The method is equivalent to calling {@link Emitter.add} with:
+   *
+   * ```js
+   * emitter.add(listener, {once: true});
+   * ```
+   *
+   * @param listener The callback to register.
+   *
+   * @returns Reference to self (for method chaining).
+   */
+  once(listener) {
+    return this.add(listener, { once: true });
+  }
+  /**
+   * Remove a registered listener.
+   *
+   * Usage with a callback:
+   *
+   * ```js
+   * const listener = (data) => console.log(data);
+   * emitter.add(listener);
+   *
+   * // Remove using the callback reference:
+   * emitter.remove(listener);
+   * ```
+   *
+   * Usage with an id:
+   *
+   * ```js
+   * emitter.add((data) => console.log(data), {id: 'my-callback'});
+   *
+   * // Remove using the id:
+   * emitter.remove('my-callback');
+   * ```
+   *
+   * Using identifiers, you will need to ensure your value is unique to avoid
+   * removing listeners from other libraries, e.g.,:
+   *
+   * ```js
+   * emitter.add((data) => console.log(data), {id: 'non-unique'});
+   * // This second listener could be added by a third-party library.
+   * emitter.add((data) => console.log('Hello From Library!'), {id: 'non-unique'});
+   *
+   * // Ho Snap! This also removed the library listener!
+   * emitter.remove('non-unique');
+   * ```
+   *
+   * The identifier can be any type. However, remember that the comparison will be
+   * by-value for primitive types (string, number), but by reference for objects.
+   *
+   * Example:
+   *
+   * ```js
+   * emitter.add(() => console.log('Hello'), {id: {value: 42}});
+   * emitter.add(() => console.log('World!'), {id: {value: 42}});
+   * emitter.remove({value: 42}); // None of the above listeners match!
+   * emitter.notify(); // Prints 'Hello' and 'World!'.
+   * ```
+   *
+   * Here, both emitters have id `{value: 42}`, but the comparison is made by reference. Thus,
+   * the `remove()` call has no effect. We can make it work by doing:
+   *
+   * ```js
+   * const id = {value: 42};
+   * emitter.add(() => console.log('Hello'), {id});
+   * emitter.add(() => console.log('World!'), {id});
+   * emitter.remove(id); // Same reference, it works!
+   * emitter.notify(); // Doesn't print.
+   * ```
+   *
+   * @param listener The registered callback or a value representing the `id`.
+   *
+   * @returns Reference to self (for method chaining)
+   */
+  remove(listener) {
+    const listeners = this._listeners;
+    for (let i = 0; i < listeners.length; ++i) {
+      const target = listeners[i];
+      if (target.callback === listener || target.id === listener) {
+        listeners.splice(i--, 1);
+      }
+    }
+    return this;
+  }
+  /**
+   * Check whether the listener is registered.
+   *
+   * @note This method performs a linear search.
+   *
+   * @param listener The registered callback or a value representing the `id`.
+   * @returns `true` if the handle is found, `false` otherwise.
+   */
+  has(listener) {
+    const listeners = this._listeners;
+    for (let i = 0; i < listeners.length; ++i) {
+      const target = listeners[i];
+      if (target.callback === listener || target.id === listener)
+        return true;
+    }
+    return false;
+  }
+  /**
+   * Notify listeners with the given data object.
+   *
+   * @note This method ensures all listeners are called even if
+   * an exception is thrown. For (possibly) faster notification,
+   * please use {@link Emitter.notifyUnsafe}.
+   *
+   * @param data The data to pass to listener when invoked.
+   */
+  notify(...data) {
+    const listeners = this._listeners;
+    for (let i = 0; i < listeners.length; ++i) {
+      const listener = listeners[i];
+      if (listener.once)
+        listeners.splice(i--, 1);
+      try {
+        listener.callback(...data);
+      } catch (e) {
+        console.error(e);
+      }
+    }
+  }
+  /**
+   * Notify listeners with the given data object.
+   *
+   * @note Because this method doesn't catch exceptions, some listeners
+   * will be skipped on a throw. Please use {@link Emitter.notify} for safe
+   * notification.
+   *
+   * @param data The data to pass to listener when invoked.
+   */
+  notifyUnsafe(...data) {
+    const listeners = this._listeners;
+    for (let i = 0; i < listeners.length; ++i) {
+      const listener = listeners[i];
+      if (listener.once)
+        listeners.splice(i--, 1);
+      listener.callback(...data);
+    }
+  }
+  /**
+   * Return a promise that will resolve on the next event.
+   *
+   * @note The promise might never resolve if no event is sent.
+   *
+   * @returns A promise that resolves with the data passed to
+   *     {@link Emitter.notify}.
+   */
+  promise() {
+    return new Promise((res, _) => {
+      this.once((...args) => {
+        if (args.length > 1) {
+          res(args);
+        } else {
+          res(args[0]);
+        }
+      });
+    });
+  }
+  /** Number of listeners. */
+  get listenerCount() {
+    return this._listeners.length;
+  }
+  /** `true` if it has no listeners, `false` otherwise. */
+  get isEmpty() {
+    return this.listenerCount === 0;
+  }
+};
+var RetainEmitterUndefined = {};
+var RetainEmitter = class extends Emitter {
+  /** Pre-resolved data. @hidden */
+  _event = RetainEmitterUndefined;
+  /**
+   * Emitter target used to reset the state of this emitter.
+   *
+   * @hidden
+   */
+  _reset;
+  /** @override */
+  add(listener, opts) {
+    const immediate = opts?.immediate ?? true;
+    if (this._event !== RetainEmitterUndefined && immediate) {
+      listener(...this._event);
+    }
+    super.add(listener, opts);
+    return this;
+  }
+  /**
+   * @override
+   *
+   * @param listener The callback to register.
+   * @param immediate If `true`, directly resolves if the emitter retains a value.
+   *
+   * @returns Reference to self (for method chaining).
+   */
+  once(listener, immediate) {
+    return this.add(listener, { once: true, immediate });
+  }
+  /** @override */
+  notify(...data) {
+    this._event = data;
+    super.notify(...data);
+  }
+  /** @override */
+  notifyUnsafe(...data) {
+    this._event = data;
+    super.notifyUnsafe(...data);
+  }
+  /**
+   * Reset the state of the emitter.
+   *
+   * Further call to {@link Emitter.add} will not automatically resolve,
+   * until a new call to {@link Emitter.notify} is performed.
+   *
+   * @returns Reference to self (for method chaining)
+   */
+  reset() {
+    this._event = RetainEmitterUndefined;
+    return this;
+  }
+  /** Returns the retained data, or `undefined` if no data was retained. */
+  get data() {
+    return this.isDataRetained ? this._event : void 0;
+  }
+  /** `true` if data is retained from the last event, `false` otherwise. */
+  get isDataRetained() {
+    return this._event !== RetainEmitterUndefined;
+  }
+};
+
+// node_modules/@wonderlandengine/api/dist/utils/fetch.js
+function fetchWithProgress(path, onProgress) {
+  return new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", path);
+    xhr.responseType = "arraybuffer";
+    xhr.onprogress = (progress) => {
+      if (progress.lengthComputable) {
+        onProgress?.(progress.loaded, progress.total);
+      }
+    };
+    xhr.onload = () => {
+      if (xhr.status >= 200 && xhr.status < 300) {
+        const buffer = xhr.response;
+        onProgress?.(buffer.byteLength, buffer.byteLength);
+        resolve(buffer);
+      } else {
+        reject(xhr.statusText);
+      }
+    };
+    xhr.onerror = () => reject(xhr.statusText);
+    xhr.send();
+  });
+}
+
+// node_modules/@wonderlandengine/api/dist/wonderland.js
+var __decorate = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
+    r = Reflect.decorate(decorators, target, key, desc);
+  else
+    for (var i = decorators.length - 1; i >= 0; i--)
+      if (d = decorators[i])
+        r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
 var Collider;
 (function(Collider2) {
   Collider2[Collider2["Sphere"] = 0] = "Sphere";
@@ -2286,16 +3257,16 @@ var Collider;
 })(Collider || (Collider = {}));
 var Alignment;
 (function(Alignment2) {
-  Alignment2[Alignment2["Left"] = 1] = "Left";
-  Alignment2[Alignment2["Center"] = 2] = "Center";
-  Alignment2[Alignment2["Right"] = 3] = "Right";
+  Alignment2[Alignment2["Left"] = 0] = "Left";
+  Alignment2[Alignment2["Center"] = 1] = "Center";
+  Alignment2[Alignment2["Right"] = 2] = "Right";
 })(Alignment || (Alignment = {}));
 var Justification;
 (function(Justification2) {
-  Justification2[Justification2["Line"] = 1] = "Line";
-  Justification2[Justification2["Middle"] = 2] = "Middle";
-  Justification2[Justification2["Top"] = 3] = "Top";
-  Justification2[Justification2["Bottom"] = 4] = "Bottom";
+  Justification2[Justification2["Line"] = 0] = "Line";
+  Justification2[Justification2["Middle"] = 1] = "Middle";
+  Justification2[Justification2["Top"] = 2] = "Top";
+  Justification2[Justification2["Bottom"] = 3] = "Bottom";
 })(Justification || (Justification = {}));
 var TextEffect;
 (function(TextEffect2) {
@@ -2314,15 +3285,15 @@ var InputType;
 })(InputType || (InputType = {}));
 var LightType;
 (function(LightType2) {
-  LightType2[LightType2["Point"] = 1] = "Point";
-  LightType2[LightType2["Spot"] = 2] = "Spot";
-  LightType2[LightType2["Sun"] = 3] = "Sun";
+  LightType2[LightType2["Point"] = 0] = "Point";
+  LightType2[LightType2["Spot"] = 1] = "Spot";
+  LightType2[LightType2["Sun"] = 2] = "Sun";
 })(LightType || (LightType = {}));
 var AnimationState;
 (function(AnimationState2) {
-  AnimationState2[AnimationState2["Playing"] = 1] = "Playing";
-  AnimationState2[AnimationState2["Paused"] = 2] = "Paused";
-  AnimationState2[AnimationState2["Stopped"] = 3] = "Stopped";
+  AnimationState2[AnimationState2["Playing"] = 0] = "Playing";
+  AnimationState2[AnimationState2["Paused"] = 1] = "Paused";
+  AnimationState2[AnimationState2["Stopped"] = 2] = "Stopped";
 })(AnimationState || (AnimationState = {}));
 var ForceMode;
 (function(ForceMode2) {
@@ -2357,8 +3328,6 @@ var MeshAttribute;
   MeshAttribute2[MeshAttribute2["Color"] = 4] = "Color";
   MeshAttribute2[MeshAttribute2["JointId"] = 5] = "JointId";
   MeshAttribute2[MeshAttribute2["JointWeight"] = 6] = "JointWeight";
-  MeshAttribute2[MeshAttribute2["SecondaryJointId"] = 7] = "SecondaryJointId";
-  MeshAttribute2[MeshAttribute2["SecondaryJointWeight"] = 8] = "SecondaryJointWeight";
 })(MeshAttribute || (MeshAttribute = {}));
 var MaterialParamType;
 (function(MaterialParamType2) {
@@ -2368,6 +3337,322 @@ var MaterialParamType;
   MaterialParamType2[MaterialParamType2["Sampler"] = 3] = "Sampler";
   MaterialParamType2[MaterialParamType2["Font"] = 4] = "Font";
 })(MaterialParamType || (MaterialParamType = {}));
+function isMeshShape(shape) {
+  return shape === Shape.ConvexMesh || shape === Shape.TriangleMesh;
+}
+var UP_VECTOR = [0, 1, 0];
+var Scene = class {
+  /** Called before rendering the scene */
+  onPreRender = new Emitter();
+  /** Called after the scene has been rendered */
+  onPostRender = new Emitter();
+  /** Wonderland Engine instance. @hidden */
+  _engine;
+  /** Ray hit pointer in WASM heap. @hidden */
+  _rayHit;
+  /** Ray hit. @hidden */
+  _hit;
+  constructor(engine2) {
+    this._engine = engine2;
+    this._rayHit = engine2.wasm._malloc(4 * (3 * 4 + 3 * 4 + 4 + 2) + 4);
+    this._hit = new RayHit(this._engine, this._rayHit);
+  }
+  /**
+   * Currently active view components.
+   */
+  get activeViews() {
+    const wasm = this._engine.wasm;
+    const count = wasm._wl_scene_get_active_views(this._engine.wasm._tempMem, 16);
+    const views = [];
+    const viewTypeIndex = wasm._typeIndexFor("view");
+    for (let i = 0; i < count; ++i) {
+      views.push(new ViewComponent(this._engine, viewTypeIndex, this._engine.wasm._tempMemInt[i]));
+    }
+    return views;
+  }
+  /**
+   * Cast a ray through the scene and find intersecting objects.
+   *
+   * The resulting ray hit will contain up to **4** closest ray hits,
+   * sorted by increasing distance.
+   *
+   * @param o Ray origin.
+   * @param d Ray direction.
+   * @param group Collision group to filter by: only objects that are
+   *        part of given group are considered for raycast.
+   *
+   * @returns The scene cached {@link RayHit} instance.
+   * @note The returned object is owned by the Scene instance
+   *   will be reused with the next {@link Scene#rayCast} call.
+   */
+  rayCast(o, d, group) {
+    this._engine.wasm._wl_scene_ray_cast(o[0], o[1], o[2], d[0], d[1], d[2], group, this._rayHit);
+    return this._hit;
+  }
+  /**
+   * Add an object to the scene.
+   *
+   * @param parent Parent object or `null`.
+   * @returns A newly created object.
+   */
+  addObject(parent = null) {
+    const parentId = parent ? parent.objectId : 0;
+    const objectId = this._engine.wasm._wl_scene_add_object(parentId);
+    return this._engine.wrapObject(objectId);
+  }
+  /**
+   * Batch-add objects to the scene.
+   *
+   * Will provide better performance for adding multiple objects (e.g. > 16)
+   * than calling {@link Scene#addObject} repeatedly in a loop.
+   *
+   * By providing upfront information of how many objects will be required,
+   * the engine is able to batch-allocate the required memory rather than
+   * convervatively grow the memory in small steps.
+   *
+   * **Experimental:** This API might change in upcoming versions.
+   *
+   * @param count Number of objects to add.
+   * @param parent Parent object or `null`, default `null`.
+   * @param componentCountHint Hint for how many components in total will
+   *      be added to the created objects afterwards, default `0`.
+   * @returns Newly created objects
+   */
+  addObjects(count, parent = null, componentCountHint = 0) {
+    const parentId = parent ? parent.objectId : 0;
+    this._engine.wasm.requireTempMem(count * 2);
+    const actualCount = this._engine.wasm._wl_scene_add_objects(parentId, count, componentCountHint || 0, this._engine.wasm._tempMem, this._engine.wasm._tempMemSize >> 1);
+    const ids = this._engine.wasm._tempMemUint16.subarray(0, actualCount);
+    const wrapper = this._engine.wrapObject.bind(this._engine);
+    const objects = Array.from(ids, wrapper);
+    return objects;
+  }
+  /**
+   * Pre-allocate memory for a given amount of objects and components.
+   *
+   * Will provide better performance for adding objects later with {@link Scene#addObject}
+   * and {@link Scene#addObjects}.
+   *
+   * By providing upfront information of how many objects will be required,
+   * the engine is able to batch-allocate the required memory rather than
+   * conservatively grow the memory in small steps.
+   *
+   * **Experimental:** This API might change in upcoming versions.
+   *
+   * @param objectCount Number of objects to add.
+   * @param componentCountPerType Amount of components to
+   *      allocate for {@link Object3D.addComponent}, e.g. `{mesh: 100, collision: 200, "my-comp": 100}`.
+   * @since 0.8.10
+   */
+  reserveObjects(objectCount, componentCountPerType) {
+    const wasm = this._engine.wasm;
+    componentCountPerType = componentCountPerType || {};
+    const jsManagerIndex = wasm._typeIndexFor("js");
+    let countsPerTypeIndex = wasm._tempMemInt.subarray();
+    countsPerTypeIndex.fill(0);
+    for (const e of Object.entries(componentCountPerType)) {
+      const typeIndex = wasm._typeIndexFor(e[0]);
+      countsPerTypeIndex[typeIndex < 0 ? jsManagerIndex : typeIndex] += e[1];
+    }
+    wasm._wl_scene_reserve_objects(objectCount, wasm._tempMem);
+  }
+  /**
+   * Set the background clear color.
+   *
+   * @param color new clear color (RGBA).
+   * @since 0.8.5
+   */
+  set clearColor(color) {
+    this._engine.wasm._wl_scene_set_clearColor(color[0], color[1], color[2], color[3]);
+  }
+  /**
+   * Set whether to clear the color framebuffer before drawing.
+   *
+   * This function is useful if an external framework (e.g. an AR tracking
+   * framework) is responsible for drawing a camera frame before Wonderland
+   * Engine draws the scene on top of it.
+   *
+   * @param b Whether to enable color clear.
+   * @since 0.9.4
+   */
+  set colorClearEnabled(b) {
+    this._engine.wasm._wl_scene_enableColorClear(b);
+  }
+  /** Hosting engine instance. */
+  get engine() {
+    return this._engine;
+  }
+  /**
+   * Load a scene file (.bin).
+   *
+   * Will replace the currently active scene with the one loaded
+   * from given file. It is assumed that JavaScript components required by
+   * the new scene were registered in advance.
+   *
+   * Once the scene is loaded successfully and initialized,
+   * {@link WonderlandEngine.onSceneLoaded} is notified.
+   *
+   * @param filename Path to the .bin file.
+   * @returns Promise that resolves when the scene was loaded.
+   */
+  async load(filename) {
+    const wasm = this._engine.wasm;
+    const buffer = await fetchWithProgress(filename, (bytes, size2) => {
+      console.log(`Scene downloading: ${bytes} / ${size2}`);
+      wasm._wl_set_loading_screen_progress(bytes / size2);
+    });
+    const size = buffer.byteLength;
+    console.log(`Scene download of ${size} bytes successful.`);
+    const ptr = wasm._malloc(size);
+    new Uint8Array(wasm.HEAPU8.buffer, ptr, size).set(new Uint8Array(buffer));
+    try {
+      wasm._wl_load_scene_bin(ptr, size, wasm.tempUTF8(filename));
+    } finally {
+      wasm._free(ptr);
+    }
+    const binQueue = wasm._queuedBinFiles;
+    if (binQueue.length > 0) {
+      wasm._queuedBinFiles = [];
+      await Promise.all(binQueue.map((path) => this.append(path)));
+    }
+    this._engine.onSceneLoaded.notify();
+  }
+  /**
+   * Append a scene file.
+   *
+   * Loads and parses the file and its images and appends the result
+   * to the currently active scene.
+   *
+   * Supported formats are streamable Wonderland scene files (.bin) and glTF
+   * 3D scenes (.gltf, .glb).
+   *
+   * ```js
+   * WL.scene.append(filename).then(root => {
+   *     // root contains the loaded scene
+   * });
+   * ```
+   *
+   * In case the `loadGltfExtensions` option is set to true, the response
+   * will be an object containing both the root of the loaded scene and
+   * any glTF extensions found on nodes, meshes and the root of the file.
+   *
+   * ```js
+   * WL.scene.append(filename, { loadGltfExtensions: true }).then(({root, extensions}) => {
+   *     // root contains the loaded scene
+   *     // extensions.root contains any extensions at the root of glTF document
+   *     const rootExtensions = extensions.root;
+   *     // extensions.mesh and extensions.node contain extensions indexed by Object id
+   *     const childObject = root.children[0];
+   *     const meshExtensions = root.meshExtensions[childObject.objectId];
+   *     const nodeExtensions = root.nodeExtensions[childObject.objectId];
+   *     // extensions.idMapping contains a mapping from glTF node index to Object id
+   * });
+   * ```
+   *
+   * @param file The .bin, .gltf or .glb file to append. Should be a URL or
+   *   an `ArrayBuffer` with the file content.
+   * @param options Additional options for loading.
+   * @returns Promise that resolves when the scene was appended.
+   */
+  async append(file, options) {
+    const buffer = isString(file) ? await fetchWithProgress(file) : file;
+    const wasm = this._engine.wasm;
+    let callback;
+    const promise = new Promise((resolve, reject) => {
+      callback = wasm.addFunction((objectId, extensionData, extensionDataSize) => {
+        if (objectId < 0) {
+          reject();
+          return;
+        }
+        const root = objectId ? this._engine.wrapObject(objectId) : null;
+        if (extensionData && extensionDataSize) {
+          const marshalled = new Uint32Array(wasm.HEAPU32.buffer, extensionData, extensionDataSize / 4);
+          const extensions = this._unmarshallGltfExtensions(marshalled);
+          resolve({ root, extensions });
+        } else {
+          resolve(root);
+        }
+      }, "viii");
+    }).finally(() => wasm.removeFunction(callback));
+    const size = buffer.byteLength;
+    const ptr = wasm._malloc(size);
+    const data = new Uint8Array(wasm.HEAPU8.buffer, ptr, size);
+    data.set(new Uint8Array(buffer));
+    const MAGIC = "WLEV";
+    const isBinFile = data.byteLength > MAGIC.length && data.subarray(0, MAGIC.length).every((value, i) => value === MAGIC.charCodeAt(i));
+    try {
+      if (isBinFile) {
+        wasm._wl_append_scene_bin(ptr, size, callback);
+      } else {
+        const loadExtensions = options?.loadGltfExtensions ?? false;
+        wasm._wl_append_scene_gltf(ptr, size, loadExtensions, callback);
+      }
+    } catch (e) {
+      wasm.removeFunction(callback);
+      throw e;
+    } finally {
+      wasm._free(ptr);
+    }
+    const result = await promise;
+    const binQueue = wasm._queuedBinFiles;
+    if (isBinFile && binQueue.length > 0) {
+      wasm._queuedBinFiles = [];
+      await Promise.all(binQueue.map((path) => this.append(path, options)));
+    }
+    return result;
+  }
+  /**
+   * Unmarshalls the GltfExtensions from an Uint32Array.
+   *
+   * @param data Array containing the gltf extension data.
+   * @returns The extensions stored in an object literal.
+   *
+   * @hidden
+   */
+  _unmarshallGltfExtensions(data) {
+    const extensions = {
+      root: {},
+      mesh: {},
+      node: {},
+      idMapping: []
+    };
+    let index = 0;
+    const readString = () => {
+      const strPtr = data[index++];
+      const strLen = data[index++];
+      return this._engine.wasm.UTF8ViewToString(strPtr, strPtr + strLen);
+    };
+    const idMappingSize = data[index++];
+    const idMapping = new Array(idMappingSize);
+    for (let i = 0; i < idMappingSize; ++i) {
+      idMapping[i] = data[index++];
+    }
+    extensions.idMapping = idMapping;
+    const meshExtensionsSize = data[index++];
+    for (let i = 0; i < meshExtensionsSize; ++i) {
+      const objectId = data[index++];
+      extensions.mesh[idMapping[objectId]] = JSON.parse(readString());
+    }
+    const nodeExtensionsSize = data[index++];
+    for (let i = 0; i < nodeExtensionsSize; ++i) {
+      const objectId = data[index++];
+      extensions.node[idMapping[objectId]] = JSON.parse(readString());
+    }
+    const rootExtensionsStr = readString();
+    if (rootExtensionsStr) {
+      extensions.root = JSON.parse(rootExtensionsStr);
+    }
+    return extensions;
+  }
+  /**
+   * Reset the scene.
+   *
+   * This method deletes all used and allocated objects, and components.
+   */
+  reset() {
+    this._engine.wasm._wl_scene_reset();
+  }
+};
 var Component = class {
   /** Manager index. @hidden */
   _manager;
@@ -2381,15 +3666,7 @@ var Component = class {
    * @hidden
    */
   _object;
-  /**
-   * Component's typename, e.g., 'my-component'.
-   *
-   * @todo: Should be deprecated. Constructor should be looked up instead.
-   *
-   * @hidden
-   */
-  _type;
-  /** Wonderland Engine instance */
+  /** Wonderland Engine instance. @hidden */
   _engine;
   /**
    * Create a new instance
@@ -2400,20 +3677,20 @@ var Component = class {
    *
    * @hidden
    */
-  constructor(engine, manager = -1, id = -1) {
-    this._engine = engine;
+  constructor(engine2, manager = -1, id = -1) {
+    this._engine = engine2;
     this._manager = manager;
     this._id = id;
     this._object = null;
-    this._type = null;
   }
-  /** Engine's instance. */
+  /** Hosting engine instance. */
   get engine() {
     return this._engine;
   }
   /** The name of this component's type */
   get type() {
-    return this._type || this._engine.wasm._typeNameFor(this._manager);
+    const ctor = this.constructor;
+    return ctor.TypeName ?? this._engine.wasm._typeNameFor(this._manager);
   }
   /** The object this component is attached to. */
   get object() {
@@ -2457,8 +3734,8 @@ var Component = class {
    */
   destroy() {
     this._engine.wasm._wl_component_remove(this._manager, this._id);
-    this._manager = void 0;
-    this._id = void 0;
+    this._manager = -1;
+    this._id = -1;
   }
   /**
    * Checks equality by comparing whether the wrapped native component ids
@@ -2476,7 +3753,7 @@ var Component = class {
 /**
  * Unique identifier for this component class.
  *
- * This is used to register, add, and retrieve component of a given type.
+ * This is used to register, add, and retrieve components of a given type.
  */
 __publicField(Component, "TypeName");
 /**
@@ -2516,6 +3793,789 @@ __publicField(Component, "TypeName");
  * ```
  */
 __publicField(Component, "Properties");
+/**
+ * This was never released in an official version, we are keeping it
+ * to easy transition to the new API.
+ *
+ * @deprecated Use {@link Component.onRegister} instead.
+ * @hidden
+ */
+__publicField(Component, "Dependencies");
+/**
+ * Called when this component class is registered.
+ *
+ * @example
+ *
+ * This callback can be used to register dependencies of a component,
+ * e.g., component classes that need to be registered in order to add
+ * them at runtime with {@link Object3D.addComponent}, independent of whether
+ * they are used in the editor.
+ *
+ * ```js
+ * class Spawner extends Component {
+ *     static TypeName = 'spawner';
+ *
+ *     static onRegister() {
+ *         engine.registerComponent(SpawnedComponent);
+ *     }
+ *
+ *     // You can now use addComponent with SpawnedComponent
+ * }
+ * ```
+ *
+ * @example
+ *
+ * This callback can be used to register different implementations of a
+ * component depending on client features or API versions.
+ *
+ * ```js
+ * // Properties need to be the same for all implementations!
+ * const SharedProperties = {};
+ *
+ * class Anchor extends Component {
+ *     static TypeName = 'spawner';
+ *     static Properties = SharedProperties;
+ *
+ *     static onRegister() {
+ *         if(navigator.xr === undefined) {
+ *             /* WebXR unsupported, keep this dummy component *\/
+ *             return;
+ *         }
+ *         /* WebXR supported! Override already registered dummy implementation
+ *          * with one depending on hit-test API support *\/
+ *         engine.registerComponent(window.HitTestSource === undefined ?
+ *             AnchorWithoutHitTest : AnchorWithHitTest);
+ *     }
+ *
+ *     // This one implements no functions
+ * }
+ * ```
+ */
+__publicField(Component, "onRegister");
+var _CollisionComponent = class extends Component {
+  /** Collision component collider */
+  get collider() {
+    return this._engine.wasm._wl_collision_component_get_collider(this._id);
+  }
+  /**
+   * Set collision component collider.
+   *
+   * @param collider Collider of the collision component.
+   */
+  set collider(collider) {
+    this._engine.wasm._wl_collision_component_set_collider(this._id, collider);
+  }
+  /**
+   * Collision component extents.
+   *
+   * If {@link collider} returns {@link Collider.Sphere}, only the first
+   * component of the returned vector is used.
+   */
+  get extents() {
+    const wasm = this._engine.wasm;
+    return new Float32Array(wasm.HEAPF32.buffer, wasm._wl_collision_component_get_extents(this._id), 3);
+  }
+  /**
+   * Set collision component extents.
+   *
+   * If {@link collider} returns {@link Collider.Sphere}, only the first
+   * component of the passed vector is used.
+   *
+   * Example:
+   *
+   * ```js
+   * // Spans 1 unit on the x-axis, 2 on the y-axis, 3 on the z-axis.
+   * collision.extent = [1, 2, 3];
+   * ```
+   *
+   * @param extents Extents of the collision component, expects a
+   *      3 component array.
+   */
+  set extents(extents) {
+    this.extents.set(extents);
+  }
+  /**
+   * Collision component group.
+   *
+   * The groups is a bitmask that is compared to other components in {@link CollisionComponent#queryOverlaps}
+   * or the group in {@link Scene#rayCast}.
+   *
+   * Colliders that have no common groups will not overlap with each other. If a collider
+   * has none of the groups set for {@link Scene#rayCast}, the ray will not hit it.
+   *
+   * Each bit represents belonging to a group, see example.
+   *
+   * ```js
+   *    // c belongs to group 2
+   *    c.group = (1 << 2);
+   *
+   *    // c belongs to group 0
+   *    c.group = (1 << 0);
+   *
+   *    // c belongs to group 0 *and* 2
+   *    c.group = (1 << 0) | (1 << 2);
+   *
+   *    (c.group & (1 << 2)) != 0; // true
+   *    (c.group & (1 << 7)) != 0; // false
+   * ```
+   */
+  get group() {
+    return this._engine.wasm._wl_collision_component_get_group(this._id);
+  }
+  /**
+   * Set collision component group.
+   *
+   * @param group Group mask of the collision component.
+   */
+  set group(group) {
+    this._engine.wasm._wl_collision_component_set_group(this._id, group);
+  }
+  /**
+   * Query overlapping objects.
+   *
+   * Usage:
+   *
+   * ```js
+   * const collision = object.getComponent('collision');
+   * const overlaps = collision.queryOverlaps();
+   * for(const otherCollision of overlaps) {
+   *     const otherObject = otherCollision.object;
+   *     console.log(`Collision with object ${otherObject.objectId}`);
+   * }
+   * ```
+   *
+   * @returns Collision components overlapping this collider.
+   */
+  queryOverlaps() {
+    const count = this._engine.wasm._wl_collision_component_query_overlaps(this._id, this._engine.wasm._tempMem, this._engine.wasm._tempMemSize >> 1);
+    const overlaps = new Array(count);
+    for (let i = 0; i < count; ++i) {
+      overlaps[i] = new _CollisionComponent(this._engine, this._manager, this._engine.wasm._tempMemUint16[i]);
+    }
+    return overlaps;
+  }
+};
+var CollisionComponent = _CollisionComponent;
+/** @override */
+__publicField(CollisionComponent, "TypeName", "collision");
+__decorate([
+  nativeProperty()
+], CollisionComponent.prototype, "collider", null);
+__decorate([
+  nativeProperty()
+], CollisionComponent.prototype, "extents", null);
+__decorate([
+  nativeProperty()
+], CollisionComponent.prototype, "group", null);
+var TextComponent = class extends Component {
+  /** Text component alignment. */
+  get alignment() {
+    return this._engine.wasm._wl_text_component_get_horizontal_alignment(this._id);
+  }
+  /**
+   * Set text component alignment.
+   *
+   * @param alignment Alignment for the text component.
+   */
+  set alignment(alignment) {
+    this._engine.wasm._wl_text_component_set_horizontal_alignment(this._id, alignment);
+  }
+  /** Text component justification. */
+  get justification() {
+    return this._engine.wasm._wl_text_component_get_vertical_alignment(this._id);
+  }
+  /**
+   * Set text component justification.
+   *
+   * @param justification Justification for the text component.
+   */
+  set justification(justification) {
+    this._engine.wasm._wl_text_component_set_vertical_alignment(this._id, justification);
+  }
+  /** Text component character spacing. */
+  get characterSpacing() {
+    return this._engine.wasm._wl_text_component_get_character_spacing(this._id);
+  }
+  /**
+   * Set text component character spacing.
+   *
+   * @param spacing Character spacing for the text component.
+   */
+  set characterSpacing(spacing) {
+    this._engine.wasm._wl_text_component_set_character_spacing(this._id, spacing);
+  }
+  /** Text component line spacing. */
+  get lineSpacing() {
+    return this._engine.wasm._wl_text_component_get_line_spacing(this._id);
+  }
+  /**
+   * Set text component line spacing
+   *
+   * @param spacing Line spacing for the text component
+   */
+  set lineSpacing(spacing) {
+    this._engine.wasm._wl_text_component_set_line_spacing(this._id, spacing);
+  }
+  /** Text component effect. */
+  get effect() {
+    return this._engine.wasm._wl_text_component_get_effect(this._id);
+  }
+  /**
+   * Set text component effect
+   *
+   * @param effect Effect for the text component
+   */
+  set effect(effect) {
+    this._engine.wasm._wl_text_component_set_effect(this._id, effect);
+  }
+  /** Text component text. */
+  get text() {
+    const wasm = this._engine.wasm;
+    const ptr = wasm._wl_text_component_get_text(this._id);
+    return wasm.UTF8ToString(ptr);
+  }
+  /**
+   * Set text component text.
+   *
+   * @param text Text of the text component.
+   */
+  set text(text) {
+    const wasm = this._engine.wasm;
+    wasm._wl_text_component_set_text(this._id, wasm.tempUTF8(text));
+  }
+  /**
+   * Set material to render the text with.
+   *
+   * @param material New material.
+   */
+  set material(material) {
+    const matIndex = material ? material._index : 0;
+    this._engine.wasm._wl_text_component_set_material(this._id, matIndex);
+  }
+  /** Material used to render the text. */
+  get material() {
+    const id = this._engine.wasm._wl_text_component_get_material(this._id);
+    return id > 0 ? new Material(this._engine, id) : null;
+  }
+};
+/** @override */
+__publicField(TextComponent, "TypeName", "text");
+__decorate([
+  nativeProperty()
+], TextComponent.prototype, "alignment", null);
+__decorate([
+  nativeProperty()
+], TextComponent.prototype, "justification", null);
+__decorate([
+  nativeProperty()
+], TextComponent.prototype, "characterSpacing", null);
+__decorate([
+  nativeProperty()
+], TextComponent.prototype, "lineSpacing", null);
+__decorate([
+  nativeProperty()
+], TextComponent.prototype, "effect", null);
+__decorate([
+  nativeProperty()
+], TextComponent.prototype, "text", null);
+__decorate([
+  nativeProperty()
+], TextComponent.prototype, "material", null);
+var ViewComponent = class extends Component {
+  /** Projection matrix. */
+  get projectionMatrix() {
+    const wasm = this._engine.wasm;
+    return new Float32Array(wasm.HEAPF32.buffer, wasm._wl_view_component_get_projection_matrix(this._id), 16);
+  }
+  /** ViewComponent near clipping plane value. */
+  get near() {
+    return this._engine.wasm._wl_view_component_get_near(this._id);
+  }
+  /**
+   * Set near clipping plane distance for the view.
+   *
+   * If an XR session is active, the change will apply in the
+   * following frame, otherwise the change is immediate.
+   *
+   * @param near Near depth value.
+   */
+  set near(near) {
+    this._engine.wasm._wl_view_component_set_near(this._id, near);
+  }
+  /** Far clipping plane value. */
+  get far() {
+    return this._engine.wasm._wl_view_component_get_far(this._id);
+  }
+  /**
+   * Set far clipping plane distance for the view.
+   *
+   * If an XR session is active, the change will apply in the
+   * following frame, otherwise the change is immediate.
+   *
+   * @param far Near depth value.
+   */
+  set far(far) {
+    this._engine.wasm._wl_view_component_set_far(this._id, far);
+  }
+  /**
+   * Get the horizontal field of view for the view, **in degrees**.
+   *
+   * If an XR session is active, this returns the field of view reported by
+   * the device, regardless of the fov that was set.
+   */
+  get fov() {
+    return this._engine.wasm._wl_view_component_get_fov(this._id);
+  }
+  /**
+   * Set the horizontal field of view for the view, **in degrees**.
+   *
+   * If an XR session is active, the field of view reported by the device is
+   * used and this value is ignored. After the XR session ends, the new value
+   * is applied.
+   *
+   * @param fov Horizontal field of view, **in degrees**.
+   */
+  set fov(fov) {
+    this._engine.wasm._wl_view_component_set_fov(this._id, fov);
+  }
+};
+/** @override */
+__publicField(ViewComponent, "TypeName", "view");
+__decorate([
+  enumerable()
+], ViewComponent.prototype, "projectionMatrix", null);
+__decorate([
+  nativeProperty()
+], ViewComponent.prototype, "near", null);
+__decorate([
+  nativeProperty()
+], ViewComponent.prototype, "far", null);
+__decorate([
+  nativeProperty()
+], ViewComponent.prototype, "fov", null);
+var InputComponent = class extends Component {
+  /** Input component type */
+  get inputType() {
+    return this._engine.wasm._wl_input_component_get_type(this._id);
+  }
+  /**
+   * Set input component type.
+   *
+   * @params New input component type.
+   */
+  set inputType(type) {
+    this._engine.wasm._wl_input_component_set_type(this._id, type);
+  }
+  /**
+   * WebXR Device API input source associated with this input component,
+   * if type {@link InputType.ControllerLeft} or {@link InputType.ControllerRight}.
+   */
+  get xrInputSource() {
+    const xrSession = this._engine.xrSession;
+    if (xrSession) {
+      for (let inputSource of xrSession.inputSources) {
+        if (inputSource.handedness == this.handedness) {
+          return inputSource;
+        }
+      }
+    }
+    return null;
+  }
+  /**
+   * 'left', 'right' or `null` depending on the {@link InputComponent#inputType}.
+   */
+  get handedness() {
+    const inputType = this.inputType;
+    if (inputType == InputType.ControllerRight || inputType == InputType.RayRight || inputType == InputType.EyeRight)
+      return "right";
+    if (inputType == InputType.ControllerLeft || inputType == InputType.RayLeft || inputType == InputType.EyeLeft)
+      return "left";
+    return null;
+  }
+};
+/** @override */
+__publicField(InputComponent, "TypeName", "input");
+__decorate([
+  nativeProperty()
+], InputComponent.prototype, "inputType", null);
+__decorate([
+  enumerable()
+], InputComponent.prototype, "xrInputSource", null);
+__decorate([
+  enumerable()
+], InputComponent.prototype, "handedness", null);
+var LightComponent = class extends Component {
+  getColor(out = new Float32Array(3)) {
+    const wasm = this._engine.wasm;
+    const ptr = wasm._wl_light_component_get_color(this._id) / 4;
+    out[0] = wasm.HEAPF32[ptr];
+    out[1] = wasm.HEAPF32[ptr + 1];
+    out[2] = wasm.HEAPF32[ptr + 2];
+    return out;
+  }
+  /**
+   * Set light color.
+   *
+   * @param c New color array/vector, expected to have at least 3 elements.
+   * @since 1.0.0
+   */
+  setColor(c) {
+    const wasm = this._engine.wasm;
+    const ptr = wasm._wl_light_component_get_color(this._id) / 4;
+    wasm.HEAPF32[ptr] = c[0];
+    wasm.HEAPF32[ptr + 1] = c[1];
+    wasm.HEAPF32[ptr + 2] = c[2];
+  }
+  /**
+   * View on the light color.
+   *
+   * @note Prefer to use {@link getColor} in performance-critical code.
+   */
+  get color() {
+    const wasm = this._engine.wasm;
+    return new Float32Array(wasm.HEAPF32.buffer, wasm._wl_light_component_get_color(this._id), 3);
+  }
+  /**
+   * Set light color.
+   *
+   * @param c Color of the light component.
+   *
+   * @note Prefer to use {@link setColor} in performance-critical code.
+   */
+  set color(c) {
+    this.color.set(c);
+  }
+  /** Light type. */
+  get lightType() {
+    return this._engine.wasm._wl_light_component_get_type(this._id);
+  }
+  /**
+   * Set light type.
+   *
+   * @param lightType Type of the light component.
+   */
+  set lightType(t) {
+    this._engine.wasm._wl_light_component_set_type(this._id, t);
+  }
+  /**
+   * Light intensity.
+   * @since 1.0.0
+   */
+  get intensity() {
+    return this._engine.wasm._wl_light_component_get_intensity(this._id);
+  }
+  /**
+   * Set light intensity.
+   *
+   * @param intensity Intensity of the light component.
+   * @since 1.0.0
+   */
+  set intensity(intensity) {
+    this._engine.wasm._wl_light_component_set_intensity(this._id, intensity);
+  }
+  /**
+   * Outer angle for spot lights, in degrees.
+   * @since 1.0.0
+   */
+  get outerAngle() {
+    return this._engine.wasm._wl_light_component_get_outerAngle(this._id);
+  }
+  /**
+   * Set outer angle for spot lights.
+   *
+   * @param angle Outer angle, in degrees.
+   * @since 1.0.0
+   */
+  set outerAngle(angle2) {
+    this._engine.wasm._wl_light_component_set_outerAngle(this._id, angle2);
+  }
+  /**
+   * Inner angle for spot lights, in degrees.
+   * @since 1.0.0
+   */
+  get innerAngle() {
+    return this._engine.wasm._wl_light_component_get_innerAngle(this._id);
+  }
+  /**
+   * Set inner angle for spot lights.
+   *
+   * @param angle Inner angle, in degrees.
+   * @since 1.0.0
+   */
+  set innerAngle(angle2) {
+    this._engine.wasm._wl_light_component_set_innerAngle(this._id, angle2);
+  }
+  /**
+   * Whether the light casts shadows.
+   * @since 1.0.0
+   */
+  get shadows() {
+    return !!this._engine.wasm._wl_light_component_get_shadows(this._id);
+  }
+  /**
+   * Set whether the light casts shadows.
+   *
+   * @param b Whether the light casts shadows.
+   * @since 1.0.0
+   */
+  set shadows(b) {
+    this._engine.wasm._wl_light_component_set_shadows(this._id, b);
+  }
+  /**
+   * Range for shadows.
+   * @since 1.0.0
+   */
+  get shadowRange() {
+    return this._engine.wasm._wl_light_component_get_shadowRange(this._id);
+  }
+  /**
+   * Set range for shadows.
+   *
+   * @param range Range for shadows.
+   * @since 1.0.0
+   */
+  set shadowRange(range) {
+    this._engine.wasm._wl_light_component_set_shadowRange(this._id, range);
+  }
+  /**
+   * Bias value for shadows.
+   * @since 1.0.0
+   */
+  get shadowBias() {
+    return this._engine.wasm._wl_light_component_get_shadowBias(this._id);
+  }
+  /**
+   * Set bias value for shadows.
+   *
+   * @param bias Bias for shadows.
+   * @since 1.0.0
+   */
+  set shadowBias(bias) {
+    this._engine.wasm._wl_light_component_set_shadowBias(this._id, bias);
+  }
+  /**
+   * Normal bias value for shadows.
+   * @since 1.0.0
+   */
+  get shadowNormalBias() {
+    return this._engine.wasm._wl_light_component_get_shadowNormalBias(this._id);
+  }
+  /**
+   * Set normal bias value for shadows.
+   *
+   * @param bias Normal bias for shadows.
+   * @since 1.0.0
+   */
+  set shadowNormalBias(bias) {
+    this._engine.wasm._wl_light_component_set_shadowNormalBias(this._id, bias);
+  }
+  /**
+   * Texel size for shadows.
+   * @since 1.0.0
+   */
+  get shadowTexelSize() {
+    return this._engine.wasm._wl_light_component_get_shadowTexelSize(this._id);
+  }
+  /**
+   * Set texel size for shadows.
+   *
+   * @param size Texel size for shadows.
+   * @since 1.0.0
+   */
+  set shadowTexelSize(size) {
+    this._engine.wasm._wl_light_component_set_shadowTexelSize(this._id, size);
+  }
+  /**
+   * Cascade count for {@link LightType.Sun} shadows.
+   * @since 1.0.0
+   */
+  get cascadeCount() {
+    return this._engine.wasm._wl_light_component_get_cascadeCount(this._id);
+  }
+  /**
+   * Set cascade count for {@link LightType.Sun} shadows.
+   *
+   * @param count Cascade count.
+   * @since 1.0.0
+   */
+  set cascadeCount(count) {
+    this._engine.wasm._wl_light_component_set_cascadeCount(this._id, count);
+  }
+};
+/** @override */
+__publicField(LightComponent, "TypeName", "light");
+__decorate([
+  nativeProperty()
+], LightComponent.prototype, "color", null);
+__decorate([
+  nativeProperty()
+], LightComponent.prototype, "lightType", null);
+__decorate([
+  nativeProperty()
+], LightComponent.prototype, "intensity", null);
+__decorate([
+  nativeProperty()
+], LightComponent.prototype, "outerAngle", null);
+__decorate([
+  nativeProperty()
+], LightComponent.prototype, "innerAngle", null);
+__decorate([
+  nativeProperty()
+], LightComponent.prototype, "shadows", null);
+__decorate([
+  nativeProperty()
+], LightComponent.prototype, "shadowRange", null);
+__decorate([
+  nativeProperty()
+], LightComponent.prototype, "shadowBias", null);
+__decorate([
+  nativeProperty()
+], LightComponent.prototype, "shadowNormalBias", null);
+__decorate([
+  nativeProperty()
+], LightComponent.prototype, "shadowTexelSize", null);
+__decorate([
+  nativeProperty()
+], LightComponent.prototype, "cascadeCount", null);
+var AnimationComponent = class extends Component {
+  /**
+   * Set animation to play.
+   *
+   * Make sure to {@link Animation#retarget} the animation to affect the
+   * right objects.
+   *
+   * @param anim Animation to play.
+   */
+  set animation(anim) {
+    this._engine.wasm._wl_animation_component_set_animation(this._id, anim ? anim._index : 0);
+  }
+  /** Animation set for this component */
+  get animation() {
+    const id = this._engine.wasm._wl_animation_component_get_animation(this._id);
+    return id > 0 ? new Animation(this._engine, id) : null;
+  }
+  /**
+   * Set play count. Set to `0` to loop indefinitely.
+   *
+   * @param playCount Number of times to repeat the animation.
+   */
+  set playCount(playCount) {
+    this._engine.wasm._wl_animation_component_set_playCount(this._id, playCount);
+  }
+  /** Number of times the animation is played. */
+  get playCount() {
+    return this._engine.wasm._wl_animation_component_get_playCount(this._id);
+  }
+  /**
+   * Set speed. Set to negative values to run the animation backwards.
+   *
+   * Setting speed has an immediate effect for the current frame's update
+   * and will continue with the speed from the current point in the animation.
+   *
+   * @param speed New speed at which to play the animation.
+   * @since 0.8.10
+   */
+  set speed(speed) {
+    this._engine.wasm._wl_animation_component_set_speed(this._id, speed);
+  }
+  /**
+   * Speed factor at which the animation is played.
+   *
+   * @since 0.8.10
+   */
+  get speed() {
+    return this._engine.wasm._wl_animation_component_get_speed(this._id);
+  }
+  /** Current playing state of the animation */
+  get state() {
+    return this._engine.wasm._wl_animation_component_state(this._id);
+  }
+  /**
+   * Play animation.
+   *
+   * If the animation is currently paused, resumes from that position. If the
+   * animation is already playing, does nothing.
+   *
+   * To restart the animation, {@link AnimationComponent#stop} it first.
+   */
+  play() {
+    this._engine.wasm._wl_animation_component_play(this._id);
+  }
+  /** Stop animation. */
+  stop() {
+    this._engine.wasm._wl_animation_component_stop(this._id);
+  }
+  /** Pause animation. */
+  pause() {
+    this._engine.wasm._wl_animation_component_pause(this._id);
+  }
+};
+/** @override */
+__publicField(AnimationComponent, "TypeName", "animation");
+__decorate([
+  nativeProperty()
+], AnimationComponent.prototype, "animation", null);
+__decorate([
+  nativeProperty()
+], AnimationComponent.prototype, "playCount", null);
+__decorate([
+  nativeProperty()
+], AnimationComponent.prototype, "speed", null);
+__decorate([
+  enumerable()
+], AnimationComponent.prototype, "state", null);
+var MeshComponent = class extends Component {
+  /**
+   * Set material to render the mesh with.
+   *
+   * @param material Material to render the mesh with.
+   */
+  set material(material) {
+    this._engine.wasm._wl_mesh_component_set_material(this._id, material ? material._index : 0);
+  }
+  /** Material used to render the mesh. */
+  get material() {
+    const id = this._engine.wasm._wl_mesh_component_get_material(this._id);
+    return id > 0 ? new Material(this._engine, id) : null;
+  }
+  /** Mesh rendered by this component. */
+  get mesh() {
+    const id = this._engine.wasm._wl_mesh_component_get_mesh(this._id);
+    return id > 0 ? new Mesh(this._engine, id) : null;
+  }
+  /**
+   * Set mesh to rendered with this component.
+   *
+   * @param mesh Mesh rendered by this component.
+   */
+  set mesh(mesh) {
+    this._engine.wasm._wl_mesh_component_set_mesh(this._id, mesh ? mesh._index : 0);
+  }
+  /** Skin for this mesh component. */
+  get skin() {
+    const id = this._engine.wasm._wl_mesh_component_get_skin(this._id);
+    return id > 0 ? new Skin(this._engine, id) : null;
+  }
+  /**
+   * Set skin to transform this mesh component.
+   *
+   * @param skin Skin to use for rendering skinned meshes.
+   */
+  set skin(skin) {
+    this._engine.wasm._wl_mesh_component_set_skin(this._id, skin ? skin._index : 0);
+  }
+};
+/** @override */
+__publicField(MeshComponent, "TypeName", "mesh");
+__decorate([
+  nativeProperty()
+], MeshComponent.prototype, "material", null);
+__decorate([
+  nativeProperty()
+], MeshComponent.prototype, "mesh", null);
+__decorate([
+  nativeProperty()
+], MeshComponent.prototype, "skin", null);
 var LockAxis;
 (function(LockAxis2) {
   LockAxis2[LockAxis2["None"] = 0] = "None";
@@ -2591,49 +4651,51 @@ var PhysXComponent = class extends Component {
     return !!this._engine.wasm._wl_physx_component_get_simulate(this._id);
   }
   /**
-   * Set whether this rigid body's allowSimulation flag is enabled.
-   * AllowSimulation and trigger can not be enabled at the same time.
-   * Enabling allowSimulation while trigger is enabled,
-   * will disable trigger.
+   * Set whether to allow simulation of this rigid body.
    *
-   * @param b Whether the rigid body's allowSimulation flag should be enabled.
+   * {@link allowSimulation} and {@link trigger} can not be enabled at the
+   * same time. Enabling {@link allowSimulation} while {@link trigger} is enabled
+   * will disable {@link trigger}.
+   *
+   * @param b Whether to allow simulation of this rigid body.
    */
   set allowSimulation(b) {
     this._engine.wasm._wl_physx_component_set_allowSimulation(this._id, b);
   }
   /**
-   * Whether this rigid body's allowSimulation flag is enabled.
+   * Whether to allow simulation of this rigid body.
    */
   get allowSimulation() {
     return !!this._engine.wasm._wl_physx_component_get_allowSimulation(this._id);
   }
   /**
-   * Set whether this rigid body's allowQuery flag is enabled.
+   * Set whether this rigid body may be queried in ray casts.
    *
-   * @param b Whether the rigid body's allowQuery flag should be enabled.
+   * @param b Whether this rigid body may be queried in ray casts.
    */
   set allowQuery(b) {
     this._engine.wasm._wl_physx_component_set_allowQuery(this._id, b);
   }
   /**
-   * Whether this rigid body's allowQuery flag is enabled.
+   * Whether this rigid body may be queried in ray casts.
    */
   get allowQuery() {
     return !!this._engine.wasm._wl_physx_component_get_allowQuery(this._id);
   }
   /**
-   * Set whether this rigid body's trigger flag is enabled.
-   * AllowSimulation and trigger can not be enabled at the same time.
-   * Enabling trigger while allowSimulation is enabled,
-   * will disable allowSimulation.
+   * Set whether this physics body is a trigger.
    *
-   * @param b Whether the rigid body's trigger flag should be enabled.
+   * {@link allowSimulation} and {@link trigger} can not be enabled at the
+   * same time. Enabling trigger while {@link allowSimulation} is enabled,
+   * will disable {@link allowSimulation}.
+   *
+   * @param b Whether this physics body is a trigger.
    */
   set trigger(b) {
     this._engine.wasm._wl_physx_component_set_trigger(this._id, b);
   }
   /**
-   * Whether this rigid body's trigger flag is enabled.
+   * Whether this physics body is a trigger.
    */
   get trigger() {
     return !!this._engine.wasm._wl_physx_component_get_trigger(this._id);
@@ -2658,7 +4720,7 @@ var PhysXComponent = class extends Component {
    * @since 0.8.10
    */
   set shapeData(d) {
-    if (d == null || ![Shape.TriangleMesh, Shape.ConvexMesh].includes(this.shape))
+    if (d == null || !isMeshShape(this.shape))
       return;
     this._engine.wasm._wl_physx_component_set_shape_data(this._id, d.index);
   }
@@ -2672,7 +4734,7 @@ var PhysXComponent = class extends Component {
    * @since 0.8.10
    */
   get shapeData() {
-    if (![Shape.TriangleMesh, Shape.ConvexMesh].includes(this.shape))
+    if (!isMeshShape(this.shape))
       return null;
     return { index: this._engine.wasm._wl_physx_component_get_shape_data(this._id) };
   }
@@ -2956,13 +5018,13 @@ var PhysXComponent = class extends Component {
    * @param p Position to apply force at, default is center of mass.
    * @param local Whether position is in local space, default `false`.
    */
-  addForce(f, m, localForce, p, local) {
-    m = m || ForceMode.Force;
+  addForce(f, m = ForceMode.Force, localForce = false, p, local = false) {
+    const wasm = this._engine.wasm;
     if (!p) {
-      this._engine.wasm._wl_physx_component_addForce(this._id, f[0], f[1], f[2], m, !!localForce);
-    } else {
-      this._engine.wasm._wl_physx_component_addForceAt(this._id, f[0], f[1], f[2], m, !!localForce, p[0], p[1], p[2], !!local);
+      wasm._wl_physx_component_addForce(this._id, f[0], f[1], f[2], m, localForce);
+      return;
     }
+    wasm._wl_physx_component_addForceAt(this._id, f[0], f[1], f[2], m, localForce, p[0], p[1], p[2], local);
   }
   /**
    * Apply torque.
@@ -3032,71 +5094,132 @@ var PhysXComponent = class extends Component {
 };
 /** @override */
 __publicField(PhysXComponent, "TypeName", "physx");
-for (const prop of [
-  "static",
-  "extents",
-  "staticFriction",
-  "dynamicFriction",
-  "bounciness",
-  "linearDamping",
-  "angularDamping",
-  "shape",
-  "shapeData",
-  "kinematic",
-  "linearVelocity",
-  "angularVelocity",
-  "mass"
-]) {
-  Object.defineProperty(PhysXComponent.prototype, prop, { enumerable: true });
-}
+__decorate([
+  nativeProperty()
+], PhysXComponent.prototype, "static", null);
+__decorate([
+  nativeProperty()
+], PhysXComponent.prototype, "kinematic", null);
+__decorate([
+  nativeProperty()
+], PhysXComponent.prototype, "gravity", null);
+__decorate([
+  nativeProperty()
+], PhysXComponent.prototype, "simulate", null);
+__decorate([
+  nativeProperty()
+], PhysXComponent.prototype, "allowSimulation", null);
+__decorate([
+  nativeProperty()
+], PhysXComponent.prototype, "allowQuery", null);
+__decorate([
+  nativeProperty()
+], PhysXComponent.prototype, "trigger", null);
+__decorate([
+  nativeProperty()
+], PhysXComponent.prototype, "shape", null);
+__decorate([
+  nativeProperty()
+], PhysXComponent.prototype, "shapeData", null);
+__decorate([
+  nativeProperty()
+], PhysXComponent.prototype, "extents", null);
+__decorate([
+  nativeProperty()
+], PhysXComponent.prototype, "staticFriction", null);
+__decorate([
+  nativeProperty()
+], PhysXComponent.prototype, "dynamicFriction", null);
+__decorate([
+  nativeProperty()
+], PhysXComponent.prototype, "bounciness", null);
+__decorate([
+  nativeProperty()
+], PhysXComponent.prototype, "linearDamping", null);
+__decorate([
+  nativeProperty()
+], PhysXComponent.prototype, "angularDamping", null);
+__decorate([
+  nativeProperty()
+], PhysXComponent.prototype, "linearVelocity", null);
+__decorate([
+  nativeProperty()
+], PhysXComponent.prototype, "angularVelocity", null);
+__decorate([
+  nativeProperty()
+], PhysXComponent.prototype, "groupsMask", null);
+__decorate([
+  nativeProperty()
+], PhysXComponent.prototype, "blocksMask", null);
+__decorate([
+  nativeProperty()
+], PhysXComponent.prototype, "linearLockAxis", null);
+__decorate([
+  nativeProperty()
+], PhysXComponent.prototype, "angularLockAxis", null);
+__decorate([
+  nativeProperty()
+], PhysXComponent.prototype, "mass", null);
+var Physics = class {
+  /**
+   * @hidden
+   *
+   * **Note**: This is public to emulate a `friend` accessor.
+   */
+  _callbacks;
+  /** Wonderland Engine instance */
+  _engine;
+  /** Ray Hit */
+  _rayHit;
+  /** Hit. */
+  _hit;
+  constructor(engine2) {
+    this._engine = engine2;
+    this._rayHit = engine2.wasm._malloc(4 * (3 * 4 + 3 * 4 + 4 + 2) + 4);
+    this._hit = new RayHit(this._engine, this._rayHit);
+    this._callbacks = {};
+  }
+  /**
+   * Cast a ray through the physics scene and find intersecting objects.
+   *
+   * The resulting ray hit will contain **up to 4** closest ray hits,
+   * sorted by increasing distance.
+   *
+   * @param o Ray origin.
+   * @param d Ray direction.
+   * @param group Collision group to filter by: only objects that are
+   *        part of given group are considered for raycast.
+   * @param maxDistance Maximum ray distance, default `100.0`.
+   *
+   * @returns The RayHit instance, belonging to this class.
+   *
+   * @note The returned {@link RayHit} object is owned by the Physics instance and
+   *       will be reused with the next {@link Physics#rayCast} call.
+   */
+  rayCast(o, d, group, maxDistance = 100) {
+    this._engine.wasm._wl_physx_ray_cast(o[0], o[1], o[2], d[0], d[1], d[2], group, maxDistance, this._rayHit);
+    return this._hit;
+  }
+};
 var MeshIndexType;
 (function(MeshIndexType2) {
   MeshIndexType2[MeshIndexType2["UnsignedByte"] = 1] = "UnsignedByte";
   MeshIndexType2[MeshIndexType2["UnsignedShort"] = 2] = "UnsignedShort";
   MeshIndexType2[MeshIndexType2["UnsignedInt"] = 4] = "UnsignedInt";
 })(MeshIndexType || (MeshIndexType = {}));
+var MeshSkinningType;
+(function(MeshSkinningType2) {
+  MeshSkinningType2[MeshSkinningType2["None"] = 0] = "None";
+  MeshSkinningType2[MeshSkinningType2["FourJoints"] = 1] = "FourJoints";
+  MeshSkinningType2[MeshSkinningType2["EightJoints"] = 2] = "EightJoints";
+})(MeshSkinningType || (MeshSkinningType = {}));
 var Mesh = class {
-  /**
-   * Size of a vertex in float elements.
-   * @deprecated Replaced with {@link Mesh#attribute} and {@link MeshAttributeAccessor}
-   */
-  static get VERTEX_FLOAT_SIZE() {
-    return 3 + 3 + 2;
-  }
-  /**
-   * Size of a vertex in bytes.
-   * @deprecated Replaced with {@link Mesh#attribute} and {@link MeshAttributeAccessor}
-   */
-  static get VERTEX_SIZE() {
-    return this.VERTEX_FLOAT_SIZE * 4;
-  }
-  /**
-   * Position attribute offsets in float elements.
-   * @deprecated Replaced with {@link Mesh#attribute} and {@link MeshAttribute#Position}
-   */
-  static get POS() {
-    return { X: 0, Y: 1, Z: 2 };
-  }
-  /**
-   * Texture coordinate attribute offsets in float elements.
-   * @deprecated Replaced with {@link Mesh#attribute} and {@link MeshAttribute#TextureCoordinate}
-   */
-  static get TEXCOORD() {
-    return { U: 3, V: 4 };
-  }
-  /**
-   * Normal attribute offsets in float elements.
-   * @deprecated Replaced with {@link Mesh#attribute} and {@link MeshAttribute#Normal}
-   */
-  static get NORMAL() {
-    return { X: 5, Y: 6, Z: 7 };
-  }
   /**
    * Index of the mesh in the manager.
    *
    * @hidden
    */
-  _index;
+  _index = -1;
   /** Wonderland Engine instance. @hidden */
   _engine;
   /**
@@ -3105,60 +5228,37 @@ var Mesh = class {
    * @param params Either a mesh index to wrap or set of parameters to create a new mesh.
    *    For more information, please have a look at the {@link MeshParameters} interface.
    */
-  constructor(engine, params) {
-    this._engine = engine ?? WL;
-    if (typeof params === "object") {
-      if (!params.vertexCount && params.vertexData) {
-        params.vertexCount = params.vertexData.length / Mesh.VERTEX_FLOAT_SIZE;
-      }
-      if (!params.vertexCount)
-        throw new Error("Missing parameter 'vertexCount'");
-      const wasm = this._engine.wasm;
-      let indexData = 0;
-      let indexType = 0;
-      let indexDataSize = 0;
-      if (params.indexData) {
-        indexType = params.indexType || MeshIndexType.UnsignedShort;
-        indexDataSize = params.indexData.length * indexType;
-        indexData = wasm._malloc(indexDataSize);
-        switch (indexType) {
-          case MeshIndexType.UnsignedByte:
-            wasm.HEAPU8.set(params.indexData, indexData);
-            break;
-          case MeshIndexType.UnsignedShort:
-            wasm.HEAPU16.set(params.indexData, indexData >> 1);
-            break;
-          case MeshIndexType.UnsignedInt:
-            wasm.HEAPU32.set(params.indexData, indexData >> 2);
-            break;
-        }
-      }
-      const { skinned = false } = params;
-      this._index = wasm._wl_mesh_create(indexData, indexDataSize, indexType, params.vertexCount, skinned);
-      if (params.vertexData) {
-        const positions = this.attribute(MeshAttribute.Position);
-        const normals = this.attribute(MeshAttribute.Normal);
-        const textureCoordinates = this.attribute(MeshAttribute.TextureCoordinate);
-        for (let i = 0; i < params.vertexCount; ++i) {
-          const start = i * Mesh.VERTEX_FLOAT_SIZE;
-          positions.set(i, params.vertexData.subarray(start, start + 3));
-          textureCoordinates?.set(i, params.vertexData.subarray(start + 3, start + 5));
-          normals?.set(i, params.vertexData.subarray(start + 5, start + 8));
-        }
-      }
-    } else {
+  constructor(engine2, params) {
+    this._engine = engine2 ?? WL;
+    this._index = -1;
+    if (isNumber(params)) {
       this._index = params;
+      return;
     }
-  }
-  /**
-   * Vertex data (read-only).
-   *
-   * @deprecated Replaced with {@link attribute}
-   */
-  get vertexData() {
+    if (!params.vertexCount)
+      throw new Error("Missing parameter 'vertexCount'");
     const wasm = this._engine.wasm;
-    const ptr = wasm._wl_mesh_get_vertexData(this._index, this._engine.wasm._tempMem);
-    return new Float32Array(wasm.HEAPF32.buffer, ptr, Mesh.VERTEX_FLOAT_SIZE * wasm.HEAPU32[this._engine.wasm._tempMem / 4]);
+    let indexData = 0;
+    let indexType = 0;
+    let indexDataSize = 0;
+    if (params.indexData) {
+      indexType = params.indexType || MeshIndexType.UnsignedShort;
+      indexDataSize = params.indexData.length * indexType;
+      indexData = wasm._malloc(indexDataSize);
+      switch (indexType) {
+        case MeshIndexType.UnsignedByte:
+          wasm.HEAPU8.set(params.indexData, indexData);
+          break;
+        case MeshIndexType.UnsignedShort:
+          wasm.HEAPU16.set(params.indexData, indexData >> 1);
+          break;
+        case MeshIndexType.UnsignedInt:
+          wasm.HEAPU32.set(params.indexData, indexData >> 2);
+          break;
+      }
+    }
+    const { skinningType = MeshSkinningType.None } = params;
+    this._index = wasm._wl_mesh_create(indexData, indexDataSize, indexType, params.vertexCount, skinningType);
   }
   /** Number of vertices in this mesh. */
   get vertexCount() {
@@ -3183,6 +5283,10 @@ var Mesh = class {
     }
     return null;
   }
+  /** Hosting engine instance. */
+  get engine() {
+    return this._engine;
+  }
   /**
    * Apply changes to {@link attribute | vertex attributes}.
    *
@@ -3196,25 +5300,6 @@ var Mesh = class {
   update() {
     this._engine.wasm._wl_mesh_update(this._index);
   }
-  /**
-   * Mesh bounding sphere.
-   *
-   * @param out Preallocated array to write into, to avoid garbage,
-   *     otherwise will allocate a new {@link Float32Array}.
-   *
-   * ```js
-   *  const sphere = new Float32Array(4);
-   *  for(...) {
-   *      mesh.getBoundingSphere(sphere);
-   *      ...
-   *  }
-   * ```
-   *
-   * If the position data is changed, call {@link Mesh#update} to update the
-   * bounding sphere.
-   *
-   * @returns Bounding sphere, 0-2 sphere origin, 3 radius.
-   */
   getBoundingSphere(out = new Float32Array(4)) {
     const tempMemFloat = this._engine.wasm._tempMemFloat;
     this._engine.wasm._wl_mesh_get_boundingSphere(this._index, this._engine.wasm._tempMem);
@@ -3224,20 +5309,6 @@ var Mesh = class {
     out[3] = tempMemFloat[3];
     return out;
   }
-  /**
-   * Get an attribute accessor to retrieve or modify data of give attribute.
-   *
-   * @param attr Attribute to get access to
-   * @returns Attribute to get access to or `null`, if mesh does not have this attribute.
-   *
-   * Call {@link update} for changes to vertex attributes to take effect.
-   *
-   * If there are no shaders in the scene that use `TextureCoordinate` for example,
-   * no meshes will have the `TextureCoordinate` attribute.
-   *
-   * For flexible reusable components, take this into account that only `Position`
-   * is guaranteed to be present at all time.
-   */
   attribute(attr) {
     if (typeof attr != "number")
       throw new TypeError("Expected number, but got " + typeof attr);
@@ -3245,16 +5316,18 @@ var Mesh = class {
     this._engine.wasm._wl_mesh_get_attribute(this._index, attr, this._engine.wasm._tempMem);
     if (tempMemUint32[0] == 255)
       return null;
-    const a = new MeshAttributeAccessor(this._engine, attr);
-    a._attribute = tempMemUint32[0];
-    a._offset = tempMemUint32[1];
-    a._stride = tempMemUint32[2];
-    a._formatSize = tempMemUint32[3];
-    a._componentCount = tempMemUint32[4];
     const arraySize = tempMemUint32[5];
-    a._arraySize = arraySize ? arraySize : 1;
-    a.length = this.vertexCount;
-    return a;
+    return new MeshAttributeAccessor(this._engine, {
+      attribute: tempMemUint32[0],
+      offset: tempMemUint32[1],
+      stride: tempMemUint32[2],
+      formatSize: tempMemUint32[3],
+      componentCount: tempMemUint32[4],
+      /* The WASM API returns `0` for a scalar value. We clamp it to 1 as we strictly use it as a multiplier for get/set operations */
+      arraySize: arraySize ? arraySize : 1,
+      length: this.vertexCount,
+      bufferType: attr !== MeshAttribute.JointId ? Float32Array : Uint16Array
+    });
   }
   /**
    * Destroy and free the meshes memory.
@@ -3275,8 +5348,26 @@ var Mesh = class {
   destroy() {
     this._engine.wasm._wl_mesh_destroy(this._index);
   }
+  /**
+   * Checks equality by comparing whether the wrapped native mesh ids are
+   * equal.
+   *
+   * @param otherMesh Mesh to check equality with.
+   * @returns Whether this mesh equals the given mesh.
+   *
+   * @since 1.0.0
+   */
+  equals(otherMesh) {
+    if (!otherMesh)
+      return false;
+    return this._index === otherMesh._index;
+  }
 };
 var MeshAttributeAccessor = class {
+  /** Max number of elements. */
+  length = 0;
+  /** Wonderland Engine instance. @hidden */
+  _engine;
   /** Attribute index. @hidden */
   _attribute = -1;
   /** Attribute offset. @hidden */
@@ -3289,56 +5380,43 @@ var MeshAttributeAccessor = class {
   _componentCount = 0;
   /** Number of values per vertex. @hidden */
   _arraySize = 1;
-  /** Max number of elements. */
-  length = 0;
-  /** Wonderland Engine instance. @hidden */
-  _engine;
   /**
    * Class to instantiate an ArrayBuffer to get/set values.
    */
   _bufferType;
   /**
-   * Function to allocate temporary WASM memory. This is cached to avoid
-   * any conditional during get/set.
+   * Function to allocate temporary WASM memory. It is cached in the accessor to avoid
+   * conditionals during get/set.
    */
   _tempBufferGetter;
   /**
    * Create a new instance.
    *
-   * @param type The type of data this accessor is wrapping.
+   * @note Please use {@link Mesh.attribute} to create a new instance.
+   *
+   * @param options Contains information about how to read the data.
    * @note Do not use this constructor. Instead, please use the {@link Mesh.attribute} method.
    *
    * @hidden
    */
-  constructor(engine, type = MeshAttribute.Position) {
-    this._engine = engine;
+  constructor(engine2, options) {
+    this._engine = engine2;
     const wasm = this._engine.wasm;
-    switch (type) {
-      case MeshAttribute.Position:
-      case MeshAttribute.Normal:
-      case MeshAttribute.TextureCoordinate:
-      case MeshAttribute.Tangent:
-      case MeshAttribute.Color:
-      case MeshAttribute.JointWeight:
-        this._bufferType = Float32Array;
-        this._tempBufferGetter = wasm.getTempBufferF32.bind(wasm);
-        break;
-      case MeshAttribute.JointId:
-        this._bufferType = Uint16Array;
-        this._tempBufferGetter = wasm.getTempBufferU16.bind(wasm);
-        break;
-      case MeshAttribute.SecondaryJointWeight:
-      case MeshAttribute.SecondaryJointId:
-        console.error(`Deprecated attribute accessor type: ${type}`);
-      default:
-        throw new Error(`Invalid attribute accessor type: ${type}`);
-    }
+    this._attribute = options.attribute;
+    this._offset = options.offset;
+    this._stride = options.stride;
+    this._formatSize = options.formatSize;
+    this._componentCount = options.componentCount;
+    this._arraySize = options.arraySize;
+    this._bufferType = options.bufferType;
+    this.length = options.length;
+    this._tempBufferGetter = this._bufferType === Float32Array ? wasm.getTempBufferF32.bind(wasm) : wasm.getTempBufferU16.bind(wasm);
   }
   /**
-   * Create a new TypedArray to hold this attribute values.
+   * Create a new TypedArray to hold this attribute's values.
    *
    * This method is useful to create a view to hold the data to
-   * pass to {@link MeshAttributeAccessor.get} and {@link MeshAttributeAccessor.set}
+   * pass to {@link get} and {@link set}
    *
    * Example:
    *
@@ -3357,23 +5435,10 @@ var MeshAttributeAccessor = class {
     count = count > this.length ? this.length : count;
     return new this._bufferType(count * this._componentCount * this._arraySize);
   }
-  /**
-   * Get attribute element.
-   *
-   * @param index Index
-   * @param out Preallocated array to write into,
-   *      to avoid garbage, otherwise will allocate a new TypedArray.
-   *
-   * `out.length` needs to be a multiple of the attributes component count, see
-   * {@link MeshAttribute}. If `out.length` is more than one multiple, it will be
-   * filled with the next n attribute elements, which can reduce overhead
-   * of this call.
-   *
-   * @returns The `out` parameter
-   */
   get(index, out = this.createArray()) {
-    if (out.length % this._componentCount !== 0)
+    if (out.length % this._componentCount !== 0) {
       throw new Error(`out.length, ${out.length} is not a multiple of the attribute vector components, ${this._componentCount}`);
+    }
     const dest = this._tempBufferGetter(out.length);
     const elementSize = this._bufferType.BYTES_PER_ELEMENT;
     const destSize = elementSize * out.length;
@@ -3414,22 +5479,164 @@ var MeshAttributeAccessor = class {
     return this;
   }
 };
-var tempCanvas = null;
+var Material = class {
+  /**
+   * Index of this material in the manager.
+   *
+   * @hidden
+   */
+  _index;
+  /**
+   * Material definition index in the scene.
+   *
+   * @hidden
+   */
+  _definition;
+  /** Wonderland Engine instance. @hidden */
+  _engine;
+  /**
+   * Create a new Material.
+   *
+   * @note Creating material is expensive. Please use {@link Material#clone} to clone a material.
+   * @note Do not use this constructor directly with an index, this is reserved for internal purposes.
+   */
+  constructor(engine2, params) {
+    this._engine = engine2;
+    if (typeof params !== "number") {
+      if (!params?.pipeline)
+        throw new Error("Missing parameter 'pipeline'");
+      const wasm = this._engine.wasm;
+      const pipeline = params.pipeline;
+      this._index = wasm._wl_material_create(wasm.tempUTF8(pipeline));
+      if (this._index < 0)
+        throw new Error(`No such pipeline '${pipeline}'`);
+    } else {
+      this._index = params;
+    }
+    this._definition = this._engine.wasm._wl_material_get_definition(this._index);
+    if (!this._engine.wasm._materialDefinitions[this._definition])
+      throw new Error(`Material Definition ${this._definition} not found for material with index ${this._index}`);
+    return new Proxy(this, {
+      get(target, prop) {
+        const wasm = engine2.wasm;
+        const definition = wasm._materialDefinitions[target._definition];
+        const param = definition.get(prop);
+        if (!param)
+          return target[prop];
+        if (wasm._wl_material_get_param_value(target._index, param.index, wasm._tempMem)) {
+          const type = param.type;
+          switch (type.type) {
+            case MaterialParamType.UnsignedInt:
+              return type.componentCount == 1 ? wasm._tempMemUint32[0] : new Uint32Array(wasm.HEAPU32.buffer, wasm._tempMem, type.componentCount);
+            case MaterialParamType.Int:
+              return type.componentCount == 1 ? wasm._tempMemInt[0] : new Int32Array(wasm.HEAP32.buffer, wasm._tempMem, type.componentCount);
+            case MaterialParamType.Float:
+              return type.componentCount == 1 ? wasm._tempMemFloat[0] : new Float32Array(wasm.HEAPF32.buffer, wasm._tempMem, type.componentCount);
+            case MaterialParamType.Sampler:
+              return engine2.textures.wrap(wasm._tempMemInt[0]);
+            default:
+              throw new Error(`Invalid type ${type.type} on parameter ${param.index} for material ${target._index}`);
+          }
+        }
+      },
+      set(target, prop, value) {
+        const wasm = engine2.wasm;
+        const definition = wasm._materialDefinitions[target._definition];
+        const param = definition.get(prop);
+        if (!param) {
+          target[prop] = value;
+          return true;
+        }
+        const type = param.type;
+        switch (type.type) {
+          case MaterialParamType.UnsignedInt:
+          case MaterialParamType.Int:
+          case MaterialParamType.Sampler:
+            const v = value.id ?? value;
+            wasm._wl_material_set_param_value_uint(target._index, param.index, v);
+            break;
+          case MaterialParamType.Float:
+            let count = 1;
+            if (typeof value === "number") {
+              wasm._tempMemFloat[0] = value;
+            } else {
+              count = value.length;
+              for (let i = 0; i < count; ++i)
+                wasm._tempMemFloat[i] = value[i];
+            }
+            wasm._wl_material_set_param_value_float(target._index, param.index, wasm._tempMem, count);
+            break;
+          case MaterialParamType.Font:
+            throw new Error("Setting font properties is currently unsupported.");
+        }
+        return true;
+      }
+    });
+  }
+  /** @deprecated Use {@link #pipeline} instead. */
+  get shader() {
+    return this.pipeline;
+  }
+  /** Name of the pipeline used by this material. */
+  get pipeline() {
+    const wasm = this._engine.wasm;
+    return wasm.UTF8ToString(wasm._wl_material_get_pipeline(this._index));
+  }
+  /** Hosting engine instance. */
+  get engine() {
+    return this._engine;
+  }
+  /**
+   * Create a copy of the underlying native material.
+   *
+   * @returns Material clone.
+   */
+  clone() {
+    const id = this._engine.wasm._wl_material_clone(this._index);
+    return id > 0 ? new Material(this._engine, id) : null;
+  }
+  /**
+   * Checks equality by comparing whether the wrapped native material ids are
+   * equal.
+   *
+   * @param otherMaterial Material to check equality with.
+   * @returns Whether this material equals the given material.
+   *
+   * @since 1.0.0
+   */
+  equals(otherMaterial) {
+    if (!otherMaterial)
+      return false;
+    return this._index === otherMaterial._index;
+  }
+  /**
+   * Wrap a native material index.
+   *
+   * @param engine Engine instance.
+   * @param index The index.
+   * @returns Material instance or `null` if index <= 0.
+   *
+   * @deprecated Please use `new Material()` instead.
+   */
+  static wrap(engine2, index) {
+    return index > 0 ? new Material(engine2, index) : null;
+  }
+};
+var temp2d = null;
 var Texture = class {
   /** Wonderland Engine instance. @hidden */
   _engine;
   /** Index in the manager. @hidden */
   _id = 0;
   /** HTML image index. @hidden */
-  _imageIndex = void 0;
-  /* @todo: Remove undefined */
+  _imageIndex = null;
   /**
    * @param engine The engine instance
    * @param param HTML media element to create texture from or texture id to wrap.
    */
-  constructor(engine, param) {
-    this._engine = engine ?? WL;
-    const wasm = engine.wasm;
+  constructor(engine2, param) {
+    this._engine = engine2 ?? WL;
+    const wasm = engine2.wasm;
     if (param instanceof HTMLImageElement || param instanceof HTMLVideoElement || param instanceof HTMLCanvasElement) {
       const index = wasm._images.length;
       wasm._images.push(param);
@@ -3438,7 +5645,7 @@ var Texture = class {
     } else {
       this._id = param;
     }
-    this._engine.textures[this._id] = this;
+    this._engine.textures._set(this);
   }
   /** Whether this texture is valid. */
   get valid() {
@@ -3450,7 +5657,7 @@ var Texture = class {
   }
   /** Update the texture to match the HTML element (e.g. reflect the current frame of a video). */
   update() {
-    if (!this.valid)
+    if (!this.valid || this._imageIndex === null)
       return;
     this._engine.wasm._wl_renderer_updateImage(this._id, this._imageIndex);
   }
@@ -3461,6 +5668,10 @@ var Texture = class {
   /** Height of the texture. */
   get height() {
     return this._engine.wasm._wl_texture_height(this._id);
+  }
+  /** Hosting engine instance. */
+  get engine() {
+    return this._engine;
   }
   /**
    * Update a subrange on the texture to match the HTML element (e.g. reflect the current frame of a video).
@@ -3478,23 +5689,27 @@ var Texture = class {
    * @param h height
    */
   updateSubImage(x, y, w, h) {
-    if (!this.valid)
+    if (!this.valid || this._imageIndex === null)
       return;
-    if (!tempCanvas)
-      tempCanvas = document.createElement("canvas");
+    if (!temp2d) {
+      const canvas2 = document.createElement("canvas");
+      const ctx = canvas2.getContext("2d");
+      if (!ctx) {
+        throw new Error("Texture.updateSubImage(): Failed to obtain CanvasRenderingContext2D.");
+      }
+      temp2d = { canvas: canvas2, ctx };
+    }
     const wasm = this._engine.wasm;
     const img = wasm._images[this._imageIndex];
     if (!img)
       return;
-    tempCanvas.width = w;
-    tempCanvas.height = h;
-    tempCanvas.getContext("2d")?.drawImage(img, x, y, w, h, 0, 0, w, h);
-    wasm._images[this._imageIndex] = tempCanvas;
-    try {
-      wasm._wl_renderer_updateImage(this._id, this._imageIndex, x, (img.videoHeight || img.height) - y - h);
-    } finally {
-      wasm._images[this._imageIndex] = img;
-    }
+    temp2d.canvas.width = w;
+    temp2d.canvas.height = h;
+    temp2d.ctx.drawImage(img, x, y, w, h, 0, 0, w, h);
+    const yOffset = (img.videoHeight ?? img.height) - y - h;
+    wasm._images[this._imageIndex] = temp2d.canvas;
+    wasm._wl_renderer_updateImage(this._id, this._imageIndex, x, yOffset);
+    wasm._images[this._imageIndex] = img;
   }
   /**
    * Destroy and free the texture's texture altas space and memory.
@@ -3510,15 +5725,2041 @@ var Texture = class {
    * @since 0.9.0
    */
   destroy() {
-    this._engine.wasm._wl_texture_destroy(this._id);
-    if (this._imageIndex) {
-      this._engine.wasm._images[this._imageIndex] = null;
-      this._imageIndex = void 0;
+    this.engine.textures._destroy(this);
+    this._id = -1;
+    this._imageIndex = null;
+  }
+  /**
+   * Checks equality by comparing whether the wrapped native texture ids are
+   * equal.
+   *
+   * @param otherTexture Texture to check equality with.
+   * @returns Whether this texture equals the given texture.
+   *
+   * @since 1.0.0
+   */
+  equals(otherTexture) {
+    if (!otherTexture)
+      return false;
+    return this._id === otherTexture._id;
+  }
+};
+var Animation = class {
+  /** Index of the mesh in the manager. @hidden */
+  _index;
+  /** Wonderland Engine instance. @hidden */
+  _engine;
+  /**
+   * @param index Index in the manager
+   */
+  constructor(engine2 = WL, index) {
+    this._engine = engine2;
+    this._index = index;
+  }
+  /** Duration of this animation. */
+  get duration() {
+    return this._engine.wasm._wl_animation_get_duration(this._index);
+  }
+  /** Number of tracks in this animation. */
+  get trackCount() {
+    return this._engine.wasm._wl_animation_get_trackCount(this._index);
+  }
+  /**
+   * Clone this animation retargeted to a new set of objects.
+   *
+   * The clone shares most of the data with the original and is therefore
+   * light-weight.
+   *
+   * **Experimental:** This API might change in upcoming versions.
+   *
+   * If retargeting to {@link Skin}, the join names will be used to determine a mapping
+   * from the previous skin to the new skin. The source skin will be retrieved from
+   * the first track in the animation that targets a joint.
+   *
+   * @param newTargets New targets per track. Expected to have
+   *      {@link Animation#trackCount} elements or to be a {@link Skin}.
+   * @returns The retargeted clone of this animation.
+   */
+  retarget(newTargets) {
+    const wasm = this._engine.wasm;
+    if (newTargets instanceof Skin) {
+      const animId2 = wasm._wl_animation_retargetToSkin(this._index, newTargets._index);
+      return new Animation(this._engine, animId2);
     }
+    if (newTargets.length != this.trackCount) {
+      throw Error("Expected " + this.trackCount.toString() + " targets, but got " + newTargets.length.toString());
+    }
+    const ptr = wasm._malloc(2 * newTargets.length);
+    for (let i = 0; i < newTargets.length; ++i) {
+      wasm.HEAPU16[ptr >> 1 + i] = newTargets[i].objectId;
+    }
+    const animId = wasm._wl_animation_retarget(this._index, ptr);
+    wasm._free(ptr);
+    return new Animation(this._engine, animId);
+  }
+  /**
+   * Checks equality by comparing whether the wrapped native animation ids
+   * are equal.
+   *
+   * @param otherAnimation Animation to check equality with.
+   * @returns Whether this animation equals the given animation.
+   *
+   * @since 1.0.0
+   */
+  equals(otherAnimation) {
+    if (!otherAnimation)
+      return false;
+    return this._index === otherAnimation._index;
+  }
+};
+var Object3D = class {
+  /** Wonderland Engine instance. @hidden */
+  _engine;
+  /**
+   * Object index in the manager.
+   *
+   * @hidden
+   */
+  _objectId = -1;
+  /**
+   * @param o Object id to wrap
+   *
+   * For performance reasons, please use {@link WonderlandEngine.wrapObject}
+   */
+  constructor(engine2, o) {
+    this._objectId = o;
+    this._engine = engine2;
+  }
+  /**
+   * Name of the object.
+   *
+   * Useful for identifying objects during debugging.
+   */
+  get name() {
+    const wasm = this._engine.wasm;
+    return wasm.UTF8ToString(wasm._wl_object_name(this.objectId));
+  }
+  /**
+   * Set the object's name.
+   *
+   * @param newName The new name to set.
+   */
+  set name(newName) {
+    const wasm = this._engine.wasm;
+    wasm._wl_object_set_name(this.objectId, wasm.tempUTF8(newName));
+  }
+  /**
+   * Parent of this object or `null` if parented to root.
+   */
+  get parent() {
+    const p = this._engine.wasm._wl_object_parent(this.objectId);
+    return p === 0 ? null : this._engine.wrapObject(p);
+  }
+  /**
+   * Children of this object.
+   */
+  get children() {
+    const childrenCount = this._engine.wasm._wl_object_get_children_count(this.objectId);
+    if (childrenCount === 0)
+      return [];
+    const wasm = this._engine.wasm;
+    wasm.requireTempMem(childrenCount * 2);
+    this._engine.wasm._wl_object_get_children(this.objectId, wasm._tempMem, wasm._tempMemSize >> 1);
+    const children = new Array(childrenCount);
+    for (let i = 0; i < childrenCount; ++i) {
+      children[i] = this._engine.wrapObject(wasm._tempMemUint16[i]);
+    }
+    return children;
+  }
+  /**
+   * Reparent object to given object.
+   *
+   * @note Reparenting is not trivial and might have a noticeable performance impact.
+   *
+   * @param newParent New parent or `null` to parent to root
+   */
+  set parent(newParent) {
+    this._engine.wasm._wl_object_set_parent(this.objectId, newParent == null ? 0 : newParent.objectId);
+  }
+  /** Object index in the manager. */
+  get objectId() {
+    return this._objectId;
+  }
+  /** Hosting engine instance. */
+  get engine() {
+    return this._engine;
+  }
+  /**
+   * Reset local transformation (translation, rotation and scaling) to identity.
+   *
+   * @returns Reference to self (for method chaining).
+   */
+  resetTransform() {
+    this._engine.wasm._wl_object_reset_translation_rotation(this.objectId);
+    this._engine.wasm._wl_object_reset_scaling(this.objectId);
+    return this;
+  }
+  /**
+   * Reset local position and rotation to identity.
+   *
+   * @returns Reference to self (for method chaining).
+   */
+  resetPositionRotation() {
+    this._engine.wasm._wl_object_reset_translation_rotation(this.objectId);
+    return this;
+  }
+  /** @deprecated Please use {@link Object3D.resetPositionRotation} instead. */
+  resetTranslationRotation() {
+    return this.resetPositionRotation();
+  }
+  /**
+   * Reset local rotation, keep translation.
+   *
+   * @note To reset both rotation and translation, prefer
+   *       {@link resetTranslationRotation}.
+   *
+   * @returns Reference to self (for method chaining).
+   */
+  resetRotation() {
+    this._engine.wasm._wl_object_reset_rotation(this.objectId);
+    return this;
+  }
+  /**
+   * Reset local translation, keep rotation.
+   *
+   * @note To reset both rotation and translation, prefer
+   *       {@link resetTranslationRotation}.
+   *
+   * @returns Reference to self (for method chaining).
+   */
+  resetPosition() {
+    this._engine.wasm._wl_object_reset_translation(this.objectId);
+    return this;
+  }
+  /** @deprecated Please use {@link Object3D.resetPosition} instead. */
+  resetTranslation() {
+    return this.resetPosition();
+  }
+  /**
+   * Reset local scaling to identity (``[1.0, 1.0, 1.0]``).
+   *
+   * @returns Reference to self (for method chaining).
+   */
+  resetScaling() {
+    this._engine.wasm._wl_object_reset_scaling(this.objectId);
+    return this;
+  }
+  /** @deprecated Please use {@link Object3D.translateLocal} instead. */
+  translate(v) {
+    return this.translateLocal(v);
+  }
+  /**
+   * Translate object by a vector in the parent's space.
+   *
+   * @param v Vector to translate by.
+   *
+   * @returns Reference to self (for method chaining).
+   */
+  translateLocal(v) {
+    this._engine.wasm._wl_object_translate(this.objectId, v[0], v[1], v[2]);
+    return this;
+  }
+  /**
+   * Translate object by a vector in object space.
+   *
+   * @param v Vector to translate by.
+   *
+   * @returns Reference to self (for method chaining).
+   */
+  translateObject(v) {
+    this._engine.wasm._wl_object_translate_obj(this.objectId, v[0], v[1], v[2]);
+    return this;
+  }
+  /**
+   * Translate object by a vector in world space.
+   *
+   * @param v Vector to translate by.
+   *
+   * @returns Reference to self (for method chaining).
+   */
+  translateWorld(v) {
+    this._engine.wasm._wl_object_translate_world(this.objectId, v[0], v[1], v[2]);
+    return this;
+  }
+  /** @deprecated Please use {@link Object3D.rotateAxisAngleDegLocal} instead. */
+  rotateAxisAngleDeg(a, d) {
+    this.rotateAxisAngleDegLocal(a, d);
+    return this;
+  }
+  /**
+   * Rotate around given axis by given angle (degrees) in local space.
+   *
+   * @param a Vector representing the rotation axis.
+   * @param d Angle in degrees.
+   *
+   * @note If the object is translated the rotation will be around
+   *     the parent. To rotate around the object origin, use
+   *     {@link rotateAxisAngleDegObject}
+   *
+   * @see {@link rotateAxisAngleRad}
+   *
+   * @returns Reference to self (for method chaining).
+   */
+  rotateAxisAngleDegLocal(a, d) {
+    this._engine.wasm._wl_object_rotate_axis_angle(this.objectId, a[0], a[1], a[2], d);
+    return this;
+  }
+  /** @deprecated Please use {@link Object3D.rotateAxisAngleRadLocal} instead. */
+  rotateAxisAngleRad(a, d) {
+    return this.rotateAxisAngleRadLocal(a, d);
+  }
+  /**
+   * Rotate around given axis by given angle (radians) in local space.
+   *
+   * @param a Vector representing the rotation axis.
+   * @param d Angle in radians.
+   *
+   * @note If the object is translated the rotation will be around
+   *     the parent. To rotate around the object origin, use
+   *     {@link rotateAxisAngleDegObject}
+   *
+   * @see {@link rotateAxisAngleDeg}
+   *
+   * @returns Reference to self (for method chaining).
+   */
+  rotateAxisAngleRadLocal(a, d) {
+    this._engine.wasm._wl_object_rotate_axis_angle_rad(this.objectId, a[0], a[1], a[2], d);
+    return this;
+  }
+  /**
+   * Rotate around given axis by given angle (degrees) in object space.
+   *
+   * @param a Vector representing the rotation axis.
+   * @param d Angle in degrees.
+   *
+   * Equivalent to prepending a rotation quaternion to the object's
+   * local transformation.
+   *
+   * @see {@link rotateAxisAngleRadObject}
+   *
+   * @returns Reference to self (for method chaining).
+   */
+  rotateAxisAngleDegObject(a, d) {
+    this._engine.wasm._wl_object_rotate_axis_angle_obj(this.objectId, a[0], a[1], a[2], d);
+    return this;
+  }
+  /**
+   * Rotate around given axis by given angle (radians) in object space
+   * Equivalent to prepending a rotation quaternion to the object's
+   * local transformation.
+   *
+   * @param a Vector representing the rotation axis
+   * @param d Angle in degrees
+   *
+   * @see {@link rotateAxisAngleDegObject}
+   *
+   * @returns Reference to self (for method chaining).
+   */
+  rotateAxisAngleRadObject(a, d) {
+    this._engine.wasm._wl_object_rotate_axis_angle_rad_obj(this.objectId, a[0], a[1], a[2], d);
+    return this;
+  }
+  /** @deprecated Please use {@link Object3D.rotateLocal} instead. */
+  rotate(q) {
+    this.rotateLocal(q);
+    return this;
+  }
+  /**
+   * Rotate by a quaternion.
+   *
+   * @param q the Quaternion to rotate by.
+   *
+   * @returns Reference to self (for method chaining).
+   */
+  rotateLocal(q) {
+    this._engine.wasm._wl_object_rotate_quat(this.objectId, q[0], q[1], q[2], q[3]);
+    return this;
+  }
+  /**
+   * Rotate by a quaternion in object space.
+   *
+   * Equivalent to prepending a rotation quaternion to the object's
+   * local transformation.
+   *
+   * @param q the Quaternion to rotate by.
+   *
+   * @returns Reference to self (for method chaining).
+   */
+  rotateObject(q) {
+    this._engine.wasm._wl_object_rotate_quat_obj(this.objectId, q[0], q[1], q[2], q[3]);
+    return this;
+  }
+  /** @deprecated Please use {@link Object3D.scaleLocal} instead. */
+  scale(v) {
+    this.scaleLocal(v);
+    return this;
+  }
+  /**
+   * Scale object by a vector in object space.
+   *
+   * @param v Vector to scale by.
+   *
+   * @returns Reference to self (for method chaining).
+   */
+  scaleLocal(v) {
+    this._engine.wasm._wl_object_scale(this.objectId, v[0], v[1], v[2]);
+    return this;
+  }
+  getPositionLocal(out = new Float32Array(3)) {
+    const wasm = this._engine.wasm;
+    wasm._wl_object_get_translation_local(this.objectId, wasm._tempMem);
+    out[0] = wasm._tempMemFloat[0];
+    out[1] = wasm._tempMemFloat[1];
+    out[2] = wasm._tempMemFloat[2];
+    return out;
+  }
+  getTranslationLocal(out = new Float32Array(3)) {
+    return this.getPositionLocal(out);
+  }
+  getPositionWorld(out = new Float32Array(3)) {
+    const wasm = this._engine.wasm;
+    wasm._wl_object_get_translation_world(this.objectId, wasm._tempMem);
+    out[0] = wasm._tempMemFloat[0];
+    out[1] = wasm._tempMemFloat[1];
+    out[2] = wasm._tempMemFloat[2];
+    return out;
+  }
+  getTranslationWorld(out = new Float32Array(3)) {
+    return this.getPositionWorld(out);
+  }
+  /**
+   * Set local / object space position.
+   *
+   * Concatenates a new translation dual quaternion onto the existing rotation.
+   *
+   * @param v New local position array/vector, expected to have at least 3 elements.
+   *
+   * @returns Reference to self (for method chaining).
+   */
+  setPositionLocal(v) {
+    this._engine.wasm._wl_object_set_translation_local(this.objectId, v[0], v[1], v[2]);
+    return this;
+  }
+  /** @deprecated Please use {@link Object3D.setPositionLocal} instead. */
+  setTranslationLocal(v) {
+    return this.setPositionLocal(v);
+  }
+  /**
+   * Set world space position.
+   *
+   * Applies the inverse parent transform with a new translation dual quaternion
+   * which is concatenated onto the existing rotation.
+   *
+   * @param v New world position array/vector, expected to have at least 3 elements.
+   *
+   * @returns Reference to self (for method chaining).
+   */
+  setPositionWorld(v) {
+    this._engine.wasm._wl_object_set_translation_world(this.objectId, v[0], v[1], v[2]);
+    return this;
+  }
+  /** @deprecated Please use {@link Object3D.setPositionWorld} instead. */
+  setTranslationWorld(v) {
+    return this.setPositionWorld(v);
+  }
+  getScalingLocal(out = new Float32Array(3)) {
+    const wasm = this._engine.wasm;
+    const ptr = wasm._wl_object_scaling_local(this.objectId) / 4;
+    out[0] = wasm.HEAPF32[ptr];
+    out[1] = wasm.HEAPF32[ptr + 1];
+    out[2] = wasm.HEAPF32[ptr + 2];
+    return out;
+  }
+  /**
+   * Set local / object space scaling.
+   *
+   * @param v New local scaling array/vector, expected to have at least 3 elements.
+   *
+   * @returns Reference to self (for method chaining).
+   */
+  setScalingLocal(v) {
+    this._engine.wasm._wl_object_set_scaling_local(this.objectId, v[0], v[1], v[2]);
+    return this;
+  }
+  getScalingWorld(out = new Float32Array(3)) {
+    const wasm = this._engine.wasm;
+    const ptr = wasm._wl_object_scaling_world(this.objectId) / 4;
+    out[0] = wasm.HEAPF32[ptr];
+    out[1] = wasm.HEAPF32[ptr + 1];
+    out[2] = wasm.HEAPF32[ptr + 2];
+    return out;
+  }
+  /**
+   * Set World space scaling.
+   *
+   * @param v New world scaling array/vector, expected to have at least 3 elements.
+   *
+   * @returns Reference to self (for method chaining).
+   */
+  setScalingWorld(v) {
+    this._engine.wasm._wl_object_set_scaling_world(this.objectId, v[0], v[1], v[2]);
+    return this;
+  }
+  getRotationLocal(out = new Float32Array(4)) {
+    const wasm = this._engine.wasm;
+    const ptr = wasm._wl_object_trans_local(this.objectId) / 4;
+    out[0] = wasm.HEAPF32[ptr];
+    out[1] = wasm.HEAPF32[ptr + 1];
+    out[2] = wasm.HEAPF32[ptr + 2];
+    out[3] = wasm.HEAPF32[ptr + 3];
+    return out;
+  }
+  /**
+   * Set local space rotation.
+   *
+   * @param v New world rotation array/vector, expected to have at least 4 elements.
+   *
+   * @returns Reference to self (for method chaining).
+   */
+  setRotationLocal(v) {
+    this._engine.wasm._wl_object_set_rotation_local(this.objectId, v[0], v[1], v[2], v[3]);
+    return this;
+  }
+  getRotationWorld(out = new Float32Array(4)) {
+    const wasm = this._engine.wasm;
+    const ptr = wasm._wl_object_trans_world(this.objectId) / 4;
+    out[0] = wasm.HEAPF32[ptr];
+    out[1] = wasm.HEAPF32[ptr + 1];
+    out[2] = wasm.HEAPF32[ptr + 2];
+    out[3] = wasm.HEAPF32[ptr + 3];
+    return out;
+  }
+  /**
+   * Set local space rotation.
+   *
+   * @param v New world rotation array/vector, expected to have at least 4 elements.
+   *
+   * @returns Reference to self (for method chaining).
+   */
+  setRotationWorld(v) {
+    this._engine.wasm._wl_object_set_rotation_world(this.objectId, v[0], v[1], v[2], v[3]);
+    return this;
+  }
+  getTransformLocal(out = new Float32Array(8)) {
+    const wasm = this._engine.wasm;
+    const ptr = wasm._wl_object_trans_local(this.objectId) / 4;
+    out[0] = wasm.HEAPF32[ptr];
+    out[1] = wasm.HEAPF32[ptr + 1];
+    out[2] = wasm.HEAPF32[ptr + 2];
+    out[3] = wasm.HEAPF32[ptr + 3];
+    out[4] = wasm.HEAPF32[ptr + 4];
+    out[5] = wasm.HEAPF32[ptr + 5];
+    out[6] = wasm.HEAPF32[ptr + 6];
+    out[7] = wasm.HEAPF32[ptr + 7];
+    return out;
+  }
+  /**
+   * Set local space rotation.
+   *
+   * @param v New local transform array, expected to have at least 8 elements.
+   *
+   * @returns Reference to self (for method chaining).
+   */
+  setTransformLocal(v) {
+    const wasm = this._engine.wasm;
+    const ptr = wasm._wl_object_trans_local(this.objectId) / 4;
+    wasm.HEAPF32[ptr] = v[0];
+    wasm.HEAPF32[ptr + 1] = v[1];
+    wasm.HEAPF32[ptr + 2] = v[2];
+    wasm.HEAPF32[ptr + 3] = v[3];
+    wasm.HEAPF32[ptr + 4] = v[4];
+    wasm.HEAPF32[ptr + 5] = v[5];
+    wasm.HEAPF32[ptr + 6] = v[6];
+    wasm.HEAPF32[ptr + 7] = v[7];
+    this.setDirty();
+    return this;
+  }
+  getTransformWorld(out = new Float32Array(8)) {
+    const wasm = this._engine.wasm;
+    const ptr = wasm._wl_object_trans_world(this.objectId) / 4;
+    out[0] = wasm.HEAPF32[ptr];
+    out[1] = wasm.HEAPF32[ptr + 1];
+    out[2] = wasm.HEAPF32[ptr + 2];
+    out[3] = wasm.HEAPF32[ptr + 3];
+    out[4] = wasm.HEAPF32[ptr + 4];
+    out[5] = wasm.HEAPF32[ptr + 5];
+    out[6] = wasm.HEAPF32[ptr + 6];
+    out[7] = wasm.HEAPF32[ptr + 7];
+    return out;
+  }
+  /**
+   * Set world space rotation.
+   *
+   * @param v New world transform array, expected to have at least 8 elements.
+   *
+   * @returns Reference to self (for method chaining).
+   */
+  setTransformWorld(v) {
+    const wasm = this._engine.wasm;
+    const ptr = wasm._wl_object_trans_world(this.objectId) / 4;
+    wasm.HEAPF32[ptr] = v[0];
+    wasm.HEAPF32[ptr + 1] = v[1];
+    wasm.HEAPF32[ptr + 2] = v[2];
+    wasm.HEAPF32[ptr + 3] = v[3];
+    wasm.HEAPF32[ptr + 4] = v[4];
+    wasm.HEAPF32[ptr + 5] = v[5];
+    wasm.HEAPF32[ptr + 6] = v[6];
+    wasm.HEAPF32[ptr + 7] = v[7];
+    this._engine.wasm._wl_object_trans_world_to_local(this.objectId);
+    return this;
+  }
+  /**
+   * Local space transformation.
+   *
+   * @deprecated Please use {@link Object3D.setTransformLocal} and
+   * {@link Object3D.getTransformLocal} instead.
+   */
+  get transformLocal() {
+    const wasm = this._engine.wasm;
+    return new Float32Array(wasm.HEAPF32.buffer, wasm._wl_object_trans_local(this.objectId), 8);
+  }
+  /**
+   * Set local transform.
+   *
+   * @param t Local space transformation.
+   *
+   * @since 0.8.5
+   *
+   * @deprecated Please use {@link Object3D.setTransformLocal} and
+   * {@link Object3D.getTransformLocal} instead.
+   */
+  set transformLocal(t) {
+    this.transformLocal.set(t);
+    this.setDirty();
+  }
+  /**
+   * Global / world space transformation.
+   *
+   * May recompute transformations of the hierarchy of this object,
+   * if they were changed by JavaScript components this frame.
+   *
+   * @deprecated Please use {@link Object3D.setTransformWorld} and
+   * {@link Object3D.getTransformWorld} instead.
+   */
+  get transformWorld() {
+    const wasm = this._engine.wasm;
+    return new Float32Array(wasm.HEAPF32.buffer, wasm._wl_object_trans_world(this.objectId), 8);
+  }
+  /**
+   * Set world transform.
+   *
+   * @param t Global / world space transformation.
+   *
+   * @since 0.8.5
+   *
+   * @deprecated Please use {@link Object3D.setTransformWorld} and
+   * {@link Object3D.getTransformWorld} instead.
+   */
+  set transformWorld(t) {
+    this.transformWorld.set(t);
+    this._engine.wasm._wl_object_trans_world_to_local(this.objectId);
+  }
+  /**
+   * Local / object space scaling.
+   *
+   * @deprecated Please use {@link Object3D.setScalingLocal} and
+   * {@link Object3D.getScalingLocal} instead.
+   */
+  get scalingLocal() {
+    const wasm = this._engine.wasm;
+    return new Float32Array(wasm.HEAPF32.buffer, wasm._wl_object_scaling_local(this.objectId), 3);
+  }
+  /**
+   * Set local space scaling.
+   *
+   * @param s Local space scaling.
+   *
+   * @since 0.8.7
+   *
+   * @deprecated Please use {@link Object3D.setScalingLocal} and
+   * {@link Object3D.getScalingLocal} instead.
+   */
+  set scalingLocal(s) {
+    this.scalingLocal.set(s);
+    this.setDirty();
+  }
+  /**
+   * Global / world space scaling.
+   *
+   * May recompute transformations of the hierarchy of this object,
+   * if they were changed by JavaScript components this frame.
+   *
+   * @deprecated Please use {@link Object3D.setScalingWorld} and
+   * {@link Object3D.getScalingWorld} instead.
+   */
+  get scalingWorld() {
+    const wasm = this._engine.wasm;
+    return new Float32Array(wasm.HEAPF32.buffer, wasm._wl_object_scaling_world(this.objectId), 3);
+  }
+  /**
+   * Set world space scaling.
+   *
+   * @param t World space scaling.
+   *
+   * @since 0.8.7
+   *
+   * @deprecated Please use {@link Object3D.setScalingWorld} and
+   * {@link Object3D.getScalingWorld} instead.
+   */
+  set scalingWorld(s) {
+    this.scalingWorld.set(s);
+    this._engine.wasm._wl_object_scaling_world_to_local(this.objectId);
+  }
+  /**
+   * Local space rotation.
+   *
+   * @since 0.8.7
+   *
+   * @deprecated Please use {@link Object3D.getRotationLocal} and
+   * {@link Object3D.setRotationLocal} instead.
+   */
+  get rotationLocal() {
+    return this.transformLocal.subarray(0, 4);
+  }
+  /**
+   * Global / world space rotation
+   *
+   * @since 0.8.7
+   *
+   * @deprecated Please use {@link Object3D.getRotationWorld} and
+   * {@link Object3D.setRotationWorld} instead.
+   */
+  get rotationWorld() {
+    return this.transformWorld.subarray(0, 4);
+  }
+  /**
+   * Set local space rotation.
+   *
+   * @param r Local space rotation
+   *
+   * @since 0.8.7
+   *
+   * @deprecated Please use {@link Object3D.getRotationLocal} and
+   * {@link Object3D.setRotationLocal} instead.
+   */
+  set rotationLocal(r) {
+    this._engine.wasm._wl_object_set_rotation_local(this.objectId, r[0], r[1], r[2], r[3]);
+  }
+  /**
+   * Set world space rotation.
+   *
+   * @param r Global / world space rotation.
+   *
+   * @since 0.8.7
+   *
+   * @deprecated Please use {@link Object3D.getRotationWorld} and
+   * {@link Object3D.setRotationWorld} instead.
+   */
+  set rotationWorld(r) {
+    this._engine.wasm._wl_object_set_rotation_world(this.objectId, r[0], r[1], r[2], r[3]);
+  }
+  /** @deprecated Please use {@link Object3D.getForwardWorld} instead. */
+  getForward(out) {
+    return this.getForwardWorld(out);
+  }
+  /**
+   * Compute the object's forward facing world space vector.
+   *
+   * The forward vector in object space is along the negative z-axis, i.e.,
+   * `[0, 0, -1]`.
+   *
+   * @param out Destination array/vector, expected to have at least 3 elements.
+   * @return The `out` parameter.
+   */
+  getForwardWorld(out) {
+    out[0] = 0;
+    out[1] = 0;
+    out[2] = -1;
+    this.transformVectorWorld(out);
+    return out;
+  }
+  /** @deprecated Please use {@link Object3D.getUpWorld} instead. */
+  getUp(out) {
+    return this.getUpWorld(out);
+  }
+  /**
+   * Compute the object's up facing world space vector.
+   *
+   * @param out Destination array/vector, expected to have at least 3 elements.
+   * @return The `out` parameter.
+   */
+  getUpWorld(out) {
+    out[0] = 0;
+    out[1] = 1;
+    out[2] = 0;
+    this.transformVectorWorld(out);
+    return out;
+  }
+  /** @deprecated Please use {@link Object3D.getRightWorld} instead. */
+  getRight(out) {
+    return this.getRightWorld(out);
+  }
+  /**
+   * Compute the object's right facing world space vector.
+   *
+   * @param out Destination array/vector, expected to have at least 3 elements.
+   * @return The `out` parameter.
+   */
+  getRightWorld(out) {
+    out[0] = 1;
+    out[1] = 0;
+    out[2] = 0;
+    this.transformVectorWorld(out);
+    return out;
+  }
+  /**
+   * Transform a vector by this object's world transform.
+   *
+   * @param out Out vector
+   * @param v Vector to transform, default `out`
+   * @return The `out` parameter.
+   *
+   * @since 0.8.7
+   */
+  transformVectorWorld(out, v = out) {
+    const wasm = this._engine.wasm;
+    wasm._tempMemFloat[0] = v[0];
+    wasm._tempMemFloat[1] = v[1];
+    wasm._tempMemFloat[2] = v[2];
+    wasm._wl_object_transformVectorWorld(this.objectId, wasm._tempMem);
+    out[0] = wasm._tempMemFloat[0];
+    out[1] = wasm._tempMemFloat[1];
+    out[2] = wasm._tempMemFloat[2];
+    return out;
+  }
+  /**
+   * Transform a vector by this object's local transform.
+   *
+   * @param out Out vector
+   * @param v Vector to transform, default `out`
+   * @return The `out` parameter.
+   *
+   * @since 0.8.7
+   */
+  transformVectorLocal(out, v = out) {
+    const wasm = this._engine.wasm;
+    wasm._tempMemFloat[0] = v[0];
+    wasm._tempMemFloat[1] = v[1];
+    wasm._tempMemFloat[2] = v[2];
+    wasm._wl_object_transformVectorLocal(this.objectId, wasm._tempMem);
+    out[0] = wasm._tempMemFloat[0];
+    out[1] = wasm._tempMemFloat[1];
+    out[2] = wasm._tempMemFloat[2];
+    return out;
+  }
+  /**
+   * Transform a point by this object's world transform.
+   *
+   * @param out Out point.
+   * @param p Point to transform, default `out`.
+   * @return The `out` parameter.
+   *
+   * @since 0.8.7
+   */
+  transformPointWorld(out, p = out) {
+    const wasm = this._engine.wasm;
+    wasm._tempMemFloat[0] = p[0];
+    wasm._tempMemFloat[1] = p[1];
+    wasm._tempMemFloat[2] = p[2];
+    wasm._wl_object_transformPointWorld(this.objectId, wasm._tempMem);
+    out[0] = wasm._tempMemFloat[0];
+    out[1] = wasm._tempMemFloat[1];
+    out[2] = wasm._tempMemFloat[2];
+    return out;
+  }
+  /**
+   * Transform a point by this object's local transform.
+   *
+   * @param out Out point.
+   * @param p Point to transform, default `out`.
+   * @return The `out` parameter.
+   *
+   * @since 0.8.7
+   */
+  transformPointLocal(out, p = out) {
+    const wasm = this._engine.wasm;
+    wasm._tempMemFloat[0] = p[0];
+    wasm._tempMemFloat[1] = p[1];
+    wasm._tempMemFloat[2] = p[2];
+    wasm._wl_object_transformPointLocal(this.objectId, wasm._tempMem);
+    out[0] = wasm._tempMemFloat[0];
+    out[1] = wasm._tempMemFloat[1];
+    out[2] = wasm._tempMemFloat[2];
+    return out;
+  }
+  /**
+   * Transform a vector by this object's inverse world transform.
+   *
+   * @param out Out vector.
+   * @param v Vector to transform, default `out`.
+   * @return The `out` parameter.
+   *
+   * @since 0.8.7
+   */
+  transformVectorInverseWorld(out, v = out) {
+    const wasm = this._engine.wasm;
+    wasm._tempMemFloat[0] = v[0];
+    wasm._tempMemFloat[1] = v[1];
+    wasm._tempMemFloat[2] = v[2];
+    wasm._wl_object_transformVectorInverseWorld(this.objectId, wasm._tempMem);
+    out[0] = wasm._tempMemFloat[0];
+    out[1] = wasm._tempMemFloat[1];
+    out[2] = wasm._tempMemFloat[2];
+    return out;
+  }
+  /**
+   * Transform a vector by this object's inverse local transform.
+   *
+   * @param out Out vector
+   * @param v Vector to transform, default `out`
+   * @return The `out` parameter.
+   *
+   * @since 0.8.7
+   */
+  transformVectorInverseLocal(out, v = out) {
+    const wasm = this._engine.wasm;
+    wasm._tempMemFloat[0] = v[0];
+    wasm._tempMemFloat[1] = v[1];
+    wasm._tempMemFloat[2] = v[2];
+    wasm._wl_object_transformVectorInverseLocal(this.objectId, wasm._tempMem);
+    out[0] = wasm._tempMemFloat[0];
+    out[1] = wasm._tempMemFloat[1];
+    out[2] = wasm._tempMemFloat[2];
+    return out;
+  }
+  /**
+   * Transform a point by this object's inverse world transform.
+   *
+   * @param out Out point.
+   * @param p Point to transform, default `out`.
+   * @return The `out` parameter.
+   *
+   * @since 0.8.7
+   */
+  transformPointInverseWorld(out, p = out) {
+    const wasm = this._engine.wasm;
+    wasm._tempMemFloat[0] = p[0];
+    wasm._tempMemFloat[1] = p[1];
+    wasm._tempMemFloat[2] = p[2];
+    wasm._wl_object_transformPointInverseWorld(this.objectId, wasm._tempMem);
+    out[0] = wasm._tempMemFloat[0];
+    out[1] = wasm._tempMemFloat[1];
+    out[2] = wasm._tempMemFloat[2];
+    return out;
+  }
+  /**
+   * Transform a point by this object's inverse local transform.
+   *
+   * @param out Out point.
+   * @param p Point to transform, default `out`.
+   * @return The `out` parameter.
+   *
+   * @since 0.8.7
+   */
+  transformPointInverseLocal(out, p = out) {
+    const wasm = this._engine.wasm;
+    wasm._tempMemFloat.set(p);
+    wasm._wl_object_transformPointInverseLocal(this.objectId, wasm._tempMem);
+    out[0] = wasm._tempMemFloat[0];
+    out[1] = wasm._tempMemFloat[1];
+    out[2] = wasm._tempMemFloat[2];
+    return out;
+  }
+  /**
+   * Transform an object space dual quaternion into world space.
+   *
+   * @param out Out transformation.
+   * @param q Local space transformation, default `out`.
+   * @return The `out` parameter.
+   *
+   * @since 0.8.7
+   */
+  toWorldSpaceTransform(out, q = out) {
+    const wasm = this._engine.wasm;
+    wasm._tempMemFloat.set(q);
+    wasm._wl_object_toWorldSpaceTransform(this.objectId, wasm._tempMem);
+    out[0] = wasm._tempMemFloat[0];
+    out[1] = wasm._tempMemFloat[1];
+    out[2] = wasm._tempMemFloat[2];
+    out[3] = wasm._tempMemFloat[3];
+    out[4] = wasm._tempMemFloat[4];
+    out[5] = wasm._tempMemFloat[5];
+    out[6] = wasm._tempMemFloat[6];
+    out[7] = wasm._tempMemFloat[7];
+    return out;
+  }
+  /**
+   * Transform a world space dual quaternion into local space.
+   *
+   * @param out Out transformation
+   * @param q World space transformation, default `out`
+   * @return The `out` parameter.
+   *
+   * @since 0.8.7
+   */
+  toLocalSpaceTransform(out, q = out) {
+    const p = this.parent;
+    if (p) {
+      p.toObjectSpaceTransform(out, q);
+      return out;
+    }
+    if (out !== q) {
+      out[0] = q[0];
+      out[1] = q[1];
+      out[2] = q[2];
+      out[3] = q[3];
+      out[4] = q[4];
+      out[5] = q[5];
+      out[6] = q[6];
+      out[7] = q[7];
+    }
+    return out;
+  }
+  /**
+   * Transform a world space dual quaternion into object space.
+   *
+   * @param out Out transformation.
+   * @param q World space transformation, default `out`
+   * @return The `out` parameter.
+   *
+   * @since 0.8.7
+   */
+  toObjectSpaceTransform(out, q = out) {
+    const wasm = this._engine.wasm;
+    wasm._tempMemFloat.set(q);
+    wasm._wl_object_toObjectSpaceTransform(this.objectId, wasm._tempMem);
+    out[0] = wasm._tempMemFloat[0];
+    out[1] = wasm._tempMemFloat[1];
+    out[2] = wasm._tempMemFloat[2];
+    out[3] = wasm._tempMemFloat[3];
+    out[4] = wasm._tempMemFloat[4];
+    out[5] = wasm._tempMemFloat[5];
+    out[6] = wasm._tempMemFloat[6];
+    out[7] = wasm._tempMemFloat[7];
+    return out;
+  }
+  /**
+   * Turn towards / look at target.
+   *
+   * Rotates the object so that its forward vector faces towards the target
+   * position. The `up` vector acts as a hint to uniquely orient the object's
+   * up direction. When orienting a view component, the projected `up` vector
+   * faces upwards on the viewing plane.
+   *
+   * @param p Target position to turn towards, in world space.
+   * @param up Up vector to align object with, in world space. Default is `[0, 1, 0]`.
+   *
+   * @returns Reference to self (for method chaining).
+   */
+  lookAt(p, up = UP_VECTOR) {
+    this._engine.wasm._wl_object_lookAt(this.objectId, p[0], p[1], p[2], up[0], up[1], up[2]);
+    return this;
+  }
+  /** Destroy the object with all of its components and remove it from the scene */
+  destroy() {
+    this._engine.wasm._wl_scene_remove_object(this.objectId);
+    this._objectId = -1;
+  }
+  /**
+   * Mark transformation dirty.
+   *
+   * Causes an eventual recalculation of {@link transformWorld}, either
+   * on next {@link getTranslationWorld}, {@link transformWorld} or
+   * {@link scalingWorld} or the beginning of next frame, whichever
+   * happens first.
+   */
+  setDirty() {
+    this._engine.wasm._wl_object_set_dirty(this.objectId);
+  }
+  /**
+   * Disable/enable all components of this object.
+   *
+   * @param b New state for the components.
+   *
+   * @since 0.8.5
+   */
+  set active(b) {
+    const comps = this.getComponents();
+    for (let c of comps) {
+      c.active = b;
+    }
+  }
+  getComponent(typeOrClass, index = 0) {
+    const type = isString(typeOrClass) ? typeOrClass : typeOrClass.TypeName;
+    const wasm = this._engine.wasm;
+    const componentType = wasm._wl_get_component_manager_index(wasm.tempUTF8(type));
+    if (componentType < 0) {
+      const typeIndex = wasm._componentTypeIndices[type];
+      if (typeIndex === void 0)
+        return null;
+      const jsIndex = wasm._wl_get_js_component_index(this.objectId, typeIndex, index);
+      return jsIndex < 0 ? null : this._engine.wasm._components[jsIndex];
+    }
+    const componentId = this._engine.wasm._wl_get_component_id(this.objectId, componentType, index);
+    return this._engine._wrapComponent(type, componentType, componentId);
+  }
+  /**
+   * @param typeOrClass Type name, pass a falsey value (`undefined` or `null`) to retrieve all.
+   *     It's also possible to give a class definition. In this case, the method will use the `class.TypeName` field to
+   *     find the components.
+   * @returns All components of given type attached to this object.
+   *
+   * @note As this function is non-trivial, avoid using it in `update()` repeatedly,
+   *      but rather store its result in `init()` or `start()`
+   * @warning This method will currently return at most 341 components.
+   */
+  getComponents(typeOrClass) {
+    const wasm = this._engine.wasm;
+    let componentType = null;
+    let type = null;
+    if (typeOrClass) {
+      type = isString(typeOrClass) ? typeOrClass : typeOrClass.TypeName;
+      componentType = wasm._typeIndexFor(type);
+    }
+    const components = [];
+    const maxComps = Math.floor(wasm._tempMemSize / 3 * 2);
+    const componentsCount = wasm._wl_object_get_components(this.objectId, wasm._tempMem, maxComps);
+    const offset2 = 2 * componentsCount;
+    wasm._wl_object_get_component_types(this.objectId, wasm._tempMem + offset2, maxComps);
+    const jsManagerIndex = wasm._typeIndexFor("js");
+    for (let i = 0; i < componentsCount; ++i) {
+      const t = wasm._tempMemUint8[i + offset2];
+      const componentId = wasm._tempMemUint16[i];
+      if (t == jsManagerIndex) {
+        const typeIndex = wasm._wl_get_js_component_index_for_id(componentId);
+        const comp = wasm._components[typeIndex];
+        if (componentType === null || comp.type == type)
+          components.push(comp);
+        continue;
+      }
+      if (componentType === null) {
+        const managerName = wasm._typeNameFor(t);
+        components.push(this._engine._wrapComponent(managerName, t, componentId));
+      } else if (t == componentType) {
+        components.push(this._engine._wrapComponent(type, componentType, componentId));
+      }
+    }
+    return components;
+  }
+  addComponent(typeOrClass, params) {
+    const wasm = this._engine.wasm;
+    const type = isString(typeOrClass) ? typeOrClass : typeOrClass.TypeName;
+    const componentType = wasm._typeIndexFor(type);
+    let component = null;
+    let componentIndex = null;
+    if (componentType < 0) {
+      if (!(type in wasm._componentTypeIndices)) {
+        throw new TypeError("Unknown component type '" + type + "'");
+      }
+      const componentId = wasm._wl_object_add_js_component(this.objectId, wasm._componentTypeIndices[type]);
+      componentIndex = wasm._wl_get_js_component_index_for_id(componentId);
+      component = wasm._components[componentIndex];
+    } else {
+      const componentId = wasm._wl_object_add_component(this.objectId, componentType);
+      component = this._engine._wrapComponent(type, componentType, componentId);
+    }
+    if (params !== void 0) {
+      const ctor = component.constructor;
+      for (const key in params) {
+        if (!(key in ctor.Properties))
+          continue;
+        component[key] = params[key];
+      }
+    }
+    if (componentType < 0) {
+      wasm._wljs_component_init(componentIndex);
+    }
+    if (!params || !("active" in params && !params.active)) {
+      component.active = true;
+    }
+    return component;
+  }
+  /**
+   * Whether given object's transformation has changed.
+   */
+  get changed() {
+    return !!this._engine.wasm._wl_object_is_changed(this.objectId);
+  }
+  /**
+   * Checks equality by comparing whether the wrapped native object ids are
+   * equal.
+   *
+   * @param otherObject Object to check equality with.
+   * @returns Whether this object equals the given object.
+   */
+  equals(otherObject) {
+    if (!otherObject)
+      return false;
+    return this.objectId == otherObject.objectId;
+  }
+};
+var Skin = class {
+  /**
+   * Index of the skin in the manager.
+   * @hidden
+   */
+  _index;
+  /** Wonderland Engine instance. @hidden */
+  _engine;
+  constructor(engine2, index) {
+    this._engine = engine2;
+    this._index = index;
+  }
+  /** Amount of joints in this skin. */
+  get jointCount() {
+    return this._engine.wasm._wl_skin_get_joint_count(this._index);
+  }
+  /** Joints object ids for this skin */
+  get jointIds() {
+    const wasm = this._engine.wasm;
+    return new Uint16Array(wasm.HEAPU16.buffer, wasm._wl_skin_joint_ids(this._index), this.jointCount);
+  }
+  /**
+   * Dual quaternions in a flat array of size 8 times {@link jointCount}.
+   *
+   * Inverse bind transforms of the skin.
+   */
+  get inverseBindTransforms() {
+    const wasm = this._engine.wasm;
+    return new Float32Array(wasm.HEAPF32.buffer, wasm._wl_skin_inverse_bind_transforms(this._index), 8 * this.jointCount);
+  }
+  /**
+   * Vectors in a flat array of size 3 times {@link jointCount}.
+   *
+   * Inverse bind scalings of the skin.
+   */
+  get inverseBindScalings() {
+    const wasm = this._engine.wasm;
+    return new Float32Array(wasm.HEAPF32.buffer, wasm._wl_skin_inverse_bind_scalings(this._index), 3 * this.jointCount);
+  }
+  /**
+   * Checks equality by comparing whether the wrapped native skin ids are
+   * equal.
+   *
+   * @param otherSkin Skin to check equality with.
+   * @returns Whether this skin equals the given skin.
+   *
+   * @since 1.0.0
+   */
+  equals(otherSkin) {
+    if (!otherSkin)
+      return false;
+    return this._index === otherSkin._index;
+  }
+};
+var RayHit = class {
+  /** Wonderland Engine instance. @hidden */
+  _engine;
+  /** Pointer to the memory heap. */
+  _ptr;
+  /**
+   * @param ptr Pointer to the ray hits memory.
+   */
+  constructor(engine2, ptr) {
+    if ((ptr & 3) !== 0) {
+      throw new Error("Misaligned pointer: please report a bug");
+    }
+    this._engine = engine2;
+    this._ptr = ptr;
+  }
+  /** Array of ray hit locations. */
+  get locations() {
+    let p = this._ptr;
+    let l = [];
+    for (let i = 0; i < this.hitCount; ++i) {
+      l.push(new Float32Array(this._engine.wasm.HEAPF32.buffer, p + 12 * i, 3));
+    }
+    return l;
+  }
+  /** Array of ray hit normals (only when using {@link Physics#rayCast}. */
+  get normals() {
+    let p = this._ptr + 48;
+    let l = [];
+    for (let i = 0; i < this.hitCount; ++i) {
+      l.push(new Float32Array(this._engine.wasm.HEAPF32.buffer, p + 12 * i, 3));
+    }
+    return l;
+  }
+  /**
+   * Prefer these to recalculating the distance from locations.
+   *
+   * Distances of array hits to ray origin.
+   */
+  get distances() {
+    const p = this._ptr + 48 * 2;
+    return new Float32Array(this._engine.wasm.HEAPF32.buffer, p, this.hitCount);
+  }
+  /** Hit objects */
+  get objects() {
+    const HEAPU16 = this._engine.wasm.HEAPU16;
+    const objects = [null, null, null, null];
+    let p = this._ptr + (48 * 2 + 16) >> 1;
+    for (let i = 0; i < this.hitCount; ++i) {
+      objects[i] = this._engine.wrapObject(HEAPU16[p + i]);
+    }
+    return objects;
+  }
+  /** Number of hits (max 4) */
+  get hitCount() {
+    return Math.min(this._engine.wasm.HEAPU32[this._ptr / 4 + 30], 4);
+  }
+};
+var math = class {
+  /** (Experimental!) Cubic Hermite spline interpolation for vector3 and quaternions.
+   *
+   * With `f == 0`, `out` will be `b`, if `f == 1`, `out` will be c.
+   *
+   * Whether a quaternion or vector3 interpolation is intended is determined by
+   * length of `a`.
+   *
+   * @param out Array to write result to.
+   * @param a First tangent/handle.
+   * @param b First point or quaternion.
+   * @param c Second point or quaternion.
+   * @param d Second handle.
+   * @param f Interpolation factor in [0; 1].
+   * @returns The `out` parameter.
+   *
+   * @since 0.8.6
+   */
+  static cubicHermite(out, a, b, c, d, f, engine2 = WL) {
+    const wasm = engine2.wasm;
+    wasm._tempMemFloat.subarray(0).set(a);
+    wasm._tempMemFloat.subarray(4).set(b);
+    wasm._tempMemFloat.subarray(8).set(c);
+    wasm._tempMemFloat.subarray(12).set(d);
+    const isQuat = a.length == 4;
+    wasm._wl_math_cubicHermite(wasm._tempMem + 4 * 16, wasm._tempMem + 4 * 0, wasm._tempMem + 4 * 4, wasm._tempMem + 4 * 8, wasm._tempMem + 4 * 12, f, isQuat);
+    out[0] = wasm._tempMemFloat[16];
+    out[1] = wasm._tempMemFloat[17];
+    out[2] = wasm._tempMemFloat[18];
+    if (isQuat)
+      out[3] = wasm._tempMemFloat[19];
+    return out;
+  }
+};
+var I18N = class {
+  /**
+   * {@link Emitter} for language change events.
+   *
+   * First parameter to a listener is the old language index,
+   * second parameter is the new language index.
+   *
+   * Usage from a within a component:
+   * ```js
+   * this.engine.i18n.onLanguageChanged.add((oldLanguageIndex, newLanguageIndex) => {
+   *     const oldLanguage = this.engine.i18n.languageName(oldLanguageIndex);
+   *     const newLanguage = this.engine.i18n.languageName(newLanguageIndex);
+   *     console.log("Switched from", oldLanguage, "to", newLanguage);
+   * });
+   * ```
+   */
+  onLanguageChanged = new Emitter();
+  /** Wonderland Engine instance. @hidden */
+  _engine;
+  /**
+   * Constructor
+   */
+  constructor(engine2) {
+    this._engine = engine2;
+  }
+  /**
+   * Set current language and apply translations to linked text parameters.
+   *
+   * @param code Language code to switch to
+   */
+  set language(code) {
+    if (code == null)
+      return;
+    const wasm = this._engine.wasm;
+    wasm._wl_i18n_setLanguage(wasm.tempUTF8(code));
+  }
+  /**
+   * Get current language code.
+   *
+   */
+  get language() {
+    const wasm = this._engine.wasm;
+    const code = wasm._wl_i18n_currentLanguage();
+    if (code === 0)
+      return null;
+    return wasm.UTF8ToString(code);
+  }
+  /**
+   * Get translated string for a term for the currently loaded language.
+   *
+   * @param term Term to translate
+   */
+  translate(term) {
+    const wasm = this._engine.wasm;
+    const translation = wasm._wl_i18n_translate(wasm.tempUTF8(term));
+    if (translation === 0)
+      return null;
+    return wasm.UTF8ToString(translation);
+  }
+  /**
+   * Get the number of languages in the project.
+   *
+   */
+  languageCount() {
+    const wasm = this._engine.wasm;
+    return wasm._wl_i18n_languageCount();
+  }
+  /**
+   * Get a language code.
+   *
+   * @param index Index of the language to get the code from
+   */
+  languageIndex(code) {
+    const wasm = this._engine.wasm;
+    return wasm._wl_i18n_languageIndex(wasm.tempUTF8(code));
+  }
+  /**
+   * Get a language code.
+   *
+   * @param index Index of the language to get the code from
+   */
+  languageCode(index) {
+    const wasm = this._engine.wasm;
+    const code = wasm._wl_i18n_languageCode(index);
+    if (code === 0)
+      return null;
+    return wasm.UTF8ToString(code);
+  }
+  /**
+   * Get a language name.
+   *
+   * @param index Index of the language to get the name from
+   */
+  languageName(index) {
+    const wasm = this._engine.wasm;
+    const name = wasm._wl_i18n_languageName(index);
+    if (name === 0)
+      return null;
+    return wasm.UTF8ToString(name);
+  }
+};
+var XR = class {
+  /** Wonderland WASM bridge. @hidden */
+  #wasm;
+  #mode;
+  constructor(wasm, mode) {
+    this.#wasm = wasm;
+    this.#mode = mode;
+  }
+  /** Current WebXR session mode */
+  get sessionMode() {
+    return this.#mode;
+  }
+  /** Current WebXR session */
+  get session() {
+    return this.#wasm.webxr_session;
+  }
+  /** Current WebXR frame */
+  get frame() {
+    return this.#wasm.webxr_frame;
+  }
+  referenceSpaceForType(type) {
+    return this.#wasm.webxr_refSpaces[type] ?? null;
+  }
+  /** Set current reference space type used for retrieving eye, head, hand and joint poses */
+  set currentReferenceSpace(refSpace) {
+    this.#wasm.webxr_refSpace = refSpace;
+    this.#wasm.webxr_refSpaceType = null;
+    for (const type of Object.keys(this.#wasm.webxr_refSpaces)) {
+      if (this.#wasm.webxr_refSpaces[type] === refSpace) {
+        this.#wasm.webxr_refSpaceType = type;
+      }
+    }
+  }
+  /** Current reference space type used for retrieving eye, head, hand and joint poses */
+  get currentReferenceSpace() {
+    return this.#wasm.webxr_refSpace;
+  }
+  /** Current WebXR reference space type or `null` if not a default reference space */
+  get currentReferenceSpaceType() {
+    return this.#wasm.webxr_refSpaceType;
+  }
+  /** Current WebXR base layer  */
+  get baseLayer() {
+    return this.#wasm.webxr_baseLayer;
+  }
+  /** Current WebXR framebuffer */
+  get framebuffers() {
+    if (!Array.isArray(this.#wasm.webxr_fbo)) {
+      return [this.#wasm.GL.framebuffers[this.#wasm.webxr_fbo]];
+    }
+    return this.#wasm.webxr_fbo.map((id) => this.#wasm.GL.framebuffers[id]);
   }
 };
 
-// node_modules/@wonderlandengine/api/engine.js
+// node_modules/@wonderlandengine/api/dist/texture-manager.js
+var TextureManager = class {
+  /** Wonderland Engine instance. @hidden */
+  _engine;
+  /** Texture cache. @hidden */
+  #cache = [];
+  /** @hidden */
+  constructor(engine2) {
+    this._engine = engine2;
+  }
+  /**
+   * Retrieve the texture with the given id.
+   *
+   * @param id The texture identifier.
+   * @return The {@link Texture} if found, `null` otherwise.
+   */
+  get(id) {
+    return this.#cache[id] ?? null;
+  }
+  /**
+   * Load an image from URL as {@link Texture}.
+   *
+   * @param filename URL to load from.
+   * @param crossOrigin Cross origin flag for the image object.
+   * @returns Loaded texture.
+   */
+  load(filename, crossOrigin) {
+    let image = new Image();
+    image.crossOrigin = crossOrigin ?? image.crossOrigin;
+    image.src = filename;
+    return new Promise((resolve, reject) => {
+      image.onload = () => {
+        let texture = new Texture(this._engine, image);
+        if (!texture.valid) {
+          reject("Failed to add image " + image.src + " to texture atlas. Probably incompatible format.");
+        }
+        resolve(texture);
+      };
+      image.onerror = function() {
+        reject("Failed to load image. Not found or no read access");
+      };
+    });
+  }
+  /**
+   * Wrap a texture ID using {@link Texture}.
+   *
+   * @note This method performs caching and will return the same
+   * instance on subsequent calls.
+   *
+   * @param id ID of the texture to create.
+   *
+   * @returns The texture.
+   */
+  wrap(id) {
+    const texture = this.#cache[id] ?? (this.#cache[id] = new Texture(this._engine, id));
+    texture["_id"] = id;
+    return texture;
+  }
+  /** Number of textures allocated in the manager. */
+  get allocatedCount() {
+    return this.#cache.length;
+  }
+  /**
+   * Number of textures in the manager.
+   *
+   * @note For performance reasons, avoid calling this method when possible.
+   */
+  get count() {
+    let count = 0;
+    for (const tex of this.#cache) {
+      if (tex && tex.id >= 0)
+        ++count;
+    }
+    return count;
+  }
+  /**
+   * Set a new texture in the manager cache.
+   *
+   * @note This api is meant to be used internally.
+   *
+   * @param texture The texture to add.
+   *
+   * @hidden
+   */
+  _set(texture) {
+    this.#cache[texture.id] = texture;
+  }
+  /**
+   * Destroys the texture.
+   *
+   * @note This api is meant to be used internally.
+   *
+   * @param texture The texture to destroy.
+   *
+   * @hidden
+   */
+  _destroy(texture) {
+    this._engine.wasm._wl_texture_destroy(texture.id);
+    const img = texture["_imageIndex"];
+    if (img !== null) {
+      this._engine.wasm._images[img] = null;
+    }
+  }
+  /**
+   * Reset the manager.
+   *
+   * @note This api is meant to be used internally.
+   *
+   * @hidden
+   */
+  _reset() {
+    this.#cache.length = 0;
+  }
+};
+
+// node_modules/@wonderlandengine/api/dist/engine.js
+var WonderlandEngine = class {
+  /**
+   * {@link Emitter} for WebXR session end events.
+   *
+   * Usage from a within a component:
+   * ```js
+   * this.engine.onXRSessionEnd.add(() => console.log("XR session ended."));
+   * ```
+   */
+  onXRSessionEnd = new Emitter();
+  /**
+   * {@link Emitter} for WebXR session start events.
+   *
+   * Usage from a within a component:
+   * ```js
+   * this.engine.onXRSessionStart.add((session, mode) => console.log(session, mode));
+   * ```
+   *
+   * By default, this emitter is retained and will automatically call any callback added
+   * while a session is already started:
+   *
+   * ```js
+   * // XR session is already active.
+   * this.engine.onXRSessionStart.add((session, mode) => {
+   *     console.log(session, mode); // Triggered immediately.
+   * });
+   * ```
+   */
+  onXRSessionStart = new RetainEmitter();
+  /**
+   * {@link Emitter} for canvas / main framebuffer resize events.
+   *
+   * Usage from a within a component:
+   * ```js
+   * this.engine.onResize.add(() => {
+   *     const canvas = this.engine.canvas;
+   *     console.log(`New Size: ${canvas.width}, ${canvas.height}`);
+   * });
+   * ```
+   *
+   * @note The size of the canvas is in physical pixels, and is set via {@link WonderlandEngine.resize}.
+   */
+  onResize = new Emitter();
+  /** Whether AR is supported by the browser. */
+  arSupported = false;
+  /** Whether VR is supported by the browser. */
+  vrSupported = false;
+  /**
+   * {@link Emitter} for scene loaded events.
+   *
+   * Listeners get notified when a call to {@link Scene#load()} finishes,
+   * which also happens after the main scene has replaced the loading screen.
+   *
+   * Usage from a within a component:
+   * ```js
+   * this.engine.onSceneLoaded.add(() => console.log("Scene switched!"));
+   * ```
+   */
+  onSceneLoaded = new Emitter();
+  /**
+   * Current main scene.
+   */
+  scene = null;
+  /**
+   * Access to internationalization.
+   */
+  i18n = new I18N(this);
+  /**
+   * WebXR related state, `null` if no XR session is active.
+   */
+  xr = null;
+  /* Component class instances per type to avoid GC */
+  _componentCache = {};
+  /* Object class instances per type to avoid GC */
+  _objectCache = [];
+  /**
+   * WebAssembly bridge.
+   *
+   * @hidden
+   */
+  #wasm;
+  /**
+   * Physics manager, only available when physx is enabled in the runtime.
+   *
+   * @hidden
+   */
+  #physics = null;
+  /** Texture manager. @hidden */
+  #textures = new TextureManager(this);
+  /**
+   * Resize observer to track for canvas size changes.
+   *
+   * @hidden
+   */
+  #resizeObserver = null;
+  /**
+   * Create a new engine instance.
+   *
+   * @param wasm Wasm bridge instance
+   * @param loadingScreen Loading screen .bin file data
+   *
+   * @hidden
+   */
+  constructor(wasm, loadingScreen) {
+    this.#wasm = wasm;
+    this.#wasm["_setEngine"](this);
+    this.#wasm._loadingScreen = loadingScreen;
+    this._componentCache = {};
+    this._objectCache.length = 0;
+    this.canvas.addEventListener("webglcontextlost", function(e) {
+      console.error("Context lost:");
+      console.error(e);
+    }, false);
+  }
+  /**
+   * Start the engine if it's not already running.
+   *
+   * When using the {@link loadRuntime} function, this method is called
+   * automatically.
+   */
+  start() {
+    this.wasm._wl_application_start();
+  }
+  /**
+   * Register a custom JavaScript component type.
+   *
+   * You can register a component directly using a class inheriting from {@link Component}:
+   *
+   * ```js
+   * import { Component, Type } from '@wonderlandengine/api';
+   *
+   * export class MyComponent extends Component {
+   *     static TypeName = 'my-component';
+   *     static Properties = {
+   *         myParam: {type: Type.Float, default: 42.0},
+   *     };
+   *     init() {}
+   *     start() {}
+   *     update(dt) {}
+   *     onActivate() {}
+   *     onDeactivate() {}
+   *     onDestroy() {}
+   * });
+   *
+   * // Here, we assume we have an engine already instantiated.
+   * // In general, the registration occurs in the `index.js` file in your
+   * // final application.
+   * engine.registerComponent(MyComponent);
+   * ```
+   *
+   * {@label CLASSES}
+   * @param classes Custom component(s) extending {@link Component}.
+   *
+   * @since 1.0.0
+   */
+  registerComponent(...classes) {
+    for (const arg of classes) {
+      this.wasm._registerComponent(arg);
+    }
+  }
+  /**
+   * Checks whether the given component is registered or not.
+   *
+   * @param typeOrClass A string representing the component typename (e.g., `'cursor-component'`),
+   *     or a component class (e.g., `CursorComponent`).
+   * @returns `true` if the component is registered, `false` otherwise.
+   */
+  isRegistered(typeOrClass) {
+    return this.#wasm.isRegistered(isString(typeOrClass) ? typeOrClass : typeOrClass.TypeName);
+  }
+  /**
+   * Resize the canvas and the rendering context.
+   *
+   * @note The `width` and `height` parameters will be scaled by the
+   * `devicePixelRatio` value. By default, the pixel ratio used is
+   * [window.devicePixelRatio](https://developer.mozilla.org/en-US/docs/Web/API/Window/devicePixelRatio).
+   *
+   * @param width The width, in CSS pixels.
+   * @param height The height, in CSS pixels.
+   * @param devicePixelRatio The pixel ratio factor.
+   */
+  resize(width, height, devicePixelRatio = window.devicePixelRatio) {
+    width = width * devicePixelRatio;
+    height = height * devicePixelRatio;
+    this.canvas.width = width;
+    this.canvas.height = height;
+    this.wasm._wl_application_resize(width, height);
+    this.onResize.notify();
+  }
+  /**
+   * Run the next frame.
+   *
+   * @param fixedDelta The elapsed time between this frame and the previous one.
+   *
+   * @note The engine automatically schedules next frames. You should only
+   * use this method for testing.
+   */
+  nextFrame(fixedDelta) {
+    this.#wasm._wl_nextFrame(fixedDelta);
+  }
+  /**
+   * Request a XR session.
+   *
+   * @note Please use this call instead of directly calling `navigator.xr.requestSession()`.
+   * Wonderland Engine requires to be aware that a session is started, and this
+   * is done through this call.
+   *
+   * @param mode The XR mode.
+   * @param features An array of required features, e.g., `['local-floor', 'hit-test']`.
+   * @param optionalFeatures An array of optional features, e.g., `['bounded-floor', 'depth-sensing']`.
+   * @returns A promise resolving with the `XRSession`, a string error message otherwise.
+   */
+  requestXRSession(mode, features, optionalFeatures = []) {
+    if (!navigator.xr) {
+      const isLocalhost = location.hostname === "localhost" || location.hostname === "127.0.0.1";
+      const missingHTTPS = location.protocol !== "https:" && !isLocalhost;
+      return Promise.reject(missingHTTPS ? "WebXR is only supported with HTTPS or on localhost!" : "WebXR unsupported in this browser.");
+    }
+    return this.#wasm.webxr_requestSession(mode, features, optionalFeatures);
+  }
+  /**
+   * Wrap an object ID using {@link Object}.
+   *
+   * @note This method performs caching and will return the same
+   * instance on subsequent calls.
+   *
+   * @param objectId ID of the object to create.
+   *
+   * @returns The object
+   */
+  wrapObject(objectId) {
+    const cache = this._objectCache;
+    const o = cache[objectId] || (cache[objectId] = new Object3D(this, objectId));
+    o["_objectId"] = objectId;
+    return o;
+  }
+  /* Public Getters & Setter */
+  /**
+   * WebAssembly bridge.
+   *
+   * @note Use with care. This object is used to communicate
+   * with the WebAssembly code throughout the api.
+   *
+   * @hidden
+   */
+  get wasm() {
+    return this.#wasm;
+  }
+  /** Canvas element that Wonderland Engine renders to. */
+  get canvas() {
+    return this.#wasm.canvas;
+  }
+  /**
+   * Current WebXR session or `null` if no session active.
+   *
+   * @deprecated Use {@link XR.session} on the {@link xr}
+   * object instead.
+   */
+  get xrSession() {
+    return this.xr?.session ?? null;
+  }
+  /**
+   * Current WebXR frame or `null` if no session active.
+   *
+   * @deprecated Use {@link XR.frame} on the {@link xr}
+   * object instead.
+   */
+  get xrFrame() {
+    return this.xr?.frame ?? null;
+  }
+  /**
+   * Current WebXR base layer or `null` if no session active.
+   *
+   * @deprecated Use {@link XR.baseLayer} on the {@link xr}
+   * object instead.
+   */
+  get xrBaseLayer() {
+    return this.xr?.baseLayer ?? null;
+  }
+  /**
+   * Current WebXR framebuffer or `null` if no session active.
+   *
+   * @deprecated Use {@link XR.framebuffers} on the
+   * {@link xr} object instead.
+   */
+  get xrFramebuffer() {
+    return this.xr?.framebuffers[0] ?? null;
+  }
+  /** Framebuffer scale factor. */
+  get xrFramebufferScaleFactor() {
+    return this.#wasm.webxr_framebufferScaleFactor;
+  }
+  set xrFramebufferScaleFactor(value) {
+    this.#wasm.webxr_framebufferScaleFactor = value;
+  }
+  /** Physics manager, only available when physx is enabled in the runtime. */
+  get physics() {
+    return this.#physics;
+  }
+  /**
+   * Texture managger.
+   *
+   * Use this to load or programmatically create new textures at runtime.
+   */
+  get textures() {
+    return this.#textures;
+  }
+  /*
+   * Enable or disable the mechanism to automatically resize the canvas.
+   *
+   * Internally, the engine uses a [ResizeObserver](https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserver).
+   * Changing the canvas css will thus automatically be tracked by the engine.
+   */
+  set autoResizeCanvas(flag) {
+    const state = !!this.#resizeObserver;
+    if (state === flag)
+      return;
+    if (!flag) {
+      this.#resizeObserver?.unobserve(this.canvas);
+      this.#resizeObserver = null;
+      return;
+    }
+    this.#resizeObserver = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        if (entry.target === this.canvas) {
+          this.resize(entry.contentRect.width, entry.contentRect.height);
+        }
+      }
+    });
+    this.#resizeObserver.observe(this.canvas);
+  }
+  /** `true` if the canvas is automatically resized by the engine. */
+  get autoResizeCanvas() {
+    return this.#resizeObserver !== null;
+  }
+  /** Retrieves the runtime version. */
+  get runtimeVersion() {
+    const wasm = this.#wasm;
+    const v = wasm._wl_application_version(wasm._tempMem);
+    return {
+      major: wasm._tempMemUint16[0],
+      minor: wasm._tempMemUint16[1],
+      patch: wasm._tempMemUint16[2],
+      rc: wasm._tempMemUint16[3]
+    };
+  }
+  /* Internal-Only Methods */
+  /**
+   * Initialize the engine.
+   *
+   * @note Should be called after the WebAssembly is fully loaded.
+   *
+   * @hidden
+   */
+  _init() {
+    this.scene = new Scene(this);
+    this.#wasm._wl_set_error_callback(this.#wasm.addFunction((messagePtr) => {
+      throw new Error(this.#wasm.UTF8ToString(messagePtr));
+    }, "vi"));
+    this.#physics = null;
+    if (this.#wasm.withPhysX) {
+      const physics = new Physics(this);
+      this.#wasm._wl_physx_set_collision_callback(this.#wasm.addFunction((a, index, type, b) => {
+        const callback = physics._callbacks[a][index];
+        const component = new PhysXComponent(this, this.wasm._typeIndexFor("physx"), b);
+        callback(type, component);
+      }, "viiii"));
+      this.#physics = physics;
+    }
+    this.resize(this.canvas.clientWidth, this.canvas.clientHeight);
+  }
+  /**
+   * Reset the runtime state, including:
+   *     - Component cache
+   *     - Images
+   *     - Callbacks
+   *
+   * @note This api is meant to be used internally.
+   *
+   * @hidden
+   */
+  _reset() {
+    this._componentCache = {};
+    this._objectCache.length = 0;
+    this.#textures._reset();
+    this.scene.reset();
+    this.wasm.reset();
+  }
+  /**
+   * Retrieves a component instance if it exists, or create and cache
+   * a new one.
+   *
+   * @note This api is meant to be used internally. Please have a look at
+   * {@link Object3D.addComponent} instead.
+   *
+   * @param type component type name
+   * @param componentType Component manager index
+   * @param componentId Component id in the manager
+   *
+   * @returns JavaScript instance wrapping the native component
+   *
+   * @hidden
+   */
+  _wrapComponent(type, componentType, componentId) {
+    if (componentId < 0)
+      return null;
+    const c = this._componentCache[componentType] || (this._componentCache[componentType] = []);
+    if (c[componentId]) {
+      return c[componentId];
+    }
+    let component;
+    if (type == "collision") {
+      component = new CollisionComponent(this, componentType, componentId);
+    } else if (type == "text") {
+      component = new TextComponent(this, componentType, componentId);
+    } else if (type == "view") {
+      component = new ViewComponent(this, componentType, componentId);
+    } else if (type == "mesh") {
+      component = new MeshComponent(this, componentType, componentId);
+    } else if (type == "input") {
+      component = new InputComponent(this, componentType, componentId);
+    } else if (type == "light") {
+      component = new LightComponent(this, componentType, componentId);
+    } else if (type == "animation") {
+      component = new AnimationComponent(this, componentType, componentId);
+    } else if (type == "physx") {
+      component = new PhysXComponent(this, componentType, componentId);
+    } else {
+      const typeIndex = this.wasm._componentTypeIndices[type];
+      const constructor = this.wasm._componentTypes[typeIndex];
+      component = new constructor(this);
+    }
+    component._engine = this;
+    component._manager = componentType;
+    component._id = componentId;
+    c[componentId] = component;
+    return component;
+  }
+};
+
+// node_modules/@wonderlandengine/api/dist/wasm.js
 var _componentDefaults = /* @__PURE__ */ new Map([
   [Type.Bool, false],
   [Type.Int, 0],
@@ -3533,8 +7774,988 @@ var _componentDefaults = /* @__PURE__ */ new Map([
   [Type.Skin, null],
   [Type.Color, [0, 0, 0, 1]]
 ]);
+function _setupDefaults(ctor) {
+  for (const name in ctor.Properties) {
+    const p = ctor.Properties[name];
+    if (p.type === Type.Enum) {
+      if (p.values?.length) {
+        if (typeof p.default !== "number") {
+          p.default = p.values.indexOf(p.default);
+        }
+        if (p.default < 0 || p.default >= p.values.length) {
+          p.default = 0;
+        }
+      } else {
+        p.default = void 0;
+      }
+    } else {
+      p.default = p.default ?? _componentDefaults.get(p.type);
+    }
+    ctor.prototype[name] = p.default;
+  }
+}
+var WASM = class {
+  /**
+   * Emscripten worker field.
+   *
+   * @note This api is meant to be used internally.
+   */
+  worker = "";
+  /**
+   * Emscripten wasm field.
+   *
+   * @note This api is meant to be used internally.
+   */
+  wasm = null;
+  /**
+   * Emscripten canvas.
+   *
+   * @note This api is meant to be used internally.
+   */
+  canvas = null;
+  /** Current WebXR  */
+  /**
+   * Emscripten WebXR session.
+   *
+   * @note This api is meant to be used internally.
+   */
+  webxr_session = null;
+  /**
+   * Emscripten WebXR request session callback.
+   *
+   * @note This api is meant to be used internally.
+   */
+  webxr_requestSession = null;
+  /**
+   * Emscripten WebXR frame.
+   *
+   * @note This api is meant to be used internally.
+   */
+  webxr_frame = null;
+  /**
+   * Emscripten current WebXR reference space.
+   *
+   * @note This api is meant to be used internally.
+   */
+  webxr_refSpace = null;
+  /**
+   * Emscripten WebXR reference spaces.
+   *
+   * @note This api is meant to be used internally.
+   */
+  webxr_refSpaces = null;
+  /**
+   * Emscripten WebXR current reference space type.
+   *
+   * @note This api is meant to be used internally.
+   */
+  webxr_refSpaceType = null;
+  /**
+   * Emscripten WebXR GL projection layer.
+   *
+   * @note This api is meant to be used internally.
+   */
+  webxr_baseLayer = null;
+  /**
+   * Emscripten WebXR framebuffer scale factor.
+   *
+   * @note This api is meant to be used internally.
+   */
+  webxr_framebufferScaleFactor = 1;
+  /**
+   * Emscripten WebXR framebuffer(s).
+   *
+   * @note This api is meant to be used internally.
+   */
+  /* webxr_fbo will not get overwritten if we are rendering to the
+   * default framebuffer, e.g., when using WebXR emulator. */
+  webxr_fbo = 0;
+  /**
+   * Convert a WASM memory view to a JavaScript string.
+   *
+   * @param ptr Pointer start
+   * @param ptrEnd Pointer end
+   * @returns JavaScript string
+   */
+  UTF8ViewToString;
+  /** If `true`, logs will not spam the console on error. */
+  _deactivate_component_on_error = false;
+  /** Temporary memory pointer. */
+  _tempMem = null;
+  /** Temporary memory size. */
+  _tempMemSize = 0;
+  /** Temporary float memory view. */
+  _tempMemFloat = null;
+  /** Temporary int memory view. */
+  _tempMemInt = null;
+  /** Temporary uint8 memory view. */
+  _tempMemUint8 = null;
+  /** Temporary uint32 memory view. */
+  _tempMemUint32 = null;
+  /** Temporary uint16 memory view. */
+  _tempMemUint16 = null;
+  /** Loading screen .bin file data */
+  _loadingScreen = null;
+  /** List of callbacks triggered when the scene is loaded. */
+  _sceneLoadedCallback = [];
+  /**
+   * Material definition cache. Each pipeline has its own
+   * associated material definition.
+   */
+  _materialDefinitions = [];
+  /** Image cache. */
+  _images = [];
+  /** Component instances. */
+  _components = [];
+  /** Component Type info. */
+  _componentTypes = [];
+  /** Index per component type name. */
+  _componentTypeIndices = {};
+  /** Wonderland engine instance. */
+  _engine = null;
+  /**
+   * `true` if this runtime is using physx.
+   *
+   * @note This api is meant to be used internally.
+   */
+  _withPhysX = false;
+  /** Decoder for UTF8 `ArrayBuffer` to JavaScript string. */
+  _utf8Decoder = new TextDecoder("utf8");
+  /** List of .bin files to delay-load. */
+  _queuedBinFiles = [];
+  /**
+   * Create a new instance of the WebAssembly <> API bridge.
+   *
+   * @param threads `true` if the runtime used has threads support
+   */
+  constructor(threads2) {
+    if (threads2) {
+      this.UTF8ViewToString = (s, e) => {
+        if (!s)
+          return "";
+        return this._utf8Decoder.decode(this.HEAPU8.slice(s, e));
+      };
+      return;
+    }
+    this.UTF8ViewToString = (s, e) => {
+      if (!s)
+        return "";
+      return this._utf8Decoder.decode(this.HEAPU8.subarray(s, e));
+    };
+  }
+  /**
+   * Reset the cache of the library
+   *
+   * @note Should only be called when tearing down the runtime.
+   */
+  reset() {
+    this._materialDefinitions = [];
+    this._images = [];
+    this._components = [];
+    this._componentTypes = [];
+    this._componentTypeIndices = {};
+  }
+  /**
+   * Checks whether the given component is registered or not.
+   *
+   * @param ctor  A string representing the component typename (e.g., `'cursor-component'`).
+   * @returns `true` if the component is registered, `false` otherwise.
+   */
+  isRegistered(type) {
+    return type in this._componentTypeIndices;
+  }
+  /**
+   * Register a legacy component in this Emscripten instance.
+   *
+   * @note This api is meant to be used internally.
+   *
+   * @param typeName The name of the component.
+   * @param params An object containing the parameters (properties).
+   * @param object The object's prototype.
+   * @returns The registration index
+   */
+  _registerComponentLegacy(typeName, params, object) {
+    const ctor = class CustomComponent extends Component {
+    };
+    ctor.TypeName = typeName;
+    ctor.Properties = params;
+    Object.assign(ctor.prototype, object);
+    return this._registerComponent(ctor);
+  }
+  /**
+   * Register a class component in this Emscripten instance.
+   *
+   * @note This api is meant to be used internally.
+   *
+   * @param ctor The class to register.
+   * @returns The registration index.
+   */
+  _registerComponent(ctor) {
+    if (!ctor.TypeName)
+      throw new Error("no name provided for component.");
+    const dependencies = ctor.Dependencies;
+    if (dependencies) {
+      for (const dependency of dependencies) {
+        if (!this.isRegistered(dependency.TypeName)) {
+          this._registerComponent(dependency);
+        }
+      }
+    }
+    _setupDefaults(ctor);
+    const typeIndex = ctor.TypeName in this._componentTypeIndices ? this._componentTypeIndices[ctor.TypeName] : this._componentTypes.length;
+    this._componentTypes[typeIndex] = ctor;
+    this._componentTypeIndices[ctor.TypeName] = typeIndex;
+    console.log("Registered component", ctor.TypeName, `(class ${ctor.name})`, "with index", typeIndex);
+    if (ctor.onRegister)
+      ctor.onRegister(this._engine);
+    return typeIndex;
+  }
+  /**
+   * Allocate the requested amount of temporary memory
+   * in this WASM instance.
+   *
+   * @param size The number of bytes to allocate
+   */
+  allocateTempMemory(size) {
+    console.log("Allocating temp mem:", size);
+    this._tempMemSize = size;
+    if (this._tempMem)
+      this._free(this._tempMem);
+    this._tempMem = this._malloc(this._tempMemSize);
+    this.updateTempMemory();
+  }
+  /**
+   * @todo: Delete this and only keep `allocateTempMemory`
+   *
+   * @param size Number of bytes to allocate
+   */
+  requireTempMem(size) {
+    if (this._tempMemSize >= size)
+      return;
+    this.allocateTempMemory(Math.ceil(size / 1024) * 1024);
+  }
+  /**
+   * Update the temporary memory views. This must be called whenever the
+   * temporary memory address changes.
+   *
+   * @note This api is meant to be used internally.
+   */
+  updateTempMemory() {
+    this._tempMemFloat = new Float32Array(this.HEAP8.buffer, this._tempMem, this._tempMemSize >> 2);
+    this._tempMemInt = new Int32Array(this.HEAP8.buffer, this._tempMem, this._tempMemSize >> 2);
+    this._tempMemUint32 = new Uint32Array(this.HEAP8.buffer, this._tempMem, this._tempMemSize >> 2);
+    this._tempMemUint16 = new Uint16Array(this.HEAP8.buffer, this._tempMem, this._tempMemSize >> 1);
+    this._tempMemUint8 = new Uint8Array(this.HEAP8.buffer, this._tempMem, this._tempMemSize);
+  }
+  /**
+   * Returns a uint8 buffer view on temporary WASM memory.
+   *
+   * **Note**: this method might allocate if the requested memory is bigger
+   * than the current temporary memory allocated.
+   *
+   * @param count The number of **elements** required
+   * @returns A {@link TypedArray} over the WASM memory
+   */
+  getTempBufferU8(count) {
+    this.requireTempMem(count);
+    return this._tempMemUint8;
+  }
+  /**
+   * Returns a uint16 buffer view on temporary WASM memory.
+   *
+   * **Note**: this method might allocate if the requested memory is bigger
+   * than the current temporary memory allocated.
+   *
+   * @param count The number of **elements** required
+   * @returns A {@link TypedArray} over the WASM memory
+   */
+  getTempBufferU16(count) {
+    this.requireTempMem(count * 2);
+    return this._tempMemUint16;
+  }
+  /**
+   * Returns a uint32 buffer view on temporary WASM memory.
+   *
+   * **Note**: this method might allocate if the requested memory is bigger
+   * than the current temporary memory allocated.
+   *
+   * @param count The number of **elements** required.
+   * @returns A {@link TypedArray} over the WASM memory.
+   */
+  getTempBufferU32(count) {
+    this.requireTempMem(count * 4);
+    return this._tempMemUint32;
+  }
+  /**
+   * Returns a int32 buffer view on temporary WASM memory.
+   *
+   * **Note**: this method might allocate if the requested memory is bigger
+   * than the current temporary memory allocated.
+   *
+   * @param count The number of **elements** required.
+   * @returns A {@link TypedArray} over the WASM memory.
+   */
+  getTempBufferI32(count) {
+    this.requireTempMem(count * 4);
+    return this._tempMemInt;
+  }
+  /**
+   * Returns a float32 buffer view on temporary WASM memory.
+   *
+   * **Note**: this method might allocate if the requested memory is bigger
+   * than the current temporary memory allocated.
+   *
+   * @param count The number of **elements** required.
+   * @returns A {@link TypedArray} over the WASM memory.
+   */
+  getTempBufferF32(count) {
+    this.requireTempMem(count * 4);
+    return this._tempMemFloat;
+  }
+  /**
+   * Copy the string into temporary WASM memory and retrieve the pointer.
+   *
+   * @note This method will compute the strlen and append a `\0`.
+   *
+   * @note The result should be used **directly** otherwise it might get
+   * overridden by any next call modifying the temporary memory.
+   *
+   * @param str The string to write to temporary memory
+   * @return The temporary pointer onto the WASM memory
+   */
+  tempUTF8(str6) {
+    const strLen = this.lengthBytesUTF8(str6) + 1;
+    this.requireTempMem(strLen);
+    this.stringToUTF8(str6, this._tempMem, strLen);
+    return this._tempMem;
+  }
+  /**
+   * Return the index of the component type.
+   *
+   * @note This method uses malloc and copies the string
+   * to avoid overwriting caller's temporary data.
+   *
+   * @param type The type
+   * @return The component type index
+   */
+  _typeIndexFor(type) {
+    const lengthBytes = this.lengthBytesUTF8(type) + 1;
+    const mem = this._malloc(lengthBytes);
+    this.stringToUTF8(type, mem, lengthBytes);
+    const componentType = this._wl_get_component_manager_index(mem);
+    this._free(mem);
+    return componentType;
+  }
+  /**
+   * Return the name of component type stored at the given index.
+   *
+   * @param typeIndex The type index
+   * @return The name as a string
+   */
+  _typeNameFor(typeIndex) {
+    return this.UTF8ToString(this._wl_component_manager_name(typeIndex));
+  }
+  /**
+   * Returns `true` if the runtime supports physx or not.
+   */
+  get withPhysX() {
+    return this._withPhysX;
+  }
+  /**
+   * Set the engine instance holding this bridge.
+   *
+   * @note This api is meant to be used internally.
+   *
+   * @param engine The engine instance.
+   */
+  _setEngine(engine2) {
+    this._engine = engine2;
+  }
+  /* WebAssembly to JS call bridge. */
+  _wljs_xr_session_start(mode) {
+    this._engine.xr = new XR(this, mode);
+    this._engine.onXRSessionStart.notify(this.webxr_session, mode);
+  }
+  _wljs_xr_session_end() {
+    const startEmitter = this._engine.onXRSessionStart;
+    if (startEmitter instanceof RetainEmitter)
+      startEmitter.reset();
+    this._engine.onXRSessionEnd.notify();
+    this._engine.xr = null;
+  }
+  _wljs_xr_disable() {
+    this._engine.arSupported = false;
+    this._engine.vrSupported = false;
+  }
+  _wljs_allocate(numComponents) {
+    this._components = new Array(numComponents);
+  }
+  _wljs_init(withPhysX) {
+    this._withPhysX = withPhysX;
+    this.allocateTempMemory(1024);
+  }
+  _wljs_reallocate(numComponents) {
+    if (numComponents > this._components.length) {
+      this._components.length = numComponents;
+    }
+  }
+  _wljs_scene_add_material_definition(definitionId) {
+    const definition = /* @__PURE__ */ new Map();
+    const nbParams = this._wl_material_definition_get_count(definitionId);
+    for (let i = 0; i < nbParams; ++i) {
+      const name = this.UTF8ToString(this._wl_material_definition_get_param_name(definitionId, i));
+      const t = this._wl_material_definition_get_param_type(definitionId, i);
+      definition.set(name, {
+        index: i,
+        type: {
+          type: t & 255,
+          componentCount: t >> 8 & 255,
+          metaType: t >> 16 & 255
+        }
+      });
+    }
+    this._materialDefinitions[definitionId] = definition;
+  }
+  _wljs_set_component_param_bool(c, p, pe, v) {
+    const param = this.UTF8ViewToString(p, pe);
+    this._components[c][param] = v !== 0;
+  }
+  _wljs_set_component_param_int(c, p, pe, v) {
+    const param = this.UTF8ViewToString(p, pe);
+    this._components[c][param] = v;
+  }
+  _wljs_set_component_param_float(c, p, pe, v) {
+    const param = this.UTF8ViewToString(p, pe);
+    this._components[c][param] = v;
+  }
+  _wljs_set_component_param_string(c, p, pe, v, ve) {
+    const param = this.UTF8ViewToString(p, pe);
+    const value = this.UTF8ViewToString(v, ve);
+    this._components[c][param] = value;
+  }
+  _wljs_set_component_param_color(c, p, pe, v) {
+    const param = this.UTF8ViewToString(p, pe);
+    this._components[c][param] = new Float32Array([0, 8, 16, 24].map((s) => (v >>> s & 255) / 255));
+  }
+  _wljs_set_component_param_object(c, p, pe, v) {
+    const param = this.UTF8ViewToString(p, pe);
+    this._components[c][param] = v > 0 ? this._engine.wrapObject(v) : null;
+  }
+  _wljs_set_component_param_mesh(c, p, pe, v) {
+    const param = this.UTF8ViewToString(p, pe);
+    this._components[c][param] = v > 0 ? new Mesh(this._engine, v) : null;
+  }
+  _wljs_set_component_param_texture(c, p, pe, v) {
+    const param = this.UTF8ViewToString(p, pe);
+    this._components[c][param] = v > 0 ? this._engine.textures.wrap(v) : null;
+  }
+  _wljs_set_component_param_material(c, p, pe, v) {
+    const param = this.UTF8ViewToString(p, pe);
+    this._components[c][param] = v > 0 ? new Material(this._engine, v) : null;
+  }
+  _wljs_set_component_param_animation(c, p, pe, v) {
+    const param = this.UTF8ViewToString(p, pe);
+    this._components[c][param] = v > 0 ? new Animation(this._engine, v) : null;
+  }
+  _wljs_set_component_param_skin(c, p, pe, v) {
+    const param = this.UTF8ViewToString(p, pe);
+    this._components[c][param] = v > 0 ? new Skin(this._engine, v) : null;
+  }
+  _wljs_get_component_type_index(namePtr, nameEndPtr) {
+    return this._componentTypeIndices[this.UTF8ViewToString(namePtr, nameEndPtr)];
+  }
+  _wljs_component_create(jsManagerIndex, index, id, type, object) {
+    const ctor = this._componentTypes[type];
+    const component = new ctor();
+    component._engine = this._engine;
+    component._manager = jsManagerIndex;
+    component._id = id;
+    component._object = this._engine.wrapObject(object);
+    this._components[index] = component;
+    return component;
+  }
+  _wljs_component_init(component) {
+    const c = this._components[component];
+    if (c.init) {
+      try {
+        c.init();
+      } catch (e) {
+        console.error(`Exception during ${c.type} init() on object ${c.object.name}`);
+        console.error(e);
+      }
+    }
+    if (c.start) {
+      const oldActivate = c.onActivate;
+      c.onActivate = function() {
+        try {
+          if (this.start)
+            this.start();
+        } catch (e) {
+          console.error(`Exception during ${this.type} start() on object ${this.object.name}`);
+          console.error(e);
+        }
+        this.onActivate = oldActivate;
+        if (this.onActivate) {
+          try {
+            this.onActivate();
+          } catch (e) {
+            console.error(`Exception during ${this.type} onActivate() on object ${this.object.name}`);
+            console.error(e);
+          }
+        }
+      };
+    }
+  }
+  _wljs_component_update(component, dt) {
+    const c = this._components[component];
+    if (!c) {
+      console.warn("WL: component was undefined:", component);
+      this._components[component] = new Component(this._engine);
+      return;
+    }
+    if (!c.update)
+      return;
+    try {
+      c.update(dt);
+    } catch (e) {
+      console.error(`Exception during ${c.type} update() on object ${c.object.name}`);
+      console.error(e);
+      if (this._deactivate_component_on_error)
+        c.active = false;
+    }
+  }
+  _wljs_component_onActivate(component) {
+    const c = this._components[component];
+    if (!c || !c.onActivate)
+      return;
+    try {
+      c.onActivate();
+    } catch (e) {
+      console.error(`Exception during ${c.type} onActivate() on object ${c.object.name}`);
+      console.error(e);
+    }
+  }
+  _wljs_component_onDeactivate(component) {
+    const c = this._components[component];
+    if (!c.onDeactivate)
+      return;
+    try {
+      c.onDeactivate();
+    } catch (e) {
+      console.error(`Exception during ${c.type} onDeactivate() on object ${c.object.name}`);
+      console.error(e);
+    }
+  }
+  _wljs_component_onDestroy(component) {
+    const c = this._components[component];
+    if (!c.onDestroy)
+      return;
+    try {
+      c.onDestroy();
+    } catch (e) {
+      console.error(`Exception during ${c.type} onDestroy() on object ${c.object.name}`);
+      console.error(e);
+    }
+  }
+  _wljs_swap(a, b) {
+    const componentA = this._components[a];
+    this._components[a] = this._components[b];
+    this._components[b] = componentA;
+  }
+  /* JS to WebAssembly bridge. */
+  HEAP8 = null;
+  HEAPU8 = null;
+  HEAPU16 = null;
+  HEAPU32 = null;
+  HEAP32 = null;
+  HEAPF32 = null;
+  GL = null;
+  assert = null;
+  _free = null;
+  _malloc = null;
+  lengthBytesUTF8 = null;
+  stringToUTF8 = null;
+  UTF8ToString = null;
+  addFunction = null;
+  removeFunction = null;
+  _wl_set_error_callback = null;
+  _wl_application_version = null;
+  _wl_application_start = null;
+  _wl_application_resize = null;
+  _wl_nextUpdate = null;
+  _wl_nextFrame = null;
+  _wl_scene_get_active_views = null;
+  _wl_scene_ray_cast = null;
+  _wl_scene_add_object = null;
+  _wl_scene_add_objects = null;
+  _wl_scene_reserve_objects = null;
+  _wl_scene_set_clearColor = null;
+  _wl_scene_enableColorClear = null;
+  _wl_set_loading_screen_progress = null;
+  _wl_load_scene_bin = null;
+  _wl_append_scene_bin = null;
+  _wl_append_scene_gltf = null;
+  _wl_scene_reset = null;
+  _wl_component_get_object = null;
+  _wl_component_setActive = null;
+  _wl_component_isActive = null;
+  _wl_component_remove = null;
+  _wl_collision_component_get_collider = null;
+  _wl_collision_component_set_collider = null;
+  _wl_collision_component_get_extents = null;
+  _wl_collision_component_get_group = null;
+  _wl_collision_component_set_group = null;
+  _wl_collision_component_query_overlaps = null;
+  _wl_text_component_get_horizontal_alignment = null;
+  _wl_text_component_set_horizontal_alignment = null;
+  _wl_text_component_get_vertical_alignment = null;
+  _wl_text_component_set_vertical_alignment = null;
+  _wl_text_component_get_character_spacing = null;
+  _wl_text_component_set_character_spacing = null;
+  _wl_text_component_get_line_spacing = null;
+  _wl_text_component_set_line_spacing = null;
+  _wl_text_component_get_effect = null;
+  _wl_text_component_set_effect = null;
+  _wl_text_component_get_text = null;
+  _wl_text_component_set_text = null;
+  _wl_text_component_set_material = null;
+  _wl_text_component_get_material = null;
+  _wl_view_component_get_projection_matrix = null;
+  _wl_view_component_get_near = null;
+  _wl_view_component_set_near = null;
+  _wl_view_component_get_far = null;
+  _wl_view_component_set_far = null;
+  _wl_view_component_get_fov = null;
+  _wl_view_component_set_fov = null;
+  _wl_input_component_get_type = null;
+  _wl_input_component_set_type = null;
+  _wl_light_component_get_color = null;
+  _wl_light_component_get_type = null;
+  _wl_light_component_set_type = null;
+  _wl_light_component_get_intensity = null;
+  _wl_light_component_set_intensity = null;
+  _wl_light_component_get_outerAngle = null;
+  _wl_light_component_set_outerAngle = null;
+  _wl_light_component_get_innerAngle = null;
+  _wl_light_component_set_innerAngle = null;
+  _wl_light_component_get_shadows = null;
+  _wl_light_component_set_shadows = null;
+  _wl_light_component_get_shadowRange = null;
+  _wl_light_component_set_shadowRange = null;
+  _wl_light_component_get_shadowBias = null;
+  _wl_light_component_set_shadowBias = null;
+  _wl_light_component_get_shadowNormalBias = null;
+  _wl_light_component_set_shadowNormalBias = null;
+  _wl_light_component_get_shadowTexelSize = null;
+  _wl_light_component_set_shadowTexelSize = null;
+  _wl_light_component_get_cascadeCount = null;
+  _wl_light_component_set_cascadeCount = null;
+  _wl_animation_component_get_animation = null;
+  _wl_animation_component_set_animation = null;
+  _wl_animation_component_get_playCount = null;
+  _wl_animation_component_set_playCount = null;
+  _wl_animation_component_get_speed = null;
+  _wl_animation_component_set_speed = null;
+  _wl_animation_component_play = null;
+  _wl_animation_component_stop = null;
+  _wl_animation_component_pause = null;
+  _wl_animation_component_state = null;
+  _wl_mesh_component_get_material = null;
+  _wl_mesh_component_set_material = null;
+  _wl_mesh_component_get_mesh = null;
+  _wl_mesh_component_set_mesh = null;
+  _wl_mesh_component_get_skin = null;
+  _wl_mesh_component_set_skin = null;
+  _wl_physx_component_get_static = null;
+  _wl_physx_component_set_static = null;
+  _wl_physx_component_get_kinematic = null;
+  _wl_physx_component_set_kinematic = null;
+  _wl_physx_component_get_gravity = null;
+  _wl_physx_component_set_gravity = null;
+  _wl_physx_component_get_simulate = null;
+  _wl_physx_component_set_simulate = null;
+  _wl_physx_component_get_allowSimulation = null;
+  _wl_physx_component_set_allowSimulation = null;
+  _wl_physx_component_get_allowQuery = null;
+  _wl_physx_component_set_allowQuery = null;
+  _wl_physx_component_get_trigger = null;
+  _wl_physx_component_set_trigger = null;
+  _wl_physx_component_get_shape = null;
+  _wl_physx_component_set_shape = null;
+  _wl_physx_component_get_shape_data = null;
+  _wl_physx_component_set_shape_data = null;
+  _wl_physx_component_get_extents = null;
+  _wl_physx_component_get_staticFriction = null;
+  _wl_physx_component_set_staticFriction = null;
+  _wl_physx_component_get_dynamicFriction = null;
+  _wl_physx_component_set_dynamicFriction = null;
+  _wl_physx_component_get_bounciness = null;
+  _wl_physx_component_set_bounciness = null;
+  _wl_physx_component_get_linearDamping = null;
+  _wl_physx_component_set_linearDamping = null;
+  _wl_physx_component_get_angularDamping = null;
+  _wl_physx_component_set_angularDamping = null;
+  _wl_physx_component_get_linearVelocity = null;
+  _wl_physx_component_set_linearVelocity = null;
+  _wl_physx_component_get_angularVelocity = null;
+  _wl_physx_component_set_angularVelocity = null;
+  _wl_physx_component_get_groupsMask = null;
+  _wl_physx_component_set_groupsMask = null;
+  _wl_physx_component_get_blocksMask = null;
+  _wl_physx_component_set_blocksMask = null;
+  _wl_physx_component_get_linearLockAxis = null;
+  _wl_physx_component_set_linearLockAxis = null;
+  _wl_physx_component_get_angularLockAxis = null;
+  _wl_physx_component_set_angularLockAxis = null;
+  _wl_physx_component_get_mass = null;
+  _wl_physx_component_set_mass = null;
+  _wl_physx_component_set_massSpaceInertiaTensor = null;
+  _wl_physx_component_addForce = null;
+  _wl_physx_component_addForceAt = null;
+  _wl_physx_component_addTorque = null;
+  _wl_physx_component_addCallback = null;
+  _wl_physx_component_removeCallback = null;
+  _wl_physx_update_global_pose = null;
+  _wl_physx_ray_cast = null;
+  _wl_physx_set_collision_callback = null;
+  _wl_mesh_create = null;
+  _wl_mesh_get_vertexData = null;
+  _wl_mesh_get_vertexCount = null;
+  _wl_mesh_get_indexData = null;
+  _wl_mesh_update = null;
+  _wl_mesh_get_boundingSphere = null;
+  _wl_mesh_get_attribute = null;
+  _wl_mesh_destroy = null;
+  _wl_mesh_get_attribute_values = null;
+  _wl_mesh_set_attribute_values = null;
+  _wl_material_create = null;
+  _wl_material_get_definition = null;
+  _wl_material_definition_get_count = null;
+  _wl_material_definition_get_param_name = null;
+  _wl_material_definition_get_param_type = null;
+  _wl_material_get_pipeline = null;
+  _wl_material_clone = null;
+  _wl_material_get_param_index = null;
+  _wl_material_get_param_type = null;
+  _wl_material_get_param_value = null;
+  _wl_material_set_param_value_uint = null;
+  _wl_material_set_param_value_float = null;
+  _wl_renderer_addImage = null;
+  _wl_texture_width = null;
+  _wl_texture_height = null;
+  _wl_renderer_updateImage = null;
+  _wl_texture_destroy = null;
+  _wl_animation_get_duration = null;
+  _wl_animation_get_trackCount = null;
+  _wl_animation_retargetToSkin = null;
+  _wl_animation_retarget = null;
+  _wl_object_name = null;
+  _wl_object_set_name = null;
+  _wl_object_parent = null;
+  _wl_object_get_children_count = null;
+  _wl_object_get_children = null;
+  _wl_object_set_parent = null;
+  _wl_object_reset_scaling = null;
+  _wl_object_reset_translation_rotation = null;
+  _wl_object_reset_rotation = null;
+  _wl_object_reset_translation = null;
+  _wl_object_translate = null;
+  _wl_object_translate_obj = null;
+  _wl_object_translate_world = null;
+  _wl_object_rotate_axis_angle = null;
+  _wl_object_rotate_axis_angle_rad = null;
+  _wl_object_rotate_axis_angle_obj = null;
+  _wl_object_rotate_axis_angle_rad_obj = null;
+  _wl_object_rotate_quat = null;
+  _wl_object_rotate_quat_obj = null;
+  _wl_object_scale = null;
+  _wl_object_trans_local = null;
+  _wl_object_get_translation_local = null;
+  _wl_object_set_translation_local = null;
+  _wl_object_get_translation_world = null;
+  _wl_object_set_translation_world = null;
+  _wl_object_trans_world = null;
+  _wl_object_trans_world_to_local = null;
+  _wl_object_scaling_local = null;
+  _wl_object_scaling_world = null;
+  _wl_object_set_scaling_local = null;
+  _wl_object_set_scaling_world = null;
+  _wl_object_scaling_world_to_local = null;
+  _wl_object_set_rotation_local = null;
+  _wl_object_set_rotation_world = null;
+  _wl_object_transformVectorWorld = null;
+  _wl_object_transformVectorLocal = null;
+  _wl_object_transformPointWorld = null;
+  _wl_object_transformPointLocal = null;
+  _wl_object_transformVectorInverseWorld = null;
+  _wl_object_transformVectorInverseLocal = null;
+  _wl_object_transformPointInverseWorld = null;
+  _wl_object_transformPointInverseLocal = null;
+  _wl_object_toWorldSpaceTransform = null;
+  _wl_object_toObjectSpaceTransform = null;
+  _wl_object_lookAt = null;
+  _wl_scene_remove_object = null;
+  _wl_object_set_dirty = null;
+  _wl_get_component_manager_index = null;
+  _wl_get_js_component_index = null;
+  _wl_get_js_component_index_for_id = null;
+  _wl_get_component_id = null;
+  _wl_object_get_components = null;
+  _wl_object_get_component_types = null;
+  _wl_object_add_js_component = null;
+  _wl_object_add_component = null;
+  _wl_object_is_changed = null;
+  _wl_component_manager_name = null;
+  _wl_skin_get_joint_count = null;
+  _wl_skin_joint_ids = null;
+  _wl_skin_inverse_bind_transforms = null;
+  _wl_skin_inverse_bind_scalings = null;
+  _wl_math_cubicHermite = null;
+  _wl_i18n_setLanguage = null;
+  _wl_i18n_currentLanguage = null;
+  _wl_i18n_translate = null;
+  _wl_i18n_languageCount = null;
+  _wl_i18n_languageIndex = null;
+  _wl_i18n_languageCode = null;
+  _wl_i18n_languageName = null;
+};
 
-// node_modules/@wonderlandengine/components/8thwall-camera.js
+// node_modules/@wonderlandengine/api/dist/version.js
+var APIVersion = {
+  major: 1,
+  minor: 0,
+  patch: 0,
+  rc: 0
+};
+
+// node_modules/@wonderlandengine/api/dist/index.js
+function loadScript(scriptURL) {
+  return new Promise((res, rej) => {
+    const s = document.createElement("script");
+    const node = document.body.appendChild(s);
+    s.onload = () => {
+      document.body.removeChild(node);
+      res();
+    };
+    s.onerror = (e) => {
+      document.body.removeChild(node);
+      rej(e);
+    };
+    s.src = scriptURL;
+  });
+}
+async function detectFeatures() {
+  let [simdSupported, threadsSupported] = await Promise.all([simd(), threads()]);
+  if (simdSupported) {
+    console.log("WASM SIMD is supported");
+  } else {
+    console.warn("WASM SIMD is not supported");
+  }
+  if (threadsSupported) {
+    if (self.crossOriginIsolated) {
+      console.log("WASM Threads is supported");
+    } else {
+      console.warn("WASM Threads is supported, but the page is not crossOriginIsolated, therefore thread support is disabled.");
+    }
+  } else {
+    console.warn("WASM Threads is not supported");
+  }
+  threadsSupported = threadsSupported && self.crossOriginIsolated;
+  return {
+    simdSupported,
+    threadsSupported
+  };
+}
+var xrSupported = {
+  ar: null,
+  vr: null
+};
+function checkXRSupport() {
+  if (typeof navigator === "undefined" || !navigator.xr) {
+    xrSupported.vr = false;
+    xrSupported.ar = false;
+    return Promise.resolve(xrSupported);
+  }
+  const vrPromise = xrSupported.vr !== null ? Promise.resolve() : navigator.xr.isSessionSupported("immersive-vr").then((supported) => xrSupported.vr = supported);
+  const arPromise = xrSupported.ar !== null ? Promise.resolve() : navigator.xr.isSessionSupported("immersive-ar").then((supported) => xrSupported.ar = supported);
+  return Promise.all([vrPromise, arPromise]).then(() => xrSupported);
+}
+function checkRuntimeCompatibility(version) {
+  const { major, minor } = version;
+  let majorDiff = major - APIVersion.major;
+  let minorDiff = minor - APIVersion.minor;
+  if (!majorDiff && !minorDiff)
+    return;
+  const error = "checkRuntimeCompatibility(): Version compatibility mismatch:\n	\u2192 API and runtime compatibility is enforced on a patch level (versions x.y.*)\n";
+  const isRuntimeOlder = majorDiff < 0 || !majorDiff && minorDiff < 0;
+  if (isRuntimeOlder) {
+    throw new Error(`${error}	\u2192 Please use a Wonderland Engine editor version >= ${APIVersion.major}.${APIVersion.minor}.*`);
+  }
+  throw new Error(`${error}	\u2192 Please use a new API version >= ${version.major}.${version.minor}.*`);
+}
+async function loadRuntime(runtime, options = {}) {
+  const xrPromise = checkXRSupport();
+  const { simdSupported, threadsSupported } = await detectFeatures();
+  const { simd: simd2 = simdSupported, threads: threads2 = threadsSupported, physx = false, loader = false, xrFramebufferScaleFactor = 1, loadingScreen = "WonderlandRuntime-LoadingScreen.bin", canvas: canvas2 = "canvas" } = options;
+  const variant = [];
+  if (loader)
+    variant.push("loader");
+  if (physx)
+    variant.push("physx");
+  if (simd2)
+    variant.push("simd");
+  if (threads2)
+    variant.push("threads");
+  const variantStr = variant.join("-");
+  let filename = runtime;
+  if (variantStr)
+    filename = `${filename}-${variantStr}`;
+  const download = function(filename2, errorMessage) {
+    return fetch(filename2).then((r) => {
+      if (!r.ok)
+        return Promise.reject(errorMessage);
+      return r.arrayBuffer();
+    }).catch((_) => Promise.reject(errorMessage));
+  };
+  const [wasmData, loadingScreenData] = await Promise.all([
+    download(`${filename}.wasm`, "Failed to fetch runtime .wasm file"),
+    download(loadingScreen, "Failed to fetch loading screen file").catch((_) => null)
+  ]);
+  const glCanvas = document.getElementById(canvas2);
+  if (!glCanvas) {
+    throw new Error(`loadRuntime(): Failed to find canvas with id '${canvas2}'`);
+  }
+  if (!(glCanvas instanceof HTMLCanvasElement)) {
+    throw new Error(`loadRuntime(): HTML element '${canvas2}' must be a canvas`);
+  }
+  const wasm = new WASM(threads2);
+  wasm.worker = `${filename}.worker.js`;
+  wasm.wasm = wasmData;
+  wasm.canvas = glCanvas;
+  const engine2 = new WonderlandEngine(wasm, loadingScreenData);
+  if (!window._WL) {
+    window._WL = { runtimes: {} };
+  }
+  const runtimes = window._WL.runtimes;
+  const runtimeGlobalId = variantStr ? variantStr : "default";
+  if (!runtimes[runtimeGlobalId]) {
+    await loadScript(`${filename}.js`);
+    runtimes[runtimeGlobalId] = window.instantiateWonderlandRuntime;
+    window.instantiateWonderlandRuntime = void 0;
+  }
+  await runtimes[runtimeGlobalId](wasm);
+  checkRuntimeCompatibility(engine2.runtimeVersion);
+  engine2._init();
+  const xr = await xrPromise;
+  engine2.arSupported = xr.ar;
+  engine2.vrSupported = xr.vr;
+  engine2.xrFramebufferScaleFactor = xrFramebufferScaleFactor;
+  engine2.autoResizeCanvas = true;
+  engine2.start();
+  return engine2;
+}
+
+// node_modules/@wonderlandengine/components/dist/8thwall-camera.js
 var ARCamera8thwall = class extends Component {
   /* 8thwall camera pipeline module name */
   name = "wonderland-engine-8thwall-camera";
@@ -3579,7 +8800,10 @@ var ARCamera8thwall = class extends Component {
       }
     }
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: true,
+        audio: true
+      });
       stream.getTracks().forEach((track) => {
         track.stop();
       });
@@ -3612,9 +8836,7 @@ var ARCamera8thwall = class extends Component {
     this.glTextureRenderer = XR8.GlTextureRenderer.pipelineModule();
     XR8.addCameraPipelineModules([
       this.glTextureRenderer,
-      // Draws the camera feed.
       XR8.XrController.pipelineModule(),
-      // Enables SLAM tracking.
       this
     ]);
     const config = {
@@ -3642,7 +8864,12 @@ var ARCamera8thwall = class extends Component {
     XR8.XrController.updateCameraProjectionMatrix({
       origin: { x: pos[0], y: pos[1], z: pos[2] },
       facing: { x: rot[0], y: rot[1], z: rot[2], w: rot[3] },
-      cam: { pixelRectWidth: Module.canvas.width, pixelRectHeight: Module.canvas.height, nearClipPlane: this.view.near, farClipPlane: this.view.far }
+      cam: {
+        pixelRectWidth: Module.canvas.width,
+        pixelRectHeight: Module.canvas.height,
+        nearClipPlane: this.view.near,
+        farClipPlane: this.view.far
+      }
     });
     this.engine.scene.onPreRender.push(() => {
       gl.bindFramebuffer(gl.DRAW_FRAMEBUFFER, null);
@@ -3663,9 +8890,9 @@ var ARCamera8thwall = class extends Component {
     }
   }
   /**
-  * @private
-  * 8thwall pipeline function
-  */
+   * @private
+   * 8thwall pipeline function
+   */
   onUpdate(e) {
     if (!e.processCpuResult.reality)
       return;
@@ -3846,6 +9073,319 @@ var runtimeErrorOverlay = `
 
   <button class="wall-error-overlay_button" onclick="window.location.reload()">Reload</button>
 </div>`;
+
+// node_modules/@wonderlandengine/components/dist/utils/webxr.js
+var tempVec = new Float32Array(3);
+var tempQuat = new Float32Array(4);
+function setXRRigidTransformLocal(o, transform) {
+  const r = transform.orientation;
+  tempQuat[0] = r.x;
+  tempQuat[1] = r.y;
+  tempQuat[2] = r.z;
+  tempQuat[3] = r.w;
+  const t = transform.position;
+  tempVec[0] = t.x;
+  tempVec[1] = t.y;
+  tempVec[2] = t.z;
+  o.resetTranslationRotation();
+  o.transformLocal.set(tempQuat);
+  o.translate(tempVec);
+}
+
+// node_modules/@wonderlandengine/components/dist/anchor.js
+var __decorate2 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
+    r = Reflect.decorate(decorators, target, key, desc);
+  else
+    for (var i = decorators.length - 1; i >= 0; i--)
+      if (d = decorators[i])
+        r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var tempVec3 = new Float32Array(3);
+var tempQuat2 = new Float32Array(4);
+var _anchors, _addAnchor, addAnchor_fn, _removeAnchor, removeAnchor_fn, _getFrame, getFrame_fn, _createAnchor, createAnchor_fn, _onAddAnchor, onAddAnchor_fn, _onRestoreAnchor, onRestoreAnchor_fn, _onCreate, onCreate_fn;
+var _Anchor = class extends Component {
+  constructor() {
+    super(...arguments);
+    __privateAdd(this, _getFrame);
+    __privateAdd(this, _createAnchor);
+    __privateAdd(this, _onAddAnchor);
+    __privateAdd(this, _onRestoreAnchor);
+    __privateAdd(this, _onCreate);
+    __publicField(this, "persist", false);
+    /** Unique identifier to load a persistent anchor from, or empty/null if unknown */
+    __publicField(this, "uuid", null);
+    /** The xrAnchor, if created */
+    __publicField(this, "xrAnchor", null);
+    /** Emits events when the anchor is created either by being restored or newly created */
+    __publicField(this, "onCreate", new Emitter());
+    /** Whether the anchor is currently being tracked */
+    __publicField(this, "visible", false);
+    /** Emits an event when this anchor starts tracking */
+    __publicField(this, "onTrackingFound", new Emitter());
+    /** Emits an event when this anchor stops tracking */
+    __publicField(this, "onTrackingLost", new Emitter());
+    /** XRFrame to use for creating the anchor */
+    __publicField(this, "xrFrame", null);
+    /** XRHitTestResult to use for creating the anchor */
+    __publicField(this, "xrHitResult", null);
+  }
+  /** Retrieve all anchors of the current scene */
+  static getAllAnchors() {
+    return __privateGet(_Anchor, _anchors);
+  }
+  /**
+   * Create a new anchor
+   *
+   * @param o Object to attach the component to
+   * @param params Parameters for the anchor component
+   * @param frame XRFrame to use for anchor cration, if null, will use the current frame if available
+   * @param hitResult Optional hit-test result to create the anchor with
+   * @returns Promise for the newly created anchor component
+   */
+  static create(o, params, frame, hitResult) {
+    const a = o.addComponent(_Anchor, { ...params, active: false });
+    if (a === null)
+      return null;
+    a.xrHitResult = hitResult ?? null;
+    a.xrFrame = frame ?? null;
+    a.onCreate.once(() => (a.xrFrame = null, a.xrHitResult = null));
+    a.active = true;
+    return a.onCreate.promise();
+  }
+  start() {
+    if (this.uuid && this.engine.xr) {
+      this.persist = true;
+      if (this.engine.xr.session.restorePersistentAnchor === void 0) {
+        console.warn("anchor: Persistent anchors are not supported by your client. Ignoring persist property.");
+      }
+      this.engine.xr.session.restorePersistentAnchor(this.uuid).then(__privateMethod(this, _onRestoreAnchor, onRestoreAnchor_fn).bind(this));
+    } else if (__privateMethod(this, _getFrame, getFrame_fn).call(this)) {
+      __privateMethod(this, _createAnchor, createAnchor_fn).call(this).then(__privateMethod(this, _onAddAnchor, onAddAnchor_fn).bind(this));
+    } else {
+      throw new Error("Anchors can only be created during the XR frame in an active XR session");
+    }
+  }
+  update() {
+    if (!this.xrAnchor || !this.engine.xr)
+      return;
+    const pose = this.engine.xr.frame.getPose(this.xrAnchor.anchorSpace, this.engine.xr.currentReferenceSpace);
+    const visible = !!pose;
+    if (visible != this.visible) {
+      this.visible = visible;
+      (visible ? this.onTrackingFound : this.onTrackingLost).notify(this);
+    }
+    if (pose) {
+      setXRRigidTransformLocal(this.object, pose.transform);
+    }
+  }
+  onDestroy() {
+    var _a;
+    __privateMethod(_a = _Anchor, _removeAnchor, removeAnchor_fn).call(_a, this);
+  }
+};
+var Anchor = _Anchor;
+_anchors = new WeakMap();
+_addAnchor = new WeakSet();
+addAnchor_fn = function(anchor) {
+  __privateGet(_Anchor, _anchors).push(anchor);
+};
+_removeAnchor = new WeakSet();
+removeAnchor_fn = function(anchor) {
+  const index = __privateGet(_Anchor, _anchors).indexOf(anchor);
+  if (index < 0)
+    return;
+  __privateGet(_Anchor, _anchors).splice(index, 1);
+};
+_getFrame = new WeakSet();
+getFrame_fn = function() {
+  return this.xrFrame || this.engine.xr.frame;
+};
+_createAnchor = new WeakSet();
+createAnchor_fn = async function() {
+  if (!__privateMethod(this, _getFrame, getFrame_fn).call(this).createAnchor) {
+    throw new Error("Cannot create anchor - anchors not supported, did you enable the 'anchors' WebXR feature?");
+  }
+  if (this.xrHitResult) {
+    if (this.xrHitResult.createAnchor === void 0) {
+      throw new Error("Requested anchor on XRHitTestResult, but WebXR hit-test feature is not available.");
+    }
+    return this.xrHitResult.createAnchor();
+  } else {
+    this.object.getTranslationWorld(tempVec3);
+    tempQuat2.set(this.object.rotationWorld);
+    const rotation = tempQuat2;
+    const anchorPose = new XRRigidTransform({ x: tempVec3[0], y: tempVec3[1], z: tempVec3[2] }, { x: rotation[0], y: rotation[1], z: rotation[2], w: rotation[3] });
+    return __privateMethod(this, _getFrame, getFrame_fn).call(this)?.createAnchor(anchorPose, this.engine.xr.currentReferenceSpace);
+  }
+};
+_onAddAnchor = new WeakSet();
+onAddAnchor_fn = function(anchor) {
+  if (!anchor)
+    return;
+  if (this.persist) {
+    if (anchor.requestPersistentHandle !== void 0) {
+      anchor.requestPersistentHandle().then((uuid) => {
+        var _a;
+        this.uuid = uuid;
+        __privateMethod(this, _onCreate, onCreate_fn).call(this, anchor);
+        __privateMethod(_a = _Anchor, _addAnchor, addAnchor_fn).call(_a, this);
+      });
+      return;
+    } else {
+      console.warn("anchor: Persistent anchors are not supported by your client. Ignoring persist property.");
+    }
+  }
+  __privateMethod(this, _onCreate, onCreate_fn).call(this, anchor);
+};
+_onRestoreAnchor = new WeakSet();
+onRestoreAnchor_fn = function(anchor) {
+  __privateMethod(this, _onCreate, onCreate_fn).call(this, anchor);
+};
+_onCreate = new WeakSet();
+onCreate_fn = function(anchor) {
+  this.xrAnchor = anchor;
+  this.onCreate.notify(this);
+};
+__privateAdd(Anchor, _addAnchor);
+__privateAdd(Anchor, _removeAnchor);
+__publicField(Anchor, "TypeName", "anchor");
+/* Static management of all anchors */
+__privateAdd(Anchor, _anchors, []);
+__decorate2([
+  property.bool(false)
+], Anchor.prototype, "persist", void 0);
+__decorate2([
+  property.string()
+], Anchor.prototype, "uuid", void 0);
+
+// node_modules/@wonderlandengine/components/dist/cursor-target.js
+var CursorTarget = class extends Component {
+  /** Emitter for events when the target is hovered */
+  onHover = new Emitter();
+  /** Emitter for events when the target is unhovered */
+  onUnhover = new Emitter();
+  /** Emitter for events when the target is clicked */
+  onClick = new Emitter();
+  /** Emitter for events when the cursor moves on the target */
+  onMove = new Emitter();
+  /** Emitter for events when the user pressed the select button on the target */
+  onDown = new Emitter();
+  /** Emitter for events when the user unpressed the select button on the target */
+  onUp = new Emitter();
+  /**
+   * @deprecated Use the emitter instead.
+   *
+   * @example
+   *    this.onHover.add(f);
+   */
+  addHoverFunction(f) {
+    this.onHover.add(f);
+  }
+  /**
+   * @deprecated Use the emitter instead.
+   *
+   * @example
+   *    this.onHover.remove(f);
+   */
+  removeHoverFunction(f) {
+    this.onHover.remove(f);
+  }
+  /**
+   * @deprecated Use the emitter instead.
+   *
+   * @example
+   *    this.onUnhover.add(f);
+   */
+  addUnHoverFunction(f) {
+    this.onUnhover.add(f);
+  }
+  /**
+   * @deprecated Use the emitter instead.
+   *
+   * @example
+   *    this.onUnhover.remove(f);
+   */
+  removeUnHoverFunction(f) {
+    this.onUnhover.remove(f);
+  }
+  /**
+   * @deprecated Use the emitter instead.
+   *
+   * @example
+   *    this.onClick.add(f);
+   */
+  addClickFunction(f) {
+    this.onClick.add(f);
+  }
+  /**
+   * @deprecated Use the emitter instead.
+   *
+   * @example
+   *    component.onClick.remove(f);
+   */
+  removeClickFunction(f) {
+    this.onClick.remove(f);
+  }
+  /**
+   * @deprecated Use the emitter instead.
+   *
+   * @example
+   *    component.onMove.add(f);
+   */
+  addMoveFunction(f) {
+    this.onMove.add(f);
+  }
+  /**
+   * @deprecated Use the emitter instead.
+   *
+   * @example
+   *    component.onMove.remove(f);
+   */
+  removeMoveFunction(f) {
+    this.onMove.remove(f);
+  }
+  /**
+   * @deprecated Use the emitter instead.
+   *
+   * @example
+   *    component.onDown.add(f);
+   */
+  addDownFunction(f) {
+    this.onDown.add(f);
+  }
+  /**
+   * @deprecated Use the emitter instead.
+   *
+   * @example
+   *    component.onDown.remove(f);
+   */
+  removeDownFunction(f) {
+    this.onDown.remove(f);
+  }
+  /**
+   * @deprecated Use the emitter instead.
+   *
+   * @example
+   *    component.onUp.add(f);
+   */
+  addUpFunction(f) {
+    this.onUp.add(f);
+  }
+  /**
+   * @deprecated Use the emitter instead.
+   *
+   * @example
+   *    component.onUp.remove(f);
+   */
+  removeUpFunction(f) {
+    this.onUp.remove(f);
+  }
+};
+__publicField(CursorTarget, "TypeName", "cursor-target");
+__publicField(CursorTarget, "Properties", {});
 
 // node_modules/gl-matrix/esm/common.js
 var EPSILON = 1e-6;
@@ -6604,104 +12144,268 @@ function equals5(a, b) {
   return Math.abs(a0 - b0) <= EPSILON * Math.max(1, Math.abs(a0), Math.abs(b0)) && Math.abs(a1 - b1) <= EPSILON * Math.max(1, Math.abs(a1), Math.abs(b1)) && Math.abs(a2 - b2) <= EPSILON * Math.max(1, Math.abs(a2), Math.abs(b2)) && Math.abs(a3 - b3) <= EPSILON * Math.max(1, Math.abs(a3), Math.abs(b3)) && Math.abs(a4 - b4) <= EPSILON * Math.max(1, Math.abs(a4), Math.abs(b4)) && Math.abs(a5 - b5) <= EPSILON * Math.max(1, Math.abs(a5), Math.abs(b5)) && Math.abs(a6 - b6) <= EPSILON * Math.max(1, Math.abs(a6), Math.abs(b6)) && Math.abs(a7 - b7) <= EPSILON * Math.max(1, Math.abs(a7), Math.abs(b7));
 }
 
-// node_modules/@wonderlandengine/components/cursor.js
-var Cursor = class extends Component {
-  init() {
-    this.session = null;
-    this.collisionMask = 1 << this.collisionGroup;
-    this.maxDistance = 100;
-    const sceneLoaded = this.onDestroy.bind(this);
-    this.engine.onSceneLoaded.push(sceneLoaded);
-    this.onDestroyCallbacks = [
-      () => {
-        const index = this.engine.onSceneLoaded.indexOf(sceneLoaded);
-        if (index >= 0)
-          this.engine.onSceneLoaded.splice(index, 1);
-      }
-    ];
-  }
+// node_modules/@wonderlandengine/components/dist/hit-test-location.js
+var __decorate3 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
+    r = Reflect.decorate(decorators, target, key, desc);
+  else
+    for (var i = decorators.length - 1; i >= 0; i--)
+      if (d = decorators[i])
+        r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var HitTestLocation = class extends Component {
+  tempScaling = new Float32Array(3);
+  visible = false;
+  xrHitTestSource = null;
+  /** Reference space for creating the hit test when the session starts */
+  xrReferenceSpace = null;
+  /**
+   * For maintaining backwards compatibility: Whether to scale the object to 0 and back.
+   * @deprecated Use onHitLost and onHitFound instead.
+   */
+  scaleObject = true;
+  /** Emits an event when the hit test switches from visible to invisible */
+  onHitLost = new Emitter();
+  /** Emits an event when the hit test switches from invisible to visible */
+  onHitFound = new Emitter();
+  onSessionStartCallback = null;
+  onSessionEndCallback = null;
   start() {
+    this.onSessionStartCallback = this.onXRSessionStart.bind(this);
+    this.onSessionEndCallback = this.onXRSessionEnd.bind(this);
+    if (this.scaleObject) {
+      this.tempScaling.set(this.object.scalingLocal);
+      this.object.scale([0, 0, 0]);
+      this.onHitLost.add(() => {
+        this.tempScaling.set(this.object.scalingLocal);
+        this.object.scale([0, 0, 0]);
+      });
+      this.onHitFound.add(() => {
+        this.object.scalingLocal.set(this.tempScaling);
+        this.object.setDirty();
+      });
+    }
+  }
+  onActivate() {
+    this.engine.onXRSessionStart.add(this.onSessionStartCallback);
+    this.engine.onXRSessionEnd.add(this.onSessionEndCallback);
+  }
+  onDeactivate() {
+    this.engine.onXRSessionStart.remove(this.onSessionStartCallback);
+    this.engine.onXRSessionEnd.remove(this.onSessionEndCallback);
+  }
+  update() {
+    const wasVisible = this.visible;
+    if (this.xrHitTestSource) {
+      const frame = this.engine.xrFrame;
+      if (!frame)
+        return;
+      let hitTestResults = frame.getHitTestResults(this.xrHitTestSource);
+      if (hitTestResults.length > 0) {
+        let pose = hitTestResults[0].getPose(this.engine.xr.currentReferenceSpace);
+        this.visible = !!pose;
+        if (pose) {
+          setXRRigidTransformLocal(this.object, pose.transform);
+        }
+      } else {
+        this.visible = false;
+      }
+    }
+    if (this.visible != wasVisible) {
+      (this.visible ? this.onHitFound : this.onHitLost).notify(this);
+    }
+  }
+  getHitTestResults(frame = this.engine.xr?.frame ?? null) {
+    if (!frame)
+      return [];
+    if (!this.xrHitTestSource)
+      return [];
+    return frame.getHitTestResults(this.xrHitTestSource);
+  }
+  onXRSessionStart(session) {
+    if (session.requestHitTestSource === void 0) {
+      console.error("hit-test-location: hit test feature not available. Deactivating component.");
+      this.active = false;
+      return;
+    }
+    session.requestHitTestSource({
+      space: this.xrReferenceSpace ?? this.engine.xr.referenceSpaceForType("viewer")
+    }).then((hitTestSource) => {
+      this.xrHitTestSource = hitTestSource;
+    }).catch(console.error);
+  }
+  onXRSessionEnd() {
+    if (!this.xrHitTestSource)
+      return;
+    this.xrHitTestSource.cancel();
+    this.xrHitTestSource = null;
+  }
+};
+__publicField(HitTestLocation, "TypeName", "hit-test-location");
+__decorate3([
+  property.bool(true)
+], HitTestLocation.prototype, "scaleObject", void 0);
+
+// node_modules/@wonderlandengine/components/dist/cursor.js
+var __decorate4 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
+    r = Reflect.decorate(decorators, target, key, desc);
+  else
+    for (var i = decorators.length - 1; i >= 0; i--)
+      if (d = decorators[i])
+        r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var tempVec2 = new Float32Array(3);
+var CursorTargetEmitters = class {
+  /** Emitter for events when the target is hovered */
+  onHover = new Emitter();
+  /** Emitter for events when the target is unhovered */
+  onUnhover = new Emitter();
+  /** Emitter for events when the target is clicked */
+  onClick = new Emitter();
+  /** Emitter for events when the cursor moves on the target */
+  onMove = new Emitter();
+  /** Emitter for events when the user pressed the select button on the target */
+  onDown = new Emitter();
+  /** Emitter for events when the user unpressed the select button on the target */
+  onUp = new Emitter();
+};
+var Cursor = class extends Component {
+  static onRegister(engine2) {
+    engine2.registerComponent(HitTestLocation);
+  }
+  _collisionMask = 0;
+  _onDeactivateCallbacks = [];
+  _input = null;
+  _origin = new Float32Array(3);
+  _cursorObjScale = new Float32Array(3);
+  _direction = new Float32Array(3);
+  _projectionMatrix = new Float32Array(16);
+  _viewComponent = null;
+  _isDown = false;
+  _lastIsDown = false;
+  _arTouchDown = false;
+  _lastPointerPos = new Float32Array(2);
+  _lastCursorPosOnTarget = new Float32Array(3);
+  _cursorRayScale = new Float32Array(3);
+  _hitTestLocation = null;
+  _hitTestObject = null;
+  _onSessionStartCallback = null;
+  /**
+   * Whether the cursor (and cursorObject) is visible, i.e. pointing at an object
+   * that matches the collision group
+   */
+  visible = true;
+  /** Maximum distance for the cursor's ray cast */
+  maxDistance = 100;
+  /** Currently hovered object */
+  hoveringObject = null;
+  /** CursorTarget component of the currently hovered object */
+  hoveringObjectTarget = null;
+  /** Whether the cursor is hovering reality via hit-test */
+  hoveringReality = false;
+  /**
+   * Global target lets you receive global cursor events on any object.
+   */
+  globalTarget = new CursorTargetEmitters();
+  /**
+   * Hit test target lets you receive cursor events for "reality", if
+   * `useWebXRHitTest` is set to `true`.
+   *
+   * @example
+   * ```js
+   * cursor.hitTestTarget.onClick.add((hit, cursor) => {
+   *     // User clicked on reality
+   * });
+   * ```
+   */
+  hitTestTarget = new CursorTargetEmitters();
+  /** World position of the cursor */
+  cursorPos = new Float32Array(3);
+  /** Collision group for the ray cast. Only objects in this group will be affected by this cursor. */
+  collisionGroup = 1;
+  /** (optional) Object that visualizes the cursor's ray. */
+  cursorRayObject = null;
+  /** Axis along which to scale the `cursorRayObject`. */
+  cursorRayScalingAxis = 2;
+  /** (optional) Object that visualizes the cursor's hit location. */
+  cursorObject = null;
+  /** Handedness for VR cursors to accept trigger events only from respective controller. */
+  handedness = 0;
+  /** Mode for raycasting, whether to use PhysX or simple collision components */
+  rayCastMode = 0;
+  /** Whether to set the CSS style of the mouse cursor on desktop */
+  styleCursor = true;
+  /**
+   * Use WebXR hit-test if available.
+   *
+   * Attaches a hit-test-location component to the cursorObject, which will be used
+   * by the cursor to send events to the hitTestTarget with HitTestResult.
+   */
+  useWebXRHitTest = false;
+  _onViewportResize = () => {
+    if (!this._viewComponent)
+      return;
+    mat4_exports.invert(this._projectionMatrix, this._viewComponent.projectionMatrix);
+  };
+  start() {
+    this._collisionMask = 1 << this.collisionGroup;
     if (this.handedness == 0) {
       const inputComp = this.object.getComponent("input");
       if (!inputComp) {
-        console.warn(
-          "cursor component on object",
-          this.object.name,
-          'was configured with handedness "input component", but object has no input component.'
-        );
+        console.warn("cursor component on object", this.object.name, 'was configured with handedness "input component", but object has no input component.');
       } else {
-        this.handedness = inputComp.handedness;
-        this.input = inputComp;
+        this.handedness = inputComp.handedness || "none";
+        this._input = inputComp;
       }
     } else {
-      this.handedness = ["left", "right"][this.handedness - 1];
+      this.handedness = ["left", "right", "none"][this.handedness - 1];
     }
-    this.globalTarget = this.object.addComponent("cursor-target");
-    this.origin = new Float32Array(3);
-    this.cursorObjScale = new Float32Array(3);
-    this.direction = [0, 0, 0];
-    this.tempQuat = new Float32Array(4);
-    this.viewComponent = this.object.getComponent("view");
-    if (this.viewComponent != null) {
+    this._viewComponent = this.object.getComponent(ViewComponent);
+    if (this.useWebXRHitTest) {
+      this._hitTestObject = this.engine.scene.addObject(this.object);
+      this._hitTestLocation = this._hitTestObject.addComponent(HitTestLocation, {
+        scaleObject: false
+      }) ?? null;
+    }
+    this._onSessionStartCallback = this.setupVREvents.bind(this);
+  }
+  onActivate() {
+    this.engine.onXRSessionStart.add(this._onSessionStartCallback);
+    this.engine.onResize.add(this._onViewportResize);
+    this._setCursorVisibility(true);
+    if (this._viewComponent != null) {
+      const canvas2 = this.engine.canvas;
       const onClick = this.onClick.bind(this);
-      this.engine.canvas.addEventListener("click", onClick);
       const onPointerMove = this.onPointerMove.bind(this);
-      this.engine.canvas.addEventListener("pointermove", onPointerMove);
       const onPointerDown = this.onPointerDown.bind(this);
-      this.engine.canvas.addEventListener("pointerdown", onPointerDown);
       const onPointerUp = this.onPointerUp.bind(this);
-      this.engine.canvas.addEventListener("pointerup", onPointerUp);
-      this.projectionMatrix = new Float32Array(16);
-      mat4_exports.invert(this.projectionMatrix, this.viewComponent.projectionMatrix);
-      const onViewportResize = this.onViewportResize.bind(this);
-      window.addEventListener("resize", onViewportResize);
-      this.onDestroyCallbacks.push(() => {
-        this.engine.canvas.removeEventListener("click", onClick);
-        this.engine.canvas.removeEventListener("pointermove", onPointerMove);
-        this.engine.canvas.removeEventListener("pointerdown", onPointerDown);
-        this.engine.canvas.removeEventListener("pointerup", onPointerUp);
-        window.removeEventListener("resize", onViewportResize);
+      canvas2.addEventListener("click", onClick);
+      canvas2.addEventListener("pointermove", onPointerMove);
+      canvas2.addEventListener("pointerdown", onPointerDown);
+      canvas2.addEventListener("pointerup", onPointerUp);
+      this._onDeactivateCallbacks.push(() => {
+        canvas2.removeEventListener("click", onClick);
+        canvas2.removeEventListener("pointermove", onPointerMove);
+        canvas2.removeEventListener("pointerdown", onPointerDown);
+        canvas2.removeEventListener("pointerup", onPointerUp);
       });
     }
-    this.isHovering = false;
-    this.visible = true;
-    this.isDown = false;
-    this.lastIsDown = false;
-    this.cursorPos = new Float32Array(3);
-    this.hoveringObject = null;
-    const onXRSessionStart = this.setupVREvents.bind(this);
-    this.engine.onXRSessionStart.push(onXRSessionStart);
-    this.onDestroyCallbacks.push(() => {
-      const index = this.engine.onXRSessionStart.indexOf(onXRSessionStart);
-      if (index >= 0)
-        this.engine.onXRSessionStart.splice(index, 1);
-    });
-    if (this.cursorRayObject) {
-      this.cursorRayScale = new Float32Array(3);
-      this.cursorRayScale.set(this.cursorRayObject.scalingLocal);
-      this.object.getTranslationWorld(this.origin);
-      this.object.getForward(this.direction);
-      this._setCursorRayTransform([
-        this.origin[0] + this.direction[0],
-        this.origin[1] + this.direction[1],
-        this.origin[2] + this.direction[2]
-      ]);
-    }
-  }
-  onViewportResize() {
-    if (!this.viewComponent)
-      return;
-    mat4_exports.invert(this.projectionMatrix, this.viewComponent.projectionMatrix);
+    this._onViewportResize();
   }
   _setCursorRayTransform(hitPosition) {
     if (!this.cursorRayObject)
       return;
-    const dist3 = vec3_exports.dist(this.origin, hitPosition);
+    const dist3 = vec3_exports.dist(this._origin, hitPosition);
     this.cursorRayObject.setTranslationLocal([0, 0, -dist3 / 2]);
     if (this.cursorRayScalingAxis != 4) {
       this.cursorRayObject.resetScaling();
-      this.cursorRayScale[this.cursorRayScalingAxis] = dist3 / 2;
-      this.cursorRayObject.scale(this.cursorRayScale);
+      this._cursorRayScale[this.cursorRayScalingAxis] = dist3 / 2;
+      this.cursorRayObject.scale(this._cursorRayScale);
     }
   }
   _setCursorVisibility(visible) {
@@ -6711,43 +12415,28 @@ var Cursor = class extends Component {
     if (!this.cursorObject)
       return;
     if (visible) {
-      this.cursorObject.resetScaling();
-      this.cursorObject.scale(this.cursorObjScale);
+      this.cursorObject.setScalingWorld(this._cursorObjScale);
     } else {
-      this.cursorObjScale.set(this.cursorObject.scalingLocal);
+      this.cursorObject.getScalingLocal(this._cursorObjScale);
       this.cursorObject.scale([0, 0, 0]);
     }
   }
   update() {
-    this.doUpdate(false);
-  }
-  doUpdate(doClick) {
-    if (this.session) {
-      if (this.arTouchDown && this.input && this.engine.xrSession.inputSources[0].handedness === "none" && this.engine.xrSession.inputSources[0].gamepad) {
-        const p = this.engine.xrSession.inputSources[0].gamepad.axes;
-        this.direction = [p[0], -p[1], -1];
-        this.updateDirection();
-      } else {
-        this.object.getTranslationWorld(this.origin);
-        this.object.getForward(this.direction);
-      }
-      const rayHit = this.rayHit = this.rayCastMode == 0 ? this.engine.scene.rayCast(
-        this.origin,
-        this.direction,
-        this.collisionMask
-      ) : this.engine.physics.rayCast(
-        this.origin,
-        this.direction,
-        this.collisionMask,
-        this.maxDistance
-      );
-      if (rayHit.hitCount > 0) {
-        this.cursorPos.set(rayHit.locations[0]);
-      } else {
-        this.cursorPos.fill(0);
-      }
-      this.hoverBehaviour(rayHit, doClick);
+    if (this.engine.xr && this._arTouchDown && this._input && this.engine.xr.session.inputSources[0].handedness === "none" && this.engine.xr.session.inputSources[0].gamepad) {
+      const p = this.engine.xr.session.inputSources[0].gamepad.axes;
+      this._direction[0] = p[0];
+      this._direction[1] = -p[1];
+      this._direction[2] = -1;
+      this.applyTransformAndProjectDirection();
+    } else if (this.engine.xr && this._input && this._input.xrInputSource) {
+      this._direction[0] = 0;
+      this._direction[1] = 0;
+      this._direction[2] = -1;
+      this.applyTransformToDirection();
+    } else if (this._viewComponent) {
+      this.updateDirection();
     }
+    this.rayCast(null, this.engine.xr?.frame);
     if (this.cursorObject) {
       if (this.hoveringObject && (this.cursorPos[0] != 0 || this.cursorPos[1] != 0 || this.cursorPos[2] != 0)) {
         this._setCursorVisibility(true);
@@ -6758,266 +12447,287 @@ var Cursor = class extends Component {
       }
     }
   }
-  hoverBehaviour(rayHit, doClick) {
-    if (rayHit.hitCount > 0) {
-      if (!this.hoveringObject || !this.hoveringObject.equals(rayHit.objects[0])) {
+  /* Returns the hovered cursor target, if available */
+  notify(event, originalEvent) {
+    const target = this.hoveringObject;
+    if (target) {
+      const cursorTarget = this.hoveringObjectTarget;
+      if (cursorTarget)
+        cursorTarget[event].notify(target, this, originalEvent ?? void 0);
+      this.globalTarget[event].notify(target, this, originalEvent ?? void 0);
+    }
+  }
+  hoverBehaviour(rayHit, hitTestResult, doClick, originalEvent) {
+    const hit = !this.hoveringReality && rayHit.hitCount > 0 ? rayHit.objects[0] : null;
+    if (hit) {
+      if (!this.hoveringObject || !this.hoveringObject.equals(hit)) {
         if (this.hoveringObject) {
-          const cursorTarget3 = this.hoveringObject.getComponent("cursor-target");
-          if (cursorTarget3)
-            cursorTarget3.onUnhover(this.hoveringObject, this);
-          this.globalTarget.onUnhover(this.hoveringObject, this);
+          this.notify("onUnhover", originalEvent);
         }
-        this.hoveringObject = rayHit.objects[0];
+        this.hoveringObject = hit;
+        this.hoveringObjectTarget = this.hoveringObject.getComponent(CursorTarget);
         if (this.styleCursor)
           this.engine.canvas.style.cursor = "pointer";
-        let cursorTarget2 = this.hoveringObject.getComponent("cursor-target");
-        if (cursorTarget2) {
-          this.hoveringObjectTarget = cursorTarget2;
-          cursorTarget2.onHover(this.hoveringObject, this);
-        }
-        this.globalTarget.onHover(this.hoveringObject, this);
+        this.notify("onHover", originalEvent);
       }
-      if (this.hoveringObjectTarget) {
-        this.hoveringObjectTarget.onMove(this.hoveringObject, this);
-      }
-      const cursorTarget = this.hoveringObject.getComponent("cursor-target");
-      if (this.isDown !== this.lastIsDown) {
-        if (this.isDown) {
-          if (cursorTarget)
-            cursorTarget.onDown(this.hoveringObject, this);
-          this.globalTarget.onDown(this.hoveringObject, this);
-        } else {
-          if (cursorTarget)
-            cursorTarget.onUp(this.hoveringObject, this);
-          this.globalTarget.onUp(this.hoveringObject, this);
-        }
-      }
-      if (doClick) {
-        if (cursorTarget)
-          cursorTarget.onClick(this.hoveringObject, this);
-        this.globalTarget.onClick(this.hoveringObject, this);
-      }
-    } else if (this.hoveringObject && rayHit.hitCount == 0) {
-      const cursorTarget = this.hoveringObject.getComponent("cursor-target");
-      if (cursorTarget)
-        cursorTarget.onUnhover(this.hoveringObject, this);
-      this.globalTarget.onUnhover(this.hoveringObject, this);
+    } else if (this.hoveringObject) {
+      this.notify("onUnhover", originalEvent);
       this.hoveringObject = null;
       this.hoveringObjectTarget = null;
       if (this.styleCursor)
         this.engine.canvas.style.cursor = "default";
     }
-    this.lastIsDown = this.isDown;
+    if (this.hoveringObject) {
+      if (this._isDown !== this._lastIsDown) {
+        this.notify(this._isDown ? "onDown" : "onUp", originalEvent);
+      }
+      if (doClick)
+        this.notify("onClick", originalEvent);
+    } else if (this.hoveringReality) {
+      if (this._isDown !== this._lastIsDown) {
+        (this._isDown ? this.hitTestTarget.onDown : this.hitTestTarget.onUp).notify(hitTestResult, this, originalEvent ?? void 0);
+      }
+      if (doClick)
+        this.hitTestTarget.onClick.notify(hitTestResult, this, originalEvent ?? void 0);
+    }
+    if (hit) {
+      if (this.hoveringObject) {
+        this.hoveringObject.transformPointInverseWorld(tempVec2, this.cursorPos);
+      } else {
+        tempVec2.set(this.cursorPos);
+      }
+      if (!vec3_exports.equals(this._lastCursorPosOnTarget, tempVec2)) {
+        this.notify("onMove", originalEvent);
+        this._lastCursorPosOnTarget.set(tempVec2);
+      }
+    } else if (this.hoveringReality) {
+      if (!vec3_exports.equals(this._lastCursorPosOnTarget, this.cursorPos)) {
+        this.hitTestTarget.onMove.notify(hitTestResult, this, originalEvent ?? void 0);
+        this._lastCursorPosOnTarget.set(this.cursorPos);
+      }
+    } else {
+      this._lastCursorPosOnTarget.set(this.cursorPos);
+    }
+    this._lastIsDown = this._isDown;
   }
   /**
    * Setup event listeners on session object
    * @param s WebXR session
    *
-   * Sets up 'select' and 'end' events and caches the session to avoid
-   * Module object access.
+   * Sets up 'select' and 'end' events.
    */
   setupVREvents(s) {
-    this.session = s;
-    const onSessionEnd = function(e) {
-      this.session = null;
-    }.bind(this);
-    s.addEventListener("end", onSessionEnd);
+    if (!s)
+      console.error("setupVREvents called without a valid session");
     const onSelect = this.onSelect.bind(this);
     s.addEventListener("select", onSelect);
     const onSelectStart = this.onSelectStart.bind(this);
     s.addEventListener("selectstart", onSelectStart);
     const onSelectEnd = this.onSelectEnd.bind(this);
     s.addEventListener("selectend", onSelectEnd);
-    this.onDestroyCallbacks.push(() => {
-      if (!this.session)
+    this._onDeactivateCallbacks.push(() => {
+      if (!this.engine.xrSession)
         return;
-      s.removeEventListener("end", onSessionEnd);
       s.removeEventListener("select", onSelect);
       s.removeEventListener("selectstart", onSelectStart);
       s.removeEventListener("selectend", onSelectEnd);
     });
-    this.onViewportResize();
+    this._onViewportResize();
+  }
+  onDeactivate() {
+    this.engine.onXRSessionStart.remove(this._onSessionStartCallback);
+    this.engine.onResize.remove(this._onViewportResize);
+    this._setCursorVisibility(false);
+    if (this.hoveringObject)
+      this.notify("onUnhover", null);
+    if (this.cursorRayObject)
+      this.cursorRayObject.scale([0, 0, 0]);
+    for (const f of this._onDeactivateCallbacks)
+      f();
+    this._onDeactivateCallbacks.length = 0;
+  }
+  onDestroy() {
+    this._hitTestObject?.destroy();
   }
   /** 'select' event listener */
   onSelect(e) {
     if (e.inputSource.handedness != this.handedness)
       return;
-    this.doUpdate(true);
+    this.rayCast(e, e.frame, true);
   }
   /** 'selectstart' event listener */
   onSelectStart(e) {
-    this.arTouchDown = true;
-    if (e.inputSource.handedness == this.handedness)
-      this.isDown = true;
+    this._arTouchDown = true;
+    if (e.inputSource.handedness == this.handedness) {
+      this._isDown = true;
+      this.rayCast(e, e.frame);
+    }
   }
   /** 'selectend' event listener */
   onSelectEnd(e) {
-    this.arTouchDown = false;
-    if (e.inputSource.handedness == this.handedness)
-      this.isDown = false;
+    this._arTouchDown = false;
+    if (e.inputSource.handedness == this.handedness) {
+      this._isDown = false;
+      this.rayCast(e, e.frame);
+    }
   }
   /** 'pointermove' event listener */
   onPointerMove(e) {
     if (!e.isPrimary)
       return;
-    const bounds = e.target.getBoundingClientRect();
-    const rayHit = this.updateMousePos(
-      e.clientX,
-      e.clientY,
-      bounds.width,
-      bounds.height
-    );
-    this.hoverBehaviour(rayHit, false);
+    this.updateMousePos(e);
+    this.rayCast(e, null);
   }
   /** 'click' event listener */
   onClick(e) {
-    const bounds = e.target.getBoundingClientRect();
-    const rayHit = this.updateMousePos(
-      e.clientX,
-      e.clientY,
-      bounds.width,
-      bounds.height
-    );
-    this.hoverBehaviour(rayHit, true);
+    this.updateMousePos(e);
+    this.rayCast(e, null, true);
   }
   /** 'pointerdown' event listener */
   onPointerDown(e) {
     if (!e.isPrimary || e.button !== 0)
       return;
-    const bounds = e.target.getBoundingClientRect();
-    const rayHit = this.updateMousePos(
-      e.clientX,
-      e.clientY,
-      bounds.width,
-      bounds.height
-    );
-    this.isDown = true;
-    this.hoverBehaviour(rayHit, false);
+    this.updateMousePos(e);
+    this._isDown = true;
+    this.rayCast(e);
   }
   /** 'pointerup' event listener */
   onPointerUp(e) {
     if (!e.isPrimary || e.button !== 0)
       return;
-    const bounds = e.target.getBoundingClientRect();
-    const rayHit = this.updateMousePos(
-      e.clientX,
-      e.clientY,
-      bounds.width,
-      bounds.height
-    );
-    this.isDown = false;
-    this.hoverBehaviour(rayHit, false);
+    this.updateMousePos(e);
+    this._isDown = false;
+    this.rayCast(e);
   }
   /**
    * Update mouse position in non-VR mode and raycast for new position
    * @returns @ref WL.RayHit for new position.
    */
-  updateMousePos(clientX, clientY, w, h) {
-    const left = clientX / w;
-    const top = clientY / h;
-    this.direction = [left * 2 - 1, -top * 2 + 1, -1];
-    return this.updateDirection();
+  updateMousePos(e) {
+    this._lastPointerPos[0] = e.clientX;
+    this._lastPointerPos[1] = e.clientY;
+    this.updateDirection();
   }
   updateDirection() {
-    this.object.getTranslationWorld(this.origin);
-    vec3_exports.transformMat4(this.direction, this.direction, this.projectionMatrix);
-    vec3_exports.normalize(this.direction, this.direction);
-    vec3_exports.transformQuat(this.direction, this.direction, this.object.transformWorld);
-    const rayHit = this.rayHit = this.rayCastMode == 0 ? this.engine.scene.rayCast(this.origin, this.direction, this.collisionMask) : this.engine.physics.rayCast(
-      this.origin,
-      this.direction,
-      this.collisionMask,
-      this.maxDistance
-    );
+    const bounds = this.engine.canvas.getBoundingClientRect();
+    const left = this._lastPointerPos[0] / bounds.width;
+    const top = this._lastPointerPos[1] / bounds.height;
+    this._direction[0] = left * 2 - 1;
+    this._direction[1] = -top * 2 + 1;
+    this._direction[2] = -1;
+    this.applyTransformAndProjectDirection();
+  }
+  applyTransformAndProjectDirection() {
+    vec3_exports.transformMat4(this._direction, this._direction, this._projectionMatrix);
+    vec3_exports.normalize(this._direction, this._direction);
+    this.applyTransformToDirection();
+  }
+  applyTransformToDirection() {
+    vec3_exports.transformQuat(this._direction, this._direction, this.object.transformWorld);
+    this.object.getTranslationWorld(this._origin);
+  }
+  rayCast(originalEvent, frame = null, doClick = false) {
+    const rayHit = this.rayCastMode == 0 ? this.engine.scene.rayCast(this._origin, this._direction, this._collisionMask) : this.engine.physics.rayCast(this._origin, this._direction, this._collisionMask, this.maxDistance);
+    let hitResultDistance = Infinity;
+    let hitTestResult = null;
+    if (this._hitTestLocation?.visible) {
+      this._hitTestObject.getTranslationWorld(this.cursorPos);
+      hitResultDistance = vec3_exports.distance(this.object.getTranslationWorld(tempVec2), this.cursorPos);
+      hitTestResult = this._hitTestLocation?.getHitTestResults(frame)[0];
+    }
+    let hoveringReality = false;
     if (rayHit.hitCount > 0) {
-      this.cursorPos.set(rayHit.locations[0]);
+      const d = rayHit.distances[0];
+      if (hitResultDistance >= d) {
+        this.cursorPos.set(rayHit.locations[0]);
+      } else {
+        hoveringReality = true;
+      }
+    } else if (hitResultDistance < Infinity) {
     } else {
       this.cursorPos.fill(0);
     }
-    return rayHit;
-  }
-  onDeactivate() {
-    this._setCursorVisibility(false);
-    if (this.hoveringObject) {
-      const target = this.hoveringObject.getComponent("cursor-target");
-      if (target)
-        target.onUnhover(this.hoveringObject, this);
-      this.globalTarget.onUnhover(this.hoveringObject, this);
+    if (hoveringReality && !this.hoveringReality) {
+      this.hitTestTarget.onHover.notify(hitTestResult, this);
+    } else if (!hoveringReality && this.hoveringReality) {
+      this.hitTestTarget.onUnhover.notify(hitTestResult, this);
     }
-    if (this.cursorRayObject)
-      this.cursorRayObject.scale([0, 0, 0]);
-  }
-  onActivate() {
-    this._setCursorVisibility(true);
-  }
-  onDestroy() {
-    for (const f of this.onDestroyCallbacks)
-      f();
+    this.hoveringReality = hoveringReality;
+    this.hoverBehaviour(rayHit, hitTestResult, doClick, originalEvent);
+    return rayHit;
   }
 };
 __publicField(Cursor, "TypeName", "cursor");
-__publicField(Cursor, "Properties", {
-  /** Collision group for the ray cast. Only objects in this group will be affected by this cursor. */
-  collisionGroup: { type: Type.Int, default: 1 },
-  /** (optional) Object that visualizes the cursor's ray. */
-  cursorRayObject: { type: Type.Object },
-  /** Axis along which to scale the `cursorRayObject`. */
-  cursorRayScalingAxis: {
-    type: Type.Enum,
-    values: ["x", "y", "z", "none"],
-    default: "z"
-  },
-  /** (optional) Object that visualizes the cursor's hit location. */
-  cursorObject: { type: Type.Object },
-  /** Handedness for VR cursors to accept trigger events only from respective controller. */
-  handedness: {
-    type: Type.Enum,
-    values: ["input component", "left", "right", "none"],
-    default: "input component"
-  },
-  /** Mode for raycasting, whether to use PhysX or simple collision components */
-  rayCastMode: {
-    type: Type.Enum,
-    values: ["collision", "physx"],
-    default: "collision"
-  },
-  /** Whether to set the CSS style of the mouse cursor on desktop */
-  styleCursor: { type: Type.Bool, default: true }
-});
+/* Dependencies is deprecated, but we keep it here for compatibility
+ * with 1.0.0-rc2 until 1.0.0 is released */
+__publicField(Cursor, "Dependencies", [HitTestLocation]);
+__decorate4([
+  property.int(1)
+], Cursor.prototype, "collisionGroup", void 0);
+__decorate4([
+  property.object()
+], Cursor.prototype, "cursorRayObject", void 0);
+__decorate4([
+  property.enum(["x", "y", "z", "none"], "z")
+], Cursor.prototype, "cursorRayScalingAxis", void 0);
+__decorate4([
+  property.object()
+], Cursor.prototype, "cursorObject", void 0);
+__decorate4([
+  property.enum(["input component", "left", "right", "none"], "input component")
+], Cursor.prototype, "handedness", void 0);
+__decorate4([
+  property.enum(["collision", "physx"], "collision")
+], Cursor.prototype, "rayCastMode", void 0);
+__decorate4([
+  property.bool(true)
+], Cursor.prototype, "styleCursor", void 0);
+__decorate4([
+  property.bool(false)
+], Cursor.prototype, "useWebXRHitTest", void 0);
 
-// node_modules/@wonderlandengine/components/debug-object.js
+// node_modules/@wonderlandengine/components/dist/debug-object.js
+var __decorate5 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
+    r = Reflect.decorate(decorators, target, key, desc);
+  else
+    for (var i = decorators.length - 1; i >= 0; i--)
+      if (d = decorators[i])
+        r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
 var DebugObject = class extends Component {
+  /** A second object to print the name of */
+  obj = null;
   start() {
-  }
-  init() {
-    let origin = [0, 0, 0];
+    let origin = new Float32Array(3);
     quat2_exports.getTranslation(origin, this.object.transformWorld);
-    console.log("Debug Object:", this.object.name);
-    console.log("Other object:", this.obj.name);
+    console.log("Debug object:", this.object.name);
+    console.log("Other object:", this.obj?.name);
     console.log("	translation", origin);
     console.log("	transformWorld", this.object.transformWorld);
     console.log("	transformLocal", this.object.transformLocal);
   }
-  update() {
-  }
 };
 __publicField(DebugObject, "TypeName", "debug-object");
-__publicField(DebugObject, "Properties", {
-  /** A second object to print the name of */
-  obj: { type: Type.Object }
-});
+__decorate5([
+  property.object()
+], DebugObject.prototype, "obj", void 0);
 
-// node_modules/@wonderlandengine/components/fixed-foveation.js
+// node_modules/@wonderlandengine/components/dist/fixed-foveation.js
 var FixedFoveation = class extends Component {
   start() {
-    if (this.engine.xrSession) {
-      this.setFixedFoveation();
-    } else {
-      this.engine.onXRSessionStart.push(this.setFixedFoveation.bind(this));
-    }
+    this.onSessionStartCallback = this.setFixedFoveation.bind(this);
+  }
+  onActivate() {
+    this.engine.onXRSessionStart.add(this.onSessionStartCallback);
+  }
+  onDeactivate() {
+    this.engine.onXRSessionStart.remove(this.onSessionStartCallback);
   }
   setFixedFoveation() {
-    this.engine.xrBaseLayer.fixedFoveation = this.fixedFoveation;
+    this.engine.xr.baseLayer.fixedFoveation = this.fixedFoveation;
   }
 };
 __publicField(FixedFoveation, "TypeName", "fixed-foveation");
@@ -7026,7 +12736,7 @@ __publicField(FixedFoveation, "Properties", {
   fixedFoveation: { type: Type.Float, default: 0.5 }
 });
 
-// node_modules/@wonderlandengine/components/hand-tracking.js
+// node_modules/@wonderlandengine/components/dist/hand-tracking.js
 var ORDERED_JOINTS = [
   "wrist",
   "thumb-metacarpal",
@@ -7054,15 +12764,18 @@ var ORDERED_JOINTS = [
   "pinky-finger-phalanx-distal",
   "pinky-finger-tip"
 ];
+var invTranslation = new Float32Array(3);
+var invRotation = new Float32Array(4);
 var HandTracking = class extends Component {
   init() {
     this.handedness = ["left", "right"][this.handedness];
   }
+  joints = {};
+  session = null;
+  /* Whether last update had a hand pose */
+  hasPose = false;
+  _childrenActive = true;
   start() {
-    this.joints = [];
-    this.session = null;
-    this.hasPose = false;
-    this._childrenActive = true;
     if (!("XRHand" in window)) {
       console.warn("WebXR Hand Tracking not supported by this browser.");
       this.active = false;
@@ -7078,65 +12791,49 @@ var HandTracking = class extends Component {
       }
       return;
     }
-    for (let j = 0; j <= ORDERED_JOINTS.length; ++j) {
-      let joint = this.engine.scene.addObject(this.object.parent);
-      let mesh = joint.addComponent("mesh");
-      mesh.mesh = this.jointMesh;
-      mesh.material = this.jointMaterial;
+    const jointObjects = this.engine.scene.addObjects(ORDERED_JOINTS.length, this.object.parent, ORDERED_JOINTS.length);
+    for (let j = 0; j < ORDERED_JOINTS.length; ++j) {
+      let joint = jointObjects[j];
+      joint.addComponent(MeshComponent, {
+        mesh: this.jointMesh,
+        material: this.jointMaterial
+      });
       this.joints[ORDERED_JOINTS[j]] = joint;
     }
   }
   update(dt) {
     if (!this.session) {
-      if (this.engine.xrSession)
-        this.setupVREvents(this.engine.xrSession);
+      if (this.engine.xr)
+        this.setupVREvents(this.engine.xr.session);
     }
     if (!this.session)
       return;
     this.hasPose = false;
     if (this.session && this.session.inputSources) {
-      for (let i = 0; i <= this.session.inputSources.length; ++i) {
+      for (let i = 0; i < this.session.inputSources.length; ++i) {
         const inputSource = this.session.inputSources[i];
         if (!inputSource || !inputSource.hand || inputSource.handedness != this.handedness)
           continue;
         this.hasPose = true;
-        if (inputSource.hand.get("wrist") !== null) {
-          const WebXR = this.engine.wasm.WebXR;
-          const p = Module["webxr_frame"].getJointPose(
-            inputSource.hand.get("wrist"),
-            WebXR.refSpaces[WebXR.refSpace]
-          );
+        const wristSpace = inputSource.hand.get("wrist");
+        if (wristSpace !== null) {
+          const p = this.engine.xr.frame.getJointPose(wristSpace, this.engine.xr.currentReferenceSpace);
           if (p) {
-            this.object.resetTranslationRotation();
-            this.object.transformLocal.set([
-              p.transform.orientation.x,
-              p.transform.orientation.y,
-              p.transform.orientation.z,
-              p.transform.orientation.w
-            ]);
-            this.object.translate([
-              p.transform.position.x,
-              p.transform.position.y,
-              p.transform.position.z
-            ]);
+            setXRRigidTransformLocal(this.object, p.transform);
           }
         }
-        let invTranslation = new Float32Array(3);
-        let invRotation = new Float32Array(4);
-        quat_exports.invert(invRotation, this.object.transformLocal);
+        this.object.getRotationLocal(invRotation);
+        quat_exports.conjugate(invRotation, invRotation);
         this.object.getTranslationLocal(invTranslation);
         for (let j = 0; j < ORDERED_JOINTS.length; ++j) {
           const jointName = ORDERED_JOINTS[j];
           const joint = this.joints[jointName];
-          if (joint == null)
+          if (joint === null)
             continue;
           let jointPose = null;
-          if (inputSource.hand.get(jointName) !== null) {
-            const WebXR = this.engine.wasm.WebXR;
-            jointPose = Module["webxr_frame"].getJointPose(
-              inputSource.hand.get(jointName),
-              WebXR.refSpaces[WebXR.refSpace]
-            );
+          const jointSpace = inputSource.hand.get(jointName);
+          if (jointSpace !== null) {
+            jointPose = this.engine.xr.frame.getJointPose(jointSpace, this.engine.xr.currentReferenceSpace);
           }
           if (jointPose !== null) {
             if (this.handSkin) {
@@ -7154,24 +12851,10 @@ var HandTracking = class extends Component {
                 jointPose.transform.orientation.w
               ]);
             } else {
-              joint.resetTransform();
-              joint.transformLocal.set([
-                jointPose.transform.orientation.x,
-                jointPose.transform.orientation.y,
-                jointPose.transform.orientation.z,
-                jointPose.transform.orientation.w
-              ]);
-              joint.translate([
-                jointPose.transform.position.x,
-                jointPose.transform.position.y,
-                jointPose.transform.position.z
-              ]);
+              setXRRigidTransformLocal(joint, jointPose.transform);
               const r = jointPose.radius || 7e-3;
-              joint.scale([r, r, r]);
+              joint.setScalingLocal([r, r, r]);
             }
-          } else {
-            if (!this.handSkin)
-              joint.scale([0, 0, 0]);
           }
         }
       }
@@ -7231,8 +12914,8 @@ __publicField(HandTracking, "Properties", {
   controllerToDeactivate: { type: Type.Object }
 });
 
-// node_modules/@wonderlandengine/components/howler-audio-listener.js
-var import_howler = __toESM(require_howler());
+// node_modules/@wonderlandengine/components/dist/howler-audio-listener.js
+var import_howler = __toESM(require_howler(), 1);
 var HowlerAudioListener = class extends Component {
   init() {
     this.origin = new Float32Array(3);
@@ -7246,14 +12929,7 @@ var HowlerAudioListener = class extends Component {
     this.object.getForward(this.fwd);
     this.object.getUp(this.up);
     Howler.pos(this.origin[0], this.origin[1], this.origin[2]);
-    Howler.orientation(
-      this.fwd[0],
-      this.fwd[1],
-      this.fwd[2],
-      this.up[0],
-      this.up[1],
-      this.up[2]
-    );
+    Howler.orientation(this.fwd[0], this.fwd[1], this.fwd[2], this.up[0], this.up[1], this.up[2]);
   }
 };
 __publicField(HowlerAudioListener, "TypeName", "howler-audio-listener");
@@ -7262,11 +12938,11 @@ __publicField(HowlerAudioListener, "Properties", {
   spatial: { type: Type.Bool, default: true }
 });
 
-// node_modules/@wonderlandengine/components/howler-audio-source.js
-var import_howler2 = __toESM(require_howler());
+// node_modules/@wonderlandengine/components/dist/howler-audio-source.js
+var import_howler2 = __toESM(require_howler(), 1);
 var HowlerAudioSource = class extends Component {
   start() {
-    this.audio = new import_howler2.Howl({
+    this.audio = new Howl({
       src: [this.src],
       loop: this.loop,
       volume: this.volume,
@@ -7279,13 +12955,6 @@ var HowlerAudioSource = class extends Component {
       this.updatePosition();
       this.play();
     }
-    const callback = () => {
-      this.stop();
-      const idx = this.engine.onSceneLoaded.indexOf(callback);
-      if (idx >= 0)
-        this.engine.onSceneLoaded.splice(idx, 1);
-    };
-    this.engine.onSceneLoaded.push(callback);
   }
   update() {
     if (!this.spatial || !this.lastPlayedAudioId)
@@ -7296,12 +12965,7 @@ var HowlerAudioSource = class extends Component {
     }
   }
   updatePosition() {
-    this.audio.pos(
-      this.origin[0],
-      this.origin[1],
-      this.origin[2],
-      this.lastPlayedAudioId
-    );
+    this.audio.pos(this.origin[0], this.origin[1], this.origin[2], this.lastPlayedAudioId);
     this.lastOrigin.set(this.origin);
   }
   play() {
@@ -7316,6 +12980,9 @@ var HowlerAudioSource = class extends Component {
       return;
     this.audio.stop(this.lastPlayedAudioId);
     this.lastPlayedAudioId = null;
+  }
+  onDeactivate() {
+    this.stop();
   }
 };
 __publicField(HowlerAudioSource, "TypeName", "howler-audio-source");
@@ -7332,7 +12999,36 @@ __publicField(HowlerAudioSource, "Properties", {
   src: { type: Type.String, default: "" }
 });
 
-// node_modules/@wonderlandengine/components/image-texture.js
+// node_modules/@wonderlandengine/components/dist/utils/utils.js
+function setFirstMaterialTexture(mat, texture, customTextureProperty) {
+  if (customTextureProperty !== "auto") {
+    mat[customTextureProperty] = texture;
+    return true;
+  }
+  const shader = mat.shader;
+  if (shader === "Flat Opaque Textured") {
+    mat.flatTexture = texture;
+    return true;
+  } else if (shader === "Phong Opaque Textured" || shader === "Foliage" || shader === "Phong Normalmapped" || shader === "Phong Lightmapped") {
+    mat.diffuseTexture = texture;
+    return true;
+  } else if (shader === "Particle") {
+    mat.mainTexture = texture;
+    return true;
+  } else if (shader === "DistanceFieldVector") {
+    mat.vectorTexture = texture;
+    return true;
+  } else if (shader === "Background" || shader === "Sky") {
+    mat.texture = texture;
+    return true;
+  } else if (shader === "Physical Opaque Textured") {
+    mat.albedoTexture = texture;
+    return true;
+  }
+  return false;
+}
+
+// node_modules/@wonderlandengine/components/dist/image-texture.js
 var ImageTexture = class extends Component {
   start() {
     if (!this.material) {
@@ -7340,17 +13036,8 @@ var ImageTexture = class extends Component {
     }
     this.engine.textures.load(this.url, "anonymous").then((texture) => {
       const mat = this.material;
-      const shader = mat.shader;
-      if (shader === "Flat Opaque Textured") {
-        mat.flatTexture = texture;
-      } else if (shader === "Phong Opaque Textured" || shader === "Foliage") {
-        mat.diffuseTexture = texture;
-      } else if (shader === "Background") {
-        mat.texture = texture;
-      } else if (shader === "Physical Opaque Textured") {
-        mat.albedoTexture = texture;
-      } else {
-        console.error("Shader", shader, "not supported by image-texture");
+      if (!setFirstMaterialTexture(mat, texture, this.textureProperty)) {
+        console.error("Shader", mat.shader, "not supported by image-texture");
       }
     }).catch(console.err);
   }
@@ -7358,12 +13045,14 @@ var ImageTexture = class extends Component {
 __publicField(ImageTexture, "TypeName", "image-texture");
 __publicField(ImageTexture, "Properties", {
   /** URL to download the image from */
-  url: { type: Type.String },
+  url: Property.string(),
   /** Material to apply the video texture to */
-  material: { type: Type.Material }
+  material: Property.material(),
+  /** Name of the texture property to set */
+  textureProperty: Property.string("auto")
 });
 
-// node_modules/@wonderlandengine/components/mouse-look.js
+// node_modules/@wonderlandengine/components/dist/mouse-look.js
 var MouseLookComponent = class extends Component {
   init() {
     this.currentRotationY = 0;
@@ -7403,13 +13092,9 @@ var MouseLookComponent = class extends Component {
     }
     if (this.requireMouseDown) {
       if (this.mouseButtonIndex == 2) {
-        canvas2.addEventListener(
-          "contextmenu",
-          (e) => {
-            e.preventDefault();
-          },
-          false
-        );
+        canvas2.addEventListener("contextmenu", (e) => {
+          e.preventDefault();
+        }, false);
       }
       canvas2.addEventListener("mousedown", (e) => {
         if (e.button == this.mouseButtonIndex) {
@@ -7444,25 +13129,29 @@ __publicField(MouseLookComponent, "Properties", {
   pointerLockOnClick: { type: Type.Bool, default: false }
 });
 
-// node_modules/@wonderlandengine/components/player-height.js
+// node_modules/@wonderlandengine/components/dist/player-height.js
 var PlayerHeight = class extends Component {
-  init() {
-    this.engine.onXRSessionStart.push(this.onXRSessionStart.bind(this));
-    this.engine.onXRSessionEnd.push(this.onXRSessionEnd.bind(this));
-  }
   start() {
     this.object.resetTranslationRotation();
     this.object.translate([0, this.height, 0]);
+    this.onSessionStartCallback = this.onXRSessionStart.bind(this);
+    this.onSessionEndCallback = this.onXRSessionEnd.bind(this);
+  }
+  onActivate() {
+    this.engine.onXRSessionStart.add(this.onSessionStartCallback);
+    this.engine.onXRSessionEnd.add(this.onSessionEndCallback);
+  }
+  onDeactivate() {
+    this.engine.onXRSessionStart.remove(this.onSessionStartCallback);
+    this.engine.onXRSessionEnd.remove(this.onSessionEndCallback);
   }
   onXRSessionStart() {
-    const WebXR = this.engine.wasm.WebXR;
-    if (!["local", "viewer"].includes(WebXR.refSpace)) {
+    if (!["local", "viewer"].includes(this.engine.xr.currentReferenceSpace)) {
       this.object.resetTranslationRotation();
     }
   }
   onXRSessionEnd() {
-    const WebXR = this.engine.wasm.WebXR;
-    if (!["local", "viewer"].includes(WebXR.refSpace)) {
+    if (!["local", "viewer"].includes(this.engine.xr.currentReferenceSpace)) {
       this.object.resetTranslationRotation();
       this.object.translate([0, this.height, 0]);
     }
@@ -7473,20 +13162,22 @@ __publicField(PlayerHeight, "Properties", {
   height: { type: Type.Float, default: 1.75 }
 });
 
-// node_modules/@wonderlandengine/components/target-framerate.js
+// node_modules/@wonderlandengine/components/dist/target-framerate.js
 var TargetFramerate = class extends Component {
   start() {
-    if (this.engine.xrSession) {
-      this.setTargetFramerate(this.engine.xrSession);
-    } else {
-      this.engine.onXRSessionStart.push(this.setTargetFramerate.bind(this));
-    }
+    this.onSessionStartCallback = this.setTargetFramerate.bind(this);
+  }
+  onActivate() {
+    this.engine.onXRSessionStart.add(this.onSessionStartCallback);
+  }
+  onDeactivate() {
+    this.engine.onXRSessionStart.remove(this.onSessionStartCallback);
   }
   setTargetFramerate(s) {
     if (s.supportedFrameRates && s.updateTargetFrameRate) {
-      const a = this.engine.xrSession.supportedFrameRates;
+      const a = this.engine.xr.session.supportedFrameRates;
       a.sort((a2, b) => Math.abs(a2 - this.framerate) - Math.abs(b - this.framerate));
-      this.engine.xrSession.updateTargetFrameRate(a[0]);
+      this.engine.xr.session.updateTargetFrameRate(a[0]);
     }
   }
 };
@@ -7495,7 +13186,7 @@ __publicField(TargetFramerate, "Properties", {
   framerate: { type: Type.Float, default: 90 }
 });
 
-// node_modules/@wonderlandengine/components/teleport.js
+// node_modules/@wonderlandengine/components/dist/teleport.js
 var TeleportComponent = class extends Component {
   init() {
     this._prevThumbstickAxis = new Float32Array(2);
@@ -7504,24 +13195,15 @@ var TeleportComponent = class extends Component {
     this._currentIndicatorRotation = 0;
     this.input = this.object.getComponent("input");
     if (!this.input) {
-      console.error(
-        this.object.name,
-        "generic-teleport-component.js: input component is required on the object"
-      );
+      console.error(this.object.name, "generic-teleport-component.js: input component is required on the object");
       return;
     }
     if (!this.teleportIndicatorMeshObject) {
-      console.error(
-        this.object.name,
-        "generic-teleport-component.js: Teleport indicator mesh is missing"
-      );
+      console.error(this.object.name, "generic-teleport-component.js: Teleport indicator mesh is missing");
       return;
     }
     if (!this.camRoot) {
-      console.error(
-        this.object.name,
-        "generic-teleport-component.js: camRoot not set"
-      );
+      console.error(this.object.name, "generic-teleport-component.js: camRoot not set");
       return;
     }
     this.isIndicating = false;
@@ -7540,11 +13222,7 @@ var TeleportComponent = class extends Component {
     if (this.handedness == 0) {
       const inputComp = this.object.getComponent("input");
       if (!inputComp) {
-        console.warn(
-          "teleport component on object",
-          this.object.name,
-          'was configured with handedness "input component", but object has no input component.'
-        );
+        console.warn("teleport component on object", this.object.name, 'was configured with handedness "input component", but object has no input component.');
       } else {
         this.handedness = inputComp.handedness;
         this.input = inputComp;
@@ -7552,8 +13230,14 @@ var TeleportComponent = class extends Component {
     } else {
       this.handedness = ["left", "right"][this.handedness - 1];
     }
-    this.engine.onXRSessionStart.push(this.setupVREvents.bind(this));
+    this.onSessionStartCallback = this.setupVREvents.bind(this);
     this.teleportIndicatorMeshObject.active = false;
+  }
+  onActivate() {
+    this.engine.onXRSessionStart.add(this.onSessionStartCallback);
+  }
+  onDeactivate() {
+    this.engine.onXRSessionStart.remove(this.onSessionStartCallback);
   }
   /* Get current camera Y rotation */
   _getCamRotation() {
@@ -7580,23 +13264,15 @@ var TeleportComponent = class extends Component {
     }
     if (this.isIndicating && this.teleportIndicatorMeshObject && this.input) {
       const origin = this._tempVec0;
-      quat2_exports.getTranslation(origin, this.object.transformWorld);
-      const direction2 = this.object.getForward(this._tempVec);
-      let rayHit = this.rayHit = this.rayCastMode == 0 ? this.engine.scene.rayCast(origin, direction2, 1 << this.floorGroup) : this.engine.physics.rayCast(
-        origin,
-        direction2,
-        1 << this.floorGroup,
-        this.maxDistance
-      );
+      this.object.getPositionWorld(origin);
+      const direction2 = this.object.getForwardWorld(this._tempVec);
+      let rayHit = this.rayHit = this.rayCastMode == 0 ? this.engine.scene.rayCast(origin, direction2, 1 << this.floorGroup) : this.engine.physics.rayCast(origin, direction2, 1 << this.floorGroup, this.maxDistance);
       if (rayHit.hitCount > 0) {
         this.indicatorHidden = false;
         this._extraRotation = Math.PI + Math.atan2(this._currentStickAxes[0], this._currentStickAxes[1]);
         this._currentIndicatorRotation = this._getCamRotation() + (this._extraRotation - Math.PI);
-        this.teleportIndicatorMeshObject.resetTranslationRotation();
-        this.teleportIndicatorMeshObject.rotateAxisAngleRad(
-          [0, 1, 0],
-          this._currentIndicatorRotation
-        );
+        this.teleportIndicatorMeshObject.resetPositionRotation();
+        this.teleportIndicatorMeshObject.rotateAxisAngleRad([0, 1, 0], this._currentIndicatorRotation);
         this.teleportIndicatorMeshObject.translate(rayHit.locations[0]);
         this.teleportIndicatorMeshObject.translate([
           0,
@@ -7620,13 +13296,10 @@ var TeleportComponent = class extends Component {
   }
   setupVREvents(s) {
     this.session = s;
-    s.addEventListener(
-      "end",
-      function() {
-        this.gamepad = null;
-        this.session = null;
-      }.bind(this)
-    );
+    s.addEventListener("end", function() {
+      this.gamepad = null;
+      this.session = null;
+    }.bind(this));
     if (s.inputSources && s.inputSources.length) {
       for (let i = 0; i < s.inputSources.length; i++) {
         let inputSource = s.inputSources[i];
@@ -7635,19 +13308,16 @@ var TeleportComponent = class extends Component {
         }
       }
     }
-    s.addEventListener(
-      "inputsourceschange",
-      function(e) {
-        if (e.added && e.added.length) {
-          for (let i = 0; i < e.added.length; i++) {
-            let inputSource = e.added[i];
-            if (inputSource.handedness == this.handedness) {
-              this.gamepad = inputSource.gamepad;
-            }
+    s.addEventListener("inputsourceschange", function(e) {
+      if (e.added && e.added.length) {
+        for (let i = 0; i < e.added.length; i++) {
+          let inputSource = e.added[i];
+          if (inputSource.handedness == this.handedness) {
+            this.gamepad = inputSource.gamepad;
           }
         }
-      }.bind(this)
-    );
+      }
+    }.bind(this));
   }
   onMouseDown() {
     this.isMouseIndicating = true;
@@ -7661,24 +13331,16 @@ var TeleportComponent = class extends Component {
   }
   onMousePressed() {
     let origin = [0, 0, 0];
-    quat2_exports.getTranslation(origin, this.cam.transformWorld);
+    this.cam.getPositionWorld(origin);
     const direction2 = this.cam.getForward(this._tempVec);
-    let rayHit = this.rayHit = this.rayCastMode == 0 ? this.engine.scene.rayCast(origin, direction2, 1 << this.floorGroup) : this.engine.physics.rayCast(
-      origin,
-      direction2,
-      1 << this.floorGroup,
-      this.maxDistance
-    );
+    let rayHit = this.rayHit = this.rayCastMode == 0 ? this.engine.scene.rayCast(origin, direction2, 1 << this.floorGroup) : this.engine.physics.rayCast(origin, direction2, 1 << this.floorGroup, this.maxDistance);
     if (rayHit.hitCount > 0) {
       this.indicatorHidden = false;
       direction2[1] = 0;
       vec3_exports.normalize(direction2, direction2);
       this._currentIndicatorRotation = -Math.sign(direction2[2]) * Math.acos(direction2[0]) - Math.PI * 0.5;
-      this.teleportIndicatorMeshObject.resetTranslationRotation();
-      this.teleportIndicatorMeshObject.rotateAxisAngleRad(
-        [0, 1, 0],
-        this._currentIndicatorRotation
-      );
+      this.teleportIndicatorMeshObject.resetPositionRotation();
+      this.teleportIndicatorMeshObject.rotateAxisAngleRad([0, 1, 0], this._currentIndicatorRotation);
       this.teleportIndicatorMeshObject.translate(rayHit.locations[0]);
       this.teleportIndicatorMeshObject.active = true;
       this.hitSpot = rayHit.locations[0];
@@ -7696,19 +13358,19 @@ var TeleportComponent = class extends Component {
     const p = this._tempVec;
     const p1 = this._tempVec0;
     if (this.session) {
-      this.eyeLeft.getTranslationWorld(p);
-      this.eyeRight.getTranslationWorld(p1);
+      this.eyeLeft.getPositionWorld(p);
+      this.eyeRight.getPositionWorld(p1);
       vec3_exports.add(p, p, p1);
       vec3_exports.scale(p, p, 0.5);
     } else {
-      this.cam.getTranslationWorld(p);
+      this.cam.getPositionWorld(p);
     }
-    this.camRoot.getTranslationWorld(p1);
+    this.camRoot.getPositionWorld(p1);
     vec3_exports.sub(p, p1, p);
     p[0] += newPosition[0];
     p[1] = newPosition[1];
     p[2] += newPosition[2];
-    this.camRoot.setTranslationWorld(p);
+    this.camRoot.setPositionWorld(p);
   }
 };
 __publicField(TeleportComponent, "TypeName", "teleport");
@@ -7747,7 +13409,7 @@ __publicField(TeleportComponent, "Properties", {
   maxDistance: { type: Type.Float, default: 100 }
 });
 
-// node_modules/@wonderlandengine/components/trail.js
+// node_modules/@wonderlandengine/components/dist/trail.js
 var direction = vec3_exports.create();
 var offset = vec3_exports.create();
 var normal = vec3_exports.create();
@@ -7770,7 +13432,7 @@ var Trail = class extends Component {
     for (let i = 0, v = 0; i < vertexCount - 2; i += 2, v += 6) {
       this.indexData.subarray(v, v + 6).set([i + 1, i + 0, i + 2, i + 2, i + 3, i + 1]);
     }
-    this.mesh = new Mesh({
+    this.mesh = new Mesh(this.engine, {
       vertexCount,
       indexData: this.indexData,
       indexType: MeshIndexType.UnsignedInt
@@ -7792,11 +13454,7 @@ var Trail = class extends Component {
       vec3_exports.normalize(offset, offset);
       const timeFraction = 1 - this.timeTillNext / this.interval;
       const fraction = (i - timeFraction) / this.segments;
-      vec3_exports.scale(
-        offset,
-        offset,
-        (this.taper ? fraction : 1) * this.width / 2
-      );
+      vec3_exports.scale(offset, offset, (this.taper ? fraction : 1) * this.width / 2);
       positions.set(i * 2, [
         curr[0] - offset[0],
         curr[1] - offset[1],
@@ -7868,7 +13526,7 @@ __publicField(Trail, "Properties", {
   resetThreshold: { type: Type.Float, default: 0.5 }
 });
 
-// node_modules/@wonderlandengine/components/two-joint-ik-solver.js
+// node_modules/@wonderlandengine/components/dist/two-joint-ik-solver.js
 Math.clamp = function(v, a, b) {
   return Math.max(a, Math.min(v, b));
 };
@@ -7902,12 +13560,8 @@ var twoJointIK = function() {
     const ac_ab_0 = Math.acos(Math.clamp(vec3_exports.dot(ca, ba), -1, 1));
     const ba_bc_0 = Math.acos(Math.clamp(vec3_exports.dot(ab, cb), -1, 1));
     const ac_at_0 = Math.acos(Math.clamp(vec3_exports.dot(ca, ta), -1, 1));
-    const ac_ab_1 = Math.acos(
-      Math.clamp((lcb * lcb - lab * lab - lat * lat) / (-2 * lab * lat), -1, 1)
-    );
-    const ba_bc_1 = Math.acos(
-      Math.clamp((lat * lat - lab * lab - lcb * lcb) / (-2 * lab * lcb), -1, 1)
-    );
+    const ac_ab_1 = Math.acos(Math.clamp((lcb * lcb - lab * lab - lat * lat) / (-2 * lab * lat), -1, 1));
+    const ba_bc_1 = Math.acos(Math.clamp((lat * lat - lab * lab - lcb * lcb) / (-2 * lab * lcb), -1, 1));
     vec3_exports.sub(ca, c, a);
     vec3_exports.sub(ba, b, a);
     vec3_exports.sub(ta, t, a);
@@ -7962,18 +13616,7 @@ var TwoJointIkSolver = class extends Component {
     this.middle.getTranslationLocal(tlb);
     if (this.helper)
       this.helper.getTranslationWorld(p[6]);
-    twoJointIK(
-      this.root.transformLocal,
-      this.middle.transformLocal,
-      p[0],
-      p[1],
-      p[2],
-      p[3],
-      0.01,
-      this.root.transformWorld.subarray(0, 4),
-      this.middle.transformWorld.subarray(0, 4),
-      this.helper ? p[6] : null
-    );
+    twoJointIK(this.root.transformLocal, this.middle.transformLocal, p[0], p[1], p[2], p[3], 0.01, this.root.transformWorld.subarray(0, 4), this.middle.transformWorld.subarray(0, 4), this.helper ? p[6] : null);
     this.root.setTranslationLocal(tla);
     this.middle.setTranslationLocal(tlb);
     this.root.setDirty();
@@ -7994,7 +13637,7 @@ __publicField(TwoJointIkSolver, "Properties", {
   helper: { type: Type.Object }
 });
 
-// node_modules/@wonderlandengine/components/video-texture.js
+// node_modules/@wonderlandengine/components/dist/video-texture.js
 var VideoTexture = class extends Component {
   init() {
     if (!this.material) {
@@ -8027,26 +13670,15 @@ var VideoTexture = class extends Component {
     const mat = this.material;
     const shader = mat.shader;
     const texture = this.texture = new Texture(this.engine, this.video);
-    if (shader === "Flat Opaque Textured") {
-      mat.flatTexture = texture;
-    } else if (shader === "Phong Opaque Textured" || shader === "Foliage") {
-      mat.diffuseTexture = texture;
-    } else if (shader === "Background") {
-      mat.texture = texture;
-    } else if (shader === "Physical Opaque Textured") {
-      mat.albedoTexture = texture;
-    } else {
+    if (!setFirstMaterialTexture(mat, texture, this.textureProperty)) {
       console.error("Shader", shader, "not supported by video-texture");
     }
     if ("requestVideoFrameCallback" in this.video) {
       this.video.requestVideoFrameCallback(this.updateVideo.bind(this));
     } else {
-      this.video.addEventListener(
-        "timeupdate",
-        () => {
-          this.frameUpdateRequested = true;
-        }
-      );
+      this.video.addEventListener("timeupdate", () => {
+        this.frameUpdateRequested = true;
+      });
     }
   }
   update(dt) {
@@ -8067,25 +13699,35 @@ var VideoTexture = class extends Component {
 __publicField(VideoTexture, "TypeName", "video-texture");
 __publicField(VideoTexture, "Properties", {
   /** URL to download video from */
-  url: { type: Type.String },
+  url: Property.string(),
   /** Material to apply the video texture to */
-  material: { type: Type.Material },
+  material: Property.material(),
   /** Whether to loop the video */
-  loop: { type: Type.Bool, default: true },
+  loop: Property.bool(true),
   /** Whether to automatically start playing the video */
-  autoplay: { type: Type.Bool, default: true },
+  autoplay: Property.bool(true),
   /** Whether to mute sound */
-  muted: { type: Type.Bool, default: true }
+  muted: Property.bool(true),
+  /** Name of the texture property to set */
+  textureProperty: Property.string("auto")
 });
 
-// node_modules/@wonderlandengine/components/vr-mode-active-switch.js
+// node_modules/@wonderlandengine/components/dist/vr-mode-active-switch.js
 var VrModeActiveSwitch = class extends Component {
   start() {
     this.components = [];
     this.getComponents(this.object);
     this.onXRSessionEnd();
-    this.engine.onXRSessionStart.push(this.onXRSessionStart.bind(this));
-    this.engine.onXRSessionEnd.push(this.onXRSessionEnd.bind(this));
+    this.onSessionStartCallback = this.onXRSessionStart.bind(this);
+    this.onSessionEndCallback = this.onXRSessionEnd.bind(this);
+  }
+  onActivate() {
+    this.engine.onXRSessionStart.add(this.onSessionStartCallback);
+    this.engine.onXRSessionEnd.add(this.onSessionEndCallback);
+  }
+  onDeactivate() {
+    this.engine.onXRSessionStart.remove(this.onSessionStartCallback);
+    this.engine.onXRSessionEnd.remove(this.onSessionEndCallback);
   }
   getComponents(obj) {
     const comps = obj.getComponents().filter((c) => c.type !== "vr-mode-active-switch");
@@ -8104,13 +13746,9 @@ var VrModeActiveSwitch = class extends Component {
     }
   }
   onXRSessionStart() {
-    if (!this.active)
-      return;
     this.setComponentsActive(this.activateComponents == 0);
   }
   onXRSessionEnd() {
-    if (!this.active)
-      return;
     this.setComponentsActive(this.activateComponents != 0);
   }
 };
@@ -8126,7 +13764,182 @@ __publicField(VrModeActiveSwitch, "Properties", {
   affectChildren: { type: Type.Bool, default: true }
 });
 
-// node_modules/@wonderlandengine/components/vrm.js
+// node_modules/@wonderlandengine/components/dist/plane-detection.js
+var import_earcut = __toESM(require_earcut(), 1);
+var __decorate6 = function(decorators, target, key, desc) {
+  var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
+    r = Reflect.decorate(decorators, target, key, desc);
+  else
+    for (var i = decorators.length - 1; i >= 0; i--)
+      if (d = decorators[i])
+        r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var tempVec32 = new Float32Array(3);
+function extentsFromContour(out, points) {
+  if (points.length == 0)
+    return out;
+  let absMaxX = Math.abs(points[0].x);
+  let absMaxZ = Math.abs(points[0].z);
+  for (let i = 1; i < points.length; ++i) {
+    absMaxX = Math.max(absMaxX, Math.abs(points[i].x));
+    absMaxZ = Math.max(absMaxZ, Math.abs(points[i].z));
+  }
+  out[0] = absMaxX;
+  out[1] = 0;
+  out[2] = absMaxZ;
+}
+function planeMeshFromContour(engine2, points, meshToUpdate = null) {
+  const vertexCount = points.length;
+  const vertices = new Float32Array(vertexCount * 2);
+  for (let i = 0, d = 0; i < vertexCount; ++i, d += 2) {
+    vertices[d] = points[i].x;
+    vertices[d + 1] = points[i].z;
+  }
+  const triangles = (0, import_earcut.default)(vertices);
+  const mesh = meshToUpdate || new Mesh(engine2, {
+    vertexCount,
+    /* Assumption here that we will never have more than 256 points
+     * in the detected plane meshes! */
+    indexType: MeshIndexType.UnsignedByte,
+    indexData: triangles
+  });
+  if (mesh.vertexCount !== vertexCount) {
+    console.warn("vertexCount of meshToUpdate did not match required vertexCount");
+    return mesh;
+  }
+  const positions = mesh.attribute(MeshAttribute.Position);
+  const textureCoords = mesh.attribute(MeshAttribute.TextureCoordinate);
+  const normals = mesh.attribute(MeshAttribute.Normal);
+  tempVec32[1] = 0;
+  for (let i = 0, s = 0; i < vertexCount; ++i, s += 2) {
+    tempVec32[0] = vertices[s];
+    tempVec32[2] = vertices[s + 1];
+    positions.set(i, tempVec32);
+  }
+  textureCoords?.set(0, vertices);
+  if (normals) {
+    tempVec32[0] = 0;
+    tempVec32[1] = 1;
+    tempVec32[2] = 0;
+    for (let i = 0; i < vertexCount; ++i) {
+      normals.set(i, tempVec32);
+    }
+  }
+  if (meshToUpdate)
+    mesh.update();
+  return mesh;
+}
+var _planeLost, planeLost_fn, _planeFound, planeFound_fn, _planeUpdate, planeUpdate_fn, _planeUpdatePose, planeUpdatePose_fn;
+var PlaneDetection = class extends Component {
+  constructor() {
+    super(...arguments);
+    __privateAdd(this, _planeLost);
+    __privateAdd(this, _planeFound);
+    __privateAdd(this, _planeUpdate);
+    __privateAdd(this, _planeUpdatePose);
+    /**
+     * Material to assign to created plane meshes or `null` if meshes should not be created.
+     */
+    __publicField(this, "planeMaterial", null);
+    /**
+     * Collision mask to assign to newly created collision components or a negative value if
+     * collision components should not be created.
+     */
+    __publicField(this, "collisionMask", -1);
+    /** Map of all planes and their last updated timestamps */
+    __publicField(this, "planes", /* @__PURE__ */ new Map());
+    /** Objects generated for each XRPlane */
+    __publicField(this, "planeObjects", /* @__PURE__ */ new Map());
+    /** Called when a plane starts tracking */
+    __publicField(this, "onPlaneFound", new Emitter());
+    /** Called when a plane stops tracking */
+    __publicField(this, "onPlaneLost", new Emitter());
+  }
+  update() {
+    if (!this.engine.xr?.frame)
+      return;
+    if (this.engine.xr.frame.detectedPlanes === void 0) {
+      console.error("plane-detection: WebXR feature not available.");
+      this.active = false;
+      return;
+    }
+    const detectedPlanes = this.engine.xr.frame.detectedPlanes;
+    for (const [plane, _] of this.planes) {
+      if (!detectedPlanes.has(plane)) {
+        __privateMethod(this, _planeLost, planeLost_fn).call(this, plane);
+      }
+    }
+    detectedPlanes.forEach((plane) => {
+      if (this.planes.has(plane)) {
+        if (plane.lastChangedTime > this.planes.get(plane)) {
+          __privateMethod(this, _planeUpdate, planeUpdate_fn).call(this, plane);
+        }
+      } else {
+        __privateMethod(this, _planeFound, planeFound_fn).call(this, plane);
+      }
+      __privateMethod(this, _planeUpdatePose, planeUpdatePose_fn).call(this, plane);
+    });
+  }
+};
+_planeLost = new WeakSet();
+planeLost_fn = function(plane) {
+  this.planes.delete(plane);
+  const o = this.planeObjects.get(plane);
+  this.onPlaneLost.notify(plane, o);
+  if (o.objectId > 0)
+    o.destroy();
+};
+_planeFound = new WeakSet();
+planeFound_fn = function(plane) {
+  this.planes.set(plane, plane.lastChangedTime);
+  const o = this.engine.scene.addObject(this.object);
+  this.planeObjects.set(plane, o);
+  if (this.planeMaterial) {
+    o.addComponent(MeshComponent, {
+      mesh: planeMeshFromContour(this.engine, plane.polygon),
+      material: this.planeMaterial
+    });
+  }
+  if (this.collisionMask >= 0) {
+    extentsFromContour(tempVec32, plane.polygon);
+    tempVec32[1] = 0.025;
+    o.addComponent(CollisionComponent, {
+      group: this.collisionMask,
+      collider: Collider.Box,
+      extents: tempVec32
+    });
+  }
+  this.onPlaneFound.notify(plane, o);
+};
+_planeUpdate = new WeakSet();
+planeUpdate_fn = function(plane) {
+  this.planes.set(plane, plane.lastChangedTime);
+  const planeMesh = this.planeObjects.get(plane).getComponent(MeshComponent);
+  if (!planeMesh)
+    return;
+  planeMeshFromContour(this.engine, plane.polygon, planeMesh.mesh);
+};
+_planeUpdatePose = new WeakSet();
+planeUpdatePose_fn = function(plane) {
+  const o = this.planeObjects.get(plane);
+  const pose = this.engine.xr.frame.getPose(plane.planeSpace, this.engine.xr.currentReferenceSpace);
+  if (!pose) {
+    o.active = false;
+    return;
+  }
+  setXRRigidTransformLocal(o, pose.transform);
+};
+__publicField(PlaneDetection, "TypeName", "plane-detection");
+__decorate6([
+  property.material()
+], PlaneDetection.prototype, "planeMaterial", void 0);
+__decorate6([
+  property.int()
+], PlaneDetection.prototype, "collisionMask", void 0);
+
+// node_modules/@wonderlandengine/components/dist/vrm.js
 var VRM_ROLL_AXES = {
   X: [1, 0, 0],
   Y: [0, 1, 0],
@@ -8266,9 +14079,7 @@ var Vrm = class extends Component {
       throw Error("Missing VRM extensions");
     }
     if (VRMC_vrm.specVersion !== "1.0") {
-      throw Error(
-        `Unsupported VRM version, only 1.0 is supported, but encountered '${VRMC_vrm.specVersion}'`
-      );
+      throw Error(`Unsupported VRM version, only 1.0 is supported, but encountered '${VRMC_vrm.specVersion}'`);
     }
     this.meta = VRMC_vrm.meta;
     this._parseHumanoid(VRMC_vrm.humanoid, extensions);
@@ -8294,10 +14105,7 @@ var Vrm = class extends Component {
       const node = humanoid.humanBones[boneName].node;
       const objectId = extensions.idMapping[node];
       this.bones[boneName] = this.engine.wrapObject(objectId);
-      this.restPose[boneName] = quat_exports.copy(
-        quat_exports.create(),
-        this.bones[boneName].rotationLocal
-      );
+      this.restPose[boneName] = quat_exports.copy(quat_exports.create(), this.bones[boneName].rotationLocal);
     }
   }
   _parseFirstPerson(firstPerson, extensions) {
@@ -8317,9 +14125,7 @@ var Vrm = class extends Component {
         case "both":
           break;
         case "auto":
-          console.warn(
-            "First person mesh annotation type 'auto' is not supported, treating as 'both'!"
-          );
+          console.warn("First person mesh annotation type 'auto' is not supported, treating as 'both'!");
           break;
         default:
           console.error(`Invalid mesh annotation type '${meshAnnotation.type}'`);
@@ -8330,9 +14136,7 @@ var Vrm = class extends Component {
   }
   _parseLookAt(lookAt2) {
     if (lookAt2.type !== "bone") {
-      console.warn(
-        `Unsupported lookAt type '${lookAt2.type}', only 'bone' is supported`
-      );
+      console.warn(`Unsupported lookAt type '${lookAt2.type}', only 'bone' is supported`);
       return;
     }
     const parseRangeMap = (rangeMap) => {
@@ -8366,9 +14170,7 @@ var Vrm = class extends Component {
           type = "rotation";
         }
         if (type) {
-          const source = this.engine.wrapObject(
-            extensions.idMapping[constraint[type].source]
-          );
+          const source = this.engine.wrapObject(extensions.idMapping[constraint[type].source]);
           this._nodeConstraints.push({
             type,
             source,
@@ -8376,23 +14178,12 @@ var Vrm = class extends Component {
             axis,
             weight: constraint[type].weight,
             /* Rest pose */
-            destinationRestLocalRotation: quat_exports.copy(
-              quat_exports.create(),
-              object.rotationLocal
-            ),
-            sourceRestLocalRotation: quat_exports.copy(
-              quat_exports.create(),
-              source.rotationLocal
-            ),
-            sourceRestLocalRotationInv: quat_exports.invert(
-              quat_exports.create(),
-              source.rotationLocal
-            )
+            destinationRestLocalRotation: quat_exports.copy(quat_exports.create(), object.rotationLocal),
+            sourceRestLocalRotation: quat_exports.copy(quat_exports.create(), source.rotationLocal),
+            sourceRestLocalRotationInv: quat_exports.invert(quat_exports.create(), source.rotationLocal)
           });
         } else {
-          console.warn(
-            "Unrecognized or invalid VRMC_node_constraint, ignoring it"
-          );
+          console.warn("Unrecognized or invalid VRMC_node_constraint, ignoring it");
         }
       }
       for (const child of object.children) {
@@ -8441,9 +14232,7 @@ var Vrm = class extends Component {
         springJoint.node = this.engine.wrapObject(extensions.idMapping[springJoint.node]);
         joints.push(springJoint);
       }
-      const springChainColliders = (spring.colliderGroups || []).flatMap(
-        (cg) => colliderGroups[cg].colliders
-      );
+      const springChainColliders = (spring.colliderGroups || []).flatMap((cg) => colliderGroups[cg].colliders);
       this._springChains.push({
         name: spring.name,
         center: spring.center ? this.engine.wrapObject(extensions.idMapping[spring.center]) : null,
@@ -8456,30 +14245,15 @@ var Vrm = class extends Component {
       for (let i = 0; i < springChain.joints.length - 1; ++i) {
         const springBoneJoint = springChain.joints[i];
         const childSpringBoneJoint = springChain.joints[i + 1];
-        const springBonePosition = springBoneJoint.node.getTranslationWorld(
-          vec3_exports.create()
-        );
+        const springBonePosition = springBoneJoint.node.getTranslationWorld(vec3_exports.create());
         const childSpringBonePosition = childSpringBoneJoint.node.getTranslationWorld(vec3_exports.create());
-        const boneDirection = vec3_exports.subtract(
-          this._tempV3A,
-          springBonePosition,
-          childSpringBonePosition
-        );
+        const boneDirection = vec3_exports.subtract(this._tempV3A, springBonePosition, childSpringBonePosition);
         const state = {
           prevTail: childSpringBonePosition,
           currentTail: vec3_exports.copy(vec3_exports.create(), childSpringBonePosition),
-          initialLocalRotation: quat_exports.copy(
-            quat_exports.create(),
-            springBoneJoint.node.rotationLocal
-          ),
-          initialLocalTransformInvert: quat2_exports.invert(
-            quat2_exports.create(),
-            springBoneJoint.node.transformLocal
-          ),
-          boneAxis: vec3_exports.normalize(
-            vec3_exports.create(),
-            childSpringBoneJoint.node.getTranslationLocal(this._tempV3)
-          ),
+          initialLocalRotation: quat_exports.copy(quat_exports.create(), springBoneJoint.node.rotationLocal),
+          initialLocalTransformInvert: quat2_exports.invert(quat2_exports.create(), springBoneJoint.node.transformLocal),
+          boneAxis: vec3_exports.normalize(vec3_exports.create(), childSpringBoneJoint.node.getTranslationLocal(this._tempV3)),
           /* Ensure bone length is at least 1cm to avoid jittery behaviour from zero-length bones */
           boneLength: Math.max(0.01, vec3_exports.length(boneDirection)),
           /* Tail positions in center space, if needed */
@@ -8487,14 +14261,8 @@ var Vrm = class extends Component {
           currentTailCenter: null
         };
         if (springChain.center) {
-          state.prevTailCenter = springChain.center.transformPointInverseWorld(
-            vec3_exports.create(),
-            childSpringBonePosition
-          );
-          state.currentTailCenter = vec3_exports.copy(
-            vec3_exports.create(),
-            childSpringBonePosition
-          );
+          state.prevTailCenter = springChain.center.transformPointInverseWorld(vec3_exports.create(), childSpringBonePosition);
+          state.currentTailCenter = vec3_exports.copy(vec3_exports.create(), childSpringBonePosition);
         }
         springBoneJoint.state = state;
       }
@@ -8517,10 +14285,7 @@ var Vrm = class extends Component {
     if (!this._lookAt || !this.lookAtTarget) {
       return;
     }
-    const lookAtSource = this.bones.head.transformPointWorld(
-      this._tempV3A,
-      this._lookAt.offsetFromHeadBone
-    );
+    const lookAtSource = this.bones.head.transformPointWorld(this._tempV3A, this._lookAt.offsetFromHeadBone);
     const lookAtTarget = this.lookAtTarget.getTranslationWorld(this._tempV3B);
     const lookAtDirection = vec3_exports.sub(this._tempV3A, lookAtTarget, lookAtSource);
     vec3_exports.normalize(lookAtDirection, lookAtDirection);
@@ -8544,11 +14309,7 @@ var Vrm = class extends Component {
         yawLeft = -this._rangeMap(this._lookAt.horizontalOuter, -yawLeft);
       }
       const eyeRotation = quat_exports.fromEuler(this._tempQuatA, pitch, yawLeft, 0);
-      this.bones.leftEye.rotationLocal = quat_exports.multiply(
-        eyeRotation,
-        this.restPose.leftEye,
-        eyeRotation
-      );
+      this.bones.leftEye.rotationLocal = quat_exports.multiply(eyeRotation, this.restPose.leftEye, eyeRotation);
     }
     if (this.bones.rightEye) {
       let yawRight = yaw;
@@ -8558,11 +14319,7 @@ var Vrm = class extends Component {
         yawRight = -this._rangeMap(this._lookAt.horizontalInner, -yawRight);
       }
       const eyeRotation = quat_exports.fromEuler(this._tempQuatA, pitch, yawRight, 0);
-      this.bones.rightEye.rotationLocal = quat_exports.multiply(
-        eyeRotation,
-        this.restPose.rightEye,
-        eyeRotation
-      );
+      this.bones.rightEye.rotationLocal = quat_exports.multiply(eyeRotation, this.restPose.rightEye, eyeRotation);
     }
   }
   _resolveConstraints() {
@@ -8577,75 +14334,35 @@ var Vrm = class extends Component {
     switch (nodeConstraint.type) {
       case "roll":
         {
-          const deltaSrcQuat = quat_exports.multiply(
-            this._tempQuatA,
-            srcRestQuatInv,
-            nodeConstraint.source.rotationLocal
-          );
-          const deltaSrcQuatInParent = quat_exports.multiply(
-            this._tempQuatA,
-            nodeConstraint.sourceRestLocalRotation,
-            deltaSrcQuat
-          );
+          const deltaSrcQuat = quat_exports.multiply(this._tempQuatA, srcRestQuatInv, nodeConstraint.source.rotationLocal);
+          const deltaSrcQuatInParent = quat_exports.multiply(this._tempQuatA, nodeConstraint.sourceRestLocalRotation, deltaSrcQuat);
           quat_exports.mul(deltaSrcQuatInParent, deltaSrcQuatInParent, srcRestQuatInv);
           const dstRestQuatInv = quat_exports.invert(this._tempQuatB, dstRestQuat);
-          const deltaSrcQuatInDst = quat_exports.multiply(
-            this._tempQuatB,
-            dstRestQuatInv,
-            deltaSrcQuatInParent
-          );
+          const deltaSrcQuatInDst = quat_exports.multiply(this._tempQuatB, dstRestQuatInv, deltaSrcQuatInParent);
           quat_exports.multiply(deltaSrcQuatInDst, deltaSrcQuatInDst, dstRestQuat);
-          const toVec = vec3_exports.transformQuat(
-            this._tempV3A,
-            nodeConstraint.axis,
-            deltaSrcQuatInDst
-          );
-          const fromToQuat = quat_exports.rotationTo(
-            this._tempQuatA,
-            nodeConstraint.axis,
-            toVec
-          );
-          quat_exports.mul(
-            targetQuat,
-            dstRestQuat,
-            quat_exports.invert(this._tempQuat, fromToQuat)
-          );
+          const toVec = vec3_exports.transformQuat(this._tempV3A, nodeConstraint.axis, deltaSrcQuatInDst);
+          const fromToQuat = quat_exports.rotationTo(this._tempQuatA, nodeConstraint.axis, toVec);
+          quat_exports.mul(targetQuat, dstRestQuat, quat_exports.invert(this._tempQuat, fromToQuat));
           quat_exports.mul(targetQuat, targetQuat, deltaSrcQuatInDst);
         }
         break;
       case "aim":
         {
           const dstParentWorldQuat = nodeConstraint.destination.parent.rotationWorld;
-          const fromVec = vec3_exports.transformQuat(
-            this._tempV3A,
-            nodeConstraint.axis,
-            dstRestQuat
-          );
+          const fromVec = vec3_exports.transformQuat(this._tempV3A, nodeConstraint.axis, dstRestQuat);
           vec3_exports.transformQuat(fromVec, fromVec, dstParentWorldQuat);
           const toVec = nodeConstraint.source.getTranslationWorld(this._tempV3B);
-          vec3_exports.sub(
-            toVec,
-            toVec,
-            nodeConstraint.destination.getTranslationWorld(this._tempV3)
-          );
+          vec3_exports.sub(toVec, toVec, nodeConstraint.destination.getTranslationWorld(this._tempV3));
           vec3_exports.normalize(toVec, toVec);
           const fromToQuat = quat_exports.rotationTo(this._tempQuatA, fromVec, toVec);
-          quat_exports.mul(
-            targetQuat,
-            quat_exports.invert(this._tempQuat, dstParentWorldQuat),
-            fromToQuat
-          );
+          quat_exports.mul(targetQuat, quat_exports.invert(this._tempQuat, dstParentWorldQuat), fromToQuat);
           quat_exports.mul(targetQuat, targetQuat, dstParentWorldQuat);
           quat_exports.mul(targetQuat, targetQuat, dstRestQuat);
         }
         break;
       case "rotation":
         {
-          const srcDeltaQuat = quat_exports.mul(
-            targetQuat,
-            srcRestQuatInv,
-            nodeConstraint.source.rotationLocal
-          );
+          const srcDeltaQuat = quat_exports.mul(targetQuat, srcRestQuatInv, nodeConstraint.source.rotationLocal);
           quat_exports.mul(targetQuat, dstRestQuat, srcDeltaQuat);
         }
         break;
@@ -8674,11 +14391,7 @@ var Vrm = class extends Component {
         const parentWorldRotation = joint.node.parent ? joint.node.parent.rotationWorld : this._identityQuat;
         const inertia = this._inertia;
         if (springChain.center) {
-          vec3_exports.sub(
-            inertia,
-            joint.state.currentTailCenter,
-            joint.state.prevTailCenter
-          );
+          vec3_exports.sub(inertia, joint.state.currentTailCenter, joint.state.prevTailCenter);
           springChain.center.transformVectorWorld(inertia);
         } else {
           vec3_exports.sub(inertia, joint.state.currentTail, joint.state.prevTail);
@@ -8688,11 +14401,7 @@ var Vrm = class extends Component {
         vec3_exports.transformQuat(stiffness, stiffness, joint.state.initialLocalRotation);
         vec3_exports.transformQuat(stiffness, stiffness, parentWorldRotation);
         vec3_exports.scale(stiffness, stiffness, dt * joint.stiffness);
-        const external = vec3_exports.scale(
-          this._external,
-          joint.gravityDir,
-          dt * joint.gravityPower
-        );
+        const external = vec3_exports.scale(this._external, joint.gravityDir, dt * joint.gravityPower);
         const nextTail = vec3_exports.copy(this._tempV3A, joint.state.currentTail);
         vec3_exports.add(nextTail, nextTail, inertia);
         vec3_exports.add(nextTail, nextTail, stiffness);
@@ -8712,12 +14421,7 @@ var Vrm = class extends Component {
             vec3_exports.scaleAndAdd(nextTail, nextTail, tailToShape, -dist3);
             vec3_exports.sub(nextTail, nextTail, worldPosition);
             vec3_exports.normalize(nextTail, nextTail);
-            vec3_exports.scaleAndAdd(
-              nextTail,
-              worldPosition,
-              nextTail,
-              joint.state.boneLength
-            );
+            vec3_exports.scaleAndAdd(nextTail, worldPosition, nextTail, joint.state.boneLength);
           }
         }
         for (const { shape, cache } of springChain.capsuleColliders) {
@@ -8730,11 +14434,7 @@ var Vrm = class extends Component {
           if (vec3_exports.squaredLength(headToTail) <= dot5) {
             vec3_exports.sub(tailToShape, nextTail, tail);
           } else if (dot5 > 0) {
-            vec3_exports.scale(
-              headToTail,
-              headToTail,
-              dot5 / vec3_exports.squaredLength(headToTail)
-            );
+            vec3_exports.scale(headToTail, headToTail, dot5 / vec3_exports.squaredLength(headToTail));
             vec3_exports.sub(tailToShape, tailToShape, headToTail);
           }
           const radius = shape.radius + joint.hitRadius;
@@ -8744,12 +14444,7 @@ var Vrm = class extends Component {
             vec3_exports.scaleAndAdd(nextTail, nextTail, tailToShape, -dist3);
             vec3_exports.sub(nextTail, nextTail, worldPosition);
             vec3_exports.normalize(nextTail, nextTail);
-            vec3_exports.scaleAndAdd(
-              nextTail,
-              worldPosition,
-              nextTail,
-              joint.state.boneLength
-            );
+            vec3_exports.scaleAndAdd(nextTail, worldPosition, nextTail, joint.state.boneLength);
           }
         }
         vec3_exports.copy(joint.state.prevTail, joint.state.currentTail);
@@ -8757,29 +14452,15 @@ var Vrm = class extends Component {
         if (springChain.center) {
           vec3_exports.copy(joint.state.prevTailCenter, joint.state.currentTailCenter);
           vec3_exports.copy(joint.state.currentTailCenter, nextTail);
-          springChain.center.transformPointInverseWorld(
-            joint.state.currentTailCenter
-          );
+          springChain.center.transformPointInverseWorld(joint.state.currentTailCenter);
         }
         joint.node.parent.transformPointInverseWorld(nextTail);
         const nextTailDualQuat = quat2_exports.fromTranslation(this._tempQuat2, nextTail);
-        quat2_exports.multiply(
-          nextTailDualQuat,
-          joint.state.initialLocalTransformInvert,
-          nextTailDualQuat
-        );
+        quat2_exports.multiply(nextTailDualQuat, joint.state.initialLocalTransformInvert, nextTailDualQuat);
         quat2_exports.getTranslation(nextTail, nextTailDualQuat);
         vec3_exports.normalize(nextTail, nextTail);
-        const jointRotation = quat_exports.rotationTo(
-          this._tempQuatA,
-          joint.state.boneAxis,
-          nextTail
-        );
-        joint.node.rotationLocal = quat_exports.mul(
-          this._tempQuatA,
-          joint.state.initialLocalRotation,
-          jointRotation
-        );
+        const jointRotation = quat_exports.rotationTo(this._tempQuatA, joint.state.boneAxis, nextTail);
+        joint.node.rotationLocal = quat_exports.mul(this._tempQuatA, joint.state.initialLocalRotation, jointRotation);
       }
     });
   }
@@ -8803,7 +14484,7 @@ __publicField(Vrm, "Properties", {
   lookAtTarget: { type: Type.Object }
 });
 
-// node_modules/@wonderlandengine/components/wasd-controls.js
+// node_modules/@wonderlandengine/components/dist/wasd-controls.js
 var WasdControlsComponent = class extends Component {
   init() {
     this.up = false;
@@ -8865,9 +14546,10 @@ __publicField(WasdControlsComponent, "Properties", {
 
 // js/gameplay/prefabs/PrefabsRegistry.ts
 var PrefabsRegistry = class {
+  _prefabs;
+  PREFAB_UNAME_KEY = "pun";
+  PREFAB_TNAME_KEY = "texName";
   constructor() {
-    this.PREFAB_UNAME_KEY = "pun";
-    this.PREFAB_TNAME_KEY = "texName";
     this._prefabs = /* @__PURE__ */ new Map();
   }
   registerPrefab(prefab) {
@@ -8897,6 +14579,7 @@ var PrefabsRegistry_default = new PrefabsRegistry();
 
 // js/utils/textures/TextureInformationRegistry.ts
 var TextureInformationRegistry = class {
+  _texturesInformation;
   get texturesUniqueID() {
     return Array.from(this._texturesInformation.keys());
   }
@@ -8926,6 +14609,8 @@ function getXrSessionStart() {
 
 // js/gameplay/grid/GridLayer.ts
 var GridLayer = class {
+  _layerData;
+  _layerSize;
   constructor(size) {
     this._layerSize = size;
     this._layerData = new Array(this._layerSize);
@@ -8937,6 +14622,11 @@ var GridLayer = class {
 
 // js/gameplay/grid/Grid.ts
 var Grid = class {
+  _gridData;
+  _gridSize;
+  _layerCount;
+  _cellSize;
+  _gridOffset;
   get gridSize() {
     return this._gridSize;
   }
@@ -8994,6 +14684,7 @@ var Grid = class {
 
 // js/gameplay/grid/GridManager.ts
 var GridManager = class {
+  _grid;
   get grid() {
     return this._grid;
   }
@@ -9015,16 +14706,17 @@ var TagUtils = class {
     return object[this.tagKey];
   }
 };
-TagUtils.tagKey = "TAG";
+__publicField(TagUtils, "tagKey", "TAG");
 
 // js/utils/TagComponent.ts
 var TagComponent = class extends Component {
+  tag;
   start() {
     TagUtils.setTag(this.object, parseInt(this.tag));
   }
 };
-TagComponent.TypeName = "tag-component";
-TagComponent.Properties = {
+__publicField(TagComponent, "TypeName", "tag-component");
+__publicField(TagComponent, "Properties", {
   tag: {
     type: Type.Enum,
     values: [
@@ -9032,10 +14724,19 @@ TagComponent.Properties = {
       2 /* UI */.toString()
     ]
   }
-};
+});
 
 // js/gameplay/prefabs/PrefabBase.ts
 var PrefabBase = class extends Component {
+  // Properties declarations
+  finalMesh;
+  previsMesh;
+  finalMat;
+  previsMat;
+  // Scene information
+  _scene;
+  _cellSize;
+  _previsObject;
   start() {
     this._scene = getCurrentScene();
     this._cellSize = GridManager_default.grid.cellSize;
@@ -9054,7 +14755,7 @@ var PrefabBase = class extends Component {
    * Create the block in the scene at the specified world
    * position
    * @param position
-   * @param color
+   * @param texInfo
    * @param container
    */
   createBlock(position, texInfo, container) {
@@ -9089,9 +14790,9 @@ var PrefabBase = class extends Component {
    * @param position
    */
   updatePrevisPosition(position) {
-    this._previsObject.setTranslationWorld(position);
+    this._previsObject.setPositionWorld(position);
     let pos = vec3_exports.create();
-    this._previsObject.getTranslationWorld(pos);
+    this._previsObject.getPositionWorld(pos);
   }
   updatePrevisRotation(xRot, yRot) {
     this._previsObject.rotateAxisAngleDeg([1, 0, 0], xRot);
@@ -9099,19 +14800,19 @@ var PrefabBase = class extends Component {
   }
   setPrevisRotation(rotation) {
     this._previsObject.resetRotation();
-    this._previsObject.rotationWorld = rotation;
+    this._previsObject.setRotationWorld(rotation);
   }
   updatePrevisColor(color) {
-    this.previsMat["diffuseColor"] = color;
+    this.previsMat["albedoColor"] = color;
   }
 };
-PrefabBase.TypeName = "";
-PrefabBase.Properties = {
+__publicField(PrefabBase, "TypeName", "");
+__publicField(PrefabBase, "Properties", {
   finalMesh: { type: Type.Mesh },
   previsMesh: { type: Type.Mesh },
   finalMat: { type: Type.Material },
   previsMat: { type: Type.Material }
-};
+});
 
 // js/gameplay/prefabs/BlockPrefab.ts
 var _BlockPrefab = class extends PrefabBase {
@@ -9125,28 +14826,30 @@ var _BlockPrefab = class extends PrefabBase {
   }
 };
 var BlockPrefab = _BlockPrefab;
-BlockPrefab.TypeName = "block-prefab";
-BlockPrefab.Properties = {
+__publicField(BlockPrefab, "TypeName", "block-prefab");
+__publicField(BlockPrefab, "Properties", {
   finalMesh: { type: Type.Mesh },
   previsMesh: { type: Type.Mesh },
   finalMat: { type: Type.Material },
   previsMat: { type: Type.Material }
-};
+});
 
 // js/gameplay/buildSystem/BuildController.ts
 var BuildController = class {
+  _buildContainer;
+  _currentPrefab;
+  _currentTexture;
+  _currentColor;
   constructor() {
     this._currentPrefab = null;
     this._currentColor = [1, 1, 1, 1];
     this.test();
   }
-  test() {
-    return __async(this, null, function* () {
-      yield new Promise((f) => setTimeout(f, 1e3));
-      this._currentPrefab = PrefabsRegistry_default.getPrefab(BlockPrefab);
-      this._currentPrefab.updatePrevisColor(this._currentColor);
-      this._currentTexture = TextureInformationRegistry_default.getTextureInformation("Stone01");
-    });
+  async test() {
+    await new Promise((f) => setTimeout(f, 1e3));
+    this._currentPrefab = PrefabsRegistry_default.getPrefab(BlockPrefab);
+    this._currentPrefab.updatePrevisColor(this._currentColor);
+    this._currentTexture = TextureInformationRegistry_default.getTextureInformation("Stone01");
   }
   /**
    * Setters and initialisation
@@ -9155,7 +14858,7 @@ var BuildController = class {
   setBuildContainer(container) {
     this._buildContainer = container;
   }
-  setCurrentPrevizPosition(position) {
+  setCurrentPrevisPosition(position) {
     this._currentPrefab.updatePrevisPosition(position);
   }
   /**
@@ -9166,8 +14869,8 @@ var BuildController = class {
     this._currentPrefab = prefab;
   }
   /**
-   * Set the color that should use the previsualisation mesh's material
-   * @param color the new color of the previz
+   * Set the color that should use the visualisation mesh's material
+   * @param color the new color of the previs
    */
   setColor(color) {
     this._currentColor = color;
@@ -9182,13 +14885,13 @@ var BuildController = class {
     this._currentTexture = texInfo;
   }
   /**
-   * Previz and prefab control
+   * Previs and prefab control
    * ==============================
    */
-  addCurrentPrevizRotation(xRot, yRot) {
+  addCurrentPrevisRotation(xRot, yRot) {
     this._currentPrefab.updatePrevisRotation(xRot, yRot);
   }
-  instanciatePrefabAt(position) {
+  instantiatePrefabAt(position) {
     this._currentPrefab.createBlock(position, this._currentTexture, this._buildContainer);
   }
   /**
@@ -9235,7 +14938,7 @@ var BuildContainer = class extends Component {
       BuildController_default.setPrefab(currentPrefab);
       const currentTexture = TextureInformationRegistry_default.getTextureInformation(block.texture);
       BuildController_default.setTexture(currentTexture);
-      BuildController_default.instanciatePrefabAt(block.position);
+      BuildController_default.instantiatePrefabAt(block.position);
     }
   }
   clearBlocksInScene() {
@@ -9244,11 +14947,13 @@ var BuildContainer = class extends Component {
     }
   }
 };
-BuildContainer.TypeName = "build-container";
-BuildContainer.Properties = {};
+__publicField(BuildContainer, "TypeName", "build-container");
+__publicField(BuildContainer, "Properties", {});
 
 // js/gameplay/grid/GridDebugComponent.ts
 var GridDebugComponent = class extends Component {
+  debugVisualObject;
+  _grid;
   start() {
     this._grid = new Grid(2, 10, 0.5);
     let mesh = this.debugVisualObject.getComponent("mesh");
@@ -9269,13 +14974,28 @@ var GridDebugComponent = class extends Component {
         }
   }
 };
-GridDebugComponent.TypeName = "grid-debug-component";
-GridDebugComponent.Properties = {
+__publicField(GridDebugComponent, "TypeName", "grid-debug-component");
+__publicField(GridDebugComponent, "Properties", {
   debugVisualObject: { type: Type.Object, default: null }
-};
+});
 
 // js/gameplay/interactions/PointerRay.ts
 var PointerRay = class extends Component {
+  // Properties class declaration
+  rayOrigin;
+  rayObject;
+  rayVisualObject;
+  cursorHitVisualObject;
+  // Scene elements
+  _scene;
+  _rayMesh;
+  // Physic Ray cast fields
+  _origin;
+  _direction;
+  // current information
+  _isPointing;
+  _currentHitPosition;
+  _currentHitObject;
   // Getters
   get isPointing() {
     return this._isPointing;
@@ -9320,16 +15040,22 @@ var PointerRay = class extends Component {
     this.rayObject.scale([1, distance3 - 0.05, 1]);
   }
 };
-PointerRay.TypeName = "pointer-ray";
-PointerRay.Properties = {
+__publicField(PointerRay, "TypeName", "pointer-ray");
+__publicField(PointerRay, "Properties", {
   rayOrigin: { type: Type.Object },
   rayObject: { type: Type.Object },
   rayVisualObject: { type: Type.Object },
   cursorHitVisualObject: { type: Type.Object }
-};
+});
 
 // js/gameplay/input/XrButton.ts
 var XrButton = class {
+  _gamepadButton;
+  _index;
+  _isPressed;
+  _wasPressed;
+  _onPressedEvent;
+  _onReleasedEvent;
   get isPressed() {
     return this._isPressed;
   }
@@ -9380,10 +15106,17 @@ var XrButton = class {
 
 // js/gameplay/input/XrGamepad.ts
 var XrGamepad = class {
-  constructor(gamepad, hand) {
-    this._joystickTriggerValue = 0.5;
-    this.setup(gamepad, hand);
-  }
+  _hand;
+  _gamepad;
+  // @ts-ignore
+  _buttons;
+  _joystickXWasMoving;
+  _joystickXIsMoving;
+  _joystickYWasMoving;
+  _joystickYIsMoving;
+  _joystickXJustMoved;
+  _joystickYJustMoved;
+  _joystickTriggerValue = 0.5;
   get hand() {
     return this._hand;
   }
@@ -9398,6 +15131,9 @@ var XrGamepad = class {
   }
   get joystickYJustMoved() {
     return this._joystickYJustMoved;
+  }
+  constructor(gamepad, hand) {
+    this.setup(gamepad, hand);
   }
   setup(gamepad, hand) {
     this._gamepad = gamepad;
@@ -9441,6 +15177,7 @@ var XrGamepad = class {
 
 // js/ui/UiElementBase.ts
 var UiElementBase = class extends Component {
+  _interactCallbacks;
   init() {
     this._interactCallbacks = new Array();
   }
@@ -9452,11 +15189,12 @@ var UiElementBase = class extends Component {
     this._interactCallbacks.splice(index, 1);
   }
 };
-UiElementBase.TypeName = "ui-element-base";
-UiElementBase.Properties = {};
+__publicField(UiElementBase, "TypeName", "ui-element-base");
+__publicField(UiElementBase, "Properties", {});
 
 // js/utils/materials/Color.ts
 var _Color = class {
+  _value;
   constructor(r, g, b, a) {
     this._value = [r, g, b, a];
   }
@@ -9468,13 +15206,19 @@ var _Color = class {
   }
 };
 var Color = _Color;
-Color.COLOR_NORMAL = vec4_exports.fromValues(76 / 255, 106 / 255, 134 / 255, 1);
-Color.COLOR_ACTIVE = vec4_exports.fromValues(255 / 255, 162 / 255, 56 / 255, 1);
-Color.COLOR_TINT_NORMAL = vec4_exports.fromValues(1, 1, 1, 1);
-Color.COLOR_TINT_ACTIVE = vec4_exports.fromValues(0.7, 0.7, 0.7, 1);
+__publicField(Color, "COLOR_NORMAL", vec4_exports.fromValues(76 / 255, 106 / 255, 134 / 255, 1));
+__publicField(Color, "COLOR_ACTIVE", vec4_exports.fromValues(255 / 255, 162 / 255, 56 / 255, 1));
+__publicField(Color, "COLOR_TINT_NORMAL", vec4_exports.fromValues(1, 1, 1, 1));
+__publicField(Color, "COLOR_TINT_ACTIVE", vec4_exports.fromValues(0.7, 0.7, 0.7, 1));
 
 // js/ui/UiButton.ts
 var UiButton = class extends UiElementBase {
+  // Properties declaration
+  textObject;
+  visualFeedbackEnabled;
+  // Class fields
+  _meshComponent;
+  _textComponent;
   start() {
     this._meshComponent = this.object.getComponent("mesh");
     this._meshComponent.material = this._meshComponent.material.clone();
@@ -9498,14 +15242,15 @@ var UiButton = class extends UiElementBase {
     }, 100);
   }
 };
-UiButton.TypeName = "ui-button";
-UiButton.Properties = {
+__publicField(UiButton, "TypeName", "ui-button");
+__publicField(UiButton, "Properties", {
   textObject: { type: Type.Object },
   visualFeedbackEnabled: { type: Type.Bool, default: true }
-};
+});
 
 // js/sound/SoundSystem.ts
 var SoundSystem = class {
+  _soundEmitters;
   constructor() {
     this._soundEmitters = /* @__PURE__ */ new Map();
   }
@@ -9528,6 +15273,13 @@ var SoundSystem_default = new SoundSystem();
 
 // js/gameplay/interactions/XrController.ts
 var XrController = class extends Component {
+  // Properties definition
+  inputObject;
+  pointerRay;
+  _inputComponent;
+  _hand;
+  _xrGamepad;
+  _pointerRayComponent;
   start() {
     if (this.inputObject === null)
       throw new Error("Input Object must be defined");
@@ -9543,7 +15295,7 @@ var XrController = class extends Component {
       return;
     this._xrGamepad.update();
     if (!this._pointerRayComponent.isPointing) {
-      BuildController_default.setCurrentPrevizPosition([0, -5, 0]);
+      BuildController_default.setCurrentPrevisPosition([0, -5, 0]);
       return;
     }
     switch (TagUtils.getTag(this._pointerRayComponent.currentHitObject)) {
@@ -9553,17 +15305,17 @@ var XrController = class extends Component {
         const indices = GridManager_default.grid.getCellIndices(ptrPos[0], ptrPos[1], ptrPos[2]);
         const position = GridManager_default.grid.getCellPositionVec3(indices);
         if (this._xrGamepad.joystickXJustMoved) {
-          BuildController_default.addCurrentPrevizRotation(
+          BuildController_default.addCurrentPrevisRotation(
             0,
             this._xrGamepad.joystickXValue > 0 ? 90 : -90
           );
           SoundSystem_default.playAt(2 /* BlockRotate */, this._pointerRayComponent.currentHitPosition);
         }
-        BuildController_default.setCurrentPrevizPosition(position);
+        BuildController_default.setCurrentPrevisPosition(position);
         break;
       }
       case 2 /* UI */: {
-        BuildController_default.setCurrentPrevizPosition([0, -5, 0]);
+        BuildController_default.setCurrentPrevisPosition([0, -5, 0]);
         break;
       }
     }
@@ -9631,7 +15383,7 @@ var XrController = class extends Component {
         let ptrPos = this._pointerRayComponent.currentHitPosition;
         let indices = GridManager_default.grid.getCellIndices(ptrPos[0], ptrPos[1], ptrPos[2]);
         let position = GridManager_default.grid.getCellPositionVec3(indices);
-        BuildController_default.instanciatePrefabAt(position);
+        BuildController_default.instantiatePrefabAt(position);
         SoundSystem_default.playAt(1 /* BlockPlaced */, this._pointerRayComponent.currentHitPosition);
         break;
       }
@@ -9661,12 +15413,12 @@ var XrController = class extends Component {
     }
   }
 };
-XrController.TypeName = "XR-Controller";
-XrController.Properties = {
+__publicField(XrController, "TypeName", "XR-Controller");
+__publicField(XrController, "Properties", {
   pointerMode: { type: Type.Int, default: 0 },
   inputObject: { type: Type.Object, default: null },
   pointerRay: { type: Type.Object, default: null }
-};
+});
 
 // js/gameplay/prefabs/BlockSlopePrefab.ts
 var _BlockSlopePrefab = class extends PrefabBase {
@@ -9680,13 +15432,13 @@ var _BlockSlopePrefab = class extends PrefabBase {
   }
 };
 var BlockSlopePrefab = _BlockSlopePrefab;
-BlockSlopePrefab.TypeName = "block-slope-prefab";
-BlockSlopePrefab.Properties = {
+__publicField(BlockSlopePrefab, "TypeName", "block-slope-prefab");
+__publicField(BlockSlopePrefab, "Properties", {
   finalMesh: { type: Type.Mesh },
   previsMesh: { type: Type.Mesh },
   finalMat: { type: Type.Material },
   previsMat: { type: Type.Material }
-};
+});
 
 // js/gameplay/prefabs/BlockStairPrefab.ts
 var _BlockStairPrefab = class extends PrefabBase {
@@ -9700,13 +15452,13 @@ var _BlockStairPrefab = class extends PrefabBase {
   }
 };
 var BlockStairPrefab = _BlockStairPrefab;
-BlockStairPrefab.TypeName = "block-stair-prefab";
-BlockStairPrefab.Properties = {
+__publicField(BlockStairPrefab, "TypeName", "block-stair-prefab");
+__publicField(BlockStairPrefab, "Properties", {
   finalMesh: { type: Type.Mesh },
   previsMesh: { type: Type.Mesh },
   finalMat: { type: Type.Material },
   previsMat: { type: Type.Material }
-};
+});
 
 // js/gameplay/prefabs/BlockVerticalPrefab.ts
 var _BlockVerticalPrefab = class extends PrefabBase {
@@ -9720,13 +15472,13 @@ var _BlockVerticalPrefab = class extends PrefabBase {
   }
 };
 var BlockVerticalPrefab = _BlockVerticalPrefab;
-BlockVerticalPrefab.TypeName = "block-vertical-prefab";
-BlockVerticalPrefab.Properties = {
+__publicField(BlockVerticalPrefab, "TypeName", "block-vertical-prefab");
+__publicField(BlockVerticalPrefab, "Properties", {
   finalMesh: { type: Type.Mesh },
   previsMesh: { type: Type.Mesh },
   finalMat: { type: Type.Material },
   previsMat: { type: Type.Material }
-};
+});
 
 // js/gameplay/prefabs/ConeCutPrefab.ts
 var _ConeCutPrefab = class extends PrefabBase {
@@ -9740,13 +15492,13 @@ var _ConeCutPrefab = class extends PrefabBase {
   }
 };
 var ConeCutPrefab = _ConeCutPrefab;
-ConeCutPrefab.TypeName = "cone-cut-prefab";
-ConeCutPrefab.Properties = {
+__publicField(ConeCutPrefab, "TypeName", "cone-cut-prefab");
+__publicField(ConeCutPrefab, "Properties", {
   finalMesh: { type: Type.Mesh },
   previsMesh: { type: Type.Mesh },
   finalMat: { type: Type.Material },
   previsMat: { type: Type.Material }
-};
+});
 
 // js/gameplay/prefabs/ConePrefab.ts
 var _ConePrefab = class extends PrefabBase {
@@ -9760,13 +15512,13 @@ var _ConePrefab = class extends PrefabBase {
   }
 };
 var ConePrefab = _ConePrefab;
-ConePrefab.TypeName = "cone-prefab";
-ConePrefab.Properties = {
+__publicField(ConePrefab, "TypeName", "cone-prefab");
+__publicField(ConePrefab, "Properties", {
   finalMesh: { type: Type.Mesh },
   previsMesh: { type: Type.Mesh },
   finalMat: { type: Type.Material },
   previsMat: { type: Type.Material }
-};
+});
 
 // js/gameplay/prefabs/CylinderPrefab.ts
 var _CylinderPrefab = class extends PrefabBase {
@@ -9780,13 +15532,13 @@ var _CylinderPrefab = class extends PrefabBase {
   }
 };
 var CylinderPrefab = _CylinderPrefab;
-CylinderPrefab.TypeName = "cylinder-prefab";
-CylinderPrefab.Properties = {
+__publicField(CylinderPrefab, "TypeName", "cylinder-prefab");
+__publicField(CylinderPrefab, "Properties", {
   finalMesh: { type: Type.Mesh },
   previsMesh: { type: Type.Mesh },
   finalMat: { type: Type.Material },
   previsMat: { type: Type.Material }
-};
+});
 
 // js/gameplay/prefabs/PyramidCutPrefab.ts
 var _PyramidCutPrefab = class extends PrefabBase {
@@ -9800,13 +15552,13 @@ var _PyramidCutPrefab = class extends PrefabBase {
   }
 };
 var PyramidCutPrefab = _PyramidCutPrefab;
-PyramidCutPrefab.TypeName = "pyramid-cut-prefab";
-PyramidCutPrefab.Properties = {
+__publicField(PyramidCutPrefab, "TypeName", "pyramid-cut-prefab");
+__publicField(PyramidCutPrefab, "Properties", {
   finalMesh: { type: Type.Mesh },
   previsMesh: { type: Type.Mesh },
   finalMat: { type: Type.Material },
   previsMat: { type: Type.Material }
-};
+});
 
 // js/gameplay/prefabs/PyramidPrefab.ts
 var _PyramidPrefab = class extends PrefabBase {
@@ -9820,13 +15572,13 @@ var _PyramidPrefab = class extends PrefabBase {
   }
 };
 var PyramidPrefab = _PyramidPrefab;
-PyramidPrefab.TypeName = "pyramid-prefab";
-PyramidPrefab.Properties = {
+__publicField(PyramidPrefab, "TypeName", "pyramid-prefab");
+__publicField(PyramidPrefab, "Properties", {
   finalMesh: { type: Type.Mesh },
   previsMesh: { type: Type.Mesh },
   finalMat: { type: Type.Material },
   previsMat: { type: Type.Material }
-};
+});
 
 // js/gameplay/prefabs/SlabPrefab.ts
 var _SlabPrefab = class extends PrefabBase {
@@ -9840,16 +15592,18 @@ var _SlabPrefab = class extends PrefabBase {
   }
 };
 var SlabPrefab = _SlabPrefab;
-SlabPrefab.TypeName = "slab-prefab";
-SlabPrefab.Properties = {
+__publicField(SlabPrefab, "TypeName", "slab-prefab");
+__publicField(SlabPrefab, "Properties", {
   finalMesh: { type: Type.Mesh },
   previsMesh: { type: Type.Mesh },
   finalMat: { type: Type.Material },
   previsMat: { type: Type.Material }
-};
+});
 
 // js/sound/SoundEmitterBase.ts
 var SoundEmitterBase = class extends Component {
+  _audioSource;
+  _emitterType;
   get emitterType() {
     return this._emitterType;
   }
@@ -9865,8 +15619,8 @@ var SoundEmitterBase = class extends Component {
     this._audioSource.play();
   }
 };
-SoundEmitterBase.TypeName = "sound-emitter-base";
-SoundEmitterBase.Properties = {};
+__publicField(SoundEmitterBase, "TypeName", "sound-emitter-base");
+__publicField(SoundEmitterBase, "Properties", {});
 
 // js/sound/soundEmitters/ClickSoundEmitter.ts
 var ClickSoundEmitter = class extends SoundEmitterBase {
@@ -9874,7 +15628,7 @@ var ClickSoundEmitter = class extends SoundEmitterBase {
     this._emitterType = 0 /* Click */;
   }
 };
-ClickSoundEmitter.TypeName = "sound-emitter-click";
+__publicField(ClickSoundEmitter, "TypeName", "sound-emitter-click");
 
 // js/sound/soundEmitters/DestroySoundEmitter.ts
 var DestroySoundEmitter = class extends SoundEmitterBase {
@@ -9882,7 +15636,7 @@ var DestroySoundEmitter = class extends SoundEmitterBase {
     this._emitterType = 3 /* BlockDestroy */;
   }
 };
-DestroySoundEmitter.TypeName = "sound-emitter-destroy";
+__publicField(DestroySoundEmitter, "TypeName", "sound-emitter-destroy");
 
 // js/sound/soundEmitters/PlaceSoundEmitter.ts
 var PlaceSoundEmitter = class extends SoundEmitterBase {
@@ -9890,7 +15644,7 @@ var PlaceSoundEmitter = class extends SoundEmitterBase {
     this._emitterType = 1 /* BlockPlaced */;
   }
 };
-PlaceSoundEmitter.TypeName = "sound-emitter-place";
+__publicField(PlaceSoundEmitter, "TypeName", "sound-emitter-place");
 
 // js/sound/soundEmitters/RotateSoundEmitter.ts
 var RotateSoundEmitter = class extends SoundEmitterBase {
@@ -9898,10 +15652,12 @@ var RotateSoundEmitter = class extends SoundEmitterBase {
     this._emitterType = 2 /* BlockRotate */;
   }
 };
-RotateSoundEmitter.TypeName = "sound-emitter-rotate";
+__publicField(RotateSoundEmitter, "TypeName", "sound-emitter-rotate");
 
 // js/ui/armMenu/BlockSelectionPanel.ts
 var BlockSelectionPanel = class extends Component {
+  // Private fields 
+  _buttons;
   init() {
     this._buttons = /* @__PURE__ */ new Map();
   }
@@ -9919,11 +15675,18 @@ var BlockSelectionPanel = class extends Component {
     button.setVisualColor(Color.COLOR_TINT_ACTIVE);
   }
 };
-BlockSelectionPanel.TypeName = "block-selection-panel";
-BlockSelectionPanel.Properties = {};
+__publicField(BlockSelectionPanel, "TypeName", "block-selection-panel");
+__publicField(BlockSelectionPanel, "Properties", {});
 
 // js/ui/BlockSelectorInteractible.ts
 var BlockSelectorInteractible = class extends Component {
+  // Properties fields declaration
+  prefab;
+  // fields
+  _prefabComponent;
+  _buttonComponent;
+  _mesh;
+  _parent;
   start() {
     this._prefabComponent = PrefabsRegistry_default.getPrefabByName(this.prefab[PrefabsRegistry_default.PREFAB_UNAME_KEY]);
     this._buttonComponent = this.object.getComponent(UiButton);
@@ -9945,13 +15708,16 @@ var BlockSelectorInteractible = class extends Component {
     this._parent.notifyInteraction(this);
   }
 };
-BlockSelectorInteractible.TypeName = "block-selector-interactible";
-BlockSelectorInteractible.Properties = {
+__publicField(BlockSelectorInteractible, "TypeName", "block-selector-interactible");
+__publicField(BlockSelectorInteractible, "Properties", {
   prefab: { type: Type.Object }
-};
+});
 
 // js/utils/textures/TextureInformation.ts
 var TextureInformation = class extends Component {
+  uid;
+  albedo;
+  normal;
   get uniqueID() {
     return this.uid;
   }
@@ -9965,15 +15731,17 @@ var TextureInformation = class extends Component {
     TextureInformationRegistry_default.register(this);
   }
 };
-TextureInformation.TypeName = "texture-information";
-TextureInformation.Properties = {
+__publicField(TextureInformation, "TypeName", "texture-information");
+__publicField(TextureInformation, "Properties", {
   uid: { type: Type.String },
   albedo: { type: Type.Texture, default: null },
   normal: { type: Type.Texture, default: null }
-};
+});
 
 // js/ui/armMenu/TextureSelectionPanel.ts
 var TextureSelectionPanel = class extends Component {
+  // Private fields 
+  _buttons;
   init() {
     this._buttons = /* @__PURE__ */ new Map();
   }
@@ -9991,11 +15759,17 @@ var TextureSelectionPanel = class extends Component {
     button.setVisualColor(Color.COLOR_TINT_ACTIVE);
   }
 };
-TextureSelectionPanel.TypeName = "texture-selection-panel";
-TextureSelectionPanel.Properties = {};
+__publicField(TextureSelectionPanel, "TypeName", "texture-selection-panel");
+__publicField(TextureSelectionPanel, "Properties", {});
 
 // js/ui/TextureSelectorInteractible.ts
 var TextureSelectorInteractible = class extends Component {
+  textureInfoObject;
+  // fields
+  _texture;
+  _buttonComponent;
+  _mesh;
+  _parent;
   start() {
     if (!this.textureInfoObject) {
       console.error("Object must be set to initialize the button ", this.object.name);
@@ -10018,13 +15792,15 @@ var TextureSelectorInteractible = class extends Component {
     this._parent.notifyInteraction(this);
   }
 };
-TextureSelectorInteractible.TypeName = "texture-selector-interactible";
-TextureSelectorInteractible.Properties = {
+__publicField(TextureSelectorInteractible, "TypeName", "texture-selector-interactible");
+__publicField(TextureSelectorInteractible, "Properties", {
   textureInfoObject: { type: Type.Object, default: null }
-};
+});
 
 // js/utils/ObjectToggler.ts
 var ObjectToggler = class extends Component {
+  // Fields
+  _components;
   start() {
     this._components = new Array();
     this.fetchAllComponents(this.object);
@@ -10056,11 +15832,14 @@ var ObjectToggler = class extends Component {
     }
   }
 };
-ObjectToggler.TypeName = "object-toggler";
-ObjectToggler.Properties = {};
+__publicField(ObjectToggler, "TypeName", "object-toggler");
+__publicField(ObjectToggler, "Properties", {});
 
 // js/ui/armMenu/ArmPanel.ts
 var ArmPanel = class extends Component {
+  // Fields
+  _objToggler;
+  _mesh;
   start() {
     this._objToggler = this.object.addComponent(ObjectToggler);
     this._mesh = this.object.getComponent("mesh");
@@ -10075,11 +15854,20 @@ var ArmPanel = class extends Component {
     this._objToggler.setActive(false);
   }
 };
-ArmPanel.TypeName = "arm-panel";
-ArmPanel.Properties = {};
+__publicField(ArmPanel, "TypeName", "arm-panel");
+__publicField(ArmPanel, "Properties", {});
 
 // js/ui/armMenu/MenuSelectionButton.ts
 var MenuSelectionButton = class extends Component {
+  // Properties declaration
+  iconObject;
+  iconTexture;
+  // Private fields
+  _button;
+  _mesh;
+  _material;
+  _iconMaterial;
+  _isActive;
   // Getters
   get isActive() {
     return this._isActive;
@@ -10101,30 +15889,46 @@ var MenuSelectionButton = class extends Component {
     this._isActive = isActive;
   }
   setup() {
-    var _a;
     this._button = this.object.getComponent(UiButton);
     this._mesh = this.object.getComponent("mesh");
-    this._material = (_a = this._mesh.material) == null ? void 0 : _a.clone();
+    this._material = this._mesh.material?.clone();
     this._mesh.material = this._material;
     this._material.color = Color.COLOR_NORMAL;
     this._isActive = false;
   }
   setupIcon() {
-    var _a;
     const iconTempMesh = this.iconObject.getComponent("mesh");
-    this._iconMaterial = (_a = iconTempMesh.material) == null ? void 0 : _a.clone();
+    this._iconMaterial = iconTempMesh.material?.clone();
     iconTempMesh.material = this._iconMaterial;
     this._iconMaterial.flatTexture = this.iconTexture;
   }
 };
-MenuSelectionButton.TypeName = "menu-selection-button";
-MenuSelectionButton.Properties = {
+__publicField(MenuSelectionButton, "TypeName", "menu-selection-button");
+__publicField(MenuSelectionButton, "Properties", {
   iconObject: { type: Type.Object, default: null },
   iconTexture: { type: Type.Texture, default: null }
-};
+});
 
 // js/ui/armMenu/MenuController.ts
 var MenuController = class extends Component {
+  // Properties declaration
+  // Buttons
+  menuButton;
+  blockButton;
+  textureButton;
+  // Panels
+  menuPanel;
+  blockPanel;
+  texturePanel;
+  // Fields declaration
+  // Buttons
+  _menuButtonComp;
+  _blockButtonComp;
+  _textureButtonComp;
+  // Panels
+  _menuPanelComp;
+  _blockPanelComp;
+  _texturePanelComp;
   start() {
     this._menuButtonComp = this.menuButton.getComponent(MenuSelectionButton);
     this._blockButtonComp = this.blockButton.getComponent(MenuSelectionButton);
@@ -10170,8 +15974,8 @@ var MenuController = class extends Component {
     this._blockPanelComp.hide();
   }
 };
-MenuController.TypeName = "menu-controller";
-MenuController.Properties = {
+__publicField(MenuController, "TypeName", "menu-controller");
+__publicField(MenuController, "Properties", {
   // Buttons
   menuButton: { type: Type.Object },
   blockButton: { type: Type.Object },
@@ -10180,11 +15984,13 @@ MenuController.Properties = {
   menuPanel: { type: Type.Object },
   blockPanel: { type: Type.Object },
   texturePanel: { type: Type.Object }
-};
+});
 
 // js/gameplay/serialization/SerializationUtils.ts
 var SAVE_ITEM_KEY = "SAVE_DATA";
 var SerializationUtils = class {
+  _localStorage;
+  _saveData;
   constructor() {
     if (typeof window === "undefined" || !window.localStorage)
       return;
@@ -10246,6 +16052,28 @@ var SerializationUtils_default = new SerializationUtils();
 
 // js/ui/saveMenu/SavePanel.ts
 var SavePanel = class extends Component {
+  // Properties declaration
+  loadButtonObj;
+  newButtonObj;
+  nextButtonObj;
+  saveButtonObj;
+  removeButtonObj;
+  saveCountObj;
+  saveNameObj;
+  // Buttons components
+  _loadButton;
+  _newButton;
+  _nextButton;
+  _saveButton;
+  _removeButton;
+  // Text components
+  _saveCount;
+  _saveName;
+  // Cache saves
+  _saveEntries;
+  // Information tracking
+  _currentSaveIndex;
+  _currentBuildData;
   start() {
     this._loadButton = this.loadButtonObj.getComponent(UiButton);
     this._newButton = this.newButtonObj.getComponent(UiButton);
@@ -10330,8 +16158,8 @@ var SavePanel = class extends Component {
     }
   }
 };
-SavePanel.TypeName = "save-panel";
-SavePanel.Properties = {
+__publicField(SavePanel, "TypeName", "save-panel");
+__publicField(SavePanel, "Properties", {
   loadButtonObj: { type: Type.Object, default: null },
   newButtonObj: { type: Type.Object, default: null },
   nextButtonObj: { type: Type.Object, default: null },
@@ -10339,7 +16167,90 @@ SavePanel.Properties = {
   removeButtonObj: { type: Type.Object, default: null },
   saveCountObj: { type: Type.Object, default: null },
   saveNameObj: { type: Type.Object, default: null }
+});
+
+// js/index.js
+var RuntimeOptions = {
+  physx: false,
+  loader: false,
+  xrFramebufferScaleFactor: 1,
+  canvas: "canvas"
 };
+var Constants = {
+  ProjectName: "wonderbrick",
+  RuntimeBaseName: "WonderlandRuntime",
+  WebXRRequiredFeatures: ["local"],
+  WebXROptionalFeatures: ["local", "local-floor", "hit-test"]
+};
+var engine = await loadRuntime(Constants.RuntimeBaseName, RuntimeOptions);
+Object.assign(engine, dist_exports);
+window.WL = engine;
+engine.onSceneLoaded.once(() => {
+  const el = document.getElementById("version");
+  if (el)
+    setTimeout(() => el.remove(), 2e3);
+});
+function requestSession(mode) {
+  engine.requestXRSession(
+    mode,
+    Constants.WebXRRequiredFeatures,
+    Constants.WebXROptionalFeatures
+  ).catch((e) => console.error(e));
+}
+function setupButtonsXR() {
+  const arButton = document.getElementById("ar-button");
+  if (arButton) {
+    arButton.dataset.supported = engine.arSupported;
+    arButton.addEventListener("click", () => requestSession("immersive-ar"));
+  }
+  const vrButton = document.getElementById("vr-button");
+  if (vrButton) {
+    vrButton.dataset.supported = engine.vrSupported;
+    vrButton.addEventListener("click", () => requestSession("immersive-vr"));
+  }
+}
+if (document.readyState === "loading") {
+  window.addEventListener("load", setupButtonsXR);
+} else {
+  setupButtonsXR();
+}
+engine.registerComponent(Cursor);
+engine.registerComponent(HowlerAudioListener);
+engine.registerComponent(HowlerAudioSource);
+engine.registerComponent(MouseLookComponent);
+engine.registerComponent(PlayerHeight);
+engine.registerComponent(TeleportComponent);
+engine.registerComponent(VrModeActiveSwitch);
+engine.registerComponent(BuildContainer);
+engine.registerComponent(GridDebugComponent);
+engine.registerComponent(PointerRay);
+engine.registerComponent(XrController);
+engine.registerComponent(BlockPrefab);
+engine.registerComponent(BlockSlopePrefab);
+engine.registerComponent(BlockStairPrefab);
+engine.registerComponent(BlockVerticalPrefab);
+engine.registerComponent(ConeCutPrefab);
+engine.registerComponent(ConePrefab);
+engine.registerComponent(CylinderPrefab);
+engine.registerComponent(PyramidCutPrefab);
+engine.registerComponent(PyramidPrefab);
+engine.registerComponent(SlabPrefab);
+engine.registerComponent(ClickSoundEmitter);
+engine.registerComponent(DestroySoundEmitter);
+engine.registerComponent(PlaceSoundEmitter);
+engine.registerComponent(RotateSoundEmitter);
+engine.registerComponent(BlockSelectorInteractible);
+engine.registerComponent(TextureSelectorInteractible);
+engine.registerComponent(UiButton);
+engine.registerComponent(ArmPanel);
+engine.registerComponent(BlockSelectionPanel);
+engine.registerComponent(MenuController);
+engine.registerComponent(MenuSelectionButton);
+engine.registerComponent(TextureSelectionPanel);
+engine.registerComponent(SavePanel);
+engine.registerComponent(TagComponent);
+engine.registerComponent(TextureInformation);
+engine.scene.load(`${Constants.ProjectName}.bin`);
 /*! Bundled license information:
 
 howler/dist/howler.js:

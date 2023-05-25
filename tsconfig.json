@@ -1,12 +1,11 @@
 {
     "compilerOptions": {
-        "module": "ES2016",
-        "moduleResolution": "node",
-        "target": "ES2016",
+        "target": "ES2022",
+        "module": "ES6",
+        "moduleResolution": "nodenext",
+        "experimentalDecorators": true,
         "lib": [
-            "ES2016",
-            "ES5",
-            "ES6",
+            "ES2015",
             "DOM"
         ]
     }

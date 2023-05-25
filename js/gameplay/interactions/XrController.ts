@@ -61,7 +61,7 @@ export class XrController extends Component
 
         if(!this._pointerRayComponent.isPointing)
         {
-            BuildController.setCurrentPrevizPosition([0, -5, 0]);
+            BuildController.setCurrentPrevisPosition([0, -5, 0]);
             return;
         }
 
@@ -76,7 +76,7 @@ export class XrController extends Component
 
                 if(this._xrGamepad.joystickXJustMoved)
                 {
-                    BuildController.addCurrentPrevizRotation(
+                    BuildController.addCurrentPrevisRotation(
                         0,
                         this._xrGamepad.joystickXValue > 0 ? 90: -90
                     );
@@ -84,12 +84,12 @@ export class XrController extends Component
                     SoundSystem.playAt(SoundEmitterType.BlockRotate, this._pointerRayComponent.currentHitPosition);
                 }
 
-                BuildController.setCurrentPrevizPosition(position);
+                BuildController.setCurrentPrevisPosition(position);
                 break;
             }
 
             case Tag.UI: {
-                BuildController.setCurrentPrevizPosition([0, -5, 0]);
+                BuildController.setCurrentPrevisPosition([0, -5, 0]);
                 break;
             }
         }
@@ -181,7 +181,7 @@ export class XrController extends Component
                 let indices = GridManager.grid.getCellIndices(ptrPos[0], ptrPos[1], ptrPos[2]);
                 let position = GridManager.grid.getCellPositionVec3(indices);
 
-                BuildController.instanciatePrefabAt(position);
+                BuildController.instantiatePrefabAt(position);
                 SoundSystem.playAt(SoundEmitterType.BlockPlaced, this._pointerRayComponent.currentHitPosition);
                 break;
             }

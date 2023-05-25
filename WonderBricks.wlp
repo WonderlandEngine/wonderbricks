@@ -10020,6 +10020,10 @@
             "compressedTextureAtlasSize": [
                 32768,
                 16384
+            ],
+            "textureAtlasSize": [
+                8192,
+                8192
             ]
         },
         "editor": {
