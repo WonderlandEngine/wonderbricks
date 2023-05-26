@@ -1,6 +1,7 @@
 import { Component, ComponentProperty, Object, Type } from "@wonderlandengine/api";
 import { ArmPanel } from "./ArmPanel.js";
 import { MenuSelectionButton } from "./MenuSelectionButton.js";
+import {ObjectToggler} from "../../utils/ObjectToggler.js";
 
 
 export class MenuController extends Component
@@ -30,6 +31,9 @@ export class MenuController extends Component
     private texturePanel: Object;
 
     // Fields declaration
+    // Toggle component
+    private _objToggle: ObjectToggler;
+
     // Buttons
     private _menuButtonComp: MenuSelectionButton;
     private _blockButtonComp: MenuSelectionButton;
@@ -40,8 +44,14 @@ export class MenuController extends Component
     private _blockPanelComp: ArmPanel;
     private _texturePanelComp: ArmPanel;
 
+    // Accessors
+    public get objectToggler(): ObjectToggler { return this._objToggle; }
+
     public override start(): void 
     {
+        // Add Object Toggler
+        this._objToggle = this.object.addComponent(ObjectToggler);
+
         // Get buttons components
         this._menuButtonComp = this.menuButton.getComponent(MenuSelectionButton);
         this._blockButtonComp = this.blockButton.getComponent(MenuSelectionButton);
@@ -55,16 +65,13 @@ export class MenuController extends Component
         this._menuPanelComp = this.menuPanel.getComponent(ArmPanel);
         this._blockPanelComp = this.blockPanel.getComponent(ArmPanel);
         this._texturePanelComp = this.texturePanel.getComponent(ArmPanel);
-
-        // Disable all panels
-        console.log(this.engine);
         
         this.engine.onXRSessionStart.push(() => {
             setTimeout(() => {
                 this._menuPanelComp.hide();
                 this._blockPanelComp.hide();
                 this._texturePanelComp.hide();
-                console.log("COUCOU scene loaded !");
+                this._objToggle.setActive(false);
             }, 100);
         });
     }

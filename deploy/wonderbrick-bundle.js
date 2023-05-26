@@ -15873,30 +15873,6 @@ var ArmPanel = class extends Component {
 __publicField(ArmPanel, "TypeName", "arm-panel");
 __publicField(ArmPanel, "Properties", {});
 
-// js/ui/armMenu/InstructionPanel.ts
-var InstructionPanel = class extends Component {
-  closeButtonObj;
-  /** Private Fields */
-  _objToggle;
-  _closeButton;
-  start() {
-    this._objToggle = this.object.addComponent(ObjectToggler);
-    this._closeButton = this.closeButtonObj.getComponent(UiButton);
-    this._closeButton.addInteractCallback(this.onCloseButtonClickedHandler.bind(this));
-  }
-  /**
-   * Close the panel on close button clicked
-   * @private
-   */
-  onCloseButtonClickedHandler() {
-    this._objToggle.setActive(false);
-  }
-};
-__publicField(InstructionPanel, "TypeName", "instructions-panel");
-__decorateClass([
-  property.object()
-], InstructionPanel.prototype, "closeButtonObj", 2);
-
 // js/ui/armMenu/MenuSelectionButton.ts
 var MenuSelectionButton = class extends Component {
   // Properties declaration
@@ -15961,6 +15937,8 @@ var MenuController = class extends Component {
   blockPanel;
   texturePanel;
   // Fields declaration
+  // Toggle component
+  _objToggle;
   // Buttons
   _menuButtonComp;
   _blockButtonComp;
@@ -15969,7 +15947,12 @@ var MenuController = class extends Component {
   _menuPanelComp;
   _blockPanelComp;
   _texturePanelComp;
+  // Accessors
+  get objectToggler() {
+    return this._objToggle;
+  }
   start() {
+    this._objToggle = this.object.addComponent(ObjectToggler);
     this._menuButtonComp = this.menuButton.getComponent(MenuSelectionButton);
     this._blockButtonComp = this.blockButton.getComponent(MenuSelectionButton);
     this._textureButtonComp = this.textureButton.getComponent(MenuSelectionButton);
@@ -15979,13 +15962,12 @@ var MenuController = class extends Component {
     this._menuPanelComp = this.menuPanel.getComponent(ArmPanel);
     this._blockPanelComp = this.blockPanel.getComponent(ArmPanel);
     this._texturePanelComp = this.texturePanel.getComponent(ArmPanel);
-    console.log(this.engine);
     this.engine.onXRSessionStart.push(() => {
       setTimeout(() => {
         this._menuPanelComp.hide();
         this._blockPanelComp.hide();
         this._texturePanelComp.hide();
-        console.log("COUCOU scene loaded !");
+        this._objToggle.setActive(false);
       }, 100);
     });
   }
@@ -16040,6 +16022,37 @@ __publicField(MenuController, "Properties", {
   blockPanel: { type: Type.Object },
   texturePanel: { type: Type.Object }
 });
+
+// js/ui/armMenu/InstructionPanel.ts
+var InstructionPanel = class extends Component {
+  closeButtonObj;
+  armMenu;
+  /** Private Fields */
+  _objToggle;
+  _armMenu;
+  _closeButton;
+  start() {
+    this._objToggle = this.object.addComponent(ObjectToggler);
+    this._armMenu = this.armMenu.getComponent(MenuController);
+    this._closeButton = this.closeButtonObj.getComponent(UiButton);
+    this._closeButton.addInteractCallback(this.onCloseButtonClickedHandler.bind(this));
+  }
+  /**
+   * Close the panel on close button clicked
+   * @private
+   */
+  onCloseButtonClickedHandler() {
+    this._objToggle.setActive(false);
+    this._armMenu.objectToggler.setActive(true);
+  }
+};
+__publicField(InstructionPanel, "TypeName", "instructions-panel");
+__decorateClass([
+  property.object()
+], InstructionPanel.prototype, "closeButtonObj", 2);
+__decorateClass([
+  property.object()
+], InstructionPanel.prototype, "armMenu", 2);
 
 // js/gameplay/serialization/SerializationUtils.ts
 var SAVE_ITEM_KEY = "SAVE_DATA";

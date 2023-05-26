@@ -6830,7 +6830,8 @@
                 {
                     "type": "instructions-panel",
                     "instructions-panel": {
-                        "closeButtonObj": "b1a43121-78a7-4ea3-ad68-10003cfcd17c"
+                        "closeButtonObj": "b1a43121-78a7-4ea3-ad68-10003cfcd17c",
+                        "armMenu": "1cd7c3b7-1ad5-412d-8bf3-b79e92462ebc"
                     }
                 }
             ]
