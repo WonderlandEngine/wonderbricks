@@ -15986,6 +15986,11 @@ var MenuController = class extends Component {
     });
   }
   onMenuButtonPressed() {
+    if (this._menuButtonComp.isActive) {
+      this._menuButtonComp.setActive(false);
+      this._menuPanelComp.hide();
+      return;
+    }
     this._menuButtonComp.setActive(true);
     this._menuPanelComp.show();
     this._blockButtonComp.setActive(false);
@@ -15994,6 +15999,11 @@ var MenuController = class extends Component {
     this._texturePanelComp.hide();
   }
   onBlockButtonPressed() {
+    if (this._blockButtonComp.isActive) {
+      this._blockButtonComp.setActive(false);
+      this._blockPanelComp.hide();
+      return;
+    }
     this._blockButtonComp.setActive(true);
     this._blockPanelComp.show();
     this._menuButtonComp.setActive(false);
@@ -16002,6 +16012,11 @@ var MenuController = class extends Component {
     this._texturePanelComp.hide();
   }
   onTextureButtonPressed() {
+    if (this._textureButtonComp.isActive) {
+      this._textureButtonComp.setActive(false);
+      this._texturePanelComp.hide();
+      return;
+    }
     this._textureButtonComp.setActive(true);
     this._texturePanelComp.show();
     this._menuButtonComp.setActive(false);

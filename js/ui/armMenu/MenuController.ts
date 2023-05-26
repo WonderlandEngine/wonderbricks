@@ -71,6 +71,14 @@ export class MenuController extends Component
 
     private onMenuButtonPressed(): void 
     {
+        // Check if already active
+        if(this._menuButtonComp.isActive)
+        {
+            this._menuButtonComp.setActive(false);
+            this._menuPanelComp.hide();
+            return;
+        }
+
         this._menuButtonComp.setActive(true);
         this._menuPanelComp.show();
 
@@ -82,6 +90,14 @@ export class MenuController extends Component
     
     private onBlockButtonPressed(): void 
     {
+        // Check if already active
+        if(this._blockButtonComp.isActive)
+        {
+            this._blockButtonComp.setActive(false);
+            this._blockPanelComp.hide();
+            return;
+        }
+
         this._blockButtonComp.setActive(true);
         this._blockPanelComp.show();
 
@@ -93,6 +109,14 @@ export class MenuController extends Component
 
     private onTextureButtonPressed(): void 
     {
+        // Check if already active
+        if(this._textureButtonComp.isActive)
+        {
+            this._textureButtonComp.setActive(false);
+            this._texturePanelComp.hide();
+            return;
+        }
+
         this._textureButtonComp.setActive(true);
         this._texturePanelComp.show();
 
