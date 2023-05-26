@@ -14868,6 +14868,8 @@ var BuildController = class {
     this._buildContainer = container;
   }
   setCurrentPrevisPosition(position) {
+    if (this._currentPrefab == null)
+      return;
     this._currentPrefab.updatePrevisPosition(position);
   }
   /**
@@ -14901,6 +14903,8 @@ var BuildController = class {
     this._currentPrefab.updatePrevisRotation(xRot, yRot);
   }
   instantiatePrefabAt(position) {
+    if (this._currentPrefab == null)
+      return;
     this._currentPrefab.createBlock(position, this._currentTexture, this._buildContainer);
   }
   /**
@@ -15024,19 +15028,19 @@ var PointerRay = class extends Component {
     this._direction = [0, 0, 0];
   }
   update(delta) {
-    this.rayOrigin.getTranslationWorld(this._origin);
-    this.rayOrigin.getForward(this._direction);
+    this.rayOrigin.getPositionWorld(this._origin);
+    this.rayOrigin.getForwardWorld(this._direction);
     let hit = this._scene.rayCast(this._origin, this._direction, 1);
     if (hit.hitCount > 0) {
       this._isPointing = true;
       this._currentHitPosition = vec3_exports.clone(hit.locations[0]);
       this._currentHitObject = hit.objects[0];
       this.processRayStretch();
-      this.cursorHitVisualObject.setTranslationWorld(this._currentHitPosition);
+      this.cursorHitVisualObject.setPositionWorld(this._currentHitPosition);
     } else {
       this._isPointing = false;
       this.rayObject.resetScaling();
-      this.cursorHitVisualObject.setTranslationWorld([0, -5, 0]);
+      this.cursorHitVisualObject.setPositionWorld([0, -5, 0]);
     }
   }
   processRayStretch() {

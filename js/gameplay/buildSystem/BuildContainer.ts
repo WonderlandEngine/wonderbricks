@@ -1,10 +1,10 @@
 import {Component} from "@wonderlandengine/api";
-import BuildController from "./BuildController";
-import { BlockData } from "../serialization/SarielizationData";
-import PrefabsRegistry from "../prefabs/PrefabsRegistry";
-import {quat, vec3, vec4} from "gl-matrix";
-import PrefabBase from "../prefabs/PrefabBase";
-import TextureInformationRegistry from "../../utils/textures/TextureInformationRegistry";
+import BuildController from "./BuildController.js";
+import { BlockData } from "../serialization/SarielizationData.js";
+import PrefabsRegistry from "../prefabs/PrefabsRegistry.js";
+import {quat, vec3} from "gl-matrix";
+import PrefabBase from "../prefabs/PrefabBase.js";
+import TextureInformationRegistry from "../../utils/textures/TextureInformationRegistry.js";
 
 
 export class BuildContainer extends Component

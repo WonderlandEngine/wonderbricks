@@ -1,12 +1,12 @@
-import { Component, CustomParameter, Object, Type, WonderlandEngine } from "@wonderlandengine/api";
-import { ArmPanel } from "./ArmPanel";
-import { MenuSelectionButton } from "./MenuSelectionButton";
+import { Component, ComponentProperty, Object, Type } from "@wonderlandengine/api";
+import { ArmPanel } from "./ArmPanel.js";
+import { MenuSelectionButton } from "./MenuSelectionButton.js";
 
 
 export class MenuController extends Component
 {
     static TypeName: string = 'menu-controller';
-    static Properties: Record<string, CustomParameter> = {
+    static Properties: Record<string, ComponentProperty> = {
         // Buttons
         menuButton: {type: Type.Object},
         blockButton: {type: Type.Object},

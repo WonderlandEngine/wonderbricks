@@ -1,8 +1,8 @@
-import { Component, CustomParameter, MeshComponent, Object, Texture, Type, WASM } from "@wonderlandengine/api";
+import { Component, ComponentProperty, MeshComponent, Object, Texture, Type } from "@wonderlandengine/api";
 import { vec4 } from "gl-matrix";
-import { Color } from "../../utils/materials/Color";
-import { FlatTexturedMaterial } from "../../utils/materials/FlatTexturedMaterial";
-import { UiButton } from "../UiButton";
+import { Color } from "../../utils/materials/Color.js";
+import { FlatTexturedMaterial } from "../../utils/materials/FlatTexturedMaterial.js";
+import { UiButton } from "../UiButton.js";
 
 
 /**
@@ -12,7 +12,7 @@ import { UiButton } from "../UiButton";
 export class MenuSelectionButton extends Component
 {
     static TypeName: string = 'menu-selection-button';
-    static Properties: Record<string, CustomParameter> = {
+    static Properties: Record<string, ComponentProperty> = {
         iconObject: {type: Type.Object, default: null},
         iconTexture: {type: Type.Texture, default: null}
     };

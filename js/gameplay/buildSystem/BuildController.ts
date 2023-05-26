@@ -55,7 +55,13 @@ class BuildController
 
     public setBuildContainer(container: Object): void { this._buildContainer = container; }
 
-    public setCurrentPrevisPosition(position: vec3): void { this._currentPrefab.updatePrevisPosition(position); }
+    public setCurrentPrevisPosition(position: vec3): void
+    {
+        if(this._currentPrefab == null)
+            return;
+
+        this._currentPrefab.updatePrevisPosition(position);
+    }
 
     /**
      * Set the prefab that should be placed and shown as previs in the world
@@ -94,7 +100,10 @@ class BuildController
     }
 
     public instantiatePrefabAt(position: vec3): void
-    { 
+    {
+        if(this._currentPrefab == null)
+            return;
+        
         this._currentPrefab.createBlock(position, this._currentTexture, this._buildContainer); 
     }
 
