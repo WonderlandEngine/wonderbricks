@@ -1,11 +1,11 @@
-import { Object, Component, CustomParameter } from "@wonderlandengine/api";
-import { ArmPanel } from "../ui/armMenu/ArmPanel";
+import { Object, Component, ComponentProperty } from "@wonderlandengine/api";
+import { ArmPanel } from "../ui/armMenu/ArmPanel.js";
 
 
 export class ObjectToggler extends Component
 {
     static TypeName: string = 'object-toggler';
-    static Properties: Record<string, CustomParameter> = { };
+    static Properties: Record<string, ComponentProperty> = { };
 
     // Fields
     private _components: Array<Component>;

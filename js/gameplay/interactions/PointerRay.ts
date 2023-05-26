@@ -1,6 +1,6 @@
 import {Component, MeshComponent, Object, Scene, Type} from "@wonderlandengine/api";
 import {vec3, vec4} from "gl-matrix";
-import {getCurrentScene} from "../../lib/WlApi";
+import {getCurrentScene} from "../../lib/WlApi.js";
 
 
 export class PointerRay extends Component

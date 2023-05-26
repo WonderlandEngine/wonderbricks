@@ -1,8 +1,8 @@
-import {Material, MeshComponent, Object, TextComponent, Type} from "@wonderlandengine/api";
-import {TagComponent} from "../utils/TagComponent";
-import {Tag} from "../utils/Tag";
-import {UiElementBase} from "./UiElementBase";
-import { Color } from "../utils/materials/Color";
+import {MeshComponent, Object, TextComponent, Type} from "@wonderlandengine/api";
+import {TagComponent} from "../utils/TagComponent.js";
+import {Tag} from "../utils/Tag.js";
+import {UiElementBase} from "./UiElementBase.js";
+import {Color} from "../utils/materials/Color.js";
 
 
 export class UiButton extends UiElementBase

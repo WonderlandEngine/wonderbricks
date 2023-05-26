@@ -28,6 +28,15 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
   isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
   mod
 ));
+var __decorateClass = (decorators, target, key, kind) => {
+  var result = kind > 1 ? void 0 : kind ? __getOwnPropDesc(target, key) : target;
+  for (var i = decorators.length - 1, decorator; i >= 0; i--)
+    if (decorator = decorators[i])
+      result = (kind ? decorator(target, key, result) : decorator(result)) || result;
+  if (kind && result)
+    __defProp(target, key, result);
+  return result;
+};
 var __publicField = (obj, key, value) => {
   __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
   return value;
@@ -15846,7 +15855,7 @@ var ArmPanel = class extends Component {
   start() {
     this._objToggler = this.object.addComponent(ObjectToggler);
     this._mesh = this.object.getComponent("mesh");
-    this.object.setTranslationLocal(vec3_exports.fromValues(0, 0, 0));
+    this.object.setPositionLocal(vec3_exports.fromValues(0, 0, 0));
   }
   /** Show the panel and enable all interactions */
   show() {
@@ -15859,6 +15868,30 @@ var ArmPanel = class extends Component {
 };
 __publicField(ArmPanel, "TypeName", "arm-panel");
 __publicField(ArmPanel, "Properties", {});
+
+// js/ui/armMenu/InstructionPanel.ts
+var InstructionPanel = class extends Component {
+  closeButtonObj;
+  /** Private Fields */
+  _objToggle;
+  _closeButton;
+  start() {
+    this._objToggle = this.object.addComponent(ObjectToggler);
+    this._closeButton = this.closeButtonObj.getComponent(UiButton);
+    this._closeButton.addInteractCallback(this.onCloseButtonClickedHandler.bind(this));
+  }
+  /**
+   * Close the panel on close button clicked
+   * @private
+   */
+  onCloseButtonClickedHandler() {
+    this._objToggle.setActive(false);
+  }
+};
+__publicField(InstructionPanel, "TypeName", "instructions-panel");
+__decorateClass([
+  property.object()
+], InstructionPanel.prototype, "closeButtonObj", 2);
 
 // js/ui/armMenu/MenuSelectionButton.ts
 var MenuSelectionButton = class extends Component {
@@ -16247,6 +16280,7 @@ engine.registerComponent(TextureSelectorInteractible);
 engine.registerComponent(UiButton);
 engine.registerComponent(ArmPanel);
 engine.registerComponent(BlockSelectionPanel);
+engine.registerComponent(InstructionPanel);
 engine.registerComponent(MenuController);
 engine.registerComponent(MenuSelectionButton);
 engine.registerComponent(TextureSelectionPanel);

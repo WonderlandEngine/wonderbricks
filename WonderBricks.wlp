@@ -224,8 +224,8 @@
                         "shadows": true,
                         "color": [
                             1.0,
-                            1.0,
-                            1.0
+                            0.9916955,
+                            0.9215686
                         ],
                         "intensity": 3.0
                     }
@@ -1907,12 +1907,12 @@
                 }
             ],
             "translation": [
-                0.0,
-                -0.000068,
-                0.0012942
+                -0.0,
+                -0.0000677,
+                0.0012941
             ],
             "rotation": [
-                1.6763806343078613e-7,
+                1.9371509552001953e-7,
                 -0.0,
                 -0.0,
                 1.0
@@ -6836,11 +6836,11 @@
             "parent": "4b6a1421-6301-49bd-8c06-f6497ddb52bb"
         },
         "1bbe6632-3530-4f2f-9592-06afabfcc54f": {
-            "name": "InstructionsPanel",
+            "name": "PanelInstructions",
             "translation": [
                 0.0,
-                1.0732429,
-                -1.8956909
+                0.1537133,
+                0.0
             ],
             "rotation": [
                 0.0,
@@ -6852,6 +6852,15 @@
                 1.0,
                 1.0,
                 1.0
+            ],
+            "parent": "0c603522-4a1c-4fa3-af2e-21f92df5ae6b",
+            "components": [
+                {
+                    "type": "instructions-panel",
+                    "instructions-panel": {
+                        "closeButtonObj": "b1a43121-78a7-4ea3-ad68-10003cfcd17c"
+                    }
+                }
             ]
         },
         "34b3cf8a-56c3-433d-9b2d-b0fccf5e853c": {
@@ -6907,7 +6916,71 @@
                     "mesh": {
                         "material": "8d6f4d97-a2ba-4551-8d9d-ed4e4a5ee89a"
                     }
+                },
+                {
+                    "type": "collision",
+                    "collision": {
+                        "collider": "box",
+                        "box": {
+                            "extents": [
+                                0.1449999,
+                                0.032,
+                                0.0049999
+                            ]
+                        }
+                    }
+                },
+                {
+                    "type": "ui-button",
+                    "ui-button": {
+                        "textObject": "7b7c3768-7516-4243-be01-952b730d1fac"
+                    }
                 }
+            ]
+        },
+        "7b7c3768-7516-4243-be01-952b730d1fac": {
+            "name": "Text",
+            "parent": "b1a43121-78a7-4ea3-ad68-10003cfcd17c",
+            "components": [
+                {
+                    "type": "text",
+                    "text": {
+                        "text": "CLOSE"
+                    }
+                }
+            ],
+            "scaling": [
+                0.4,
+                0.4,
+                1.0
+            ]
+        },
+        "b40fc659-f8ff-43c4-8440-9b2b8dfee997": {
+            "name": "Text.000",
+            "parent": "bc28f631-a563-4907-a87d-3e94fee84c6a",
+            "components": [
+                {
+                    "type": "text",
+                    "text": {
+                        "text": "Controls"
+                    }
+                }
+            ],
+            "translation": [
+                0.0,
+                0.2851149,
+                0.0099999
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                1.0,
+                1.0,
+                1.0
             ]
         }
     },
