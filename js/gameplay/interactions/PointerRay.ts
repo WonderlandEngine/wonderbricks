@@ -44,7 +44,7 @@ export class PointerRay extends Component
         this._rayMesh = this.rayVisualObject.getComponent('mesh');
         this._rayMesh.material["diffuseColor"] = vec4.create();
 
-        this.rayVisualObject.translate([0,0,-0.5]);
+        this.rayVisualObject.translateLocal([0,0,-0.5]);
 
         this._origin = [0,0,0];
         this._direction = [0,0,0];
@@ -83,6 +83,6 @@ export class PointerRay extends Component
         let distance = vec3.distance(rayPos, this._currentHitPosition);
 
         this.rayObject.resetScaling();
-        this.rayObject.scale([1, distance - 0.05, 1]);
+        this.rayObject.scaleLocal([1, distance - 0.05, 1]);
     }
 }

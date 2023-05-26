@@ -67,30 +67,15 @@
                 {
                     "type": "mesh",
                     "mesh": {
-                        "mesh": "8",
+                        "mesh": "9",
                         "material": "22"
                     }
-                },
-                {
-                    "type": "collision",
-                    "collision": {
-                        "collider": "aabb",
-                        "aabb": {
-                            "extents": [
-                                0.25,
-                                0.25,
-                                0.25
-                            ]
-                        },
-                        "groups": 255
-                    },
-                    "active": false
                 }
             ],
             "translation": [
-                -0.0000141,
-                0.2500362,
-                -0.0000128
+                0.0,
+                0.0,
+                0.0
             ],
             "rotation": [
                 0.0,
@@ -100,9 +85,9 @@
             ],
             "parent": "239",
             "scaling": [
-                0.25,
-                0.25,
-                0.25
+                0.0099999,
+                0.0099999,
+                0.0099999
             ]
         },
         "17": {
@@ -794,8 +779,8 @@
             "parent": null,
             "translation": [
                 0.0,
-                0.0388117,
-                1.5585094
+                0.0388116,
+                1.5585093
             ],
             "rotation": [
                 0.0,
@@ -865,7 +850,7 @@
                         "pointerObject": "239",
                         "rayVisualObject": "266",
                         "rayOrigin": "212",
-                        "cursorHitVisualObject": "215"
+                        "cursorHitVisualObject": "239"
                     }
                 }
             ],
@@ -1061,19 +1046,6 @@
                         "type": "ray right"
                     },
                     "active": true
-                },
-                {
-                    "type": "teleport",
-                    "teleport": {
-                        "floorGroup": 2,
-                        "camRoot": "14",
-                        "cam": "17",
-                        "teleportIndicatorMeshObject": "208",
-                        "indicatorYOffset": 0.0099999,
-                        "eyeLeft": "18",
-                        "eyeRight": "19"
-                    },
-                    "active": false
                 },
                 {
                     "type": "vr-mode-active-switch"
@@ -6936,6 +6908,22 @@
                         "textObject": "7b7c3768-7516-4243-be01-952b730d1fac"
                     }
                 }
+            ],
+            "translation": [
+                0.3199999,
+                -0.2460223,
+                0.0199999
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                1.0,
+                1.0,
+                1.0
             ]
         },
         "7b7c3768-7516-4243-be01-952b730d1fac": {
@@ -9430,7 +9418,8 @@
                     0.1058823,
                     1.0
                 ]
-            }
+            },
+            "pipeline": "71d32bc7-c702-46bc-a931-4ff8a81c1fb5"
         },
         "25": {
             "name": "Yellow",

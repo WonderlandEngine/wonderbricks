@@ -15023,7 +15023,7 @@ var PointerRay = class extends Component {
     this._scene = getCurrentScene();
     this._rayMesh = this.rayVisualObject.getComponent("mesh");
     this._rayMesh.material["diffuseColor"] = vec4_exports.create();
-    this.rayVisualObject.translate([0, 0, -0.5]);
+    this.rayVisualObject.translateLocal([0, 0, -0.5]);
     this._origin = [0, 0, 0];
     this._direction = [0, 0, 0];
   }
@@ -15050,7 +15050,7 @@ var PointerRay = class extends Component {
     rayPos[2] = this._origin[2];
     let distance3 = vec3_exports.distance(rayPos, this._currentHitPosition);
     this.rayObject.resetScaling();
-    this.rayObject.scale([1, distance3 - 0.05, 1]);
+    this.rayObject.scaleLocal([1, distance3 - 0.05, 1]);
   }
 };
 __publicField(PointerRay, "TypeName", "pointer-ray");

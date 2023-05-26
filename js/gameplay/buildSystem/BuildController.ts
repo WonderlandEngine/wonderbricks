@@ -103,7 +103,7 @@ class BuildController
     {
         if(this._currentPrefab == null)
             return;
-        
+
         this._currentPrefab.createBlock(position, this._currentTexture, this._buildContainer); 
     }
 
