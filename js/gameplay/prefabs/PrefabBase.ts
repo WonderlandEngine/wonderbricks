@@ -102,7 +102,7 @@ export default abstract class PrefabBase extends Component
         finalVisual.addComponent('collision', {
             collider: Collider.AxisAlignedBox,
             extents: [extents, extents, extents],
-            group: 1,
+            group: (1<< 1) | (1 << 2),
         });
 
         return newBlock;

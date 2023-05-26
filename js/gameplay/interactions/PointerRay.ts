@@ -55,7 +55,7 @@ export class PointerRay extends Component
         this.rayOrigin.getPositionWorld(this._origin);
         this.rayOrigin.getForwardWorld(this._direction);
 
-        let hit = this._scene.rayCast(this._origin, this._direction, 1);
+        let hit = this._scene.rayCast(this._origin, this._direction, (1 << 1) | (1 << 2));
         if(hit.hitCount > 0)
         {
             this._isPointing = true;

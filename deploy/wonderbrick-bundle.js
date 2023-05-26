@@ -14790,7 +14790,7 @@ var PrefabBase = class extends Component {
     finalVisual.addComponent("collision", {
       collider: Collider.AxisAlignedBox,
       extents: [extents, extents, extents],
-      group: 1
+      group: 1 << 1 | 1 << 2
     });
     return newBlock;
   }
@@ -15030,7 +15030,7 @@ var PointerRay = class extends Component {
   update(delta) {
     this.rayOrigin.getPositionWorld(this._origin);
     this.rayOrigin.getForwardWorld(this._direction);
-    let hit = this._scene.rayCast(this._origin, this._direction, 1);
+    let hit = this._scene.rayCast(this._origin, this._direction, 1 << 1 | 1 << 2);
     if (hit.hitCount > 0) {
       this._isPointing = true;
       this._currentHitPosition = vec3_exports.clone(hit.locations[0]);

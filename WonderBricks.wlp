@@ -33,7 +33,7 @@
                                 20.0
                             ]
                         },
-                        "groups": 5
+                        "groups": 7
                     }
                 },
                 {
@@ -735,7 +735,7 @@
                 {
                     "type": "teleport",
                     "teleport": {
-                        "floorGroup": 2,
+                        "floorGroup": 1,
                         "camRoot": "14",
                         "cam": "17",
                         "teleportIndicatorMeshObject": "208",
