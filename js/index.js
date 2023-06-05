@@ -13,6 +13,7 @@
 
 /* wle:auto-imports:start */
 import {Cursor} from '@wonderlandengine/components';
+import {FixedFoveation} from '@wonderlandengine/components';
 import {HowlerAudioListener} from '@wonderlandengine/components';
 import {HowlerAudioSource} from '@wonderlandengine/components';
 import {MouseLookComponent} from '@wonderlandengine/components';
@@ -58,7 +59,7 @@ import * as API from "@wonderlandengine/api"; // Deprecated: Backward compatibil
 const RuntimeOptions = {
     physx: false,
     loader: false,
-    xrFramebufferScaleFactor: 1,
+    xrFramebufferScaleFactor: 1.25,
     canvas: 'canvas',
 };
 const Constants = {
@@ -112,6 +113,7 @@ if (document.readyState === "loading") {
 
 /* wle:auto-register:start */
 engine.registerComponent(Cursor);
+engine.registerComponent(FixedFoveation);
 engine.registerComponent(HowlerAudioListener);
 engine.registerComponent(HowlerAudioSource);
 engine.registerComponent(MouseLookComponent);
