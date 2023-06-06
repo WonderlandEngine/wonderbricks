@@ -1,4 +1,4 @@
-import {Component, MeshComponent, Object, Type} from "@wonderlandengine/api";
+import {Component, MeshComponent, Object, Property} from "@wonderlandengine/api";
 import PrefabBase from "../gameplay/prefabs/PrefabBase";
 import {UiButton} from "./UiButton";
 import BuildController from "../gameplay/buildSystem/BuildController";
@@ -12,11 +12,13 @@ export class BlockSelectorInteractible extends Component
 {
     static TypeName = 'block-selector-interactible';
     static Properties = {
-        prefab: {type: Type.Object}
+        prefab: Property.object(),
+        isDefaultBlock : Property.bool(false)
     }
 
     // Properties fields declaration
     private prefab: Object;
+    private isDefaultBlock:Boolean;
 
     // fields
     private _prefabComponent: PrefabBase;
@@ -39,6 +41,8 @@ export class BlockSelectorInteractible extends Component
         // Get parent BlockSelectionPanel component
         this._parent = this.object.parent.getComponent(BlockSelectionPanel);
         this._parent.registerButton(this);
+        if(this.isDefaultBlock)
+            this.onInteractHandler();
     }
 
     public override onActivate(): void 

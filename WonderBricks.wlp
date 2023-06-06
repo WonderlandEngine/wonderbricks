@@ -3551,7 +3551,8 @@
                 {
                     "type": "texture-selector-interactible",
                     "texture-selector-interactible": {
-                        "textureInfoObject": "76bd8fbd-33d8-4f3e-bfbd-4ffe7b305cc8"
+                        "textureInfoObject": "76bd8fbd-33d8-4f3e-bfbd-4ffe7b305cc8",
+                        "isDefaultTexture": true
                     }
                 },
                 {
@@ -4727,7 +4728,8 @@
                 {
                     "type": "block-selector-interactible",
                     "block-selector-interactible": {
-                        "prefab": "256"
+                        "prefab": "256",
+                        "isDefaultBlock": true
                     }
                 },
                 {
