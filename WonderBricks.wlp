@@ -271,7 +271,7 @@
             "parent": "53",
             "components": [
                 {
-                    "active": false
+                    "active": true
                 }
             ]
         },
@@ -556,7 +556,14 @@
                 "name": "b_button<b_button_pressed_value<root",
                 "file": "models\\oculus-touch-v2-right.glb"
             },
-            "parent": "102"
+            "parent": "102",
+            "components": [
+                {
+                    "mesh": {
+                        "material": "1ffb4d08-970b-45b6-94a2-841510ac1b94"
+                    }
+                }
+            ]
         },
         "104": {
             "link": {
@@ -566,7 +573,7 @@
             "parent": "95",
             "components": [
                 {
-                    "active": false
+                    "active": true
                 }
             ]
         },
@@ -860,7 +867,7 @@
                 }
             ],
             "translation": [
-                0.0,
+                0.0317479,
                 0.0,
                 -2.384185791015625e-7
             ],
@@ -918,7 +925,7 @@
                 }
             ],
             "translation": [
-                0.0,
+                -0.0559037,
                 0.0,
                 -2.384185791015625e-7
             ],
@@ -2124,10 +2131,10 @@
                 -0.2888344
             ],
             "rotation": [
-                -0.4895727,
+                -0.5,
                 0.0,
                 0.0,
-                0.8719624
+                0.8660253
             ],
             "scaling": [
                 1.0,
@@ -6816,7 +6823,7 @@
             "name": "PanelInstructions",
             "translation": [
                 0.0,
-                0.1537133,
+                0.0,
                 0.0
             ],
             "rotation": [
@@ -6879,8 +6886,25 @@
                 {
                     "mesh": {
                         "material": "b9a19119-10ce-49ce-9735-0e65d37e3487"
-                    }
+                    },
+                    "active": true
                 }
+            ],
+            "translation": [
+                1.1920928955078125e-7,
+                0.0684475,
+                0.0099999
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ],
+            "scaling": [
+                1.0,
+                1.0,
+                1.0
             ]
         },
         "b1a43121-78a7-4ea3-ad68-10003cfcd17c": {
@@ -6974,6 +6998,147 @@
             "scaling": [
                 1.0,
                 1.0,
+                1.0
+            ]
+        },
+        "6fcfe86c-91c7-4f8a-9173-eb67a87d6a51": {
+            "name": "Text.001",
+            "parent": "103",
+            "components": [
+                {
+                    "type": "text",
+                    "text": {
+                        "text": "-",
+                        "material": "201"
+                    }
+                }
+            ],
+            "scaling": [
+                0.2,
+                0.3,
+                0.3
+            ],
+            "translation": [
+                0.0022637,
+                -0.0069167,
+                0.0032655
+            ],
+            "rotation": [
+                -0.0161102,
+                0.0,
+                -0.0,
+                0.9998702
+            ]
+        },
+        "4e645205-253d-4009-a9d8-88757d49f8ae": {
+            "name": "Teleportation",
+            "parent": "ac8fa86f-3324-4f25-9999-b0c4d052a9a3",
+            "components": [
+                {
+                    "type": "text",
+                    "text": {
+                        "text": "TELEPORTATION\n(THUMBSTICK)\n"
+                    }
+                }
+            ],
+            "scaling": [
+                0.3,
+                0.3,
+                0.3
+            ],
+            "translation": [
+                -0.3,
+                0.0,
+                0.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ]
+        },
+        "01d1289f-1a66-40e9-9075-3e4f78e753df": {
+            "name": "Rotate",
+            "parent": "ac8fa86f-3324-4f25-9999-b0c4d052a9a3",
+            "components": [
+                {
+                    "type": "text",
+                    "text": {
+                        "text": "ROTATE BLOCK\n(THUMBSTICK)\n"
+                    }
+                }
+            ],
+            "scaling": [
+                0.3,
+                0.3,
+                0.3
+            ],
+            "translation": [
+                0.3006733,
+                0.0229947,
+                0.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ]
+        },
+        "33c06d27-064a-4fa3-8810-1a594c4291f4": {
+            "name": "Remove",
+            "parent": "ac8fa86f-3324-4f25-9999-b0c4d052a9a3",
+            "components": [
+                {
+                    "type": "text",
+                    "text": {
+                        "text": "REMOVE BLOCK\n(B)"
+                    }
+                }
+            ],
+            "scaling": [
+                0.3,
+                0.3,
+                0.3
+            ],
+            "translation": [
+                0.3041549,
+                -0.0639233,
+                0.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+            ]
+        },
+        "d3de397b-16db-4933-a585-9932d8590073": {
+            "name": "Interact",
+            "parent": "ac8fa86f-3324-4f25-9999-b0c4d052a9a3",
+            "components": [
+                {
+                    "type": "text",
+                    "text": {
+                        "text": "PLACE BLOCK / INTERACT WITH UI\n(TRIGGER)"
+                    }
+                }
+            ],
+            "scaling": [
+                0.3,
+                0.3,
+                0.3
+            ],
+            "translation": [
+                0.0,
+                -0.2,
+                0.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0,
                 1.0
             ]
         }
@@ -8671,10 +8836,10 @@
                 "file": "models\\terrain\\Environment.glb"
             }
         },
-        "88fcf303-d35f-4484-a4ed-6eeee93c2ea9": {
+        "2ed06acd-86ce-4d01-96e9-13097592e6df": {
             "link": {
-                "name": "InstructionsPanel.png",
-                "file": "textures\\00_UI\\InstructionsPanel.png"
+                "name": "InstructionsPanelWithoutText.png",
+                "file": "textures\\00_UI\\InstructionsPanelWithoutText.png"
             }
         }
     },
@@ -9343,11 +9508,13 @@
                 "file": "models\\terrain\\Environment.glb"
             }
         },
-        "7420cae4-d372-47e8-8a40-6788b680d75e": {
+        "857e5b33-3a17-4349-8852-9a6552e1d15c": {
             "link": {
-                "name": "InstructionsPanel.png",
-                "file": "textures\\00_UI\\InstructionsPanel.png"
-            }
+                "name": "InstructionsPanelWithoutText.png",
+                "file": "textures\\00_UI\\InstructionsPanelWithoutText.png"
+            },
+            "stream": true,
+            "compression": "etc1s"
         }
     },
     "materials": {
@@ -9557,9 +9724,9 @@
             "name": "TextAccent",
             "Text": {
                 "color": [
-                    0.9098039,
-                    0.0,
-                    0.5411764,
+                    1.0,
+                    1.0,
+                    1.0,
                     1.0
                 ],
                 "font": "230"
@@ -9882,7 +10049,7 @@
             },
             "pipeline": "35",
             "Flat": {
-                "flatTexture": "88fcf303-d35f-4484-a4ed-6eeee93c2ea9",
+                "flatTexture": "2ed06acd-86ce-4d01-96e9-13097592e6df",
                 "color": [
                     1.0,
                     1.0,
@@ -9891,6 +10058,29 @@
                 ]
             },
             "name": "ui-instruction"
+        },
+        "1ffb4d08-970b-45b6-94a2-841510ac1b94": {
+            "name": "Red",
+            "Phong": {
+                "ambientColor": [
+                    0.2466367,
+                    0.0575117,
+                    0.0575117,
+                    1.0
+                ],
+                "diffuseColor": [
+                    0.7578475,
+                    0.1631241,
+                    0.1631241,
+                    1.0
+                ],
+                "specularColor": [
+                    0.9551569,
+                    0.7709786,
+                    0.7709786,
+                    0.0
+                ]
+            }
         }
     },
     "shaders": {
@@ -10033,7 +10223,7 @@
             "version": [
                 1,
                 0,
-                3
+                0
             ]
         },
         "vr": {
@@ -10456,7 +10646,7 @@
         "models/UI/MainMenuButtons.glb",
         "models/terrain/Environment.glb",
         "models/UI/instructionPanel.glb",
-        "textures/00_UI/InstructionsPanel.png"
+        "textures/00_UI/InstructionsPanelWithoutText.png"
     ],
     "fonts": {
         "230": {
