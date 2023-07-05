@@ -23,8 +23,8 @@ export class Lerp extends Component {
     @property.object()
     falseParent: Object3D | null = null;
     
-    @property.float()
-    lerpSpeed: number = 0.02;
+    @property.float(0.02)
+    lerpSpeed: number;
 
 
     start(): void 

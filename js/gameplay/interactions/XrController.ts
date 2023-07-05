@@ -1,9 +1,8 @@
-import {Component, InputComponent, Object, Scene, Type} from "@wonderlandengine/api";
+import {Component, InputComponent, MeshComponent, Object3D, WonderlandEngine} from "@wonderlandengine/api";
 
-import {getCurrentScene, getXrSessionStart} from "../../lib/WlApi";
+import { getXrSessionStart} from "../../lib/WlApi";
 
 import XrGamepad from "../input/XrGamepad";
-import { PointerMode } from "./PointerMode";
 import { PointerRay } from "./PointerRay";
 import { XrInputButton } from "../input/XrInputButton";
 
@@ -14,25 +13,40 @@ import {Tag} from "../../utils/Tag";
 import {UiButton} from "./../../ui/UiButton";
 import SoundSystem from "../../sound/SoundSystem";
 import {SoundEmitterType} from "../../sound/SoundEmitterType";
+import {MeshParticles} from "../particleSystem/Particle";
+import { property } from '@wonderlandengine/api/decorators.js';
+import { PhysicalMaterial } from '../../utils/materials/PhysicalMaterial.js';
+import { CloudMeshParticles } from '../particleSystem/CloudParticles';
 
 export class XrController extends Component
 {
     static TypeName = 'XR-Controller';
-    static Properties = {
-        pointerMode: {type: Type.Int, default: 0},
-        inputObject: {type: Type.Object, default: null},
-        pointerRay: {type: Type.Object, default: null}
-    }
 
     // Properties definition
-    private inputObject: Object;
-    private pointerRay: Object;
+    @property.object()
+    inputObject: Object3D;
 
+    @property.object()
+    pointerRay: Object3D;
+
+    private _meshParticleComponent : MeshParticles
     private _inputComponent: InputComponent;
     private _hand: XRHandedness;
 
     private _xrGamepad: XrGamepad;
     private _pointerRayComponent: PointerRay;
+
+    private _componentIteration: number;
+    private _maximumIteration: number;
+    private _maximumCloudIteration: number;
+    private _cloudComponentIteration: number;
+
+    init(){
+        this._componentIteration = 0;
+        this._maximumIteration = 4;
+        this._maximumCloudIteration = 3;
+        this._cloudComponentIteration = 0;
+    }
 
     public override start()
     {
@@ -180,9 +194,14 @@ export class XrController extends Component
                 let ptrPos = this._pointerRayComponent.currentHitPosition;
                 let indices = GridManager.grid.getCellIndices(ptrPos[0], ptrPos[1], ptrPos[2]);
                 let position = GridManager.grid.getCellPositionVec3(indices);
-
-                BuildController.instantiatePrefabAt(position);
+                const currentPrefabObject = BuildController.instantiatePrefabAt(position)[0];
                 SoundSystem.playAt(SoundEmitterType.BlockPlaced, this._pointerRayComponent.currentHitPosition);
+                this._meshParticleComponent=this.object.getComponent(CloudMeshParticles,this._cloudComponentIteration);
+                this._cloudComponentIteration ++;
+                if (this._cloudComponentIteration > this._maximumCloudIteration) this._cloudComponentIteration=0;
+                this._meshParticleComponent.time = 0; 
+		        this._meshParticleComponent.spawnObjLocation = currentPrefabObject;
+		        this._meshParticleComponent.spawn();
                 break;
             }
 
@@ -210,6 +229,25 @@ export class XrController extends Component
         switch (TagUtils.getTag(this._pointerRayComponent.currentHitObject))
         {
             case Tag.BLOCK: {
+                /**
+                 * Particle System
+                 * 
+                 * Pool MeshParticles components in the editor 
+                 * Each time when we get component iterate to next MeshParticles
+                 * if iteration exeeds pooled component count (_maximumIteration), reset iteration number
+                 */
+        
+                const mat= this._pointerRayComponent.currentHitObject.getComponent(MeshComponent).material;
+                this._meshParticleComponent=this.object.getComponent(MeshParticles,this._componentIteration);
+                this._componentIteration ++;
+                if (this._componentIteration > this._maximumIteration) this._componentIteration=0;
+                this._meshParticleComponent.changeMaterial(mat);
+                this._meshParticleComponent.time = 0; 
+		        this._meshParticleComponent.spawnObjLocation = this._pointerRayComponent.currentHitObject.parent 
+		        this._meshParticleComponent.spawn();
+
+                /**Destroy Block */
+
                 this._pointerRayComponent.currentHitObject.parent.destroy();
                 SoundSystem.playAt(SoundEmitterType.BlockDestroy, this._pointerRayComponent.currentHitPosition);
                 break;

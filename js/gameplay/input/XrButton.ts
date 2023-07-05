@@ -29,7 +29,8 @@ export default class XrButton
     }
 
     public update(): void
-    {
+    {   
+        if(this._gamepadButton == null ) return
         this._isPressed = this._gamepadButton.pressed;
 
         // Just pressed

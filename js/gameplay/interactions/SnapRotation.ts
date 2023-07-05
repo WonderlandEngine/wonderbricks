@@ -22,7 +22,7 @@ export class SnapRotation extends Component {
     @property.object()
     cursor: Object3D | null = null;
     
-    @property.float()
+    @property.float(0.2)
     sensitivity: number;
 
     private _inputComponent: InputComponent;

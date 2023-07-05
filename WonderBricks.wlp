@@ -864,6 +864,103 @@
                         "rayOrigin": "212",
                         "cursorHitVisualObject": "239"
                     }
+                },
+                {
+                    "type": "burst-mesh-particles",
+                    "burst-mesh-particles": {
+                        "mesh": "8",
+                        "material": "25",
+                        "spawnObjLocation": "129",
+                        "particleScale": 0.0199999,
+                        "initialSpeed": 1.7999999,
+                        "maxParticles": 6
+                    }
+                },
+                {
+                    "type": "burst-mesh-particles",
+                    "burst-mesh-particles": {
+                        "mesh": "8",
+                        "spawnObjLocation": "129",
+                        "material": "25"
+                    }
+                },
+                {
+                    "type": "burst-mesh-particles",
+                    "burst-mesh-particles": {
+                        "mesh": "8",
+                        "material": "25",
+                        "spawnObjLocation": "129"
+                    }
+                },
+                {
+                    "type": "burst-mesh-particles",
+                    "burst-mesh-particles": {
+                        "material": "25",
+                        "mesh": "8",
+                        "spawnObjLocation": "129"
+                    }
+                },
+                {
+                    "type": "burst-mesh-particles",
+                    "burst-mesh-particles": {
+                        "material": "25",
+                        "mesh": "8",
+                        "spawnObjLocation": "129"
+                    }
+                },
+                {
+                    "type": "burst-mesh-particles",
+                    "burst-mesh-particles": {
+                        "material": "324",
+                        "mesh": "8",
+                        "spawnObjLocation": "129"
+                    }
+                },
+                {
+                    "type": "cloud-mesh-particles",
+                    "cloud-mesh-particles": {
+                        "material": "892793d5-6b09-4feb-8c65-21f2429ec893",
+                        "mesh": "7",
+                        "spawnObjLocation": "129",
+                        "gravity": 0.4,
+                        "delay": 2.0,
+                        "maxParticles": 20.0,
+                        "initialSpeed": 0.6,
+                        "deceleration": 0.0399999,
+                        "particleScale": 0.0799999
+                    }
+                },
+                {
+                    "type": "cloud-mesh-particles",
+                    "cloud-mesh-particles": {
+                        "material": "67b12505-1eba-4165-a13c-a5026e78c926",
+                        "mesh": "7",
+                        "spawnObjLocation": "129"
+                    }
+                },
+                {
+                    "type": "cloud-mesh-particles",
+                    "cloud-mesh-particles": {
+                        "material": "3c4901c6-9adc-41b6-9e38-9660773e71f7",
+                        "mesh": "7",
+                        "spawnObjLocation": "129"
+                    }
+                },
+                {
+                    "type": "cloud-mesh-particles",
+                    "cloud-mesh-particles": {
+                        "material": "e4652e54-a8c7-4cf0-8e4d-6b146f2a785f",
+                        "mesh": "7",
+                        "spawnObjLocation": "129"
+                    }
+                },
+                {
+                    "type": "cloud-mesh-particles",
+                    "cloud-mesh-particles": {
+                        "material": "19bc3ff7-1d19-490b-8fcc-7d041e359f0c",
+                        "mesh": "7",
+                        "spawnObjLocation": "129"
+                    }
                 }
             ],
             "translation": [
@@ -8868,6 +8965,12 @@
                 "name": "InstructionsPanelWithoutText.png",
                 "file": "textures\\00_UI\\InstructionsPanelWithoutText.png"
             }
+        },
+        "5dbe483a-3131-4f02-9f64-2c45884aad5b": {
+            "link": {
+                "name": "cloud.png",
+                "file": "textures\\cloud.png"
+            }
         }
     },
     "images": {
@@ -9542,6 +9645,12 @@
             },
             "stream": true,
             "compression": "etc1s"
+        },
+        "ac3da209-8f70-4b7e-b87c-dc8e06453c3f": {
+            "link": {
+                "name": "cloud.png",
+                "file": "textures\\cloud.png"
+            }
         }
     },
     "materials": {
@@ -10108,6 +10217,48 @@
                     0.0
                 ]
             }
+        },
+        "892793d5-6b09-4feb-8c65-21f2429ec893": {
+            "name": "Cloud1",
+            "pipeline": "df991268-9b05-445c-9d42-717f706b39e3",
+            "Flat": {
+                "flatTexture": "5dbe483a-3131-4f02-9f64-2c45884aad5b"
+            }
+        },
+        "67b12505-1eba-4165-a13c-a5026e78c926": {
+            "name": "Cloud2",
+            "pipeline": "df991268-9b05-445c-9d42-717f706b39e3",
+            "Flat": {
+                "flatTexture": "5dbe483a-3131-4f02-9f64-2c45884aad5b"
+            }
+        },
+        "3c4901c6-9adc-41b6-9e38-9660773e71f7": {
+            "name": "Cloud3",
+            "pipeline": "df991268-9b05-445c-9d42-717f706b39e3",
+            "Flat": {
+                "flatTexture": "5dbe483a-3131-4f02-9f64-2c45884aad5b"
+            }
+        },
+        "e4652e54-a8c7-4cf0-8e4d-6b146f2a785f": {
+            "name": "Cloud4",
+            "pipeline": "df991268-9b05-445c-9d42-717f706b39e3",
+            "Flat": {
+                "flatTexture": "5dbe483a-3131-4f02-9f64-2c45884aad5b"
+            }
+        },
+        "19bc3ff7-1d19-490b-8fcc-7d041e359f0c": {
+            "name": "Cloud5",
+            "pipeline": "df991268-9b05-445c-9d42-717f706b39e3",
+            "Flat": {
+                "flatTexture": "5dbe483a-3131-4f02-9f64-2c45884aad5b"
+            }
+        },
+        "dc6470b1-61c5-49c4-929c-de47aefa1519": {
+            "name": "Cloud6",
+            "pipeline": "df991268-9b05-445c-9d42-717f706b39e3",
+            "Flat": {
+                "flatTexture": "5dbe483a-3131-4f02-9f64-2c45884aad5b"
+            }
         }
     },
     "shaders": {
@@ -10274,7 +10425,8 @@
                 "js/ui/saveMenu",
                 "js/utils",
                 "js/utils/textures",
-                "js/ui/armMenu"
+                "js/ui/armMenu",
+                "js/gameplay/particleSystem"
             ],
             "libraryPaths": [
                 "/js/lib/"
@@ -10525,6 +10677,18 @@
             },
             "sampleAlphaToCoverage": true,
             "name": "Flat Opaque Cursor"
+        },
+        "df991268-9b05-445c-9d42-717f706b39e3": {
+            "link": {
+                "name": "Flat Opaque Textured",
+                "file": "default"
+            },
+            "sampleAlphaToCoverage": true,
+            "features": {
+                "ALPHA_MASKED": true
+            },
+            "doubleSided": true,
+            "name": "cloudParticle"
         }
     },
     "files": [
@@ -11110,6 +11274,10 @@
         },
         {
             "fileName": "textures/00_UI/InstructionsPanelWithoutText.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/cloud.png",
             "importerName": ""
         }
     ],

@@ -67,7 +67,7 @@ export default abstract class PrefabBase extends Component
      * @param texInfo
      * @param container
      */
-    public createBlock(position: vec3, texInfo: TextureInformation, container: Object): Object
+    public createBlock(position: vec3, texInfo: TextureInformation, container: Object): [Object,PhysicalMaterial]
     {
         let newBlock = this._scene.addObject(container);
         newBlock[PrefabsRegistry.PREFAB_UNAME_KEY] = this.getPrefabUniqueName();
@@ -105,7 +105,7 @@ export default abstract class PrefabBase extends Component
             group: (1<< 1) | (1 << 2),
         });
 
-        return newBlock;
+        return [newBlock,mat];
     }
 
     /**
