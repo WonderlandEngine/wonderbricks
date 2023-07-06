@@ -11,10 +11,12 @@ export class TextureSelectorInteractible extends Component
 {
     static TypeName: string = 'texture-selector-interactible';
     static Properties: Record<string, CustomParameter> = {
-        textureInfoObject: { type: Type.Object, default: null }
+        textureInfoObject: { type: Type.Object, default: null },
+        isDefaultTexture: {type:Type.Bool, default: false}
     };
 
     private textureInfoObject: Object;
+    private isDefaultTexture: Boolean;
 
     // fields
     private _texture: TextureInformation;
@@ -43,6 +45,9 @@ export class TextureSelectorInteractible extends Component
         // Get parent BlockSelectionPanel component
         this._parent = this.object.parent.getComponent(TextureSelectionPanel);
         this._parent.registerButton(this);
+
+        if(this.isDefaultTexture)
+            this.onInteractHandler();
     }
 
     public setVisualColor(color: vec4): void 
