@@ -31,21 +31,6 @@ class BuildController
     {
         this._currentPrefab = null;
         this._currentColor = [1.0, 1.0, 1.0, 1.0] as vec4;
-
-        // Temp
-        this.test();
-    }
-
-    private async test(): Promise<void>
-    {
-        await new Promise(f => setTimeout(f, 1000));
-
-        // Set default selected cube
-        this._currentPrefab = PrefabsRegistry.getPrefab(BlockPrefab);
-        this._currentPrefab.updatePrevisColor(this._currentColor);
-
-        // Set default selected texture
-        this._currentTexture = TextureInformationRegistry.getTextureInformation('Stone01');
     }
 
     /**

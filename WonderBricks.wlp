@@ -922,6 +922,13 @@
                 {
                     "type": "vr-mode-active-switch",
                     "active": true
+                },
+                {
+                    "type": "snap-rotation",
+                    "snap-rotation": {
+                        "player": "14",
+                        "cursor": "126"
+                    }
                 }
             ],
             "translation": [
@@ -6847,6 +6854,15 @@
                         "closeButtonObj": "b1a43121-78a7-4ea3-ad68-10003cfcd17c",
                         "armMenu": "1cd7c3b7-1ad5-412d-8bf3-b79e92462ebc"
                     }
+                },
+                {
+                    "type": "lerp",
+                    "lerp": {
+                        "hoverReference": "030754e9-ed09-445d-96d9-ff72741501ef",
+                        "player": "14",
+                        "falseParent": "14"
+                    },
+                    "active": true
                 }
             ]
         },
@@ -7142,6 +7158,15 @@
                 0.0,
                 0.0,
                 1.0
+            ]
+        },
+        "030754e9-ed09-445d-96d9-ff72741501ef": {
+            "name": "PanelReference",
+            "parent": "19",
+            "translation": [
+                0.0,
+                0.0,
+                -1.0
             ]
         }
     },
@@ -10225,7 +10250,7 @@
             "version": [
                 1,
                 0,
-                0
+                4
             ]
         },
         "vr": {
@@ -10503,152 +10528,590 @@
         }
     },
     "files": [
-        "models/oculus-touch-v2-left.glb",
-        "models/oculus-touch-v2-right.glb",
-        "models/hand-left.glb",
-        "models/hand-right.glb",
-        "models/button.glb",
-        "models/teleport-indicator.glb",
-        "models/frame.glb",
-        "models/Bricks/Wireframe_Cube.glb",
-        "models/Bricks/Cube.glb",
-        "models/Bricks/Chiottes.glb",
-        "models/LaserCone.glb",
-        "models/Bricks/Stair.glb",
-        "models/Bricks/StairWireframe.glb",
-        "models/Bricks/Slope.glb",
-        "models/Bricks/SlopeWireframe.glb",
-        "models/UI/button.glb",
-        "static/LexendDeca-VariableFont_wght.ttf",
-        "models/terrain/gound.glb",
-        "models/terrain/cloud.glb",
-        "models/UI/panel.glb",
-        "textures/Log/Rondin_AO.png",
-        "models/Bricks/Cube_1_1.glb",
-        "textures/Log/Rondin_N.png",
-        "textures/Grass/Herbe_AO.png",
-        "textures/Grass/Herbe_N.png",
-        "textures/Sky.png",
-        "textures/ToSort/BoisTresse_AO.png",
-        "textures/ToSort/BoisTresse_N.png",
-        "textures/ToSort/Bois_AO.png",
-        "textures/ToSort/Bois_N.png",
-        "textures/ToSort/Brique_AO.png",
-        "textures/ToSort/Brique_N.png",
-        "textures/ToSort/Chaux_AO.png",
-        "textures/ToSort/Chaux_N.png",
-        "textures/ToSort/Feuilles_AO.png",
-        "textures/ToSort/Feuilles_N.png",
-        "textures/ToSort/MetalMartele_AO.png",
-        "textures/ToSort/MetalMartele_N.png",
-        "textures/ToSort/Metal_AO.png",
-        "textures/ToSort/Metal_N.png",
-        "textures/ToSort/PierreGrossiere_AO.png",
-        "textures/ToSort/PierreGrossiere_N.png",
-        "textures/ToSort/PierreTaillee_AO.png",
-        "textures/ToSort/PierreTaillee_N.png",
-        "textures/ToSort/Planche_AO.png",
-        "textures/ToSort/Planche_N.png",
-        "textures/ToSort/Rondin_AO.png",
-        "textures/ToSort/Rondin_N.png",
-        "textures/ToSort/Tuiles_AO.png",
-        "textures/ToSort/Tuiles_N.png",
-        "textures/Grass/Vol_58_3_Grass_Base_Color.png",
-        "textures/Grass/Vol_58_3_Grass_Normal.png",
-        "textures/Stone/Vol_52_4_Tiles_Base_Color.png",
-        "textures/Stone/Vol_52_4_Tiles_Normal.png",
-        "textures/Grass/Vol_59_2_Nature_Base_Color.png",
-        "textures/Grass/Vol_59_2_Nature_Normal.png",
-        "textures/Stone/Vol_52_2_Stone_Base_Color.png",
-        "textures/Stone/Vol_52_2_Stone_Normal.png",
-        "models/Bricks/Stairs.glb",
-        "textures/Wood/vol_2_2_Wood_Base_Color.png",
-        "textures/Wood/vol_2_2_Wood_Normal.png",
-        "models/Bricks/StairsMid.glb",
-        "models/Bricks/Pyramid_1_1.glb",
-        "models/Bricks/Plank_0.5_0.5_0.25.glb",
-        "models/Bricks/Plank_1_1_0.25.glb",
-        "models/Bricks/Cylinder_1_0.5.glb",
-        "models/Bricks/Cylinder_1_1.glb",
-        "models/Bricks/CubeVert.glb",
-        "models/Bricks/ConeCut.glb",
-        "models/Bricks/Cone_0.5_0.5.glb",
-        "models/Bricks/Cone_1_1.glb",
-        "textures/Grass/Vol_17_2_Vegetation_Base_Color.png",
-        "textures/Grass/Vol_17_2_Vegetation_Normal.png",
-        "textures/Grass/Vol_17_5_Vegetation_Base_Color.png",
-        "textures/Grass/Vol_17_5_Vegetation_Normal.png",
-        "textures/Grass/Vol_21_3_Vegetation_Base_Color.png",
-        "textures/Grass/Vol_21_3_Vegetation_Normal.png",
-        "textures/Metals/Vol_37_5_Metals_Base_Color.png",
-        "textures/Metals/Vol_37_5_Metals_Normal.png",
-        "textures/Roofs/Vol_41_6_Roofs_Base_Color.png",
-        "textures/Roofs/Vol_41_6_Roofs_Normal.png",
-        "textures/Roofs/Vol_53_2_Roofs_Base_Color.png",
-        "textures/Roofs/Vol_53_2_Roofs_Normal.png",
-        "textures/Roofs/Vol_5_1_Roofs_Base_Color.png",
-        "textures/Roofs/Vol_5_1_Roofs_Normal.png",
-        "textures/Roofs/Vol_5_3_Roofs_Base_Color.png",
-        "textures/Roofs/Vol_5_3_Roofs_Normal.png",
-        "textures/Roofs/Vol_5_4_Roofs_Base_Color.png",
-        "textures/Roofs/Vol_5_4_Roofs_Normal.png",
-        "textures/Stone/Vol_10_5_Bricks_Base_Color.png",
-        "textures/Stone/Vol_10_5_Bricks_Normal.png",
-        "textures/Stone/Vol_37_2_Tiles_Base_Color.png",
-        "textures/Stone/Vol_37_2_Tiles_Normal.png",
-        "textures/Stone/Vol_39_6_Bricks_Base_Color.png",
-        "textures/Stone/Vol_39_6_Bricks_Normal.png",
-        "textures/Stone/Vol_3_1_Bricks_Base_Color.png",
-        "textures/Stone/Vol_3_1_Bricks_Normal.png",
-        "textures/Stone/Vol_3_2_Walls_Base_Color.png",
-        "textures/Stone/Vol_3_2_Walls_Normal.png",
-        "textures/Grass/Vol_59_2_Nature_Ambient_Occlusion.png",
-        "textures/Stone/Vol_46_2_Tiles_Base_Color.png",
-        "textures/Stone/Vol_46_2_Tiles_Normal.png",
-        "textures/Stone/Vol_48_3_Rocks_Base_Color.png",
-        "textures/Stone/Vol_48_3_Rocks_Normal.png",
-        "textures/Wood/Vol_32_1_Wood_Base_Color.png",
-        "textures/Wood/Vol_32_1_Wood_Normal.png",
-        "textures/Wood/Vol_32_3_Wood_Base_Color.png",
-        "textures/Wood/Vol_32_3_Wood_Normal.png",
-        "textures/Wood/Vol_32_5_Wood_Base_Color.png",
-        "textures/Wood/Vol_32_5_Wood_Normal.png",
-        "textures/Wood/Vol_33_4_Wood_Base_Color.png",
-        "textures/Wood/Vol_33_4_Wood_Normal.png",
-        "textures/Wood/Vol_38_5_Wood_Base_Color.png",
-        "textures/Wood/Vol_38_5_Wood_Normal.png",
-        "textures/Floors/Vol_8_5_Tiles_Base_Color.png",
-        "textures/Floors/Vol_8_5_Tiles_Normal.png",
-        "models/UI/ArmButton.glb",
-        "textures/00_UI/UiButtonBackgroundWhite.png",
-        "textures/00_UI/00_Icons/Home_Icon.png",
-        "textures/00_UI/00_Icons/Shapes_Icon.png",
-        "textures/00_UI/00_Icons/Texture_Icon.png",
-        "textures/00_UI/paletUI.png",
-        "models/UI/armPanel.glb",
-        "static/LuckiestGuy-Regular.ttf",
-        "models/UI/ArmMenuPanel.glb",
-        "textures/00_UI/UIAtlas.png",
-        "models/UI/TextureButtons.glb",
-        "textures/Wood/Vol_41_3_Tiles_Base_Color.png",
-        "textures/Wood/Vol_41_3_Tiles_Normal.png",
-        "models/Bricks/CubeVert_Wireframe.glb",
-        "models/Bricks/Cylinder_1_0.5_Wireframe.glb",
-        "models/Bricks/Cylinder_1_1_Wireframe.glb",
-        "models/Bricks/Slope_Wireframe.glb",
-        "models/Bricks/Tile_0.25_0.25_0.25_Wireframe.glb",
-        "models/Bricks/Stairs_Wireframe.glb",
-        "models/Bricks/Pyramid_1_1_Wireframe.glb",
-        "models/Bricks/Cone_1_1_Wireframe.glb",
-        "models/Bricks/ConeCut_Wireframe.glb",
-        "models/Bricks/PyramidCut.glb",
-        "models/Bricks/PyramidCut_Wireframe.glb",
-        "models/Bricks/Cube_1_0.5_Wireframe.glb",
-        "models/Bricks/Cube_1_0.5.glb",
-        "models/UI/MainMenuButtons.glb",
-        "models/terrain/Environment.glb",
-        "models/UI/instructionPanel.glb",
-        "textures/00_UI/InstructionsPanelWithoutText.png"
+        {
+            "fileName": "models/oculus-touch-v2-left.glb",
+            "importerName": ""
+        },
+        {
+            "fileName": "models/oculus-touch-v2-right.glb",
+            "importerName": ""
+        },
+        {
+            "fileName": "models/hand-left.glb",
+            "importerName": ""
+        },
+        {
+            "fileName": "models/hand-right.glb",
+            "importerName": ""
+        },
+        {
+            "fileName": "models/button.glb",
+            "importerName": ""
+        },
+        {
+            "fileName": "models/teleport-indicator.glb",
+            "importerName": ""
+        },
+        {
+            "fileName": "models/frame.glb",
+            "importerName": ""
+        },
+        {
+            "fileName": "models/Bricks/Wireframe_Cube.glb",
+            "importerName": ""
+        },
+        {
+            "fileName": "models/Bricks/Cube.glb",
+            "importerName": ""
+        },
+        {
+            "fileName": "models/Bricks/Chiottes.glb",
+            "importerName": ""
+        },
+        {
+            "fileName": "models/LaserCone.glb",
+            "importerName": ""
+        },
+        {
+            "fileName": "models/Bricks/Stair.glb",
+            "importerName": ""
+        },
+        {
+            "fileName": "models/Bricks/StairWireframe.glb",
+            "importerName": ""
+        },
+        {
+            "fileName": "models/Bricks/Slope.glb",
+            "importerName": ""
+        },
+        {
+            "fileName": "models/Bricks/SlopeWireframe.glb",
+            "importerName": ""
+        },
+        {
+            "fileName": "models/UI/button.glb",
+            "importerName": ""
+        },
+        {
+            "fileName": "static/LexendDeca-VariableFont_wght.ttf",
+            "importerName": ""
+        },
+        {
+            "fileName": "models/terrain/gound.glb",
+            "importerName": ""
+        },
+        {
+            "fileName": "models/terrain/cloud.glb",
+            "importerName": ""
+        },
+        {
+            "fileName": "models/UI/panel.glb",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/Log/Rondin_AO.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "models/Bricks/Cube_1_1.glb",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/Log/Rondin_N.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/Grass/Herbe_AO.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/Grass/Herbe_N.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/Sky.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/ToSort/BoisTresse_AO.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/ToSort/BoisTresse_N.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/ToSort/Bois_AO.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/ToSort/Bois_N.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/ToSort/Brique_AO.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/ToSort/Brique_N.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/ToSort/Chaux_AO.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/ToSort/Chaux_N.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/ToSort/Feuilles_AO.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/ToSort/Feuilles_N.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/ToSort/MetalMartele_AO.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/ToSort/MetalMartele_N.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/ToSort/Metal_AO.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/ToSort/Metal_N.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/ToSort/PierreGrossiere_AO.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/ToSort/PierreGrossiere_N.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/ToSort/PierreTaillee_AO.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/ToSort/PierreTaillee_N.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/ToSort/Planche_AO.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/ToSort/Planche_N.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/ToSort/Rondin_AO.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/ToSort/Rondin_N.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/ToSort/Tuiles_AO.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/ToSort/Tuiles_N.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/Grass/Vol_58_3_Grass_Base_Color.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/Grass/Vol_58_3_Grass_Normal.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/Stone/Vol_52_4_Tiles_Base_Color.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/Stone/Vol_52_4_Tiles_Normal.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/Grass/Vol_59_2_Nature_Base_Color.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/Grass/Vol_59_2_Nature_Normal.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/Stone/Vol_52_2_Stone_Base_Color.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/Stone/Vol_52_2_Stone_Normal.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "models/Bricks/Stairs.glb",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/Wood/vol_2_2_Wood_Base_Color.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/Wood/vol_2_2_Wood_Normal.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "models/Bricks/StairsMid.glb",
+            "importerName": ""
+        },
+        {
+            "fileName": "models/Bricks/Pyramid_1_1.glb",
+            "importerName": ""
+        },
+        {
+            "fileName": "models/Bricks/Plank_0.5_0.5_0.25.glb",
+            "importerName": ""
+        },
+        {
+            "fileName": "models/Bricks/Plank_1_1_0.25.glb",
+            "importerName": ""
+        },
+        {
+            "fileName": "models/Bricks/Cylinder_1_0.5.glb",
+            "importerName": ""
+        },
+        {
+            "fileName": "models/Bricks/Cylinder_1_1.glb",
+            "importerName": ""
+        },
+        {
+            "fileName": "models/Bricks/CubeVert.glb",
+            "importerName": ""
+        },
+        {
+            "fileName": "models/Bricks/ConeCut.glb",
+            "importerName": ""
+        },
+        {
+            "fileName": "models/Bricks/Cone_0.5_0.5.glb",
+            "importerName": ""
+        },
+        {
+            "fileName": "models/Bricks/Cone_1_1.glb",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/Grass/Vol_17_2_Vegetation_Base_Color.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/Grass/Vol_17_2_Vegetation_Normal.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/Grass/Vol_17_5_Vegetation_Base_Color.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/Grass/Vol_17_5_Vegetation_Normal.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/Grass/Vol_21_3_Vegetation_Base_Color.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/Grass/Vol_21_3_Vegetation_Normal.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/Metals/Vol_37_5_Metals_Base_Color.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/Metals/Vol_37_5_Metals_Normal.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/Roofs/Vol_41_6_Roofs_Base_Color.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/Roofs/Vol_41_6_Roofs_Normal.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/Roofs/Vol_53_2_Roofs_Base_Color.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/Roofs/Vol_53_2_Roofs_Normal.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/Roofs/Vol_5_1_Roofs_Base_Color.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/Roofs/Vol_5_1_Roofs_Normal.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/Roofs/Vol_5_3_Roofs_Base_Color.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/Roofs/Vol_5_3_Roofs_Normal.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/Roofs/Vol_5_4_Roofs_Base_Color.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/Roofs/Vol_5_4_Roofs_Normal.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/Stone/Vol_10_5_Bricks_Base_Color.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/Stone/Vol_10_5_Bricks_Normal.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/Stone/Vol_37_2_Tiles_Base_Color.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/Stone/Vol_37_2_Tiles_Normal.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/Stone/Vol_39_6_Bricks_Base_Color.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/Stone/Vol_39_6_Bricks_Normal.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/Stone/Vol_3_1_Bricks_Base_Color.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/Stone/Vol_3_1_Bricks_Normal.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/Stone/Vol_3_2_Walls_Base_Color.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/Stone/Vol_3_2_Walls_Normal.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/Grass/Vol_59_2_Nature_Ambient_Occlusion.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/Stone/Vol_46_2_Tiles_Base_Color.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/Stone/Vol_46_2_Tiles_Normal.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/Stone/Vol_48_3_Rocks_Base_Color.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/Stone/Vol_48_3_Rocks_Normal.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/Wood/Vol_32_1_Wood_Base_Color.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/Wood/Vol_32_1_Wood_Normal.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/Wood/Vol_32_3_Wood_Base_Color.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/Wood/Vol_32_3_Wood_Normal.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/Wood/Vol_32_5_Wood_Base_Color.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/Wood/Vol_32_5_Wood_Normal.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/Wood/Vol_33_4_Wood_Base_Color.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/Wood/Vol_33_4_Wood_Normal.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/Wood/Vol_38_5_Wood_Base_Color.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/Wood/Vol_38_5_Wood_Normal.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/Floors/Vol_8_5_Tiles_Base_Color.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/Floors/Vol_8_5_Tiles_Normal.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "models/UI/ArmButton.glb",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/00_UI/UiButtonBackgroundWhite.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/00_UI/00_Icons/Home_Icon.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/00_UI/00_Icons/Shapes_Icon.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/00_UI/00_Icons/Texture_Icon.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/00_UI/paletUI.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "models/UI/armPanel.glb",
+            "importerName": ""
+        },
+        {
+            "fileName": "static/LuckiestGuy-Regular.ttf",
+            "importerName": ""
+        },
+        {
+            "fileName": "models/UI/ArmMenuPanel.glb",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/00_UI/UIAtlas.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "models/UI/TextureButtons.glb",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/Wood/Vol_41_3_Tiles_Base_Color.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/Wood/Vol_41_3_Tiles_Normal.png",
+            "importerName": ""
+        },
+        {
+            "fileName": "models/Bricks/CubeVert_Wireframe.glb",
+            "importerName": ""
+        },
+        {
+            "fileName": "models/Bricks/Cylinder_1_0.5_Wireframe.glb",
+            "importerName": ""
+        },
+        {
+            "fileName": "models/Bricks/Cylinder_1_1_Wireframe.glb",
+            "importerName": ""
+        },
+        {
+            "fileName": "models/Bricks/Slope_Wireframe.glb",
+            "importerName": ""
+        },
+        {
+            "fileName": "models/Bricks/Tile_0.25_0.25_0.25_Wireframe.glb",
+            "importerName": ""
+        },
+        {
+            "fileName": "models/Bricks/Stairs_Wireframe.glb",
+            "importerName": ""
+        },
+        {
+            "fileName": "models/Bricks/Pyramid_1_1_Wireframe.glb",
+            "importerName": ""
+        },
+        {
+            "fileName": "models/Bricks/Cone_1_1_Wireframe.glb",
+            "importerName": ""
+        },
+        {
+            "fileName": "models/Bricks/ConeCut_Wireframe.glb",
+            "importerName": ""
+        },
+        {
+            "fileName": "models/Bricks/PyramidCut.glb",
+            "importerName": ""
+        },
+        {
+            "fileName": "models/Bricks/PyramidCut_Wireframe.glb",
+            "importerName": ""
+        },
+        {
+            "fileName": "models/Bricks/Cube_1_0.5_Wireframe.glb",
+            "importerName": ""
+        },
+        {
+            "fileName": "models/Bricks/Cube_1_0.5.glb",
+            "importerName": ""
+        },
+        {
+            "fileName": "models/UI/MainMenuButtons.glb",
+            "importerName": ""
+        },
+        {
+            "fileName": "models/terrain/Environment.glb",
+            "importerName": ""
+        },
+        {
+            "fileName": "models/UI/instructionPanel.glb",
+            "importerName": ""
+        },
+        {
+            "fileName": "textures/00_UI/InstructionsPanelWithoutText.png",
+            "importerName": ""
+        }
     ],
     "fonts": {
         "230": {
