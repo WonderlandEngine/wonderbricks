@@ -1,22 +1,21 @@
-import {Component, InputComponent, MeshComponent, Object3D, WonderlandEngine} from "@wonderlandengine/api";
+import { Component, InputComponent, MeshComponent, Object3D } from "@wonderlandengine/api";
 
-import { getXrSessionStart} from "../../lib/WlApi";
+import { getXrSessionStart } from "../../lib/WlApi.js";
 
-import XrGamepad from "../input/XrGamepad";
-import { PointerRay } from "./PointerRay";
-import { XrInputButton } from "../input/XrInputButton";
+import XrGamepad from "../input/XrGamepad.js";
+import { PointerRay } from "./PointerRay.js";
+import { XrInputButton } from "../input/XrInputButton.js";
 
-import BuildController from "./../buildSystem/BuildController";
-import GridManager from "./../grid/GridManager";
-import TagUtils from "./../../utils/TagUtils";
-import {Tag} from "../../utils/Tag";
-import {UiButton} from "./../../ui/UiButton";
-import SoundSystem from "../../sound/SoundSystem";
-import {SoundEmitterType} from "../../sound/SoundEmitterType";
-import {MeshParticles} from "../particleSystem/Particle";
+import BuildController from "./../buildSystem/BuildController.js";
+import GridManager from "./../grid/GridManager.js";
+import TagUtils from "./../../utils/TagUtils.js";
+import { Tag } from "../../utils/Tag.js";
+import { UiButton } from "./../../ui/UiButton.js";
+import SoundSystem from "../../sound/SoundSystem.js";
+import { SoundEmitterType } from "../../sound/SoundEmitterType.js";
+import { MeshParticles } from "../particleSystem/Particle.js";
 import { property } from '@wonderlandengine/api/decorators.js';
-import { PhysicalMaterial } from '../../utils/materials/PhysicalMaterial.js';
-import { CloudMeshParticles } from '../particleSystem/CloudParticles';
+import { CloudMeshParticles } from '../particleSystem/CloudParticles.js';
 
 export class XrController extends Component
 {
@@ -29,7 +28,7 @@ export class XrController extends Component
     @property.object()
     pointerRay: Object3D;
 
-    private _meshParticleComponent : MeshParticles
+    private _meshParticleComponent: CloudMeshParticles|MeshParticles;
     private _inputComponent: InputComponent;
     private _hand: XRHandedness;
 
@@ -41,7 +40,8 @@ export class XrController extends Component
     private _maximumCloudIteration: number;
     private _cloudComponentIteration: number;
 
-    init(){
+    init()
+    {
         this._componentIteration = 0;
         this._maximumIteration = 4;
         this._maximumCloudIteration = 3;
@@ -196,12 +196,12 @@ export class XrController extends Component
                 let position = GridManager.grid.getCellPositionVec3(indices);
                 const currentPrefabObject = BuildController.instantiatePrefabAt(position)[0];
                 SoundSystem.playAt(SoundEmitterType.BlockPlaced, this._pointerRayComponent.currentHitPosition);
-                this._meshParticleComponent=this.object.getComponent(CloudMeshParticles,this._cloudComponentIteration);
-                this._cloudComponentIteration ++;
-                if (this._cloudComponentIteration > this._maximumCloudIteration) this._cloudComponentIteration=0;
-                this._meshParticleComponent.time = 0; 
-		        this._meshParticleComponent.spawnObjLocation = currentPrefabObject;
-		        this._meshParticleComponent.spawn();
+                this._meshParticleComponent = this.object.getComponent(CloudMeshParticles, this._cloudComponentIteration);
+                ++this._cloudComponentIteration;
+                if (this._cloudComponentIteration > this._maximumCloudIteration) this._cloudComponentIteration =0;
+                this._meshParticleComponent.time = 0;
+                this._meshParticleComponent.spawnObjLocation = currentPrefabObject;
+                this._meshParticleComponent.spawn();
                 break;
             }
 
@@ -231,22 +231,22 @@ export class XrController extends Component
             case Tag.BLOCK: {
                 /**
                  * Particle System
-                 * 
-                 * Pool MeshParticles components in the editor 
+                 *
+                 * Pool MeshParticles components in the editor
                  * Each time when we get component iterate to next MeshParticles
                  * if iteration exeeds pooled component count (_maximumIteration), reset iteration number
                  */
-        
-                const mat= this._pointerRayComponent.currentHitObject.getComponent(MeshComponent).material;
-                this._meshParticleComponent=this.object.getComponent(MeshParticles,this._componentIteration);
-                this._componentIteration ++;
-                if (this._componentIteration > this._maximumIteration) this._componentIteration=0;
-                this._meshParticleComponent.changeMaterial(mat);
-                this._meshParticleComponent.time = 0; 
-		        this._meshParticleComponent.spawnObjLocation = this._pointerRayComponent.currentHitObject.parent 
-		        this._meshParticleComponent.spawn();
 
-                /**Destroy Block */
+                const mat = this._pointerRayComponent.currentHitObject.getComponent(MeshComponent).material;
+                this._meshParticleComponent = this.object.getComponent(MeshParticles, this._componentIteration)!;
+                this._componentIteration ++;
+                if (this._componentIteration > this._maximumIteration) this._componentIteration = 0;
+                this._meshParticleComponent.changeMaterial(mat);
+                this._meshParticleComponent.time = 0;
+                this._meshParticleComponent.spawnObjLocation = this._pointerRayComponent.currentHitObject.parent;
+                this._meshParticleComponent.spawn();
+
+                /** Destroy Block */
 
                 this._pointerRayComponent.currentHitObject.parent.destroy();
                 SoundSystem.playAt(SoundEmitterType.BlockDestroy, this._pointerRayComponent.currentHitPosition);
