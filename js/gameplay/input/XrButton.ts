@@ -30,6 +30,8 @@ export default class XrButton
 
     public update(): void
     {
+        /* When on hand tracking, there's no button */
+        if(!this._gamepadButton) return
         this._isPressed = this._gamepadButton.pressed;
 
         // Just pressed

@@ -12,6 +12,7 @@ import { BuildContainer } from "./BuildContainer.js";
 import { TextureInformation } from "../../utils/textures/TextureInformation.js";
 import TextureInformationRegistry from "../../utils/textures/TextureInformationRegistry.js";
 import { BlockPrefab } from "../prefabs/BlockPrefab.js";
+import { PhysicalMaterial } from '../../utils/materials/PhysicalMaterial.js';
 
 
 /**
@@ -84,12 +85,12 @@ class BuildController
         this._currentPrefab.updatePrevisRotation(xRot, yRot); 
     }
 
-    public instantiatePrefabAt(position: vec3): void
+    public instantiatePrefabAt(position: vec3): [Object3D, PhysicalMaterial]
     {
         if(this._currentPrefab == null)
             return;
 
-        this._currentPrefab.createBlock(position, this._currentTexture, this._buildContainer); 
+        return this._currentPrefab.createBlock(position, this._currentTexture, this._buildContainer); 
     }
 
     /**
