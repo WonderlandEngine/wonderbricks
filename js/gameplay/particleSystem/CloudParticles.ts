@@ -58,6 +58,7 @@ export class CloudMeshParticles extends Component {
 
         for (let i = 0; i < this.maxParticles; ++i)
         {
+            this._velocities[i] = vec3.create();
             const obj = this._objects[i];
             obj.name = "particle" + this._count.toString();
 
