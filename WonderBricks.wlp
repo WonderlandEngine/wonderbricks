@@ -1283,6 +1283,12 @@
                     "mesh": {
                         "material": "25"
                     }
+                },
+                {
+                    "type": "ar-mode-active-switch",
+                    "ar-mode-active-switch": {
+                        "activateComponents": "in non-AR"
+                    }
                 }
             ],
             "name": "Ref_GridDebuggerVisual",
@@ -5898,7 +5904,19 @@
             ]
         },
         "4b6a1421-6301-49bd-8c06-f6497ddb52bb": {
-            "name": "EnvironmentNew"
+            "name": "EnvironmentNew",
+            "components": [
+                {
+                    "type": "ar-mode-active-switch",
+                    "ar-mode-active-switch": {
+                        "activateComponents": "in non-AR",
+                        "disableLocmotion": true,
+                        "teleportCursor": "126",
+                        "snapRotationController": "130",
+                        "disableLocomotion": true
+                    }
+                }
+            ]
         },
         "94b8d76e-b3a7-4766-a958-7f71755c051e": {
             "link": {
@@ -7265,6 +7283,39 @@
                 0.0,
                 -1.0
             ]
+        },
+        "4e0c2039-e990-451a-a2c2-10c642f0ad11": {
+            "name": "Mesh",
+            "parent": "15",
+            "components": [
+                {
+                    "type": "mesh",
+                    "mesh": {
+                        "mesh": "7",
+                        "material": "ac08d4cc-9300-40eb-9f3c-4efe3a31ad4b"
+                    },
+                    "active": true
+                },
+                {
+                    "type": "ar-mode-active-switch"
+                }
+            ],
+            "rotation": [
+                -0.7071066,
+                0.0,
+                0.0,
+                0.7071068
+            ],
+            "translation": [
+                0.0,
+                -0.0015572,
+                4.2957253754138947e-8
+            ],
+            "scaling": [
+                4.9799995,
+                4.979886,
+                4.979886
+            ]
         }
     },
     "meshes": {
@@ -7407,12 +7458,6 @@
             "link": {
                 "name": "Plane",
                 "file": "models\\frame.glb"
-            }
-        },
-        "257": {
-            "link": {
-                "name": "Cube",
-                "file": "models\\Bricks\\Cube.glb"
             }
         },
         "258": {
@@ -8511,6 +8556,12 @@
             "link": {
                 "name": "PanelTitle.003",
                 "file": "models\\UI\\instructionPanel.glb"
+            }
+        },
+        "257": {
+            "link": {
+                "name": "Cube",
+                "file": "models\\Bricks\\Cube.glb"
             }
         }
     },
@@ -10259,6 +10310,45 @@
             "Flat": {
                 "flatTexture": "5dbe483a-3131-4f02-9f64-2c45884aad5b"
             }
+        },
+        "ac08d4cc-9300-40eb-9f3c-4efe3a31ad4b": {
+            "name": "OcclusionPlane",
+            "Phong": {
+                "ambientColor": [
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "diffuseColor": [
+                    0.0,
+                    0.0,
+                    0.0,
+                    1.0
+                ],
+                "specularColor": [
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "emissiveColor": [
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0
+                ]
+            },
+            "pipeline": "6e7af50f-0899-4c6d-bf92-82ab945c53b8",
+            "ShadowReceiver": {
+                "ambientColor": [
+                    0.0,
+                    0.0,
+                    0.0,
+                    1.0
+                ],
+                "shadowStrength": 0.3
+            }
         }
     },
     "shaders": {
@@ -10393,6 +10483,102 @@
                 "name": "TestShader.frag",
                 "file": "default"
             }
+        },
+        "434": {
+            "link": {
+                "name": "lib\\Color.glsl",
+                "file": "default"
+            }
+        },
+        "435": {
+            "link": {
+                "name": "lib\\Compatibility.frag",
+                "file": "default"
+            }
+        },
+        "436": {
+            "link": {
+                "name": "lib\\CoordinateSystems.glsl",
+                "file": "default"
+            }
+        },
+        "437": {
+            "link": {
+                "name": "lib\\GI.frag",
+                "file": "default"
+            }
+        },
+        "438": {
+            "link": {
+                "name": "lib\\Inputs.frag",
+                "file": "default"
+            }
+        },
+        "439": {
+            "link": {
+                "name": "lib\\Lights.frag",
+                "file": "default"
+            }
+        },
+        "440": {
+            "link": {
+                "name": "lib\\Materials.frag",
+                "file": "default"
+            }
+        },
+        "441": {
+            "link": {
+                "name": "lib\\Math.glsl",
+                "file": "default"
+            }
+        },
+        "442": {
+            "link": {
+                "name": "lib\\Packing.frag",
+                "file": "default"
+            }
+        },
+        "443": {
+            "link": {
+                "name": "lib\\Quaternion.glsl",
+                "file": "default"
+            }
+        },
+        "444": {
+            "link": {
+                "name": "lib\\Slug.frag",
+                "file": "default"
+            }
+        },
+        "445": {
+            "link": {
+                "name": "lib\\Slug.vert",
+                "file": "default"
+            }
+        },
+        "446": {
+            "link": {
+                "name": "lib\\Surface.frag",
+                "file": "default"
+            }
+        },
+        "447": {
+            "link": {
+                "name": "lib\\Textures.frag",
+                "file": "default"
+            }
+        },
+        "449": {
+            "link": {
+                "name": "lib\\Uniforms.glsl",
+                "file": "default"
+            }
+        },
+        "5234a292-00f3-4760-bd34-007b93213d1f": {
+            "link": {
+                "name": "ShadowReceiver.frag",
+                "file": "default"
+            }
         }
     },
     "settings": {
@@ -10400,8 +10586,8 @@
             "name": "wonderbrick",
             "version": [
                 1,
-                0,
-                4
+                1,
+                1
             ]
         },
         "vr": {
@@ -10467,6 +10653,9 @@
         },
         "editor": {
             "ids": "uuid"
+        },
+        "ar": {
+            "enable": true
         }
     },
     "animations": {
@@ -10689,598 +10878,630 @@
             },
             "doubleSided": true,
             "name": "cloudParticle"
+        },
+        "448": {
+            "link": {
+                "name": "TileFeedback",
+                "file": "default"
+            }
+        },
+        "61b622a4-93e2-4784-9c72-1fd96bb6fe68": {
+            "link": {
+                "name": "ShadowReceiver",
+                "file": "default"
+            }
+        },
+        "6e7af50f-0899-4c6d-bf92-82ab945c53b8": {
+            "link": {
+                "name": "ShadowReceiver Opaque",
+                "file": "default"
+            },
+            "features": {
+                "SHADOW_NORMAL_OFFSET_SCALE_BY_SHADOW_DEPTH": false,
+                "SHADOW_NORMAL_OFFSET_SLOPE_SCALE": false,
+                "SHADOW_NORMAL_OFFSET_UV_ONLY": false
+            }
+        },
+        "ee7993d9-16b4-4a63-8cfb-761ec0eee2eb": {
+            "link": {
+                "name": "ShadowReceiver Opaque Textured",
+                "file": "default"
+            },
+            "features": {
+                "SHADOW_NORMAL_OFFSET_SCALE_BY_SHADOW_DEPTH": false
+            }
         }
     },
-    "files": [
-        {
+    "files": {
+        "450": {
             "fileName": "models/oculus-touch-v2-left.glb",
             "importerName": ""
         },
-        {
+        "451": {
             "fileName": "models/oculus-touch-v2-right.glb",
             "importerName": ""
         },
-        {
+        "452": {
             "fileName": "models/hand-left.glb",
             "importerName": ""
         },
-        {
+        "453": {
             "fileName": "models/hand-right.glb",
             "importerName": ""
         },
-        {
+        "454": {
             "fileName": "models/button.glb",
             "importerName": ""
         },
-        {
+        "455": {
             "fileName": "models/teleport-indicator.glb",
             "importerName": ""
         },
-        {
+        "456": {
             "fileName": "models/frame.glb",
             "importerName": ""
         },
-        {
+        "457": {
             "fileName": "models/Bricks/Wireframe_Cube.glb",
             "importerName": ""
         },
-        {
+        "458": {
             "fileName": "models/Bricks/Cube.glb",
             "importerName": ""
         },
-        {
+        "459": {
             "fileName": "models/Bricks/Chiottes.glb",
             "importerName": ""
         },
-        {
+        "460": {
             "fileName": "models/LaserCone.glb",
             "importerName": ""
         },
-        {
+        "461": {
             "fileName": "models/Bricks/Stair.glb",
             "importerName": ""
         },
-        {
+        "462": {
             "fileName": "models/Bricks/StairWireframe.glb",
             "importerName": ""
         },
-        {
+        "463": {
             "fileName": "models/Bricks/Slope.glb",
             "importerName": ""
         },
-        {
+        "464": {
             "fileName": "models/Bricks/SlopeWireframe.glb",
             "importerName": ""
         },
-        {
+        "465": {
             "fileName": "models/UI/button.glb",
             "importerName": ""
         },
-        {
+        "466": {
             "fileName": "static/LexendDeca-VariableFont_wght.ttf",
             "importerName": ""
         },
-        {
+        "467": {
             "fileName": "models/terrain/gound.glb",
             "importerName": ""
         },
-        {
+        "468": {
             "fileName": "models/terrain/cloud.glb",
             "importerName": ""
         },
-        {
+        "469": {
             "fileName": "models/UI/panel.glb",
             "importerName": ""
         },
-        {
+        "470": {
             "fileName": "textures/Log/Rondin_AO.png",
             "importerName": ""
         },
-        {
+        "471": {
             "fileName": "models/Bricks/Cube_1_1.glb",
             "importerName": ""
         },
-        {
+        "472": {
             "fileName": "textures/Log/Rondin_N.png",
             "importerName": ""
         },
-        {
+        "473": {
             "fileName": "textures/Grass/Herbe_AO.png",
             "importerName": ""
         },
-        {
+        "474": {
             "fileName": "textures/Grass/Herbe_N.png",
             "importerName": ""
         },
-        {
+        "475": {
             "fileName": "textures/Sky.png",
             "importerName": ""
         },
-        {
+        "476": {
             "fileName": "textures/ToSort/BoisTresse_AO.png",
             "importerName": ""
         },
-        {
+        "477": {
             "fileName": "textures/ToSort/BoisTresse_N.png",
             "importerName": ""
         },
-        {
+        "478": {
             "fileName": "textures/ToSort/Bois_AO.png",
             "importerName": ""
         },
-        {
+        "479": {
             "fileName": "textures/ToSort/Bois_N.png",
             "importerName": ""
         },
-        {
+        "480": {
             "fileName": "textures/ToSort/Brique_AO.png",
             "importerName": ""
         },
-        {
+        "481": {
             "fileName": "textures/ToSort/Brique_N.png",
             "importerName": ""
         },
-        {
+        "482": {
             "fileName": "textures/ToSort/Chaux_AO.png",
             "importerName": ""
         },
-        {
+        "483": {
             "fileName": "textures/ToSort/Chaux_N.png",
             "importerName": ""
         },
-        {
+        "484": {
             "fileName": "textures/ToSort/Feuilles_AO.png",
             "importerName": ""
         },
-        {
+        "485": {
             "fileName": "textures/ToSort/Feuilles_N.png",
             "importerName": ""
         },
-        {
+        "486": {
             "fileName": "textures/ToSort/MetalMartele_AO.png",
             "importerName": ""
         },
-        {
+        "487": {
             "fileName": "textures/ToSort/MetalMartele_N.png",
             "importerName": ""
         },
-        {
+        "488": {
             "fileName": "textures/ToSort/Metal_AO.png",
             "importerName": ""
         },
-        {
+        "489": {
             "fileName": "textures/ToSort/Metal_N.png",
             "importerName": ""
         },
-        {
+        "490": {
             "fileName": "textures/ToSort/PierreGrossiere_AO.png",
             "importerName": ""
         },
-        {
+        "491": {
             "fileName": "textures/ToSort/PierreGrossiere_N.png",
             "importerName": ""
         },
-        {
+        "492": {
             "fileName": "textures/ToSort/PierreTaillee_AO.png",
             "importerName": ""
         },
-        {
+        "493": {
             "fileName": "textures/ToSort/PierreTaillee_N.png",
             "importerName": ""
         },
-        {
+        "494": {
             "fileName": "textures/ToSort/Planche_AO.png",
             "importerName": ""
         },
-        {
+        "495": {
             "fileName": "textures/ToSort/Planche_N.png",
             "importerName": ""
         },
-        {
+        "496": {
             "fileName": "textures/ToSort/Rondin_AO.png",
             "importerName": ""
         },
-        {
+        "497": {
             "fileName": "textures/ToSort/Rondin_N.png",
             "importerName": ""
         },
-        {
+        "498": {
             "fileName": "textures/ToSort/Tuiles_AO.png",
             "importerName": ""
         },
-        {
+        "499": {
             "fileName": "textures/ToSort/Tuiles_N.png",
             "importerName": ""
         },
-        {
+        "500": {
             "fileName": "textures/Grass/Vol_58_3_Grass_Base_Color.png",
             "importerName": ""
         },
-        {
+        "501": {
             "fileName": "textures/Grass/Vol_58_3_Grass_Normal.png",
             "importerName": ""
         },
-        {
+        "502": {
             "fileName": "textures/Stone/Vol_52_4_Tiles_Base_Color.png",
             "importerName": ""
         },
-        {
+        "503": {
             "fileName": "textures/Stone/Vol_52_4_Tiles_Normal.png",
             "importerName": ""
         },
-        {
+        "504": {
             "fileName": "textures/Grass/Vol_59_2_Nature_Base_Color.png",
             "importerName": ""
         },
-        {
+        "505": {
             "fileName": "textures/Grass/Vol_59_2_Nature_Normal.png",
             "importerName": ""
         },
-        {
+        "506": {
             "fileName": "textures/Stone/Vol_52_2_Stone_Base_Color.png",
             "importerName": ""
         },
-        {
+        "507": {
             "fileName": "textures/Stone/Vol_52_2_Stone_Normal.png",
             "importerName": ""
         },
-        {
+        "508": {
             "fileName": "models/Bricks/Stairs.glb",
             "importerName": ""
         },
-        {
+        "509": {
             "fileName": "textures/Wood/vol_2_2_Wood_Base_Color.png",
             "importerName": ""
         },
-        {
+        "510": {
             "fileName": "textures/Wood/vol_2_2_Wood_Normal.png",
             "importerName": ""
         },
-        {
+        "511": {
             "fileName": "models/Bricks/StairsMid.glb",
             "importerName": ""
         },
-        {
+        "512": {
             "fileName": "models/Bricks/Pyramid_1_1.glb",
             "importerName": ""
         },
-        {
+        "513": {
             "fileName": "models/Bricks/Plank_0.5_0.5_0.25.glb",
             "importerName": ""
         },
-        {
+        "514": {
             "fileName": "models/Bricks/Plank_1_1_0.25.glb",
             "importerName": ""
         },
-        {
+        "515": {
             "fileName": "models/Bricks/Cylinder_1_0.5.glb",
             "importerName": ""
         },
-        {
+        "516": {
             "fileName": "models/Bricks/Cylinder_1_1.glb",
             "importerName": ""
         },
-        {
+        "517": {
             "fileName": "models/Bricks/CubeVert.glb",
             "importerName": ""
         },
-        {
+        "518": {
             "fileName": "models/Bricks/ConeCut.glb",
             "importerName": ""
         },
-        {
+        "519": {
             "fileName": "models/Bricks/Cone_0.5_0.5.glb",
             "importerName": ""
         },
-        {
+        "520": {
             "fileName": "models/Bricks/Cone_1_1.glb",
             "importerName": ""
         },
-        {
+        "521": {
             "fileName": "textures/Grass/Vol_17_2_Vegetation_Base_Color.png",
             "importerName": ""
         },
-        {
+        "522": {
             "fileName": "textures/Grass/Vol_17_2_Vegetation_Normal.png",
             "importerName": ""
         },
-        {
+        "523": {
             "fileName": "textures/Grass/Vol_17_5_Vegetation_Base_Color.png",
             "importerName": ""
         },
-        {
+        "524": {
             "fileName": "textures/Grass/Vol_17_5_Vegetation_Normal.png",
             "importerName": ""
         },
-        {
+        "525": {
             "fileName": "textures/Grass/Vol_21_3_Vegetation_Base_Color.png",
             "importerName": ""
         },
-        {
+        "526": {
             "fileName": "textures/Grass/Vol_21_3_Vegetation_Normal.png",
             "importerName": ""
         },
-        {
+        "527": {
             "fileName": "textures/Metals/Vol_37_5_Metals_Base_Color.png",
             "importerName": ""
         },
-        {
+        "528": {
             "fileName": "textures/Metals/Vol_37_5_Metals_Normal.png",
             "importerName": ""
         },
-        {
+        "529": {
             "fileName": "textures/Roofs/Vol_41_6_Roofs_Base_Color.png",
             "importerName": ""
         },
-        {
+        "530": {
             "fileName": "textures/Roofs/Vol_41_6_Roofs_Normal.png",
             "importerName": ""
         },
-        {
+        "531": {
             "fileName": "textures/Roofs/Vol_53_2_Roofs_Base_Color.png",
             "importerName": ""
         },
-        {
+        "532": {
             "fileName": "textures/Roofs/Vol_53_2_Roofs_Normal.png",
             "importerName": ""
         },
-        {
+        "533": {
             "fileName": "textures/Roofs/Vol_5_1_Roofs_Base_Color.png",
             "importerName": ""
         },
-        {
+        "534": {
             "fileName": "textures/Roofs/Vol_5_1_Roofs_Normal.png",
             "importerName": ""
         },
-        {
+        "535": {
             "fileName": "textures/Roofs/Vol_5_3_Roofs_Base_Color.png",
             "importerName": ""
         },
-        {
+        "536": {
             "fileName": "textures/Roofs/Vol_5_3_Roofs_Normal.png",
             "importerName": ""
         },
-        {
+        "537": {
             "fileName": "textures/Roofs/Vol_5_4_Roofs_Base_Color.png",
             "importerName": ""
         },
-        {
+        "538": {
             "fileName": "textures/Roofs/Vol_5_4_Roofs_Normal.png",
             "importerName": ""
         },
-        {
+        "539": {
             "fileName": "textures/Stone/Vol_10_5_Bricks_Base_Color.png",
             "importerName": ""
         },
-        {
+        "540": {
             "fileName": "textures/Stone/Vol_10_5_Bricks_Normal.png",
             "importerName": ""
         },
-        {
+        "541": {
             "fileName": "textures/Stone/Vol_37_2_Tiles_Base_Color.png",
             "importerName": ""
         },
-        {
+        "542": {
             "fileName": "textures/Stone/Vol_37_2_Tiles_Normal.png",
             "importerName": ""
         },
-        {
+        "543": {
             "fileName": "textures/Stone/Vol_39_6_Bricks_Base_Color.png",
             "importerName": ""
         },
-        {
+        "544": {
             "fileName": "textures/Stone/Vol_39_6_Bricks_Normal.png",
             "importerName": ""
         },
-        {
+        "545": {
             "fileName": "textures/Stone/Vol_3_1_Bricks_Base_Color.png",
             "importerName": ""
         },
-        {
+        "546": {
             "fileName": "textures/Stone/Vol_3_1_Bricks_Normal.png",
             "importerName": ""
         },
-        {
+        "547": {
             "fileName": "textures/Stone/Vol_3_2_Walls_Base_Color.png",
             "importerName": ""
         },
-        {
+        "548": {
             "fileName": "textures/Stone/Vol_3_2_Walls_Normal.png",
             "importerName": ""
         },
-        {
+        "549": {
             "fileName": "textures/Grass/Vol_59_2_Nature_Ambient_Occlusion.png",
             "importerName": ""
         },
-        {
+        "550": {
             "fileName": "textures/Stone/Vol_46_2_Tiles_Base_Color.png",
             "importerName": ""
         },
-        {
+        "551": {
             "fileName": "textures/Stone/Vol_46_2_Tiles_Normal.png",
             "importerName": ""
         },
-        {
+        "552": {
             "fileName": "textures/Stone/Vol_48_3_Rocks_Base_Color.png",
             "importerName": ""
         },
-        {
+        "553": {
             "fileName": "textures/Stone/Vol_48_3_Rocks_Normal.png",
             "importerName": ""
         },
-        {
+        "554": {
             "fileName": "textures/Wood/Vol_32_1_Wood_Base_Color.png",
             "importerName": ""
         },
-        {
+        "555": {
             "fileName": "textures/Wood/Vol_32_1_Wood_Normal.png",
             "importerName": ""
         },
-        {
+        "556": {
             "fileName": "textures/Wood/Vol_32_3_Wood_Base_Color.png",
             "importerName": ""
         },
-        {
+        "557": {
             "fileName": "textures/Wood/Vol_32_3_Wood_Normal.png",
             "importerName": ""
         },
-        {
+        "558": {
             "fileName": "textures/Wood/Vol_32_5_Wood_Base_Color.png",
             "importerName": ""
         },
-        {
+        "559": {
             "fileName": "textures/Wood/Vol_32_5_Wood_Normal.png",
             "importerName": ""
         },
-        {
+        "560": {
             "fileName": "textures/Wood/Vol_33_4_Wood_Base_Color.png",
             "importerName": ""
         },
-        {
+        "561": {
             "fileName": "textures/Wood/Vol_33_4_Wood_Normal.png",
             "importerName": ""
         },
-        {
+        "562": {
             "fileName": "textures/Wood/Vol_38_5_Wood_Base_Color.png",
             "importerName": ""
         },
-        {
+        "563": {
             "fileName": "textures/Wood/Vol_38_5_Wood_Normal.png",
             "importerName": ""
         },
-        {
+        "564": {
             "fileName": "textures/Floors/Vol_8_5_Tiles_Base_Color.png",
             "importerName": ""
         },
-        {
+        "565": {
             "fileName": "textures/Floors/Vol_8_5_Tiles_Normal.png",
             "importerName": ""
         },
-        {
+        "566": {
             "fileName": "models/UI/ArmButton.glb",
             "importerName": ""
         },
-        {
+        "567": {
             "fileName": "textures/00_UI/UiButtonBackgroundWhite.png",
             "importerName": ""
         },
-        {
+        "568": {
             "fileName": "textures/00_UI/00_Icons/Home_Icon.png",
             "importerName": ""
         },
-        {
+        "569": {
             "fileName": "textures/00_UI/00_Icons/Shapes_Icon.png",
             "importerName": ""
         },
-        {
+        "570": {
             "fileName": "textures/00_UI/00_Icons/Texture_Icon.png",
             "importerName": ""
         },
-        {
+        "571": {
             "fileName": "textures/00_UI/paletUI.png",
             "importerName": ""
         },
-        {
+        "572": {
             "fileName": "models/UI/armPanel.glb",
             "importerName": ""
         },
-        {
+        "573": {
             "fileName": "static/LuckiestGuy-Regular.ttf",
             "importerName": ""
         },
-        {
+        "574": {
             "fileName": "models/UI/ArmMenuPanel.glb",
             "importerName": ""
         },
-        {
+        "575": {
             "fileName": "textures/00_UI/UIAtlas.png",
             "importerName": ""
         },
-        {
+        "576": {
             "fileName": "models/UI/TextureButtons.glb",
             "importerName": ""
         },
-        {
+        "577": {
             "fileName": "textures/Wood/Vol_41_3_Tiles_Base_Color.png",
             "importerName": ""
         },
-        {
+        "578": {
             "fileName": "textures/Wood/Vol_41_3_Tiles_Normal.png",
             "importerName": ""
         },
-        {
+        "579": {
             "fileName": "models/Bricks/CubeVert_Wireframe.glb",
             "importerName": ""
         },
-        {
+        "580": {
             "fileName": "models/Bricks/Cylinder_1_0.5_Wireframe.glb",
             "importerName": ""
         },
-        {
+        "581": {
             "fileName": "models/Bricks/Cylinder_1_1_Wireframe.glb",
             "importerName": ""
         },
-        {
+        "582": {
             "fileName": "models/Bricks/Slope_Wireframe.glb",
             "importerName": ""
         },
-        {
+        "583": {
             "fileName": "models/Bricks/Tile_0.25_0.25_0.25_Wireframe.glb",
             "importerName": ""
         },
-        {
+        "584": {
             "fileName": "models/Bricks/Stairs_Wireframe.glb",
             "importerName": ""
         },
-        {
+        "585": {
             "fileName": "models/Bricks/Pyramid_1_1_Wireframe.glb",
             "importerName": ""
         },
-        {
+        "586": {
             "fileName": "models/Bricks/Cone_1_1_Wireframe.glb",
             "importerName": ""
         },
-        {
+        "587": {
             "fileName": "models/Bricks/ConeCut_Wireframe.glb",
             "importerName": ""
         },
-        {
+        "588": {
             "fileName": "models/Bricks/PyramidCut.glb",
             "importerName": ""
         },
-        {
+        "589": {
             "fileName": "models/Bricks/PyramidCut_Wireframe.glb",
             "importerName": ""
         },
-        {
+        "590": {
             "fileName": "models/Bricks/Cube_1_0.5_Wireframe.glb",
             "importerName": ""
         },
-        {
+        "591": {
             "fileName": "models/Bricks/Cube_1_0.5.glb",
             "importerName": ""
         },
-        {
+        "592": {
             "fileName": "models/UI/MainMenuButtons.glb",
             "importerName": ""
         },
-        {
+        "593": {
             "fileName": "models/terrain/Environment.glb",
             "importerName": ""
         },
-        {
+        "594": {
             "fileName": "models/UI/instructionPanel.glb",
             "importerName": ""
         },
-        {
+        "595": {
             "fileName": "textures/00_UI/InstructionsPanelWithoutText.png",
             "importerName": ""
         },
-        {
+        "596": {
             "fileName": "textures/cloud.png",
             "importerName": ""
         }
-    ],
+    },
     "fonts": {
         "230": {
             "link": {
