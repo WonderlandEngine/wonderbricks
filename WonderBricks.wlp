@@ -1558,7 +1558,7 @@
                     "type": "howler-audio-source",
                     "howler-audio-source": {
                         "spatial": true,
-                        "src": "/sfx/sfx_ui_select_01.mp3",
+                        "src": "sfx/sfx_ui_select_01.aac",
                         "loop": false,
                         "autoplay": false
                     }
@@ -1576,7 +1576,7 @@
                     "type": "howler-audio-source",
                     "howler-audio-source": {
                         "spatial": true,
-                        "src": "/sfx/sfx_block_apply_01.mp3",
+                        "src": "sfx/sfx_block_apply_01.aac",
                         "loop": false,
                         "autoplay": false
                     }
@@ -1594,7 +1594,7 @@
                     "type": "howler-audio-source",
                     "howler-audio-source": {
                         "spatial": true,
-                        "src": "/sfx/sfx_block_rotate_01.mp3",
+                        "src": "sfx/sfx_block_rotate_01.aac",
                         "loop": false,
                         "autoplay": false
                     }
@@ -1612,7 +1612,7 @@
                     "type": "howler-audio-source",
                     "howler-audio-source": {
                         "spatial": true,
-                        "src": "/sfx/sfx_block_destroy_01.mp3",
+                        "src": "sfx/sfx_block_destroy_01.aac",
                         "loop": false,
                         "autoplay": false
                     }
@@ -5897,7 +5897,7 @@
                         "spatial": false,
                         "loop": true,
                         "autoplay": true,
-                        "src": "/music/amb_wonderbrick_loop.wav",
+                        "src": "music/amb_wonderbrick_loop.aac",
                         "volume": 0.2
                     }
                 }
