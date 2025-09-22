@@ -1,6 +1,6 @@
-import { Component, Material, Object3D, Type } from '@wonderlandengine/api';
-import { TeleportComponent } from '@wonderlandengine/components';
-import { SnapRotation } from '../gameplay/interactions/SnapRotation.js';
+import {Component, Material, Object3D, Type} from '@wonderlandengine/api';
+import {TeleportComponent} from '@wonderlandengine/components';
+import {SnapRotation} from '../gameplay/interactions/SnapRotation.js';
 
 /**
  * ar-mode-active-switch
@@ -17,10 +17,10 @@ export class ArModeActiveSwitch extends Component {
             default: 'in AR',
         },
         /** Whether child object's components should be affected */
-        affectChildren: { type: Type.Bool, default: true },
-        disableLocomotion: { type: Type.Bool, default: false },
-        teleportCursor: { type: Type.Object },
-        snapRotationController: { type: Type.Object },
+        affectChildren: {type: Type.Bool, default: true},
+        disableLocomotion: {type: Type.Bool, default: false},
+        teleportCursor: {type: Type.Object},
+        snapRotationController: {type: Type.Object},
     };
 
     private arButton: HTMLElement;
@@ -47,7 +47,8 @@ export class ArModeActiveSwitch extends Component {
         this.arButton.addEventListener('touchdown', this.arButtonClickCallback.bind(this));
         if (this.disableLocomotion) {
             this.teleportComponent = this.teleportCursor.getComponent(TeleportComponent);
-            this.snapRotationComponent = this.snapRotationController.getComponent(SnapRotation);
+            this.snapRotationComponent =
+                this.snapRotationController.getComponent(SnapRotation);
         }
         this.skymat = this.engine.scene.skyMaterial;
         this.getComponents(this.object);

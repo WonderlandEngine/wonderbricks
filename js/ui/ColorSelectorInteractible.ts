@@ -1,17 +1,15 @@
-import {Component, Type} from "@wonderlandengine/api";
-import {UiButton} from "./UiButton";
+import {Component, Type} from '@wonderlandengine/api';
+import {UiButton} from './UiButton.js';
 
-import BuildController from "../gameplay/buildSystem/BuildController";
+import BuildController from '../gameplay/buildSystem/BuildController.js';
 
-
-export class ColorSelectorInteractible extends Component
-{
+export class ColorSelectorInteractible extends Component {
     static TypeName = 'color-selector-interactible';
     static Properties = {
         red: {type: Type.Float},
         green: {type: Type.Float},
         blue: {type: Type.Float},
-    }
+    };
 
     // Properties fields declaration
     private red: number;
@@ -22,16 +20,14 @@ export class ColorSelectorInteractible extends Component
     private _color: Float32Array;
     private _buttonComponent: UiButton;
 
-    public override start()
-    {
+    public override start() {
         this._color = new Float32Array([this.red, this.green, this.blue, 1]);
 
         this._buttonComponent = this.object.getComponent(UiButton);
         this._buttonComponent.addInteractCallback(this.onInteractHandler.bind(this));
     }
 
-    private onInteractHandler(): void
-    {
+    private onInteractHandler(): void {
         BuildController.setColor(this._color);
     }
 }

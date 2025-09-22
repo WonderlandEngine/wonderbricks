@@ -1,22 +1,26 @@
-import {Component, CustomParameter, MeshComponent, Object, Type} from "@wonderlandengine/api";
-import {UiButton} from "./UiButton";
+import {
+    Component,
+    ComponentProperty,
+    MeshComponent,
+    Object3D as Object,
+    Type,
+} from '@wonderlandengine/api';
+import {UiButton} from './UiButton.js';
 
-import BuildController from "../gameplay/buildSystem/BuildController";
-import { TextureInformation } from "../utils/textures/TextureInformation";
-import { TextureSelectionPanel } from "./armMenu/TextureSelectionPanel";
-import { vec4 } from "gl-matrix";
+import BuildController from '../gameplay/buildSystem/BuildController.js';
+import {TextureInformation} from '../utils/textures/TextureInformation.js';
+import {TextureSelectionPanel} from './armMenu/TextureSelectionPanel.js';
+import {vec4} from 'gl-matrix';
 
-
-export class TextureSelectorInteractible extends Component
-{
+export class TextureSelectorInteractible extends Component {
     static TypeName: string = 'texture-selector-interactible';
-    static Properties: Record<string, CustomParameter> = {
-        textureInfoObject: { type: Type.Object, default: null },
-        isDefaultTexture: {type:Type.Bool, default: false}
+    static Properties: Record<string, ComponentProperty> = {
+        textureInfoObject: {type: Type.Object, default: null},
+        isDefaultTexture: {type: Type.Bool, default: false},
     };
 
     private textureInfoObject: Object;
-    private isDefaultTexture: Boolean;
+    private isDefaultTexture: boolean;
 
     // fields
     private _texture: TextureInformation;
@@ -25,10 +29,8 @@ export class TextureSelectorInteractible extends Component
 
     private _parent: TextureSelectionPanel;
 
-    public override start()
-    {
-        if(!this.textureInfoObject)
-        {
+    public override start() {
+        if (!this.textureInfoObject) {
             console.error('Object must be set to initialize the button ', this.object.name);
             return;
         }
@@ -46,17 +48,14 @@ export class TextureSelectorInteractible extends Component
         this._parent = this.object.parent.getComponent(TextureSelectionPanel);
         this._parent.registerButton(this);
 
-        if(this.isDefaultTexture)
-            this.onInteractHandler();
+        if (this.isDefaultTexture) this.onInteractHandler();
     }
 
-    public setVisualColor(color: vec4): void 
-    {
+    public setVisualColor(color: vec4): void {
         this._mesh.material['color'] = color;
     }
 
-    private onInteractHandler(): void
-    {
+    private onInteractHandler(): void {
         BuildController.setTexture(this._texture);
         this._parent.notifyInteraction(this);
     }

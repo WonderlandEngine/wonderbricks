@@ -1,10 +1,8 @@
-import {Type} from "@wonderlandengine/api";
-import PrefabBase from "./PrefabBase";
-import PrefabsRegistry from "./PrefabsRegistry";
+import {Type} from '@wonderlandengine/api';
+import PrefabBase from './PrefabBase.js';
+import PrefabsRegistry from './PrefabsRegistry.js';
 
-
-export class CylinderPrefab extends PrefabBase
-{
+export class CylinderPrefab extends PrefabBase {
     static TypeName = 'cylinder-prefab';
     static Properties = {
         finalMesh: {type: Type.Mesh},
@@ -14,10 +12,11 @@ export class CylinderPrefab extends PrefabBase
         previsMat: {type: Type.Material},
     };
 
-    public override getPrefabUniqueName(): string { return CylinderPrefab.TypeName; }
+    public override getPrefabUniqueName(): string {
+        return CylinderPrefab.TypeName;
+    }
 
-    public override start()
-    {
+    public override start() {
         super.start();
         PrefabsRegistry.registerPrefab(this);
 

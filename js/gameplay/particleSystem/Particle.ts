@@ -1,6 +1,6 @@
-import {Component, Object3D, MeshComponent, Material} from "@wonderlandengine/api";
-import {property} from "@wonderlandengine/api/decorators.js";
-import {vec3, quat2} from "gl-matrix";
+import {Component, Object3D, MeshComponent, Material} from '@wonderlandengine/api';
+import {property} from '@wonderlandengine/api/decorators.js';
+import {vec3, quat2} from 'gl-matrix';
 
 /**
 Very simple mesh particles system
@@ -16,7 +16,7 @@ Use it and customize it for your own game.
         this.object.getComponent('burst-mesh-particles').spawn();
 */
 export class MeshParticles extends Component {
-    static TypeName = "burst-mesh-particles";
+    static TypeName = 'burst-mesh-particles';
 
     @property.material()
     material: Material | null = null;
@@ -47,23 +47,25 @@ export class MeshParticles extends Component {
     private _objects: Object3D[];
     private _velocities: vec3[];
 
-    init()
-    {
+    init() {
         this.time = 0.0;
         this._count = 0;
     }
 
-    start()
-    {
+    start() {
         this._objects = [];
         this._velocities = [];
 
-        this._objects = this.engine.scene.addObjects(this.maxParticles, null, this.maxParticles);
+        this._objects = this.engine.scene.addObjects(
+            this.maxParticles,
+            null,
+            this.maxParticles
+        );
 
         for (let i = 0; i < this.maxParticles; ++i) {
             this._velocities.push([0, 0, 0]);
             let obj: Object3D = this._objects[i];
-            obj.name = "particle" + this._count.toString();
+            obj.name = 'particle' + this._count.toString();
             let mesh: any = obj.addComponent(MeshComponent);
 
             mesh.mesh = this.mesh;
@@ -73,16 +75,14 @@ export class MeshParticles extends Component {
         }
     }
 
-    changeMaterial(mat: Material)
-    {
+    changeMaterial(mat: Material) {
         /* Called to Change the Material of the Particles */
         for (let o of this._objects) {
-            o.getComponent("mesh").material = mat;
+            o.getComponent('mesh').material = mat;
         }
     }
 
-    update(dt: number)
-    {
+    update(dt: number) {
         this.time += dt;
         /* Hide Spawned Particles after Delay Timer*/
         if (this.time > this.delay) {
@@ -128,9 +128,8 @@ export class MeshParticles extends Component {
     }
 
     /** Spawn a particle */
-    spawn(): void
-    {
-        console.log("function called");
+    spawn(): void {
+        console.log('function called');
         for (let i = 0; i < this.maxParticles; ++i) {
             let index = this._count % this.maxParticles;
 
@@ -139,7 +138,7 @@ export class MeshParticles extends Component {
             obj.scaleLocal([this.particleScale, this.particleScale, this.particleScale]);
 
             /* Activate component, otherwise it will not show up! */
-            obj.getComponent("mesh").active = true;
+            obj.getComponent('mesh').active = true;
 
             const origin: vec3 = [0, 2, 0];
             if (this.spawnObjLocation != null) {

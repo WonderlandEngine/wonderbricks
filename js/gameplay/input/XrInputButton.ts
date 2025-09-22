@@ -1,7 +1,4 @@
-
-
-export const enum XrInputButton
-{
+export const enum XrInputButton {
     BUTTON_TRIGGER = 0,
     BUTTON_SQUEEZE = 1,
     BUTTON_THUMBSTICK = 3,

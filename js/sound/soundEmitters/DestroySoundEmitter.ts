@@ -1,13 +1,10 @@
-import { SoundEmitterBase } from "../SoundEmitterBase";
-import { SoundEmitterType } from "../SoundEmitterType";
+import {SoundEmitterBase} from '../SoundEmitterBase.js';
+import {SoundEmitterType} from '../SoundEmitterType.js';
 
-
-export class DestroySoundEmitter extends SoundEmitterBase
-{
+export class DestroySoundEmitter extends SoundEmitterBase {
     static TypeName = 'sound-emitter-destroy';
 
-    protected onInit(): void
-    {
+    protected onInit(): void {
         this._emitterType = SoundEmitterType.BlockDestroy;
     }
 }

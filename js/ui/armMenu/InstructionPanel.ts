@@ -1,14 +1,12 @@
-import {Component, Object3D} from "@wonderlandengine/api";
-import {property} from "@wonderlandengine/api/decorators.js";
+import {Component, Object3D} from '@wonderlandengine/api';
+import {property} from '@wonderlandengine/api/decorators.js';
 
-import {UiButton} from "../UiButton.js";
-import {ObjectToggler} from "../../utils/ObjectToggler.js";
-import {MenuController} from "./MenuController.js";
+import {UiButton} from '../UiButton.js';
+import {ObjectToggler} from '../../utils/ObjectToggler.js';
+import {MenuController} from './MenuController.js';
 
-
-export class InstructionPanel extends Component
-{
-    public static TypeName = "instructions-panel";
+export class InstructionPanel extends Component {
+    public static TypeName = 'instructions-panel';
 
     /** Properties declaration */
     @property.object()
@@ -21,8 +19,7 @@ export class InstructionPanel extends Component
     private _armMenu: MenuController;
     private _closeButton: UiButton;
 
-    public override start()
-    {
+    public override start() {
         // Add Object Toggler
         this._objToggle = this.object.addComponent(ObjectToggler);
 
@@ -38,8 +35,7 @@ export class InstructionPanel extends Component
      * Close the panel on close button clicked
      * @private
      */
-    private onCloseButtonClickedHandler(): void
-    {
+    private onCloseButtonClickedHandler(): void {
         this._objToggle.setActive(false);
         this._armMenu.objectToggler.setActive(true);
     }

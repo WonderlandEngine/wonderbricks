@@ -1,11 +1,9 @@
-import { Component, ComponentProperty, Object, Type } from "@wonderlandengine/api";
-import { ArmPanel } from "./ArmPanel.js";
-import { MenuSelectionButton } from "./MenuSelectionButton.js";
-import {ObjectToggler} from "../../utils/ObjectToggler.js";
+import {Component, ComponentProperty, Object, Type} from '@wonderlandengine/api';
+import {ArmPanel} from './ArmPanel.js';
+import {MenuSelectionButton} from './MenuSelectionButton.js';
+import {ObjectToggler} from '../../utils/ObjectToggler.js';
 
-
-export class MenuController extends Component
-{
+export class MenuController extends Component {
     static TypeName: string = 'menu-controller';
     static Properties: Record<string, ComponentProperty> = {
         // Buttons
@@ -45,10 +43,11 @@ export class MenuController extends Component
     private _texturePanelComp: ArmPanel;
 
     // Accessors
-    public get objectToggler(): ObjectToggler { return this._objToggle; }
+    public get objectToggler(): ObjectToggler {
+        return this._objToggle;
+    }
 
-    public override start(): void 
-    {
+    public override start(): void {
         // Add Object Toggler
         this._objToggle = this.object.addComponent(ObjectToggler);
 
@@ -58,14 +57,20 @@ export class MenuController extends Component
         this._textureButtonComp = this.textureButton.getComponent(MenuSelectionButton);
 
         // Set interaction callbacks
-        this._menuButtonComp.button.addInteractCallback(this.onMenuButtonPressed.bind(this));
-        this._blockButtonComp.button.addInteractCallback(this.onBlockButtonPressed.bind(this));
-        this._textureButtonComp.button.addInteractCallback(this.onTextureButtonPressed.bind(this));
+        this._menuButtonComp.button.addInteractCallback(
+            this.onMenuButtonPressed.bind(this)
+        );
+        this._blockButtonComp.button.addInteractCallback(
+            this.onBlockButtonPressed.bind(this)
+        );
+        this._textureButtonComp.button.addInteractCallback(
+            this.onTextureButtonPressed.bind(this)
+        );
 
         this._menuPanelComp = this.menuPanel.getComponent(ArmPanel);
         this._blockPanelComp = this.blockPanel.getComponent(ArmPanel);
         this._texturePanelComp = this.texturePanel.getComponent(ArmPanel);
-        
+
         this.engine.onXRSessionStart.push(() => {
             setTimeout(() => {
                 this._menuPanelComp.hide();
@@ -76,11 +81,9 @@ export class MenuController extends Component
         });
     }
 
-    private onMenuButtonPressed(): void 
-    {
+    private onMenuButtonPressed(): void {
         // Check if already active
-        if(this._menuButtonComp.isActive)
-        {
+        if (this._menuButtonComp.isActive) {
             this._menuButtonComp.setActive(false);
             this._menuPanelComp.hide();
             return;
@@ -94,12 +97,10 @@ export class MenuController extends Component
         this._blockPanelComp.hide();
         this._texturePanelComp.hide();
     }
-    
-    private onBlockButtonPressed(): void 
-    {
+
+    private onBlockButtonPressed(): void {
         // Check if already active
-        if(this._blockButtonComp.isActive)
-        {
+        if (this._blockButtonComp.isActive) {
             this._blockButtonComp.setActive(false);
             this._blockPanelComp.hide();
             return;
@@ -114,11 +115,9 @@ export class MenuController extends Component
         this._texturePanelComp.hide();
     }
 
-    private onTextureButtonPressed(): void 
-    {
+    private onTextureButtonPressed(): void {
         // Check if already active
-        if(this._textureButtonComp.isActive)
-        {
+        if (this._textureButtonComp.isActive) {
             this._textureButtonComp.setActive(false);
             this._texturePanelComp.hide();
             return;

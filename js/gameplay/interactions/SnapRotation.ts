@@ -1,7 +1,7 @@
-import {Component, InputComponent, Object3D} from "@wonderlandengine/api";
-import {TeleportComponent} from "@wonderlandengine/components";
-import {getXrSessionStart} from "../../lib/WlApi";
-import XrGamepad from "../input/XrGamepad";
+import {Component, InputComponent, Object3D} from '@wonderlandengine/api';
+import {TeleportComponent} from '@wonderlandengine/components';
+import {getXrSessionStart} from '../../lib/WlApi.js';
+import XrGamepad from '../input/XrGamepad.js';
 import {property} from '@wonderlandengine/api/decorators.js';
 
 const AxisY = [0, 1, 0];
@@ -9,10 +9,10 @@ const AxisY = [0, 1, 0];
  * snap-rotation
  */
 export class SnapRotation extends Component {
-    static TypeName = "snap-rotation";
+    static TypeName = 'snap-rotation';
 
     /* Properties that are configurable in the editor */
-    
+
     @property.object()
     player: Object3D | null = null;
 
@@ -21,7 +21,7 @@ export class SnapRotation extends Component {
 
     @property.object()
     cursor: Object3D | null = null;
-    
+
     @property.float(0.2)
     sensitivity: number;
 
@@ -31,11 +31,9 @@ export class SnapRotation extends Component {
     private _teleportComponent: TeleportComponent;
     private _isTeleporting: boolean;
 
-
-    start(): void
-    {
+    start(): void {
         /** Input component fetching */
-        if(this.inputObject === null) this.inputObject = this.object;
+        if (this.inputObject === null) this.inputObject = this.object;
         this._inputComponent = this.inputObject.getComponent('input');
         this._hand = this._inputComponent.handedness;
 
@@ -51,8 +49,7 @@ export class SnapRotation extends Component {
      * @param session
      * @private
      */
-    private onXrSessionStart(session: XRSession): void
-    {
+    private onXrSessionStart(session: XRSession): void {
         this.inputSourcesSetup(session);
     }
 
@@ -62,23 +59,22 @@ export class SnapRotation extends Component {
      * @param session
      * @private
      */
-    private inputSourcesSetup(session: XRSession): void
-    {
+    private inputSourcesSetup(session: XRSession): void {
         /** Initial gamepad fetching */
-        for (let i = 0; i < session.inputSources.length; ++i)
-        {
+        for (let i = 0; i < session.inputSources.length; ++i) {
             let current = session.inputSources[i];
 
-            if(current.handedness === this._hand)
-            {
+            if (current.handedness === this._hand) {
                 this.setupXrGamepad(current.gamepad);
             }
         }
 
         /** Change XR Input Source Event **/
-        session.addEventListener('inputsourceschange', this.onXrInputSourceChangeHandler.bind(this));
+        session.addEventListener(
+            'inputsourceschange',
+            this.onXrInputSourceChangeHandler.bind(this)
+        );
     }
-
 
     /**
      * Setup given gamepad and subscribe to all necessary events
@@ -86,8 +82,7 @@ export class SnapRotation extends Component {
      * @param gamepad
      * @private
      */
-    private setupXrGamepad(gamepad: Gamepad): void
-    {
+    private setupXrGamepad(gamepad: Gamepad): void {
         this._xrGamepad = new XrGamepad(gamepad, this._hand);
     }
 
@@ -96,45 +91,38 @@ export class SnapRotation extends Component {
      * @param event
      * @private
      */
-    private onXrInputSourceChangeHandler(event: XRInputSourceChangeEvent): void
-    {
-        for (let i = 0; i < event.added.length; ++i)
-        {
+    private onXrInputSourceChangeHandler(event: XRInputSourcesChangeEvent): void {
+        for (let i = 0; i < event.added.length; ++i) {
             let current = event.added[i];
 
-            if(current.handedness === this._hand)
-            {
+            if (current.handedness === this._hand) {
                 this.setupXrGamepad(current.gamepad);
             }
         }
     }
 
-    update()
-    {
-        if(this._xrGamepad == null) return;
+    update() {
+        if (this._xrGamepad == null) return;
         this._xrGamepad.update(); /** Update inputs */
 
         this._isTeleporting = this._teleportComponent.isIndicating;
         /**enable snap rotation only when player is  not teleporting */
-        if(!this._isTeleporting)
-        {
-            if(this._xrGamepad.joystickXJustMoved) this.snap(this._xrGamepad.joystickXValue)
+        if (!this._isTeleporting) {
+            if (this._xrGamepad.joystickXJustMoved)
+                this.snap(this._xrGamepad.joystickXValue);
         }
     }
 
-    private snap(xAxis: number): void
-    {
-        if(xAxis > this.sensitivity) this.rotateRight();
-        if(xAxis < -this.sensitivity) this.rotateLeft();
+    private snap(xAxis: number): void {
+        if (xAxis > this.sensitivity) this.rotateRight();
+        if (xAxis < -this.sensitivity) this.rotateLeft();
     }
 
-    private rotateLeft(): void
-    {
+    private rotateLeft(): void {
         this.player.rotateAxisAngleDegObject(AxisY, 45);
     }
 
-    private rotateRight(): void
-    {
+    private rotateRight(): void {
         this.player.rotateAxisAngleDegObject(AxisY, -45);
     }
 }

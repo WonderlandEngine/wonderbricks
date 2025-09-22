@@ -1,29 +1,25 @@
-import {Component} from "@wonderlandengine/api";
+import {Component} from '@wonderlandengine/api';
 
 export type UiInteractCallback = () => void;
 
 /**
  * Base class for UI Elements components
  */
-export abstract class UiElementBase extends Component
-{
+export abstract class UiElementBase extends Component {
     static TypeName = 'ui-element-base';
     static Properties = {};
 
     protected _interactCallbacks: Array<UiInteractCallback>;
 
-    public override init()
-    {
+    public override init() {
         this._interactCallbacks = new Array<UiInteractCallback>();
     }
 
-    public addInteractCallback(callback: UiInteractCallback): void
-    {
+    public addInteractCallback(callback: UiInteractCallback): void {
         this._interactCallbacks.push(callback);
     }
 
-    public removeInteractCallback(callback: UiInteractCallback): void
-    {
+    public removeInteractCallback(callback: UiInteractCallback): void {
         const index = this._interactCallbacks.indexOf(callback);
         this._interactCallbacks.splice(index, 1);
     }

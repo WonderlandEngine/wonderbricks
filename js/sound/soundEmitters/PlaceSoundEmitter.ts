@@ -1,13 +1,10 @@
-import { SoundEmitterBase } from "../SoundEmitterBase";
-import { SoundEmitterType } from "../SoundEmitterType";
+import {SoundEmitterBase} from '../SoundEmitterBase.js';
+import {SoundEmitterType} from '../SoundEmitterType.js';
 
-
-export class PlaceSoundEmitter extends SoundEmitterBase
-{
+export class PlaceSoundEmitter extends SoundEmitterBase {
     static TypeName = 'sound-emitter-place';
 
-    protected onInit(): void
-    {
+    protected onInit(): void {
         this._emitterType = SoundEmitterType.BlockPlaced;
     }
 }

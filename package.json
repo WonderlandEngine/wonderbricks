@@ -1,25 +1,28 @@
 {
-    "name": "wonderbrick",
-    "version": "1.0.0",
-    "description": "My Wonderland project",
-    "main": "js/index.js",
-    "type": "module",
-    "module": "js/index.js",
-    "scripts": {
-        "build": "esbuild ./js/index.js --bundle --outfile=\"deploy/wonderbrick-bundle.js\""
-    },
-    "keywords": [
-        "wonderland-engine"
-    ],
-    "devDependencies": {
-        "esbuild": "^0.15.18"
-    },
-    "dependencies": {
-        "@wonderlandengine/api": ">=1.4.0 <1.5.0",
-        "@wonderlandengine/components": "^1.2.3",
-        "gl-matrix": "^3.4.3"
-    },
-    "overrides": {
-        "@wonderlandengine/api": "$@wonderlandengine/api"
-    }
+  "name": "wonderbrick",
+  "version": "1.0.0",
+  "description": "My Wonderland project",
+  "main": "js/index.js",
+  "type": "module",
+  "module": "js/index.js",
+  "scripts": {
+    "build": "esbuild ./js/index.js --bundle --outfile=\"deploy/wonderbrick-bundle.js\""
+  },
+  "keywords": [
+    "wonderland-engine"
+  ],
+  "devDependencies": {
+    "esbuild": "^0.15.18"
+  },
+  "prettier": "@wonderlandengine/prettier-config",
+  "dependencies": {
+    "@wonderlandengine/api": ">=1.4.0 <1.5.0",
+    "@wonderlandengine/components": "^1.2.3",
+    "@wonderlandengine/prettier-config": "^1.0.0",
+    "gl-matrix": "^3.4.3",
+    "typescript": "^5.9.2"
+  },
+  "overrides": {
+    "@wonderlandengine/api": "$@wonderlandengine/api"
+  }
 }

@@ -1,13 +1,10 @@
-import { SoundEmitterBase } from "../SoundEmitterBase";
-import { SoundEmitterType } from "../SoundEmitterType";
+import {SoundEmitterBase} from '../SoundEmitterBase.js';
+import {SoundEmitterType} from '../SoundEmitterType.js';
 
-
-export class ClickSoundEmitter extends SoundEmitterBase
-{
+export class ClickSoundEmitter extends SoundEmitterBase {
     static TypeName = 'sound-emitter-click';
 
-    protected onInit(): void
-    {
+    protected onInit(): void {
         this._emitterType = SoundEmitterType.Click;
     }
 }
