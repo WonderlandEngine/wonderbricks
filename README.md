@@ -2,18 +2,30 @@
 
 ![Wonderbricks Thumbnail](img/wonderbricks-thumbnail.png)
 
-Engine : [Wonderland Engine](https://wonderlandengine.com/) \
-Engine Version : `1.4.7`
+Engine: [Wonderland Engine](https://wonderlandengine.com/) \
+Engine Version: `1.4.7`
+
+Find a [live version on HeyVR.io](https://heyvr.io/arcade/games/wonderbricks).
 
 ## Description
 
-Put cubes on a grid to create dioramas or environments.
+Build whatever you want in Wonderbricks--surrounded by a peaceful environment lost in the sky.
 
-## Workers
+Using a variety of different blocks and materials to apply to them, you can build almost everything you want to populate the world.
 
-Project Manager : Vincent Vidal \
-Lead Artist : Nicolas Morlet \
-Lead Dev : Thomas Gredin
+Supports both VR and MR modes on Meta Quest 2, Meta Quest 3, and various other VR and AR headset. Hand-tracking supported.
+
+## Authors
+
+This project built by [Novelab.](https://novelab.io) for [Wonderland Engine](https://wonderlandengine.com).
+
+Project Manager: Vincent Vidal \
+Lead Artist: Nicolas Morlet \
+Lead Dev: Thomas Gredin
+
+Cleanup and futher development: \
+Jonathan Hale \
+Nithin Steven F
 
 ## License
 
