@@ -843,17 +843,14 @@
                     }
                 },
                 {
-                    "type": "vr-mode-active-switch",
-                    "active": true
-                },
-                {
                     "type": "XR-Controller",
                     "XR-Controller": {
                         "inputObject": "129",
                         "inputIndicator": "27",
                         "pointerRay": "129",
                         "objectToPlace": "239"
-                    }
+                    },
+                    "active": true
                 },
                 {
                     "type": "pointer-ray",
@@ -863,7 +860,8 @@
                         "rayVisualObject": "266",
                         "rayOrigin": "212",
                         "cursorHitVisualObject": "239"
-                    }
+                    },
+                    "active": true
                 },
                 {
                     "type": "burst-mesh-particles",
@@ -961,6 +959,10 @@
                         "mesh": "7",
                         "spawnObjLocation": "129"
                     }
+                },
+                {
+                    "type": "vr-mode-active-switch",
+                    "active": true
                 }
             ],
             "translation": [
