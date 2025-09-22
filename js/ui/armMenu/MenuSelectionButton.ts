@@ -1,20 +1,25 @@
-import { Component, ComponentProperty, MeshComponent, Object, Texture, Type } from "@wonderlandengine/api";
-import { vec4 } from "gl-matrix";
-import { Color } from "../../utils/materials/Color.js";
-import { FlatTexturedMaterial } from "../../utils/materials/FlatTexturedMaterial.js";
-import { UiButton } from "../UiButton.js";
-
+import {
+    Component,
+    ComponentProperty,
+    MeshComponent,
+    Object,
+    Texture,
+    Type,
+} from '@wonderlandengine/api';
+import {vec4} from 'gl-matrix';
+import {Color} from '../../utils/materials/Color.js';
+import {FlatTexturedMaterial} from '../../utils/materials/FlatTexturedMaterial.js';
+import {UiButton} from '../UiButton.js';
 
 /**
  * Class MenuSelectionButton.
  * Represente buttons for menu selection on the arm menu.
  */
-export class MenuSelectionButton extends Component
-{
+export class MenuSelectionButton extends Component {
     static TypeName: string = 'menu-selection-button';
     static Properties: Record<string, ComponentProperty> = {
         iconObject: {type: Type.Object, default: null},
-        iconTexture: {type: Type.Texture, default: null}
+        iconTexture: {type: Type.Texture, default: null},
     };
 
     // Properties declaration
@@ -29,11 +34,14 @@ export class MenuSelectionButton extends Component
     private _isActive: boolean;
 
     // Getters
-    public get isActive(): boolean { return this._isActive; }
-    public get button(): UiButton { return this._button; }
+    public get isActive(): boolean {
+        return this._isActive;
+    }
+    public get button(): UiButton {
+        return this._button;
+    }
 
-    public override init(): void 
-    {
+    public override init(): void {
         this.setup();
         this.setupIcon();
     }
@@ -41,19 +49,17 @@ export class MenuSelectionButton extends Component
     /**
      * Change the visual appearance of the button based on
      * given properties
-     * @param isActive 
+     * @param isActive
      */
-    public setActive(isActive: boolean): void 
-    {
+    public setActive(isActive: boolean): void {
         // NOTE: since it seems that it's not possible to keep a reference
         // to the WASM instance of the material, it's mandatory to modify the material value
-        // through the array access notation... 
+        // through the array access notation...
         this._mesh.material['color'] = isActive ? Color.COLOR_ACTIVE : Color.COLOR_NORMAL;
         this._isActive = isActive;
     }
 
-    private setup(): void
-    {
+    private setup(): void {
         // === Button setup ===
         this._button = this.object.getComponent(UiButton);
 
@@ -67,8 +73,7 @@ export class MenuSelectionButton extends Component
         this._isActive = false;
     }
 
-    private setupIcon(): void
-    {
+    private setupIcon(): void {
         const iconTempMesh = this.iconObject.getComponent('mesh');
         this._iconMaterial = iconTempMesh.material?.clone() as FlatTexturedMaterial;
 

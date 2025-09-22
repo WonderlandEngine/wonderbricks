@@ -1,10 +1,8 @@
-
 /**
  * Contains all tags for the current project
  */
-export enum Tag
-{
+export enum Tag {
     ENVIRONMENT,
     BLOCK,
-    UI
+    UI,
 }

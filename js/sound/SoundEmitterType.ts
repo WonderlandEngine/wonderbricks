@@ -1,7 +1,4 @@
-
-
-export enum SoundEmitterType
-{
+export enum SoundEmitterType {
     Click,
     BlockPlaced,
     BlockRotate,

@@ -1,10 +1,8 @@
-import {Type} from "@wonderlandengine/api";
-import PrefabBase from "./PrefabBase";
-import PrefabsRegistry from "./PrefabsRegistry";
+import {Type} from '@wonderlandengine/api';
+import PrefabBase from './PrefabBase.js';
+import PrefabsRegistry from './PrefabsRegistry.js';
 
-
-export class PyramidPrefab extends PrefabBase
-{
+export class PyramidPrefab extends PrefabBase {
     static TypeName = 'pyramid-prefab';
     static Properties = {
         finalMesh: {type: Type.Mesh},
@@ -14,10 +12,11 @@ export class PyramidPrefab extends PrefabBase
         previsMat: {type: Type.Material},
     };
 
-    public override getPrefabUniqueName(): string { return PyramidPrefab.TypeName; }
+    public override getPrefabUniqueName(): string {
+        return PyramidPrefab.TypeName;
+    }
 
-    public override start()
-    {
+    public override start() {
         super.start();
         PrefabsRegistry.registerPrefab(this);
 

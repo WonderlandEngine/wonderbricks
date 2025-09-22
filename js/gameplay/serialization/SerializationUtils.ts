@@ -1,21 +1,17 @@
-import {BlockData, SaveData, SceneBuildData} from "./SarielizationData";
+import {BlockData, SaveData, SceneBuildData} from './SarielizationData.js';
 
 const SAVE_ITEM_KEY = 'SAVE_DATA';
 
-class SerializationUtils
-{
+class SerializationUtils {
     private _localStorage: Storage;
     private _saveData: SaveData;
 
-    public constructor()
-    {
-        if(typeof window === 'undefined' || !window.localStorage)
-            return;
+    public constructor() {
+        if (typeof window === 'undefined' || !window.localStorage) return;
 
         this._localStorage = window.localStorage;
 
-        if(this._localStorage.getItem(SAVE_ITEM_KEY) !== null)
-        {
+        if (this._localStorage.getItem(SAVE_ITEM_KEY) !== null) {
             this.processExistingSaveData();
             return;
         }
@@ -23,43 +19,36 @@ class SerializationUtils
         this.createSaveData();
     }
 
-    private processExistingSaveData(): void
-    {
+    private processExistingSaveData(): void {
         this._saveData = JSON.parse(this._localStorage.getItem(SAVE_ITEM_KEY)) as SaveData;
         console.log(this._saveData);
     }
 
-    private createSaveData(): void
-    {
-        this._saveData = { saves: new Array<SceneBuildData> }
+    private createSaveData(): void {
+        this._saveData = {saves: new Array<SceneBuildData>()};
         this._localStorage.setItem(SAVE_ITEM_KEY, JSON.stringify(this._saveData));
     }
 
     // Saves manipulation
     // =============================
 
-    public getSavesEntries(): Array<SceneBuildData>
-    {
+    public getSavesEntries(): Array<SceneBuildData> {
         return this._saveData.saves;
     }
 
     /** Create a new save entry without pushing it in saves array */
-    public createNewSaveEntry(name: string): SceneBuildData
-    {
+    public createNewSaveEntry(name: string): SceneBuildData {
         return {
             name: name,
             userPref: {color: [1, 1, 1], block: ''},
-            blocks: new Array<BlockData>()
+            blocks: new Array<BlockData>(),
         };
     }
 
-    public createOrUpdateSaveEntry(saveData: SceneBuildData): void
-    {
+    public createOrUpdateSaveEntry(saveData: SceneBuildData): void {
         const saves = this._saveData.saves;
-        for (let i = 0; i < saves.length; i++)
-        {
-            if(saves[i].name == saveData.name)
-            {
+        for (let i = 0; i < saves.length; i++) {
+            if (saves[i].name == saveData.name) {
                 saves[i] = saveData;
                 this._saveData.saves = saves;
                 return;
@@ -70,13 +59,10 @@ class SerializationUtils
         this._saveData.saves.push(saveData);
     }
 
-    public removeSaveEntry(saveData: SceneBuildData): void
-    {
+    public removeSaveEntry(saveData: SceneBuildData): void {
         const saves = this._saveData.saves;
-        for (let i = 0; i < saves.length; i++)
-        {
-            if(saves[i].name == saveData.name)
-            {
+        for (let i = 0; i < saves.length; i++) {
+            if (saves[i].name == saveData.name) {
                 saves.splice(i, 1);
                 return;
             }
@@ -84,8 +70,7 @@ class SerializationUtils
     }
 
     /** Write changes from local memory to local storage */
-    public flushSaves(): void
-    {
+    public flushSaves(): void {
         this._localStorage.setItem(SAVE_ITEM_KEY, JSON.stringify(this._saveData));
         this.processExistingSaveData();
     }

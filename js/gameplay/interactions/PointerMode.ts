@@ -1,7 +1,4 @@
-
-
-export const enum PointerMode
-{
+export const enum PointerMode {
     Grid = 0,
-    Free = 1
+    Free = 1,
 }

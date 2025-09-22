@@ -1,21 +1,19 @@
-// <reference path="./../../deploy/wonderland.min.js"/>
+import type {Scene, WonderlandEngine, Emitter} from '@wonderlandengine/api';
 
-import {Component, Scene, XrSessionStartCallback} from "@wonderlandengine/api";
-
-export function registerComponent(component: Component): void
-{
-    // @ts-ignore
-    WL.registerComponent(component);
+declare global {
+    interface Window {
+        WL: WonderlandEngine;
+    }
 }
 
-export function getCurrentScene(): Scene
-{
-    // @ts-ignore
-    return WL.scene;
+export function getCurrentScene(): Scene {
+    return window.WL.scene;
 }
 
-export function getXrSessionStart(): Array<XrSessionStartCallback>
-{
-    // @ts-ignore
-    return WL.onXRSessionStart;
+export function getEngine(): WonderlandEngine {
+    return window.WL;
+}
+
+export function getXrSessionStart(): Emitter<[XRSession, XRSessionMode]> {
+    return window.WL.onXRSessionStart;
 }

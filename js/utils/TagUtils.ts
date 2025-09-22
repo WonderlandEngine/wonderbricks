@@ -3,26 +3,21 @@
  * this util static class simulate the integration of tag
  * support using key access to a property.
  */
-import {Object} from "@wonderlandengine/api";
-import {Tag} from "./Tag";
+import {Object} from '@wonderlandengine/api';
+import {Tag} from './Tag.js';
 
-
-export default class TagUtils
-{
+export default class TagUtils {
     public static readonly tagKey: string = 'TAG';
 
-    public static setTag(object: Object, tag: Tag): void
-    {
+    public static setTag(object: Object, tag: Tag): void {
         object[this.tagKey] = tag;
     }
 
-    public static hasTag(object: Object, tag: Tag): boolean
-    {
+    public static hasTag(object: Object, tag: Tag): boolean {
         return !(!object[this.tagKey] && object[this.tagKey] !== tag);
     }
 
-    public static getTag(object: Object): Tag | undefined
-    {
+    public static getTag(object: Object): Tag | undefined {
         return object[this.tagKey];
     }
 }

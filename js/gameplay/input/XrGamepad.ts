@@ -1,6 +1,6 @@
-import XrButton from "./XrButton";
-import {XrInputButton} from "./XrInputButton";
-import {XrInputAxes} from "./XrInputAxes";
+import XrButton from './XrButton.js';
+import {XrInputButton} from './XrInputButton.js';
+import {XrInputAxes} from './XrInputAxes.js';
 
 /**
  * This class represent a Xr-standard controller
@@ -24,12 +24,10 @@ import {XrInputAxes} from "./XrInputAxes";
     });
  * ```
  */
-export default class XrGamepad
-{
+export default class XrGamepad {
     private _hand: XRHandedness;
     private _gamepad: Gamepad;
 
-    // @ts-ignore
     private _buttons: Map<XrInputButton, XrButton>;
 
     private _joystickXWasMoving: boolean;
@@ -42,76 +40,81 @@ export default class XrGamepad
 
     private readonly _joystickTriggerValue: number = 0.5;
 
-    public get hand(): XRHandedness { return this._hand; }
+    public get hand(): XRHandedness {
+        return this._hand;
+    }
 
-    public get joystickXValue(): number { return this._gamepad.axes[XrInputAxes.THUMBSTICK_X]; }
-    public get joystickYValue(): number { return this._gamepad.axes[XrInputAxes.THUMBSTICK_Y]; }
+    public get joystickXValue(): number {
+        return this._gamepad.axes[XrInputAxes.THUMBSTICK_X];
+    }
+    public get joystickYValue(): number {
+        return this._gamepad.axes[XrInputAxes.THUMBSTICK_Y];
+    }
 
-    public get joystickXJustMoved(): boolean { return this._joystickXJustMoved; }
-    public get joystickYJustMoved(): boolean { return this._joystickYJustMoved; }
+    public get joystickXJustMoved(): boolean {
+        return this._joystickXJustMoved;
+    }
+    public get joystickYJustMoved(): boolean {
+        return this._joystickYJustMoved;
+    }
 
-    public constructor(gamepad: Gamepad, hand: XRHandedness)
-    {
+    public constructor(gamepad: Gamepad, hand: XRHandedness) {
         this.setup(gamepad, hand);
     }
 
-    public setup(gamepad: Gamepad, hand: XRHandedness): void
-    {
+    public setup(gamepad: Gamepad, hand: XRHandedness): void {
         this._gamepad = gamepad;
         this._hand = hand;
 
         this.initButtons();
     }
 
-    public update(): void
-    {
+    public update(): void {
         // Buttons update
-        for (const key of this._buttons.keys())
-        {
+        for (const key of this._buttons.keys()) {
             this._buttons.get(key).update();
         }
 
         // Joysticks update
 
-        this._joystickXIsMoving = Math.abs(this._gamepad.axes[XrInputAxes.THUMBSTICK_X]) > this._joystickTriggerValue;
-        this._joystickYIsMoving = Math.abs(this._gamepad.axes[XrInputAxes.THUMBSTICK_Y]) > this._joystickTriggerValue;
+        this._joystickXIsMoving =
+            Math.abs(this._gamepad.axes[XrInputAxes.THUMBSTICK_X]) >
+            this._joystickTriggerValue;
+        this._joystickYIsMoving =
+            Math.abs(this._gamepad.axes[XrInputAxes.THUMBSTICK_Y]) >
+            this._joystickTriggerValue;
 
-        this._joystickXJustMoved = this._joystickXIsMoving && !this._joystickXWasMoving
-        this._joystickYJustMoved = this._joystickYIsMoving && !this._joystickYWasMoving
+        this._joystickXJustMoved = this._joystickXIsMoving && !this._joystickXWasMoving;
+        this._joystickYJustMoved = this._joystickYIsMoving && !this._joystickYWasMoving;
 
         this._joystickXWasMoving = this._joystickXIsMoving;
         this._joystickYWasMoving = this._joystickYIsMoving;
     }
 
-    public getButton(buttonIndex: XrInputButton): XrButton
-    {
+    public getButton(buttonIndex: XrInputButton): XrButton {
         return this._buttons.get(buttonIndex);
     }
 
-    private initButtons(): void
-    {
-        let buttonsIndices = [
+    private initButtons(): void {
+        const buttonsIndices = [
             XrInputButton.BUTTON_TRIGGER,
             XrInputButton.BUTTON_SQUEEZE,
             XrInputButton.BUTTON_A_X,
-            XrInputButton.BUTTON_B_Y
-        ]
+            XrInputButton.BUTTON_B_Y,
+        ];
 
         // Clear the map if needed
-        if(this._buttons != null)
-        {
+        if (this._buttons != null) {
             this._buttons.clear();
             this._buttons = null;
         }
 
-        // @ts-ignore
-        this._buttons = new Map<XrInputButton, XrButton>()
+        this._buttons = new Map<XrInputButton, XrButton>();
 
-        for (let i = 0; i < buttonsIndices.length; ++i)
-        {
-            let index = buttonsIndices[i];
-            let gamepadButton = this._gamepad.buttons[index];
-            let button = new XrButton(gamepadButton, index);
+        for (let i = 0; i < buttonsIndices.length; ++i) {
+            const index = buttonsIndices[i];
+            const gamepadButton = this._gamepad.buttons[index];
+            const button = new XrButton(gamepadButton, index);
 
             this._buttons.set(index, button);
         }

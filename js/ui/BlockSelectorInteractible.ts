@@ -1,24 +1,22 @@
-import {Component, MeshComponent, Object, Property} from "@wonderlandengine/api";
-import PrefabBase from "../gameplay/prefabs/PrefabBase";
-import {UiButton} from "./UiButton";
-import BuildController from "../gameplay/buildSystem/BuildController";
-import PrefabsRegistry from "../gameplay/prefabs/PrefabsRegistry";
-import { Color } from "../utils/materials/Color";
-import { vec4 } from "gl-matrix";
-import { BlockSelectionPanel } from "./armMenu/BlockSelectionPanel";
+import {Component, MeshComponent, Object, Property} from '@wonderlandengine/api';
+import PrefabBase from '../gameplay/prefabs/PrefabBase.js';
+import {UiButton} from './UiButton.js';
+import BuildController from '../gameplay/buildSystem/BuildController.js';
+import PrefabsRegistry from '../gameplay/prefabs/PrefabsRegistry.js';
+import {Color} from '../utils/materials/Color.js';
+import {vec4} from 'gl-matrix';
+import {BlockSelectionPanel} from './armMenu/BlockSelectionPanel.js';
 
-
-export class BlockSelectorInteractible extends Component
-{
+export class BlockSelectorInteractible extends Component {
     static TypeName = 'block-selector-interactible';
     static Properties = {
         prefab: Property.object(),
-        isDefaultBlock : Property.bool(false)
-    }
+        isDefaultBlock: Property.bool(false),
+    };
 
     // Properties fields declaration
     private prefab: Object;
-    private isDefaultBlock:Boolean;
+    private isDefaultBlock: Boolean;
 
     // fields
     private _prefabComponent: PrefabBase;
@@ -27,9 +25,10 @@ export class BlockSelectorInteractible extends Component
 
     private _parent: BlockSelectionPanel;
 
-    public override start()
-    {
-        this._prefabComponent = PrefabsRegistry.getPrefabByName(this.prefab[PrefabsRegistry.PREFAB_UNAME_KEY]);
+    public override start() {
+        this._prefabComponent = PrefabsRegistry.getPrefabByName(
+            this.prefab[PrefabsRegistry.PREFAB_UNAME_KEY]
+        );
 
         this._buttonComponent = this.object.getComponent(UiButton);
         this._buttonComponent.addInteractCallback(this.onInteractHandler.bind(this));
@@ -41,22 +40,20 @@ export class BlockSelectorInteractible extends Component
         // Get parent BlockSelectionPanel component
         this._parent = this.object.parent.getComponent(BlockSelectionPanel);
         this._parent.registerButton(this);
-        if(this.isDefaultBlock)
-            this.onInteractHandler();
+        if (this.isDefaultBlock) this.onInteractHandler();
     }
 
-    public override onActivate(): void 
-    {
-        this._prefabComponent = PrefabsRegistry.getPrefabByName(this.prefab[PrefabsRegistry.PREFAB_UNAME_KEY]);
+    public override onActivate(): void {
+        this._prefabComponent = PrefabsRegistry.getPrefabByName(
+            this.prefab[PrefabsRegistry.PREFAB_UNAME_KEY]
+        );
     }
 
-    public setVisualColor(color: vec4): void 
-    {
+    public setVisualColor(color: vec4): void {
         this._mesh.material['color'] = color;
     }
 
-    private onInteractHandler(): void
-    {
+    private onInteractHandler(): void {
         BuildController.setPrefab(this._prefabComponent);
         this._parent.notifyInteraction(this);
     }

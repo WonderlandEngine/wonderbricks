@@ -1,9 +1,7 @@
-import { Material, Texture } from "@wonderlandengine/api";
-import { vec4 } from "gl-matrix";
+import {Material, Texture} from '@wonderlandengine/api';
+import {vec4} from 'gl-matrix';
 
-
-export declare class PhysicalMaterial extends Material
-{
+export declare class PhysicalMaterial extends Material {
     // Other uniforms
     public albedoColor: vec4;
     public metallicFactor: number;

@@ -1,14 +1,13 @@
-import Grid from "./Grid";
+import Grid from './Grid.js';
 
-
-class GridManager
-{
+class GridManager {
     private _grid: Grid;
 
-    public get grid() { return this._grid; }
+    public get grid() {
+        return this._grid;
+    }
 
-    public constructor(size: number, layoutCount: number, cellSize: number)
-    {
+    public constructor(size: number, layoutCount: number, cellSize: number) {
         this._grid = new Grid(size, layoutCount, cellSize);
     }
 }

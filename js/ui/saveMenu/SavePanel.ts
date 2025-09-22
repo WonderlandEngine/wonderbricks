@@ -1,12 +1,10 @@
-import {Component, Object, TextComponent, Type} from "@wonderlandengine/api";
-import {UiButton} from "../UiButton";
-import SerializationUtils from "../../gameplay/serialization/SerializationUtils";
-import {SceneBuildData} from "../../gameplay/serialization/SarielizationData";
-import BuildController from "../../gameplay/buildSystem/BuildController";
+import {Component, Object, TextComponent, Type} from '@wonderlandengine/api';
+import {UiButton} from '../UiButton.js';
+import SerializationUtils from '../../gameplay/serialization/SerializationUtils.js';
+import {SceneBuildData} from '../../gameplay/serialization/SarielizationData.js';
+import BuildController from '../../gameplay/buildSystem/BuildController.js';
 
-
-export class SavePanel extends Component
-{
+export class SavePanel extends Component {
     static TypeName = 'save-panel';
     static Properties = {
         loadButtonObj: {type: Type.Object, default: null},
@@ -47,8 +45,7 @@ export class SavePanel extends Component
     private _currentSaveIndex: number;
     private _currentBuildData: SceneBuildData;
 
-    public override start()
-    {
+    public override start() {
         // Get buttons
         this._loadButton = this.loadButtonObj.getComponent(UiButton);
         this._newButton = this.newButtonObj.getComponent(UiButton);
@@ -68,46 +65,43 @@ export class SavePanel extends Component
         this._saveName = this.saveNameObj.getComponent('text');
 
         this._saveEntries = SerializationUtils.getSavesEntries();
-        this._currentSaveIndex = this._saveEntries.length < 1 ? -1: 0;
+        this._currentSaveIndex = this._saveEntries.length < 1 ? -1 : 0;
 
         this._saveCount.text = 'Saves: ' + this._saveEntries.length;
-        this._saveName.text = this._currentSaveIndex < 0 ? "No save available": this._saveEntries[0].name;
+        this._saveName.text =
+            this._currentSaveIndex < 0 ? 'No save available' : this._saveEntries[0].name;
 
         this.loadBlankSave();
     }
 
     // Buttons callbacks
 
-    private onLoadButtonClicked(): void
-    {
-        if(this._currentSaveIndex < 0)
-            return;
+    private onLoadButtonClicked(): void {
+        if (this._currentSaveIndex < 0) return;
 
         this._currentBuildData = this._saveEntries[this._currentSaveIndex];
         console.log(this._currentBuildData);
         BuildController.loadBuild(this._currentBuildData.blocks);
     }
 
-    private onNewButtonPressed(): void
-    {
+    private onNewButtonPressed(): void {
         this.setCurrentSelectedSave(-1); // Set empty save as current
         BuildController.loadBuild(this._currentBuildData.blocks);
     }
 
-    private onNextButtonPressed(): void
-    {
+    private onNextButtonPressed(): void {
         this._currentSaveIndex++;
-        if(this._currentSaveIndex > this._saveEntries.length - 1)
+        if (this._currentSaveIndex > this._saveEntries.length - 1)
             this._currentSaveIndex = 0;
 
         this.setCurrentSelectedSave(this._currentSaveIndex);
 
         // Update UI
-        this._saveName.text = this._currentSaveIndex < 0 ? "No save available": this._currentBuildData.name;
+        this._saveName.text =
+            this._currentSaveIndex < 0 ? 'No save available' : this._currentBuildData.name;
     }
 
-    private onSaveButtonPressed(): void
-    {
+    private onSaveButtonPressed(): void {
         this._currentBuildData.blocks = BuildController.getCurrentBuildData();
 
         SerializationUtils.createOrUpdateSaveEntry(this._currentBuildData);
@@ -117,19 +111,17 @@ export class SavePanel extends Component
         this._currentSaveIndex = this._currentSaveIndex < 0 ? 0 : this._currentSaveIndex;
 
         this._saveCount.text = 'Saves count: ' + this._saveEntries.length;
-        this._saveName.text = this._currentSaveIndex < 0 ?
-            "No save available":
-            this._saveEntries[this._currentSaveIndex].name;
+        this._saveName.text =
+            this._currentSaveIndex < 0
+                ? 'No save available'
+                : this._saveEntries[this._currentSaveIndex].name;
     }
 
-    private onRemoveButtonPressed(): void
-    {
-        if(this._currentSaveIndex < 0)
-            return;
+    private onRemoveButtonPressed(): void {
+        if (this._currentSaveIndex < 0) return;
 
         let saveToDelete = this._saveEntries[this._currentSaveIndex];
-        if(saveToDelete.name == this._currentBuildData.name)
-        {
+        if (saveToDelete.name == this._currentBuildData.name) {
             this.setCurrentSelectedSave(-1); // Set an empty save
             BuildController.loadBuild(this._currentBuildData.blocks);
         }
@@ -141,37 +133,34 @@ export class SavePanel extends Component
         this._saveEntries = SerializationUtils.getSavesEntries();
 
         // Update current selected save's index
-        if(this._saveEntries.length < 1)
-        {
+        if (this._saveEntries.length < 1) {
             this._currentSaveIndex = -1;
-        }
-        else
-        {
+        } else {
             const shouldResetIndex = this._currentSaveIndex > this._saveEntries.length - 1;
             this._currentSaveIndex = shouldResetIndex ? 0 : this._currentSaveIndex;
         }
 
         this._saveCount.text = 'Saves: ' + this._saveEntries.length;
-        this._saveName.text = this._currentSaveIndex < 0 ?
-            "No save available":
-            this._saveEntries[this._currentSaveIndex].name;
+        this._saveName.text =
+            this._currentSaveIndex < 0
+                ? 'No save available'
+                : this._saveEntries[this._currentSaveIndex].name;
     }
 
     // Saves manipulation
     // =============================
 
-    private loadBlankSave(): void
-    {
+    private loadBlankSave(): void {
         this.setCurrentSelectedSave(-1);
         BuildController.loadBuild(this._currentBuildData.blocks);
     }
 
-    private setCurrentSelectedSave(index: number): void
-    {
-        switch (index)
-        {
+    private setCurrentSelectedSave(index: number): void {
+        switch (index) {
             case -1: // No save
-                this._currentBuildData = SerializationUtils.createNewSaveEntry(new Date().toLocaleString());
+                this._currentBuildData = SerializationUtils.createNewSaveEntry(
+                    new Date().toLocaleString()
+                );
                 break;
 
             default: // At least one save

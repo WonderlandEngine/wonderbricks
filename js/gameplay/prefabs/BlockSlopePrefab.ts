@@ -1,10 +1,8 @@
-import { Type } from "@wonderlandengine/api";
-import PrefabBase from "./PrefabBase";
-import PrefabsRegistry from "./PrefabsRegistry";
+import {Type} from '@wonderlandengine/api';
+import PrefabBase from './PrefabBase.js';
+import PrefabsRegistry from './PrefabsRegistry.js';
 
-
-export class BlockSlopePrefab extends PrefabBase
-{
+export class BlockSlopePrefab extends PrefabBase {
     static TypeName = 'block-slope-prefab';
     static Properties = {
         finalMesh: {type: Type.Mesh},
@@ -14,10 +12,11 @@ export class BlockSlopePrefab extends PrefabBase
         previsMat: {type: Type.Material},
     };
 
-    public override getPrefabUniqueName(): string { return BlockSlopePrefab.TypeName; }
+    public override getPrefabUniqueName(): string {
+        return BlockSlopePrefab.TypeName;
+    }
 
-    public override start()
-    {
+    public override start() {
         super.start();
         PrefabsRegistry.registerPrefab(this);
 
