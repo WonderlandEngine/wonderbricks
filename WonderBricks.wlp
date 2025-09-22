@@ -810,32 +810,32 @@
             "name": "ControllerRight",
             "parent": "205",
             "components": [
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
                 {
                     "type": "input",
                     "input": {
@@ -984,32 +984,32 @@
             "name": "ControllerLeft",
             "parent": "205",
             "components": [
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
                 {
                     "type": "input",
                     "input": {
@@ -1557,10 +1557,9 @@
                 {
                     "type": "howler-audio-source",
                     "howler-audio-source": {
-                        "spatial": true,
+                        "autoplay": false,
                         "src": "sfx/sfx_ui_select_01.aac",
-                        "loop": false,
-                        "autoplay": false
+                        "loop": false
                     }
                 },
                 {
@@ -1575,10 +1574,9 @@
                 {
                     "type": "howler-audio-source",
                     "howler-audio-source": {
-                        "spatial": true,
+                        "autoplay": false,
                         "src": "sfx/sfx_block_apply_01.aac",
-                        "loop": false,
-                        "autoplay": false
+                        "loop": false
                     }
                 },
                 {
@@ -1593,10 +1591,9 @@
                 {
                     "type": "howler-audio-source",
                     "howler-audio-source": {
-                        "spatial": true,
+                        "autoplay": false,
                         "src": "sfx/sfx_block_rotate_01.aac",
-                        "loop": false,
-                        "autoplay": false
+                        "loop": false
                     }
                 },
                 {
@@ -1611,10 +1608,9 @@
                 {
                     "type": "howler-audio-source",
                     "howler-audio-source": {
-                        "spatial": true,
+                        "autoplay": false,
                         "src": "sfx/sfx_block_destroy_01.aac",
-                        "loop": false,
-                        "autoplay": false
+                        "loop": false
                     }
                 },
                 {
@@ -5894,11 +5890,10 @@
                 {
                     "type": "howler-audio-source",
                     "howler-audio-source": {
-                        "spatial": false,
+                        "volume": 0.2,
                         "loop": true,
                         "autoplay": true,
-                        "src": "music/amb_wonderbrick_loop.aac",
-                        "volume": 0.2
+                        "src": "music/amb_wonderbrick_loop.aac"
                     }
                 }
             ]
@@ -9093,7 +9088,6 @@
                 512
             ],
             "stream": false,
-            "isSpecularProbe": true,
             "compression": "etc1s"
         },
         "364-probe": {
@@ -9106,7 +9100,6 @@
                 512
             ],
             "stream": false,
-            "isProbe": true,
             "compression": "none"
         },
         "a75ead41-f98e-4e80-a784-b3dcfb7f6585": {
@@ -9749,7 +9742,8 @@
                     0.0719723,
                     1.0
                 ]
-            }
+            },
+            "pipeline": "37"
         },
         "22": {
             "name": "Pink",
@@ -9948,7 +9942,8 @@
                     0.0274506,
                     1.0
                 ]
-            }
+            },
+            "pipeline": "37"
         },
         "203": {
             "name": "GreenHover",
@@ -9977,7 +9972,8 @@
                     0.2013071,
                     1.0
                 ]
-            }
+            },
+            "pipeline": "37"
         },
         "206": {
             "link": {
@@ -10078,8 +10074,8 @@
                 "roughnessFactor": 1.0
             },
             "Phong": {
-                "diffuseTexture": "360",
-                "normalTexture": "362",
+                "diffuseTexture": null,
+                "normalTexture": null,
                 "diffuseColor": [
                     0.2981426,
                     0.6431372,
@@ -10089,8 +10085,8 @@
                 "shininess": 0
             },
             "TestShader": {
-                "diffuseTexture": "430",
-                "normalTexture": "432",
+                "diffuseTexture": null,
+                "normalTexture": null,
                 "diffuseColor": [
                     0.3447705,
                     0.5686274,
@@ -10267,7 +10263,8 @@
                     0.7709786,
                     0.0
                 ]
-            }
+            },
+            "pipeline": "37"
         },
         "892793d5-6b09-4feb-8c65-21f2429ec893": {
             "name": "Cloud1",
@@ -10352,21 +10349,9 @@
         }
     },
     "shaders": {
-        "1": {
-            "link": {
-                "name": "DistanceFieldVector Textured.frag",
-                "file": "default"
-            }
-        },
         "2": {
             "link": {
                 "name": "Flat.frag",
-                "file": "default"
-            }
-        },
-        "3": {
-            "link": {
-                "name": "Flat Textured.frag",
                 "file": "default"
             }
         },
@@ -10382,33 +10367,15 @@
                 "file": "default"
             }
         },
-        "6": {
-            "link": {
-                "name": "Phong Textured.frag",
-                "file": "default"
-            }
-        },
         "28": {
             "link": {
                 "name": "Dynamic.vert",
                 "file": "default"
             }
         },
-        "29": {
-            "link": {
-                "name": "Particle Textured.frag",
-                "file": "default"
-            }
-        },
         "30": {
             "link": {
                 "name": "Skinning.vert",
-                "file": "default"
-            }
-        },
-        "31": {
-            "link": {
-                "name": "Static.frag",
                 "file": "default"
             }
         },
@@ -10492,7 +10459,7 @@
         },
         "435": {
             "link": {
-                "name": "lib\\Compatibility.frag",
+                "name": "lib\\Compatibility.glsl",
                 "file": "default"
             }
         },
@@ -10504,25 +10471,25 @@
         },
         "437": {
             "link": {
-                "name": "lib\\GI.frag",
+                "name": "lib\\GI.glsl",
                 "file": "default"
             }
         },
         "438": {
             "link": {
-                "name": "lib\\Inputs.frag",
+                "name": "lib\\Inputs.glsl",
                 "file": "default"
             }
         },
         "439": {
             "link": {
-                "name": "lib\\Lights.frag",
+                "name": "lib\\Lights.glsl",
                 "file": "default"
             }
         },
         "440": {
             "link": {
-                "name": "lib\\Materials.frag",
+                "name": "lib\\Materials.glsl",
                 "file": "default"
             }
         },
@@ -10534,7 +10501,7 @@
         },
         "442": {
             "link": {
-                "name": "lib\\Packing.frag",
+                "name": "lib\\Packing.glsl",
                 "file": "default"
             }
         },
@@ -10546,25 +10513,25 @@
         },
         "444": {
             "link": {
-                "name": "lib\\Slug.frag",
+                "name": "lib\\Slug.frag.glsl",
                 "file": "default"
             }
         },
         "445": {
             "link": {
-                "name": "lib\\Slug.vert",
+                "name": "lib\\Slug.vert.glsl",
                 "file": "default"
             }
         },
         "446": {
             "link": {
-                "name": "lib\\Surface.frag",
+                "name": "lib\\Surface.glsl",
                 "file": "default"
             }
         },
         "447": {
             "link": {
-                "name": "lib\\Textures.frag",
+                "name": "lib\\Textures.glsl",
                 "file": "default"
             }
         },
@@ -10579,6 +10546,90 @@
                 "name": "ShadowReceiver.frag",
                 "file": "default"
             }
+        },
+        "d173b241-ad38-4eaa-8b26-c464ba26d494": {
+            "link": {
+                "name": "AtmosphericSky.frag",
+                "file": "default"
+            }
+        },
+        "2d2ec1a9-ff1b-443d-842d-578b2e91f78e": {
+            "link": {
+                "name": "lib\\MorphTargets.glsl",
+                "file": "default"
+            }
+        },
+        "0e6b8816-2efa-45bb-952e-2409c9815f33": {
+            "link": {
+                "name": "lib\\PhysicalBSDF.glsl",
+                "file": "default"
+            }
+        },
+        "d355df1e-2592-42e6-8af6-52c117be4065": {
+            "link": {
+                "name": "lib\\SkyProcedural.glsl",
+                "file": "default"
+            }
+        },
+        "4a0d886d-4049-4a63-8aad-65e69e620c54": {
+            "link": {
+                "name": "lib\\Compatibility.glsl",
+                "file": "default"
+            }
+        },
+        "196b8065-fad7-4732-8baa-95a51166c08b": {
+            "link": {
+                "name": "lib\\GI.glsl",
+                "file": "default"
+            }
+        },
+        "cabc13dd-e913-4817-ba14-e1cbe7c5dc47": {
+            "link": {
+                "name": "lib\\Inputs.glsl",
+                "file": "default"
+            }
+        },
+        "4867d419-5eb4-48dc-8962-d5389499a31b": {
+            "link": {
+                "name": "lib\\Lights.glsl",
+                "file": "default"
+            }
+        },
+        "580baf66-e730-41d2-a8b9-2964f8f27976": {
+            "link": {
+                "name": "lib\\Materials.glsl",
+                "file": "default"
+            }
+        },
+        "cc71ae2f-109f-4740-a29e-8bc5ba3c0c95": {
+            "link": {
+                "name": "lib\\Packing.glsl",
+                "file": "default"
+            }
+        },
+        "56b1424e-caf9-4378-9fcf-acae31d29207": {
+            "link": {
+                "name": "lib\\Slug.frag.glsl",
+                "file": "default"
+            }
+        },
+        "e371c8da-94fe-4c16-8b5f-5186217c8c18": {
+            "link": {
+                "name": "lib\\Slug.vert.glsl",
+                "file": "default"
+            }
+        },
+        "10de9047-0471-4951-8abe-5cbde8531198": {
+            "link": {
+                "name": "lib\\Surface.glsl",
+                "file": "default"
+            }
+        },
+        "4ebab04b-5ddb-4bc8-8d1c-272f19138fc6": {
+            "link": {
+                "name": "lib\\Textures.glsl",
+                "file": "default"
+            }
         }
     },
     "settings": {
@@ -10586,47 +10637,58 @@
             "name": "wonderbrick",
             "version": [
                 1,
-                1,
-                1
+                4,
+                7
             ]
         },
-        "vr": {
+        "xr": {
             "leftEyeObject": "18",
             "rightEyeObject": "19",
-            "framebufferScaleFactor": 1.25
-        },
-        "scripting": {
-            "sourcePaths": [
-                "js/",
-                "js/gameplay",
-                "js/gameplay/buildSystem",
-                "js/gameplay/grid",
-                "js/gameplay/input",
-                "js/gameplay/interactions",
-                "js/gameplay/prefabs",
-                "js/gameplay/serialization",
-                "js/sound",
-                "js/sound/soundEmitters",
-                "js/ui",
-                "js/ui/saveMenu",
-                "js/utils",
-                "js/utils/textures",
-                "js/ui/armMenu",
-                "js/gameplay/particleSystem"
-            ],
-            "libraryPaths": [
-                "/js/lib/"
-            ],
-            "bundlingType": "esbuild"
-        },
-        "runtime": {
-            "visualizeColliders": false,
             "webxr": {
                 "optionalFeatures": {
                     "local-floor": true,
                     "hand-tracking": false
-                }
+                },
+                "framebufferScaleFactor": 1.25
+            },
+            "ar": {
+                "enable": true
             }
+        },
+        "scripting": {
+            "components": {
+                "sourcePaths": [
+                    "js/",
+                    "js/gameplay",
+                    "js/gameplay/buildSystem",
+                    "js/gameplay/grid",
+                    "js/gameplay/input",
+                    "js/gameplay/interactions",
+                    "js/gameplay/prefabs",
+                    "js/gameplay/serialization",
+                    "js/sound",
+                    "js/sound/soundEmitters",
+                    "js/ui",
+                    "js/ui/saveMenu",
+                    "js/utils",
+                    "js/utils/textures",
+                    "js/ui/armMenu",
+                    "js/gameplay/particleSystem"
+                ],
+                "bundling": "none"
+            },
+            "libraryPaths": [
+                "/js/lib/"
+            ],
+            "application": {
+                "output": "wonderbrick-bundle.js",
+                "bundling": "esbuild",
+                "esbuildFlags": "--format=esm",
+                "entryPoint": "js/index.js"
+            }
+        },
+        "runtime": {
+            "visualizeColliders": false
         },
         "rendering": {
             "bloom": {
@@ -10649,13 +10711,17 @@
             "textureAtlasSize": [
                 8192,
                 8192
-            ]
+            ],
+            "hdr": {
+                "exposure": 1.5
+            },
+            "environment": {
+                "bakingMode": "sky",
+                "material": "363"
+            }
         },
         "editor": {
             "ids": "uuid"
-        },
-        "ar": {
-            "enable": true
         }
     },
     "animations": {
@@ -10735,7 +10801,8 @@
                 "file": "default"
             },
             "features": {
-                "DEPRECATED_LIGHT_ATTENUATION": true
+                "DEPRECATED_LIGHT_ATTENUATION": true,
+                "WITH_EMISSIVE": true
             }
         },
         "39": {
@@ -10763,6 +10830,9 @@
             "link": {
                 "name": "Physical Opaque",
                 "file": "default"
+            },
+            "features": {
+                "SEPARATE_OCCLUSION_TEXTURE": true
             }
         },
         "223": {
@@ -10780,7 +10850,8 @@
                 "SHADOW_NORMAL_OFFSET_SLOPE_SCALE": true,
                 "SHADOW_NORMAL_OFFSET_UV_ONLY": true,
                 "ALPHA_MASKED": false,
-                "WITH_EMISSIVE": false
+                "WITH_EMISSIVE": false,
+                "SEPARATE_OCCLUSION_TEXTURE": true
             },
             "depthTest": true,
             "depthWrite": true
@@ -10803,7 +10874,7 @@
                 "file": "default"
             },
             "features": {
-                "WITH_EMISSIVE": false,
+                "WITH_EMISSIVE": true,
                 "DEPRECATED_LIGHT_ATTENUATION": true
             }
         },
@@ -10813,7 +10884,8 @@
                 "file": "default"
             },
             "features": {
-                "DEPRECATED_LIGHT_ATTENUATION": true
+                "DEPRECATED_LIGHT_ATTENUATION": true,
+                "WITH_EMISSIVE": true
             }
         },
         "234": {
@@ -10909,6 +10981,12 @@
             },
             "features": {
                 "SHADOW_NORMAL_OFFSET_SCALE_BY_SHADOW_DEPTH": false
+            }
+        },
+        "d01a31ba-216e-4455-82f9-e23a0e843fc7": {
+            "link": {
+                "name": "AtmosphericSky",
+                "file": "default"
             }
         }
     },
@@ -11522,5 +11600,7 @@
             }
         }
     },
-    "languages": {}
+    "languages": {},
+    "morphTargets": {},
+    "particleEffects": {}
 }
