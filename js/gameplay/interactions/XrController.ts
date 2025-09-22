@@ -59,7 +59,7 @@ export class XrController extends Component {
         this._pointerRayComponent = this.pointerRay.getComponent(PointerRay) as PointerRay;
 
         // Subscribe to XR session start event to setup inputs and other listeners
-        getXrSessionStart().push(this.onXrSessionStart.bind(this));
+        getXrSessionStart().add(this.onXrSessionStart.bind(this));
     }
 
     public override update(delta: number) {

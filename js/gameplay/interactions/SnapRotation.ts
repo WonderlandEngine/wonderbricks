@@ -38,7 +38,7 @@ export class SnapRotation extends Component {
         this._hand = this._inputComponent.handedness;
 
         /** Subscribe to XR session start event to setup inputs and other listeners */
-        getXrSessionStart().push(this.onXrSessionStart.bind(this));
+        getXrSessionStart().add(this.onXrSessionStart.bind(this));
 
         this._teleportComponent = this.cursor.getComponent(TeleportComponent);
     }

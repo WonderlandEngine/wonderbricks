@@ -16,6 +16,8 @@ import PrefabsRegistry from './PrefabsRegistry.js';
 import {PhysicalMaterial} from '../../utils/materials/PhysicalMaterial.js';
 import {TextureInformation} from '../../utils/textures/TextureInformation.js';
 
+const TEMP_QUAT = quat.create();
+
 export type PrefabBaseConstructor<T extends PrefabBase> = Constructor<T> & {
     TypeName: string;
     Properties: Record<string, ComponentProperty>;
@@ -84,7 +86,8 @@ export default abstract class PrefabBase extends Component {
         let finalVisual = this.scene.addObject(newBlock);
         finalVisual.resetTransform();
         finalVisual.translateObject([0, this._cellSize / 2.0, 0]);
-        finalVisual.rotationWorld = this._previsObject.rotationWorld;
+        this._previsObject.getRotationWorld(TEMP_QUAT);
+        finalVisual.setRotationWorld(TEMP_QUAT);
 
         // Setup Material
         let mat: PhysicalMaterial = this.finalMat.clone() as PhysicalMaterial;
@@ -124,8 +127,8 @@ export default abstract class PrefabBase extends Component {
     }
 
     public updatePrevisRotation(xRot: number, yRot: number): void {
-        this._previsObject.rotateAxisAngleDeg([1, 0, 0], xRot);
-        this._previsObject.rotateAxisAngleDeg([0, 1, 0], yRot);
+        this._previsObject.rotateAxisAngleDegLocal([1, 0, 0], xRot);
+        this._previsObject.rotateAxisAngleDegLocal([0, 1, 0], yRot);
     }
 
     public setPrevisRotation(rotation: quat): void {

@@ -71,7 +71,7 @@ export class MenuController extends Component {
         this._blockPanelComp = this.blockPanel.getComponent(ArmPanel);
         this._texturePanelComp = this.texturePanel.getComponent(ArmPanel);
 
-        this.engine.onXRSessionStart.push(() => {
+        this.engine.onXRSessionStart.add(() => {
             setTimeout(() => {
                 this._menuPanelComp.hide();
                 this._blockPanelComp.hide();

@@ -22,13 +22,15 @@ export class BuildContainer extends Component {
         for (const child of children) {
             let visual = child.children[0];
             let position: vec3 = vec3.create();
-            child.getTranslationWorld(position);
+            child.getPositionWorld(position);
+            const rotation = quat.create();
+            visual.getRotationWorld(rotation);
 
             data.push({
                 type: child[PrefabsRegistry.PREFAB_UNAME_KEY],
                 texture: child[PrefabsRegistry.PREFAB_TNAME_KEY],
                 position: position,
-                rotation: visual.rotationWorld,
+                rotation: rotation,
             });
         }
 

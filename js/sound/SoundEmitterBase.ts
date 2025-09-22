@@ -34,7 +34,7 @@ export abstract class SoundEmitterBase extends Component {
     protected abstract onInit(): void;
 
     public playAt(position: vec3): void {
-        this.object.setTranslationWorld(position);
+        this.object.setPositionWorld(position);
         this._audioSource.play();
     }
 }

@@ -26,10 +26,10 @@ export class GridDebugComponent extends Component {
                         material: mesh.material,
                     });
 
-                    tmp.resetTranslation();
-                    tmp.translate(this._grid.getCellPosition(x, y, z));
+                    tmp.resetPosition();
+                    tmp.translateLocal(this._grid.getCellPosition(x, y, z));
                     let cellSize = this._grid.cellSize;
-                    tmp.scale([cellSize, cellSize, cellSize]);
+                    tmp.scaleLocal([cellSize, cellSize, cellSize]);
                 }
     }
 }
