@@ -1,5 +1,7 @@
 # Wonderbricks
 
+![Wonderbricks Thumbnail](img/wonderbricks-thumbnail.png)
+
 Engine : [Wonderland Engine](https://wonderlandengine.com/) \
 Engine Version : `1.4.7`
 
