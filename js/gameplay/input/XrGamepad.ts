@@ -28,7 +28,6 @@ export default class XrGamepad {
     private _hand: XRHandedness;
     private _gamepad: Gamepad;
 
-    // @ts-ignore
     private _buttons: Map<XrInputButton, XrButton>;
 
     private _joystickXWasMoving: boolean;
@@ -97,7 +96,7 @@ export default class XrGamepad {
     }
 
     private initButtons(): void {
-        let buttonsIndices = [
+        const buttonsIndices = [
             XrInputButton.BUTTON_TRIGGER,
             XrInputButton.BUTTON_SQUEEZE,
             XrInputButton.BUTTON_A_X,
@@ -110,13 +109,12 @@ export default class XrGamepad {
             this._buttons = null;
         }
 
-        // @ts-ignore
         this._buttons = new Map<XrInputButton, XrButton>();
 
         for (let i = 0; i < buttonsIndices.length; ++i) {
-            let index = buttonsIndices[i];
-            let gamepadButton = this._gamepad.buttons[index];
-            let button = new XrButton(gamepadButton, index);
+            const index = buttonsIndices[i];
+            const gamepadButton = this._gamepad.buttons[index];
+            const button = new XrButton(gamepadButton, index);
 
             this._buttons.set(index, button);
         }
