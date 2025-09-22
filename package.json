@@ -15,8 +15,11 @@
         "esbuild": "^0.15.18"
     },
     "dependencies": {
-        "@wonderlandengine/api": "^1.1.1",
-        "@wonderlandengine/components": "^1.0.6",
+        "@wonderlandengine/api": ">=1.4.0 <1.5.0",
+        "@wonderlandengine/components": "^1.2.3",
         "gl-matrix": "^3.4.3"
+    },
+    "overrides": {
+        "@wonderlandengine/api": "$@wonderlandengine/api"
     }
 }
